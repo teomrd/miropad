@@ -1,6 +1,6 @@
 # MiroPad
 
-Dead-simple note solution for the browser
+Dead-simple notes solution for the browser
 
 Supports:
 
