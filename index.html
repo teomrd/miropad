@@ -1,38 +1,10 @@
 <html>
 <title>MiroPad</title>
-<style>
-  .terminal {
-    margin: 0px;
-    width: 100%;
-    height: 100%;
-    background: black;
-    color: green;
-    font-size: 25;
-    padding: 10px;
-    outline-color: red;
-  }
-</style>
+<link rel='stylesheet' href='css/styles.css' type='text/css ' media='all ' />
 
-<body style="margin: 0; padding: 0px;">
+<body>
   <textarea autofocus class="terminal"></textarea>
 </body>
-<script>
-  function prettify() {
-    const textarea = document.querySelector(".terminal");
-    prettifiedJSON = JSON.stringify(JSON.parse(textarea.value), null, 2);
-    textarea.value = prettifiedJSON;
-  }
-
-  function ControlP(e) {
-    var evtobj = window.event ? event : e
-    if (evtobj.keyCode == 80 && evtobj.ctrlKey) {
-      prettify();
-    };
-  }
-
-  (function () {
-    document.onkeydown = ControlP;
-  })();
-</script>
+<script type='text/javascript' src='js/main.js'></script>
 
 </html>
