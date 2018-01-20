@@ -40,6 +40,7 @@ function ListenToKeyboard(e) {
   var evtobj = window.event ? event : e;
   // Control + p
   if (evtobj.keyCode == 80 && evtobj.ctrlKey) {
+    e.preventDefault();
     prettifyJSON(".terminal");
   }
   // Control + s
