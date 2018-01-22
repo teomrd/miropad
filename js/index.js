@@ -1,3 +1,3 @@
-import main from "./main";
+import main, { prettifyJSON } from "./main";
 
 main();

@@ -1,24 +1,30 @@
 import classes from "../css/styles.css";
 import hashCode from "./utils/hashCode";
 
-const prettifyJSON = selector => {
+export const prettifyJSON = selector => {
   const el = document.querySelector(selector);
-  prettifiedJSON = JSON.stringify(JSON.parse(el.value), null, 2);
+  const prettifiedJSON = JSON.stringify(JSON.parse(el.value), null, 2);
   el.value = prettifiedJSON;
 };
 
 const saveToLocalStorage = what => {
   if (what.length) {
     const hash = hashCode(what);
-    localStorage.setItem(hash, what);
-    window.location.assign(`#${hash}`);
+    try {
+      localStorage.setItem(hash, what);
+      window.location.assign(`#${hash}`);
+    } catch (e) {
+      console.error(
+        `Something went wrong while trying to save to local storage ${e}`
+      );
+    }
   } else {
     alert("Nothing to save!");
   }
 };
 
 const ListenToKeyboard = e => {
-  var evtobj = window.event ? event : e;
+  const evtobj = window.event ? event : e;
   // Control + p
   if (evtobj.keyCode == 80 && evtobj.ctrlKey) {
     e.preventDefault();
@@ -35,12 +41,10 @@ const ListenToKeyboard = e => {
 const getSavedState = () => {
   const hash = window.location.hash.substr(1);
   const savedTxt = localStorage.getItem(hash);
-  const el = document.querySelector(".terminal");
-  el.value = savedTxt;
+  document.querySelector(".terminal").value = savedTxt;
 };
 
 const main = () => {
-  console.log("main");
   document.onkeydown = ListenToKeyboard;
   getSavedState();
 };
