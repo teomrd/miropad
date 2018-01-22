@@ -1,8 +1,14 @@
 {
   "name": "miropad",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "https://github.com/teomrd/MiroPad.git",
   "author": "teomrd <mironidis.gr@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html --open",
+    "build":
+      "npm run clean && parcel build src/index.html --public-url /dist/ && cp ./dist/index.html ./",
+    "clean": "rm -rf ./dist && rm -rf ./.cache && rm ./index.html"
+  }
 }
