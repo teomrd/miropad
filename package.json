@@ -8,7 +8,7 @@
   "scripts": {
     "start": "parcel src/index.html --open",
     "build":
-      "npm run clean && parcel build src/index.html --public-url /dist/ && cp ./dist/index.html ./",
+      "npm run clean && parcel build src/index.html --public-url ./dist/ && cp ./dist/index.html ./",
     "clean": "rm -rf ./dist && rm -rf ./.cache && rm ./index.html"
   }
 }
