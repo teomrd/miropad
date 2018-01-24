@@ -1,18 +1,17 @@
-import classes from "../css/styles.css";
-import prettifyJSON from "./utils/prettifyJSON";
-import { saveToLocalStorage, getSavedState } from "./utils/localstorage";
+import prettifyJSON from './utils/prettifyJSON';
+import { saveToLocalStorage, getSavedState } from './utils/localstorage';
 
-const listeners = e => {
-  const evtobj = window.event ? event : e;
+const listeners = (e) => {
+  const evtobj = window.event || e;
   // Control + p
-  if (evtobj.keyCode == 80 && evtobj.ctrlKey) {
+  if (evtobj.keyCode === 80 && evtobj.ctrlKey) {
     e.preventDefault();
-    prettifyJSON(".terminal");
+    prettifyJSON('.terminal');
   }
   // Control + s
-  if (evtobj.keyCode == 83 && evtobj.ctrlKey) {
+  if (evtobj.keyCode === 83 && evtobj.ctrlKey) {
     e.preventDefault();
-    const text = document.querySelector(".terminal").value;
+    const text = document.querySelector('.terminal').value;
     saveToLocalStorage(text);
   }
 };
@@ -20,7 +19,7 @@ const listeners = e => {
 const main = () => {
   document.onkeydown = listeners;
   const savedTxt = getSavedState();
-  document.querySelector(".terminal").value = savedTxt;
+  document.querySelector('.terminal').value = savedTxt;
 };
 
 export default main;

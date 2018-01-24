@@ -12,10 +12,12 @@
  * @param {string} s a string
  * @return {number} a hash code value for the given string.
  */
+
+// ToDo: find another way to create hashCodes that this method
 export default function hashCode(s) {
   let h = 0;
   const l = s.length;
   let i = 0;
-  if (l > 0) while (i < l) h = ((h << 5) - h + s.charCodeAt(i++)) | 0;
+  if (l > 0) while (i < l) h = ((h << 5) - h + s.charCodeAt(i++)) | 0; // eslint-disable-line
   return h;
 }

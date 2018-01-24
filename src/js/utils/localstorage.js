@@ -1,18 +1,16 @@
-import hashCode from "./hashCode";
+import hashCode from './hashCode';
 
-export const saveToLocalStorage = what => {
+export const saveToLocalStorage = (what) => {
   if (what.length) {
     const hash = hashCode(what);
     try {
       localStorage.setItem(hash, what);
       window.location.assign(`#${hash}`);
     } catch (e) {
-      console.error(
-        `Something went wrong while trying to save to local storage ${e}`
-      );
+      console.error(`Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
     }
   } else {
-    alert("Nothing to save!");
+    console.log('Nothing to save!'); // eslint-disable-line
   }
 };
 
