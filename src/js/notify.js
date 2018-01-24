@@ -3,6 +3,12 @@ class Notify {
     this.notificationContainer = document.querySelector('#notification');
   }
 
+  hideAfter(ms) {
+    setTimeout(() => {
+      this.hide();
+    }, ms);
+  }
+
   display() {
     this.notificationContainer.style.display = 'block';
   }
@@ -14,11 +20,13 @@ class Notify {
   info(message) {
     this.notificationContainer.innerHTML = `😀 ${message}`;
     this.display();
+    this.hideAfter(2000);
   }
 
   error(message) {
     this.notificationContainer.innerHTML = `😢 ${message}`;
     this.display();
+    this.hideAfter(2000);
   }
 }
 
