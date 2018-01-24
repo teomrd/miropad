@@ -100,7 +100,7 @@ function getBaseURL(url) {
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 
-},{}],8:[function(require,module,exports) {
+},{}],7:[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -132,13 +132,13 @@ function reloadCSS() {
 
 module.exports = reloadCSS;
 
-},{"./bundle-url":9}],6:[function(require,module,exports) {
+},{"./bundle-url":9}],4:[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":8}],10:[function(require,module,exports) {
+},{"_css_loader":7}],5:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -151,7 +151,7 @@ const prettifyJSON = selector => {
 };
 
 exports.default = prettifyJSON;
-},{}],12:[function(require,module,exports) {
+},{}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -172,14 +172,16 @@ exports.default = hashCode;
  * @param {string} s a string
  * @return {number} a hash code value for the given string.
  */
+
+// ToDo: find another way to create hashCodes that this method
 function hashCode(s) {
   let h = 0;
   const l = s.length;
   let i = 0;
-  if (l > 0) while (i < l) h = (h << 5) - h + s.charCodeAt(i++) | 0;
+  if (l > 0) while (i < l) h = (h << 5) - h + s.charCodeAt(i++) | 0; // eslint-disable-line
   return h;
 }
-},{}],11:[function(require,module,exports) {
+},{}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -200,10 +202,10 @@ const saveToLocalStorage = exports.saveToLocalStorage = what => {
       localStorage.setItem(hash, what);
       window.location.assign(`#${hash}`);
     } catch (e) {
-      console.error(`Something went wrong while trying to save to local storage ${e}`);
+      console.error(`Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
     }
   } else {
-    alert("Nothing to save!");
+    console.log('Nothing to save!'); // eslint-disable-line
   }
 };
 
@@ -212,16 +214,14 @@ const getSavedState = exports.getSavedState = () => {
   const savedTxt = localStorage.getItem(hash);
   return savedTxt;
 };
-},{"./hashCode":12}],5:[function(require,module,exports) {
+},{"./hashCode":8}],3:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _styles = require("../css/styles.css");
-
-var _styles2 = _interopRequireDefault(_styles);
+require("../css/styles.css");
 
 var _prettifyJSON = require("./utils/prettifyJSON");
 
@@ -232,16 +232,16 @@ var _localstorage = require("./utils/localstorage");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const listeners = e => {
-  const evtobj = window.event ? event : e;
+  const evtobj = window.event || e;
   // Control + p
-  if (evtobj.keyCode == 80 && evtobj.ctrlKey) {
+  if (evtobj.keyCode === 80 && evtobj.ctrlKey) {
     e.preventDefault();
-    (0, _prettifyJSON2.default)(".terminal");
+    (0, _prettifyJSON2.default)('.terminal');
   }
   // Control + s
-  if (evtobj.keyCode == 83 && evtobj.ctrlKey) {
+  if (evtobj.keyCode === 83 && evtobj.ctrlKey) {
     e.preventDefault();
-    const text = document.querySelector(".terminal").value;
+    const text = document.querySelector('.terminal').value;
     (0, _localstorage.saveToLocalStorage)(text);
   }
 };
@@ -249,11 +249,11 @@ const listeners = e => {
 const main = () => {
   document.onkeydown = listeners;
   const savedTxt = (0, _localstorage.getSavedState)();
-  document.querySelector(".terminal").value = savedTxt;
+  document.querySelector('.terminal').value = savedTxt;
 };
 
 exports.default = main;
-},{"../css/styles.css":6,"./utils/prettifyJSON":10,"./utils/localstorage":11}],4:[function(require,module,exports) {
+},{"../css/styles.css":4,"./utils/prettifyJSON":5,"./utils/localstorage":6}],2:[function(require,module,exports) {
 "use strict";
 
 var _main = require("./js/main");
@@ -263,7 +263,7 @@ var _main2 = _interopRequireDefault(_main);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _main2.default)();
-},{"./js/main":5}],0:[function(require,module,exports) {
+},{"./js/main":3}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
@@ -281,7 +281,7 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent && typeof WebSocket !== 'undefined') {
-  var ws = new WebSocket('ws://' + window.location.hostname + ':57251/');
+  var ws = new WebSocket('ws://' + window.location.hostname + ':59811/');
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 
@@ -382,4 +382,4 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id)
   });
 }
-},{}]},{},[0,4])
+},{}]},{},[0,2])

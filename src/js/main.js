@@ -1,3 +1,4 @@
+import '../css/styles.css';
 import prettifyJSON from './utils/prettifyJSON';
 import { saveToLocalStorage, getSavedState } from './utils/localstorage';
 
