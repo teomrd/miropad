@@ -1,6 +1,7 @@
 import '../css/styles.css';
 import prettifyJSON from './utils/prettifyJSON';
 import { saveToLocalStorage, getSavedState } from './utils/localstorage';
+import welcomeUser from './welcome';
 
 const listeners = (e) => {
   const evtobj = window.event || e;
@@ -18,6 +19,7 @@ const listeners = (e) => {
 };
 
 const main = () => {
+  welcomeUser();
   document.onkeydown = listeners;
   const savedTxt = getSavedState();
   document.querySelector('.terminal').value = savedTxt;

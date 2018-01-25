@@ -305,7 +305,31 @@ const getSavedState = exports.getSavedState = () => {
   const savedTxt = localStorage.getItem(hash);
   return savedTxt;
 };
-},{"./hashCode":11,"../notify":8}],3:[function(require,module,exports) {
+},{"./hashCode":11,"../notify":8}],12:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _notify = require("./notify");
+
+var _notify2 = _interopRequireDefault(_notify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const welcomeUser = () => {
+  const lastVisit = localStorage.getItem('miropad.user');
+  if (lastVisit) {
+    _notify2.default.info(`Happy to see again from ${lastVisit}`);
+  } else {
+    localStorage.setItem('miropad.user', new Date().toLocaleDateString());
+    _notify2.default.info('Welcome 😃');
+  }
+};
+
+exports.default = welcomeUser;
+},{"./notify":8}],3:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -319,6 +343,10 @@ var _prettifyJSON = require("./utils/prettifyJSON");
 var _prettifyJSON2 = _interopRequireDefault(_prettifyJSON);
 
 var _localstorage = require("./utils/localstorage");
+
+var _welcome = require("./welcome");
+
+var _welcome2 = _interopRequireDefault(_welcome);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -338,13 +366,14 @@ const listeners = e => {
 };
 
 const main = () => {
+  (0, _welcome2.default)();
   document.onkeydown = listeners;
   const savedTxt = (0, _localstorage.getSavedState)();
   document.querySelector('.terminal').value = savedTxt;
 };
 
 exports.default = main;
-},{"../css/styles.css":4,"./utils/prettifyJSON":5,"./utils/localstorage":6}],2:[function(require,module,exports) {
+},{"../css/styles.css":4,"./utils/prettifyJSON":5,"./utils/localstorage":6,"./welcome":12}],2:[function(require,module,exports) {
 "use strict";
 
 var _main = require("./js/main");
