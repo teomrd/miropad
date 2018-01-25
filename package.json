@@ -9,7 +9,8 @@
     "start": "parcel src/index.html --open",
     "build": "./build.sh",
     "clean": "rm -rf ./dist && rm -rf ./.cache && rm ./index.html",
-    "lint": "eslint 'src/**/*js'"
+    "lint": "eslint 'src/**/*js'",
+    "deploy": "npm run build && git push"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
