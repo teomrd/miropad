@@ -1,32 +1,46 @@
 class Notify {
   constructor() {
-    this.notificationContainer = document.querySelector('#notification');
+    this.notificationContainer = document.querySelector('body #notification');
+    this.autohideDuration = 5000;
+    this.types = ['info', 'success', 'error', 'warning'];
   }
 
-  hideAfter(ms) {
+  cleanNotificationClasses() {
+    this.types.map(type => this.notificationContainer.classList.remove(type));
+  }
+
+  cleanAfter(ms = 0) {
     setTimeout(() => {
-      this.hide();
+      this.cleanNotificationClasses();
     }, ms);
   }
 
-  display() {
-    this.notificationContainer.style.display = 'block';
-  }
-
-  hide() {
-    this.notificationContainer.style.display = 'none';
-  }
-
   info(message) {
-    this.notificationContainer.innerHTML = `😀 ${message}`;
-    this.display();
-    this.hideAfter(2000);
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('info');
+    this.cleanAfter(this.autohideDuration);
+  }
+
+  sucess(message) {
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('success');
+    this.cleanAfter(this.autohideDuration);
   }
 
   error(message) {
-    this.notificationContainer.innerHTML = `😢 ${message}`;
-    this.display();
-    this.hideAfter(2000);
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('error');
+    this.cleanAfter(this.autohideDuration);
+  }
+
+  warning(message) {
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('warning');
+    this.cleanAfter(this.autohideDuration);
   }
 }
 

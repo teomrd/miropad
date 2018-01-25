@@ -1,4 +1,5 @@
 import hashCode from './hashCode';
+import notify from '../notify';
 
 export const saveToLocalStorage = (what) => {
   if (what.length) {
@@ -6,11 +7,12 @@ export const saveToLocalStorage = (what) => {
     try {
       localStorage.setItem(hash, what);
       window.location.assign(`#${hash}`);
+      notify.sucess('Note saved!');
     } catch (e) {
-      console.error(`Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
+      notify.error(`Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
     }
   } else {
-    console.log('Nothing to save!'); // eslint-disable-line
+    notify.warning('Nothing to save!'); // eslint-disable-line
   }
 };
 

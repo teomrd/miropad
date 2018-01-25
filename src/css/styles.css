@@ -16,7 +16,6 @@ body {
 
 .notification {
   position: fixed;
-  bottom: 25px;
   right: 25px;
   width: 30%;
   background: #000;
@@ -26,16 +25,34 @@ body {
   margin: auto;
   border-radius: 4px;
   border: 2px solid rgba(255, 255, 255, 0.25);
-  display: none;
+  bottom: -100px;
+  transition: all 0.25s cubic-bezier(1, 0, 0.7, 1);
 }
+
+.notification.info {
+  border: 1px solid rgba(0, 123, 255, 0.25);
+  background: rgba(0, 123, 255, 0.25);
+  bottom: 25px;
+  transition: all 0.2s cubic-bezier(1, 0, 0.7, 1);
+}
+
 .notification.success {
   border: 1px solid rgba(0, 255, 0, 0.25);
+  background: rgba(0, 255, 0, 0.25);
+  bottom: 25px;
+  transition: all 0.2s cubic-bezier(1, 0, 0.7, 1);
 }
 
 .notification.error {
   border: 1px solid rgba(255, 0, 0, 0.25);
+  background: rgba(255, 0, 0, 0.25);
+  bottom: 25px;
+  transition: all 0.2s cubic-bezier(1, 0, 0.7, 1);
 }
 
 .notification.warning {
   border: 1px solid rgba(255, 255, 0, 0.25);
+  background: rgba(255, 255, 0, 0.25);
+  bottom: 25px;
+  transition: all 0.2s cubic-bezier(1, 0, 0.7, 1);
 }

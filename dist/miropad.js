@@ -69,7 +69,7 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({11:[function(require,module,exports) {
+})({10:[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -100,7 +100,7 @@ function getBaseURL(url) {
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 
-},{}],10:[function(require,module,exports) {
+},{}],7:[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -132,13 +132,13 @@ function reloadCSS() {
 
 module.exports = reloadCSS;
 
-},{"./bundle-url":11}],6:[function(require,module,exports) {
+},{"./bundle-url":10}],4:[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":10}],12:[function(require,module,exports) {
+},{"_css_loader":7}],9:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -154,7 +154,7 @@ const isJSON = str => {
 };
 
 exports.default = isJSON;
-},{}],13:[function(require,module,exports) {
+},{}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -162,39 +162,53 @@ Object.defineProperty(exports, "__esModule", {
 });
 class Notify {
   constructor() {
-    this.notificationContainer = document.querySelector('#notification');
+    this.notificationContainer = document.querySelector('body #notification');
+    this.autohideDuration = 5000;
+    this.types = ['info', 'success', 'error', 'warning'];
   }
 
-  hideAfter(ms) {
+  cleanNotificationClasses() {
+    this.types.map(type => this.notificationContainer.classList.remove(type));
+  }
+
+  cleanAfter(ms = 0) {
     setTimeout(() => {
-      this.hide();
+      this.cleanNotificationClasses();
     }, ms);
   }
 
-  display() {
-    this.notificationContainer.style.display = 'block';
-  }
-
-  hide() {
-    this.notificationContainer.style.display = 'none';
-  }
-
   info(message) {
-    this.notificationContainer.innerHTML = `😀 ${message}`;
-    this.display();
-    this.hideAfter(2000);
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('info');
+    this.cleanAfter(this.autohideDuration);
+  }
+
+  sucess(message) {
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('success');
+    this.cleanAfter(this.autohideDuration);
   }
 
   error(message) {
-    this.notificationContainer.innerHTML = `😢 ${message}`;
-    this.display();
-    this.hideAfter(2000);
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('error');
+    this.cleanAfter(this.autohideDuration);
+  }
+
+  warning(message) {
+    this.notificationContainer.innerHTML = message;
+    this.cleanNotificationClasses();
+    this.notificationContainer.classList.add('warning');
+    this.cleanAfter(this.autohideDuration);
   }
 }
 
 const notify = new Notify();
 exports.default = notify;
-},{}],7:[function(require,module,exports) {
+},{}],5:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -216,14 +230,14 @@ const prettifyJSON = selector => {
   if ((0, _isJSON2.default)(el.value)) {
     const prettifiedJSON = JSON.stringify(JSON.parse(el.value), null, 2);
     el.value = prettifiedJSON;
-    _notify2.default.info('JSON value prettified');
+    _notify2.default.sucess('JSON value prettified');
   } else {
     _notify2.default.error('Value is not in valid JSON format');
   }
 };
 
 exports.default = prettifyJSON;
-},{"./isJSON":12,"../notify":13}],9:[function(require,module,exports) {
+},{"./isJSON":9,"../notify":8}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -253,7 +267,7 @@ function hashCode(s) {
   if (l > 0) while (i < l) h = (h << 5) - h + s.charCodeAt(i++) | 0; // eslint-disable-line
   return h;
 }
-},{}],8:[function(require,module,exports) {
+},{}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -265,6 +279,10 @@ var _hashCode = require("./hashCode");
 
 var _hashCode2 = _interopRequireDefault(_hashCode);
 
+var _notify = require("../notify");
+
+var _notify2 = _interopRequireDefault(_notify);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const saveToLocalStorage = exports.saveToLocalStorage = what => {
@@ -273,11 +291,12 @@ const saveToLocalStorage = exports.saveToLocalStorage = what => {
     try {
       localStorage.setItem(hash, what);
       window.location.assign(`#${hash}`);
+      _notify2.default.sucess('Note saved!');
     } catch (e) {
-      console.error(`Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
+      _notify2.default.error(`Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
     }
   } else {
-    console.log('Nothing to save!'); // eslint-disable-line
+    _notify2.default.warning('Nothing to save!'); // eslint-disable-line
   }
 };
 
@@ -286,7 +305,7 @@ const getSavedState = exports.getSavedState = () => {
   const savedTxt = localStorage.getItem(hash);
   return savedTxt;
 };
-},{"./hashCode":9}],5:[function(require,module,exports) {
+},{"./hashCode":11,"../notify":8}],3:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -325,7 +344,7 @@ const main = () => {
 };
 
 exports.default = main;
-},{"../css/styles.css":6,"./utils/prettifyJSON":7,"./utils/localstorage":8}],4:[function(require,module,exports) {
+},{"../css/styles.css":4,"./utils/prettifyJSON":5,"./utils/localstorage":6}],2:[function(require,module,exports) {
 "use strict";
 
 var _main = require("./js/main");
@@ -335,7 +354,7 @@ var _main2 = _interopRequireDefault(_main);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _main2.default)();
-},{"./js/main":5}],0:[function(require,module,exports) {
+},{"./js/main":3}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
@@ -353,7 +372,7 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent && typeof WebSocket !== 'undefined') {
-  var ws = new WebSocket('ws://' + window.location.hostname + ':60124/');
+  var ws = new WebSocket('ws://' + window.location.hostname + ':59611/');
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 
@@ -454,4 +473,4 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id)
   });
 }
-},{}]},{},[0,4])
+},{}]},{},[0,2])
