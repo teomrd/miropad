@@ -8,8 +8,7 @@
   "scripts": {
     "start": "parcel src/index.html --open",
     "build": "./build.sh",
-    "lint": "eslint 'src/**/*js'",
-    "deploy": "npm run build && git push"
+    "lint": "eslint 'src/**/*js'"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
