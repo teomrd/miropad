@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"30-seconds-of-code@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/30-seconds-of-code/-/30-seconds-of-code-0.0.1.tgz#edfc4cc991fe9a5947dd01d9449fbc05748136a7"
+
 acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"

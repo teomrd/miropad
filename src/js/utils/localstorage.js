@@ -1,9 +1,9 @@
-import hashCode from './hashCode';
+import hashBrowser from './hashBrowser';
 import notify from '../notify';
 
-export const saveToLocalStorage = (what) => {
+export const saveToLocalStorage = async (what) => {
   if (what.length) {
-    const hash = hashCode(what);
+    const hash = await hashBrowser(what);
     try {
       localStorage.setItem(hash, what);
       window.location.assign(`#${hash}`);

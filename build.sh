@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-npm run clean && parcel build src/index.html --public-url ./dist/ && cp ./dist/index.html ./
+rm -rf ./dist &&
+rm -rf ./.cache &&
+rm -f ./index.html &&
+parcel build src/index.html --public-url ./dist/ &&
+cp ./dist/index.html ./
