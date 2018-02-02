@@ -1,7 +1,8 @@
 class Notify {
   constructor() {
     this.notificationContainer = document.querySelector('body #notification');
-    this.autohideDuration = 5000;
+    this.defaultAutohideDuration = 5;
+    this.autohideDuration = 5;
     this.types = {
       info: 'info',
       success: 'success',
@@ -15,10 +16,10 @@ class Notify {
     Object.keys(this.types).map(type => this.notificationContainer.classList.remove(type));
   }
 
-  _removeAfter(ms = this.autohideDuration) {
+  _removeAfter() {
     this.timer = setTimeout(() => {
       this._cleanNotificationClasses();
-    }, ms);
+    }, this.autohideDuration * 1000);
   }
 
   _clearTimeouts() {
@@ -33,19 +34,23 @@ class Notify {
     this._removeAfter();
   }
 
-  info(message) {
+  info(message, time = this.defaultAutohideDuration) {
+    this.autohideDuration = time;
     this._showNotification(message, this.types.info);
   }
 
-  sucess(message) {
+  sucess(message, time = this.defaultAutohideDuration) {
+    this.autohideDuration = time;
     this._showNotification(message, this.types.success);
   }
 
-  error(message) {
+  error(message, time = this.defaultAutohideDuration) {
+    this.autohideDuration = time;
     this._showNotification(message, this.types.error);
   }
 
-  warning(message) {
+  warning(message, time = this.defaultAutohideDuration) {
+    this.autohideDuration = time;
     this._showNotification(message, this.types.warning);
   }
 }
