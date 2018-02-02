@@ -15,5 +15,5 @@ require=function(r,e,n){function t(n,o){function i(r){return t(i.resolve(r))}fun
 },{"./notify":16}],6:[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),require("../css/styles.css");var e=require("./utils/prettifyJSON"),t=u(e),r=require("./utils/localstorage"),o=require("./welcome"),l=u(o);function u(e){return e&&e.__esModule?e:{default:e}}const a=e=>{const o=window.event||e;if(80===o.keyCode&&o.ctrlKey&&(e.preventDefault(),(0,t.default)(".terminal")),83===o.keyCode&&o.ctrlKey){e.preventDefault();const t=document.querySelector(".terminal").value;(0,r.saveToLocalStorage)(t)}},n=()=>{(0,l.default)(),document.onkeydown=a;const e=(0,r.getSavedState)();document.querySelector(".terminal").value=e};exports.default=n;
 },{"../css/styles.css":8,"./utils/prettifyJSON":11,"./utils/localstorage":12,"./welcome":9}],4:[function(require,module,exports) {
-"use strict";var e=require("./js/main"),u=r(e);function r(e){return e&&e.__esModule?e:{default:e}}(0,u.default)();
+"use strict";var e=require("./js/main"),l=o(e);function o(e){return e&&e.__esModule?e:{default:e}}console.log("Hello World!"),(0,l.default)();
 },{"./js/main":6}]},{},[4])
