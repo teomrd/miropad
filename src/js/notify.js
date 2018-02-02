@@ -10,6 +10,9 @@ class Notify {
       warning: 'warning',
     };
     this.timer;
+    this.notificationContainer.onclick = () => {
+      this._cleanNotificationClasses();
+    };
   }
 
   _cleanNotificationClasses() {

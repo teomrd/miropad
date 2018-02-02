@@ -37,6 +37,7 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.25);
   bottom: -100%;
   transition: all 0.25s cubic-bezier(1, 0, 0.7, 1);
+  cursor: pointer;
 }
 
 .notification.info {
