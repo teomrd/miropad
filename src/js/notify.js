@@ -2,45 +2,51 @@ class Notify {
   constructor() {
     this.notificationContainer = document.querySelector('body #notification');
     this.autohideDuration = 5000;
-    this.types = ['info', 'success', 'error', 'warning'];
+    this.types = {
+      info: 'info',
+      success: 'success',
+      error: 'error',
+      warning: 'warning',
+    };
+    this.timer;
   }
 
-  cleanNotificationClasses() {
-    this.types.map(type => this.notificationContainer.classList.remove(type));
+  _cleanNotificationClasses() {
+    Object.keys(this.types).map(type => this.notificationContainer.classList.remove(type));
   }
 
-  cleanAfter(ms = 0) {
-    setTimeout(() => {
-      this.cleanNotificationClasses();
+  _removeAfter(ms = this.autohideDuration) {
+    this.timer = setTimeout(() => {
+      this._cleanNotificationClasses();
     }, ms);
   }
 
-  info(message) {
+  _clearTimeouts() {
+    clearTimeout(this.timer);
+  }
+
+  _showNotification(message, type) {
+    this._cleanNotificationClasses();
     this.notificationContainer.innerHTML = message;
-    this.cleanNotificationClasses();
-    this.notificationContainer.classList.add('info');
-    this.cleanAfter(this.autohideDuration);
+    this._clearTimeouts();
+    this.notificationContainer.classList.add(type);
+    this._removeAfter();
+  }
+
+  info(message) {
+    this._showNotification(message, this.types.info);
   }
 
   sucess(message) {
-    this.notificationContainer.innerHTML = message;
-    this.cleanNotificationClasses();
-    this.notificationContainer.classList.add('success');
-    this.cleanAfter(this.autohideDuration);
+    this._showNotification(message, this.types.success);
   }
 
   error(message) {
-    this.notificationContainer.innerHTML = message;
-    this.cleanNotificationClasses();
-    this.notificationContainer.classList.add('error');
-    this.cleanAfter(this.autohideDuration);
+    this._showNotification(message, this.types.error);
   }
 
   warning(message) {
-    this.notificationContainer.innerHTML = message;
-    this.cleanNotificationClasses();
-    this.notificationContainer.classList.add('warning');
-    this.cleanAfter(this.autohideDuration);
+    this._showNotification(message, this.types.warning);
   }
 }
 
