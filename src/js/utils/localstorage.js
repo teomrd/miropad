@@ -7,12 +7,12 @@ export const saveToLocalStorage = async (what) => {
     try {
       localStorage.setItem(hash, what);
       window.location.assign(`#${hash}`);
-      notify.sucess('Note saved!');
+      notify.sucess('👌 Note saved!');
     } catch (e) {
-      notify.error(`Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
+      notify.error(`😱 Something went wrong while trying to save to local storage ${e}`); // eslint-disable-line
     }
   } else {
-    notify.warning('Nothing to save!'); // eslint-disable-line
+    notify.warning('😕 Nothing to save!'); // eslint-disable-line
   }
 };
 
