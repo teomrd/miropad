@@ -1,19 +1,36 @@
 const keyListener = {
+  events: [],
+  on(key, fn, control = true) {
+    if (key && fn) {
+      this.events = [
+        ...this.events,
+        {
+          key,
+          ctrlKey: control,
+          fn() {
+            fn();
+          },
+        },
+      ];
+    } else {
+      throw Error('on method does not have all the required parameters');
+    }
+    return this;
+  },
   listen() {
     document.addEventListener('keydown', (e) => {
-      // const keyName = event.key;
-      console.log('I am listening you typing!!!', e);
       this.handleEvent(e);
-      // this.event = e;
     });
     return this;
   },
   handleEvent(e) {
-    console.log('I am taking over now!');
-    if (e.keyCode === 80 && e.ctrlKey) {
-      e.preventDefault();
-      console.log('PPPPPPPP');
-    }
+    this.events.map((event) => {
+      if (event.key === e.key && event.ctrlKey === e.ctrlKey) {
+        e.preventDefault();
+        event.fn();
+      }
+      return true;
+    });
   },
 };
 
