@@ -1,3 +1,4 @@
+/* eslint-disable */
 class Notify {
   constructor() {
     this.notificationContainer = document.querySelector('body #notification');
@@ -60,3 +61,4 @@ class Notify {
 
 const notify = new Notify();
 export default notify;
+/* eslint-enable */
