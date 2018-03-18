@@ -11,6 +11,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      favicon: 'src/assets/favicon.ico',
       hash: true,
       title: '✍️ MiroPad',
       template: './src/index.html',
