@@ -3,8 +3,11 @@ import prettifyJSON from './utils/prettifyJSON';
 import { saveToLocalStorage, getSavedState } from './utils/localstorage';
 import welcomeUser from './welcome';
 import keyListener from './utils/keyListener';
+import errorHandler from './utils/errorHandler';
 
 const main = () => {
+  window.onerror = errorHandler;
+
   welcomeUser();
 
   keyListener
