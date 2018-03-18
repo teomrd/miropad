@@ -6,7 +6,7 @@ import keyListener from './utils/keyListener';
 import errorHandler from './utils/errorHandler';
 
 const main = () => {
-  window.onerror = errorHandler;
+  window.addEventListener('error', errorHandler);
 
   welcomeUser();
 

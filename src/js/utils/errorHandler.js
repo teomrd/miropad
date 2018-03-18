@@ -1,8 +1,9 @@
 import notify from '../notify';
 
-const errorHandler = (e) => {
-  console.error(e); // eslint-disable-line
-  notify.error(e);
+const errorHandler = (error) => {
+  const { message = 'Unexpected error occured!' } = error;
+  console.log('error', error); // eslint-disable-line
+  notify.error(message);
 };
 
 export default errorHandler;
