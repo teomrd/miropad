@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
-    "lint": "eslint 'src/**/*js'"
+    "lint": "eslint 'src/**/*js'",
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
     "css-loader": "^0.28.11",
