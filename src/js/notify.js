@@ -1,23 +1,20 @@
+import select from './utils/dom';
 /* eslint-disable */
+const notification = select('#notification');
+const notificationTypes = {
+  info: 'info',
+  success: 'success',
+  error: 'error',
+  warning: 'warning',
+};
 class Notify {
   constructor() {
-    this.notificationContainer = document.querySelector('body #notification');
     this.defaultAutohideDuration = 5;
     this.autohideDuration = 5;
-    this.types = {
-      info: 'info',
-      success: 'success',
-      error: 'error',
-      warning: 'warning',
-    };
     this.timer;
-    this.notificationContainer.onclick = () => {
+    notification.el.onclick = () => {
       this._cleanNotificationClasses();
     };
-  }
-
-  _cleanNotificationClasses() {
-    Object.keys(this.types).map(type => this.notificationContainer.classList.remove(type));
   }
 
   _removeAfter() {
@@ -30,32 +27,35 @@ class Notify {
     clearTimeout(this.timer);
   }
 
+  _cleanNotificationClasses() {
+    Object.values(notificationTypes).map(type => notification.removeClass(type));
+  }
+
   _showNotification(message, type) {
-    this._cleanNotificationClasses();
-    this.notificationContainer.innerHTML = message;
+    notification.html(message).addClass(type);
+
     this._clearTimeouts();
-    this.notificationContainer.classList.add(type);
     this._removeAfter();
   }
 
   info(message, time = this.defaultAutohideDuration) {
     this.autohideDuration = time;
-    this._showNotification(message, this.types.info);
+    this._showNotification(message, notificationTypes.info);
   }
 
   sucess(message, time = this.defaultAutohideDuration) {
     this.autohideDuration = time;
-    this._showNotification(message, this.types.success);
+    this._showNotification(message, notificationTypes.success);
   }
 
   error(message, time = this.defaultAutohideDuration) {
     this.autohideDuration = time;
-    this._showNotification(message, this.types.error);
+    this._showNotification(message, notificationTypes.error);
   }
 
   warning(message, time = this.defaultAutohideDuration) {
     this.autohideDuration = time;
-    this._showNotification(message, this.types.warning);
+    this._showNotification(message, notificationTypes.warning);
   }
 }
 
