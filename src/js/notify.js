@@ -8,10 +8,7 @@ const notificationTypes = {
 };
 
 const notification = select('#notification');
-const cleanNotificationClasses = () => {
-  const classes = Object.values(notificationTypes);
-  notification.removeClasses(classes);
-};
+const cleanNotificationClasses = () => notification.removeClasses(Object.values(notificationTypes));
 notification.el.onclick = () => cleanNotificationClasses();
 
 const notificationFactory = () =>
