@@ -26,15 +26,11 @@ class Notify {
     }, this.autohideDuration * 1000);
   }
 
-  _clearTimeouts() {
-    clearTimeout(this.timer);
-  }
-
   _showNotification(message, type) {
     cleanNotificationClasses();
     notification.html(message).addClass(type);
 
-    this._clearTimeouts();
+    clearTimeout(this.timer);
     this._removeAfter();
   }
 
