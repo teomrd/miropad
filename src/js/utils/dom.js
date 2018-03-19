@@ -11,6 +11,10 @@ const select = el => ({
     this.el.classList.remove(className);
     return this;
   },
+  removeClasses(classes = []) {
+    classes.map(className => this.removeClass(className));
+    return this;
+  },
   addClass(className) {
     this.el.classList.add(className);
     return this;

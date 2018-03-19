@@ -1,25 +1,28 @@
 import select from './utils/dom';
 /* eslint-disable */
-const notification = select('#notification');
 const notificationTypes = {
   info: 'info',
   success: 'success',
   error: 'error',
   warning: 'warning',
 };
+const notification = select('#notification');
+notification.el.onclick = () => cleanNotificationClasses();
+const cleanNotificationClasses = () => {
+  const classes = Object.values(notificationTypes);
+  console.log('clases', classes);
+  notification.removeClasses(classes);
+};
 class Notify {
   constructor() {
     this.defaultAutohideDuration = 5;
     this.autohideDuration = 5;
     this.timer;
-    notification.el.onclick = () => {
-      this._cleanNotificationClasses();
-    };
   }
 
   _removeAfter() {
     this.timer = setTimeout(() => {
-      this._cleanNotificationClasses();
+      cleanNotificationClasses();
     }, this.autohideDuration * 1000);
   }
 
@@ -27,11 +30,8 @@ class Notify {
     clearTimeout(this.timer);
   }
 
-  _cleanNotificationClasses() {
-    Object.values(notificationTypes).map(type => notification.removeClass(type));
-  }
-
   _showNotification(message, type) {
+    cleanNotificationClasses();
     notification.html(message).addClass(type);
 
     this._clearTimeouts();
