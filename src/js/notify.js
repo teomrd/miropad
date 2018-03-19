@@ -25,7 +25,7 @@ const notificationFactory = () =>
     {},
   );
 
-const Notification = ({ autohideDuration = 5 } = {}) => ({
+const Notification = (autohideDuration = 5) => ({
   autohideDuration,
   timer: undefined,
   removeAfter() {
