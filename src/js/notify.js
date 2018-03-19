@@ -14,6 +14,17 @@ const cleanNotificationClasses = () => {
 };
 notification.el.onclick = () => cleanNotificationClasses();
 
+const notificationFactory = () =>
+  Object.values(notificationTypes).reduce(
+    (acc, notificationType) => ({
+      ...acc,
+      [notificationType](message) {
+        this.showNotification(message, notificationType);
+      },
+    }),
+    {},
+  );
+
 const Notification = ({ autohideDuration = 5 } = {}) => ({
   autohideDuration,
   timer: undefined,
@@ -28,20 +39,8 @@ const Notification = ({ autohideDuration = 5 } = {}) => ({
     clearTimeout(this.timer);
     this.removeAfter();
   },
-  sucess(message) {
-    this.showNotification(message, notificationTypes.success);
-  },
-  info(message) {
-    this.showNotification(message, notificationTypes.info);
-  },
-  error(message) {
-    this.showNotification(message, notificationTypes.error);
-  },
-  warning(message) {
-    this.showNotification(message, notificationTypes.warning);
-  },
+  ...notificationFactory(),
 });
 
 const notify = Notification();
-
 export default notify;
