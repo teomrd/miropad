@@ -10,51 +10,38 @@ const notification = select('#notification');
 notification.el.onclick = () => cleanNotificationClasses();
 const cleanNotificationClasses = () => {
   const classes = Object.values(notificationTypes);
-  console.log('clases', classes);
   notification.removeClasses(classes);
 };
-class Notify {
-  constructor() {
-    this.defaultAutohideDuration = 5;
-    this.autohideDuration = 5;
-    this.timer;
-  }
 
+const Notification = ({ autohideDuration = 5 } = {}) => ({
+  autohideDuration,
+  timer: undefined,
   _removeAfter() {
     this.timer = setTimeout(() => {
       cleanNotificationClasses();
     }, this.autohideDuration * 1000);
-  }
-
+  },
   _showNotification(message, type) {
     cleanNotificationClasses();
     notification.html(message).addClass(type);
-
     clearTimeout(this.timer);
     this._removeAfter();
-  }
-
-  info(message, time = this.defaultAutohideDuration) {
-    this.autohideDuration = time;
-    this._showNotification(message, notificationTypes.info);
-  }
-
-  sucess(message, time = this.defaultAutohideDuration) {
-    this.autohideDuration = time;
+  },
+  sucess(message) {
     this._showNotification(message, notificationTypes.success);
-  }
-
-  error(message, time = this.defaultAutohideDuration) {
-    this.autohideDuration = time;
+  },
+  info(message) {
+    this._showNotification(message, notificationTypes.info);
+  },
+  error(message) {
     this._showNotification(message, notificationTypes.error);
-  }
-
-  warning(message, time = this.defaultAutohideDuration) {
-    this.autohideDuration = time;
+  },
+  warning(message) {
     this._showNotification(message, notificationTypes.warning);
-  }
-}
+  },
+});
 
-const notify = new Notify();
+const notify = Notification();
+
 export default notify;
 /* eslint-enable */
