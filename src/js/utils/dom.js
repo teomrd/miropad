@@ -18,7 +18,7 @@ const select = el => ({
   addClass(className) {
     this.el.classList.add(className);
     return this;
-  },
+  }
 });
 
 export default select;
