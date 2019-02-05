@@ -1,17 +1,21 @@
 {
-  "extends": [
-    "airbnb-base",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": ["prettier", "import"],
-  "rules": {
-    "prettier/prettier": "error"
+  "root": true,
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
   },
-  "globals": {
-    "window": true,
-    "document": true,
-    "localStorage": true
+  "extends": ["eslint:recommended", "prettier", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"]
   }
 }
