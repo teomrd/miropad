@@ -4,6 +4,7 @@ import { saveToLocalStorage, getSavedState } from "./utils/localstorage";
 import welcomeUser from "./welcome";
 import keyListener from "./utils/keyListener";
 import errorHandler from "./utils/errorHandler";
+import search from "./utils/search";
 
 const main = () => {
   window.addEventListener("error", errorHandler);
@@ -20,6 +21,10 @@ const main = () => {
 
   const savedTxt = getSavedState();
   document.querySelector(".terminal").value = savedTxt;
+
+  const q = new URL(window.location.href).searchParams.get("q");
+  const queryResult = search(q);
+  if (queryResult) document.querySelector(".terminal").value = queryResult;
 };
 
 export default main;
