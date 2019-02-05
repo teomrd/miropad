@@ -1,5 +1,5 @@
 const search = q => {
-  if (q === undefined) {
+  if (!q) {
     return undefined;
   }
   const items = { ...localStorage };
