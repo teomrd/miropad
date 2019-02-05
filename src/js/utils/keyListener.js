@@ -1,12 +1,11 @@
 const keyListener = {
   events: [],
-  on(key, fn, control = true) {
+  on(key, fn) {
     if (key && fn) {
       this.events = [
         ...this.events,
         {
           key,
-          ctrlKey: control,
           fn() {
             fn();
           }
@@ -25,7 +24,7 @@ const keyListener = {
   },
   handleEvent(e) {
     this.events.map(event => {
-      if (event.key === e.key && event.ctrlKey === e.ctrlKey) {
+      if (event.key === e.key && (e.ctrlKey === true || e.metaKey === true)) {
         e.preventDefault();
         event.fn();
       }
