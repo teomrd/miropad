@@ -5,6 +5,7 @@ import welcomeUser from "./welcome";
 import keyListener from "./utils/keyListener";
 import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
+import toggleMarkDownViewer from "./toggleMarkDownViewer";
 
 const main = () => {
   window.addEventListener("error", errorHandler);
@@ -13,6 +14,7 @@ const main = () => {
 
   keyListener
     .listen()
+    .on("m", () => toggleMarkDownViewer())
     .on("p", () => prettifyJSON(".terminal"))
     .on("s", () => {
       const text = document.querySelector(".terminal").value;

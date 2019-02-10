@@ -13,7 +13,24 @@ body {
   padding: 0px;
 }
 
+main {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.preview {
+  background: white;
+  flex: 1;
+  padding: 10px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
 .terminal {
+  flex: 1;
   font-family: monospace;
   margin: 0px;
   width: 100%;
@@ -68,3 +85,29 @@ body {
   bottom: 25px;
   transition: all 0.5s linear;
 }
+
+/****** custom scrollbar *********/
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: grey;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: yellow;
+}
+
+/****** custom scrollbar *********/

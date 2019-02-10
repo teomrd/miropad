@@ -18,6 +18,14 @@ const select = el => ({
   addClass(className) {
     this.el.classList.add(className);
     return this;
+  },
+  hasClass(cls) {
+    return (" " + this.el.className + " ").indexOf(" " + cls + " ") > -1;
+  },
+  toggle(className = "hidden") {
+    if (this.hasClass(className)) this.removeClass(className);
+    else this.addClass(className);
+    return this;
   }
 });
 
