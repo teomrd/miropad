@@ -31,7 +31,7 @@ const main = () => {
     const matches = dictionary.filter(word => word.startsWith(lastWord));
     const fistMatch = matches.shift();
     const prediction = fistMatch || "";
-    notify.info(prediction);
+    if (prediction && prediction.length) notify.info(prediction);
     storage.set("prediction", prediction);
   };
 
@@ -43,7 +43,9 @@ const main = () => {
       const pred = await localStorage.getItem("prediction");
       allTextArray[allTextArray.length - 1] = pred;
       allTextArray[allTextArray.length] = "";
-      terminal.value = allTextArray.toString().replace(/,/g, " ");
+      if (pred && pred.length) {
+        terminal.value = allTextArray.toString().replace(/,/g, " ");
+      }
     }
   });
 
