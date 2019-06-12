@@ -1,6 +1,6 @@
 import "../css/styles.css";
 import prettifyJSON from "./utils/prettifyJSON";
-import { saveToLocalStorage, getSavedState } from "./utils/localstorage";
+import storage from "./utils/localstorage";
 import welcomeUser from "./welcome";
 import keyListener from "./utils/keyListener";
 import errorHandler from "./utils/errorHandler";
@@ -18,10 +18,10 @@ const main = () => {
     .on("p", () => prettifyJSON(".terminal"))
     .on("s", () => {
       const text = document.querySelector(".terminal").value;
-      saveToLocalStorage(text);
+      storage.saveToLocalStorage(text);
     });
 
-  const savedTxt = getSavedState();
+  const savedTxt = storage.getSavedState();
   document.querySelector(".terminal").value = savedTxt;
 
   const q = new URL(window.location.href).searchParams.get("q");
