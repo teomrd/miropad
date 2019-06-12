@@ -1,32 +1,51 @@
 import hashBrowser from "./hashBrowser";
 import notify from "../notify";
 
-const saveToLocalStorage = async what => {
-  if (what.length) {
-    const hash = await hashBrowser(what);
-    try {
-      localStorage.setItem(hash, what);
-      window.location.assign(`#${hash}`);
-      notify.success("👌 Note saved!");
-    } catch (e) {
-      notify.error(
-        `😱 Something went wrong while trying to save to local storage ${e}`
-      ); // eslint-disable-line
-    }
-  } else {
-    notify.warning("😕 Nothing to save!"); // eslint-disable-line
-  }
-};
-
-const getSavedState = () => {
-  const hash = window.location.hash.substr(1);
-  const savedTxt = localStorage.getItem(hash);
-  return savedTxt;
-};
-
 const storage = {
-  saveToLocalStorage: saveToLocalStorage,
-  getSavedState: getSavedState
+  saveToLocalStorage: async function(what) {
+    await this.saveToDictionary(what);
+    if (what.length) {
+      const hash = await hashBrowser(what);
+      try {
+        localStorage.setItem(hash, what);
+        window.location.assign(`#${hash}`);
+        notify.success("👌 Note saved!");
+      } catch (e) {
+        notify.error(
+          `😱 Something went wrong while trying to save to local storage ${e}`
+        ); // eslint-disable-line
+      }
+    } else {
+      notify.warning("😕 Nothing to save!"); // eslint-disable-line
+    }
+    return this;
+  },
+  getSavedState: () => {
+    const hash = window.location.hash.substr(1);
+    const savedTxt = localStorage.getItem(hash);
+    return savedTxt;
+  },
+  getCurrentDictionary: () => {
+    const savedTxt = localStorage.getItem("dictionary");
+    return savedTxt ? JSON.parse(savedTxt) : [];
+  },
+  saveToDictionary: async function(what) {
+    if (what.length) {
+      try {
+        const current = (await this.getCurrentDictionary()) || [];
+        const words = [...what.split(" "), ...current];
+        const distinctWords = [...new Set(words)];
+        localStorage.setItem("dictionary", JSON.stringify(distinctWords));
+      } catch (e) {
+        notify.error(
+          `😱 Something went wrong while trying to save to local storage ${e}`
+        ); // eslint-disable-line
+      }
+    } else {
+      notify.warning("😕 Nothing to save!"); // eslint-disable-line
+    }
+    return this;
+  }
 };
 
 export default storage;
