@@ -32,7 +32,7 @@ const storage = {
   saveToDictionary: async function(what) {
     if (what.length) {
       try {
-        const current = (await this.getCurrentDictionary()) || [];
+        const current = await this.getCurrentDictionary();
         const words = [...what.split(" "), ...current];
         const distinctWords = [...new Set(words)];
         localStorage.setItem("dictionary", JSON.stringify(distinctWords));
