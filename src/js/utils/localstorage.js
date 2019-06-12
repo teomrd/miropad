@@ -2,6 +2,12 @@ import hashBrowser from "./hashBrowser";
 import notify from "../notify";
 
 const storage = {
+  set: function(key, what) {
+    localStorage.setItem(key, what);
+  },
+  get: function(key) {
+    localStorage.getItem(key);
+  },
   saveToLocalStorage: async function(what) {
     await this.saveToDictionary(what);
     if (what.length) {
@@ -25,14 +31,14 @@ const storage = {
     const savedTxt = localStorage.getItem(hash);
     return savedTxt;
   },
-  getCurrentDictionary: () => {
+  getDictionary: () => {
     const savedTxt = localStorage.getItem("dictionary");
     return savedTxt ? JSON.parse(savedTxt) : [];
   },
   saveToDictionary: async function(what) {
     if (what.length) {
       try {
-        const current = await this.getCurrentDictionary();
+        const current = await this.getDictionary();
         const words = [...what.split(" "), ...current];
         const distinctWords = [...new Set(words)];
         localStorage.setItem("dictionary", JSON.stringify(distinctWords));
