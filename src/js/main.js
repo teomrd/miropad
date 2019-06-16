@@ -6,9 +6,10 @@ import keyListener from "./utils/keyListener";
 import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
 import toggleMarkDownViewer from "./toggleMarkDownViewer";
-import notify from "./notify";
+import getCaretCoordinates from "textarea-caret";
 
 const main = () => {
+  const suggestion = document.querySelector(".suggestion");
   const terminal = document.querySelector(".terminal");
   window.addEventListener("error", errorHandler);
 
@@ -25,26 +26,37 @@ const main = () => {
 
   const savedTxt = storage.getSavedState();
   terminal.value = savedTxt;
+  terminal.addEventListener("input", function() {
+    var caret = getCaretCoordinates(this, this.selectionEnd);
+    suggestion.style.top = caret.top - caret.height / 3;
+    suggestion.style.left = caret.left;
+  });
+
   terminal.onkeyup = () => {
     const dictionary = storage.getDictionary();
     const lastWord = terminal.value.split(" ").pop();
-    const matches = dictionary.filter(word => word.startsWith(lastWord));
-    const fistMatch = matches.shift();
-    const prediction = fistMatch || "";
-    if (prediction && prediction.length) notify.info(prediction);
-    storage.set("prediction", prediction);
+
+    if (lastWord.length > 1) {
+      const matches = dictionary.filter(word => word.startsWith(lastWord));
+      const firstMatch = matches.shift();
+      const prediction = firstMatch || "";
+      storage.set("prediction", prediction);
+      suggestion.innerHTML = prediction.replace(lastWord, "");
+    }
   };
 
   terminal.addEventListener("keydown", async e => {
     if (e.which === 9) {
       e.preventDefault();
+      const pred = await localStorage.getItem("prediction");
       const allTextArray = terminal.value.split(" ");
       terminal.value.split(" ").pop();
-      const pred = await localStorage.getItem("prediction");
       allTextArray[allTextArray.length - 1] = pred;
       allTextArray[allTextArray.length] = "";
       if (pred && pred.length) {
         terminal.value = allTextArray.toString().replace(/,/g, " ");
+        suggestion.innerHTML = "";
+        storage.set("prediction", "");
       }
     }
   });

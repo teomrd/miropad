@@ -38,8 +38,9 @@ const storage = {
   saveToDictionary: async function(what) {
     if (what.length) {
       try {
+        const cleanText = what.toLowerCase().replace(/[^a-zA-Z0-9]/g, " ");
         const current = await this.getDictionary();
-        const words = [...what.split(" "), ...current];
+        const words = [...cleanText.split(" "), ...current];
         const distinctWords = [...new Set(words)];
         localStorage.setItem("dictionary", JSON.stringify(distinctWords));
       } catch (e) {
