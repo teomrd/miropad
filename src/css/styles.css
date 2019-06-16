@@ -58,6 +58,7 @@ main {
   bottom: -100%;
   transition: all 0.25s cubic-bezier(1, 0, 0.7, 1);
   cursor: pointer;
+  z-index: 10;
 }
 
 .notification.info {
