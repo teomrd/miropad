@@ -40,7 +40,10 @@ const storage = {
       try {
         const cleanText = what.toLowerCase().replace(/[^a-zA-Z0-9]/g, " ");
         const current = await this.getDictionary();
-        const words = [...cleanText.split(" "), ...current];
+        const words = [
+          ...cleanText.split(" ").filter(w => w.length > 3),
+          ...current
+        ];
         const distinctWords = [...new Set(words)];
         localStorage.setItem("dictionary", JSON.stringify(distinctWords));
       } catch (e) {
