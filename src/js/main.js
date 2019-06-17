@@ -17,7 +17,7 @@ const main = () => {
 
   keyListener
     .listen()
-    .on("m", () => toggleMarkDownViewer())
+    .on("m", toggleMarkDownViewer)
     .on("p", () => prettifyJSON(".terminal"))
     .on("s", () => {
       const text = terminal.value;

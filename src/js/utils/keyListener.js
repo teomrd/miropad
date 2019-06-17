@@ -1,7 +1,7 @@
 const keyListener = {
   events: [],
   on(key, fn) {
-    if (key && fn) {
+    if (key && fn && typeof fn === "function") {
       this.events = [
         ...this.events,
         {
