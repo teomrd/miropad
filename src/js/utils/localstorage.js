@@ -38,7 +38,9 @@ const storage = {
   saveToDictionary: async function(what) {
     if (what.length) {
       try {
-        const cleanText = what.toLowerCase().replace(/[^a-zA-Z0-9]/g, " ");
+        const cleanText = what
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9ά-ώΑ-Ω]/g, " ");
         const current = await this.getDictionary();
         const words = [
           ...cleanText.split(" ").filter(w => w.length > 3),
