@@ -124,3 +124,32 @@ main {
 }
 
 /****** custom scrollbar *********/
+
+/****** commander *********/
+.commander {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.commander .palette {
+  width: 50%;
+  min-width: 250px;
+  max-width: 600px;
+  background-color: #212121;
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+}
+
+.commander .palette input {
+  background-color: #424242;
+  color: white;
+  width: 100%;
+  padding: 0 5px;
+  border: none;
+}
+
+/****** commander *********/
