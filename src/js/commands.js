@@ -5,14 +5,17 @@ import { mailTo } from "./utils/mail";
 
 const commands = [
   {
+    title: "Toggle MarkDown Viewer",
     key: "m",
     call: toggleMarkDownViewer
   },
   {
     key: "j",
+    title: "Prettify JSON document",
     call: () => prettifyJSON(".terminal")
   },
   {
+    title: "Save",
     key: "s",
     call: () => {
       const note = document.querySelector(".terminal").value;
@@ -20,6 +23,7 @@ const commands = [
     }
   },
   {
+    title: "Email note to...",
     key: "e",
     call: () => {
       const note = document.querySelector(".terminal").value;
