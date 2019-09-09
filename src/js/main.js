@@ -1,12 +1,11 @@
 import "../css/styles.css";
-import prettifyJSON from "./utils/prettifyJSON";
 import storage from "./utils/localstorage";
 import welcomeUser from "./welcome";
 import keyListener from "./utils/keyListener";
 import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
-import toggleMarkDownViewer from "./toggleMarkDownViewer";
 import getCaretCoordinates from "textarea-caret";
+import commands from "./commands";
 
 const main = () => {
   const suggestion = document.querySelector(".suggestion");
@@ -15,14 +14,7 @@ const main = () => {
 
   welcomeUser();
 
-  keyListener
-    .listen()
-    .on("m", toggleMarkDownViewer)
-    .on("p", () => prettifyJSON(".terminal"))
-    .on("s", () => {
-      const text = terminal.value;
-      storage.saveToLocalStorage(text);
-    });
+  keyListener.listen().on(commands);
 
   const savedTxt = storage.getSavedState();
   terminal.value = savedTxt;

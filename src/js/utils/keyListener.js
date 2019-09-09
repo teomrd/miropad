@@ -1,7 +1,12 @@
 const keyListener = {
   events: [],
   on(key, fn) {
-    if (key && fn && typeof fn === "function") {
+    if (typeof key === "object" && typeof fn === "undefined") {
+      key.map(k => this.on(k.key, k.call));
+      return this;
+    }
+
+    if (key && typeof key === "string" && fn && typeof fn === "function") {
       this.events = [
         ...this.events,
         {
