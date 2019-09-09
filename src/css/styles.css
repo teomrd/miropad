@@ -127,6 +127,7 @@ main {
 
 /****** commander *********/
 .commander {
+  top: 1px;
   position: fixed;
   z-index: 10;
   width: 100%;
