@@ -1,7 +1,7 @@
 {
   "name": "✍️MiroPad",
   "short_name": "MiroPad",
-  "theme_color": "#00ff00",
+  "theme_color": "#000000",
   "background_color": "#000000",
   "display": "fullscreen",
   "orientation": "portrait",
