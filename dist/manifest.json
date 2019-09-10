@@ -3,7 +3,7 @@
   "short_name": "MiroPad",
   "theme_color": "#00ff00",
   "background_color": "#000000",
-  "display": "browser",
+  "display": "fullscreen",
   "orientation": "portrait",
   "Scope": "https://teomrd.github.io/miropad/",
   "start_url": "https://teomrd.github.io/miropad/",
