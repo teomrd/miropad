@@ -4,6 +4,7 @@ import welcomeUser from "./welcome";
 import keyListener from "./utils/keyListener";
 import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
+import { markDownIt } from "./toggleMarkDownViewer";
 import getCaretCoordinates from "textarea-caret";
 import commands from "./commands";
 
@@ -25,6 +26,8 @@ const main = () => {
   });
 
   terminal.onkeyup = () => {
+    // MarkDown on the fly
+    markDownIt();
     const dictionary = storage.getDictionary();
     const lastWord = terminal.value.split(" ").pop();
 
