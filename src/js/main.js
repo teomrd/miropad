@@ -7,6 +7,7 @@ import search from "./utils/search";
 import { markDownIt } from "./toggleMarkDownViewer";
 import getCaretCoordinates from "textarea-caret";
 import commands from "./commands";
+import select from "./utils/dom";
 
 const main = () => {
   const suggestion = document.querySelector(".suggestion");
@@ -16,6 +17,14 @@ const main = () => {
   welcomeUser();
 
   keyListener.listen().on(commands);
+  commands.map(({ title, key }) => {
+    const li = document.createElement("LI");
+    li.appendChild(document.createTextNode(title));
+    const span = document.createElement("span");
+    span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
+    li.appendChild(span);
+    select("#commands").append(li);
+  });
 
   const savedTxt = storage.getSavedState();
   terminal.value = savedTxt;

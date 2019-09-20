@@ -7,6 +7,16 @@ const select = el => ({
     this.el.innerHTML = content;
     return this;
   },
+  append(el) {
+    this.el.appendChild(el);
+    return this;
+  },
+  appendListElement(text) {
+    const li = document.createElement("LI");
+    li.appendChild(document.createTextNode(text));
+    this.el.appendChild(li);
+    return this;
+  },
   removeClass(className) {
     this.el.classList.remove(className);
     return this;
