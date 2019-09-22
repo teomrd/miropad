@@ -6,7 +6,7 @@ const storage = {
     localStorage.setItem(key, what);
   },
   get: function(key) {
-    localStorage.getItem(key);
+    return localStorage.getItem(key);
   },
   saveToLocalStorage: async function(what) {
     await this.saveToDictionary(what);
