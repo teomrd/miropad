@@ -1,13 +1,13 @@
-html,
-* {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+html, * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
 }
+
 * {
   font-size: 1rem;
 }
+
 body {
   margin: 0;
   padding: 0px;
@@ -126,6 +126,7 @@ main {
 /****** custom scrollbar *********/
 
 /****** commander *********/
+
 .commander {
   top: 1px;
   position: fixed;
@@ -133,6 +134,7 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
+  display: none;
 }
 
 .commander .palette {
