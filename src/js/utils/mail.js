@@ -21,6 +21,9 @@ const getUserMailingPreferences = () => {
       `Mail ${savedMail} again? (y)es/(no)`,
       "yeap"
     );
+    if (mailSameAgainQuestion === null) {
+      return mailSameAgainQuestion;
+    }
     if (mailSameAgainQuestion.slice(0, 1).toLowerCase() === "y") {
       return savedMail;
     }
@@ -30,7 +33,7 @@ const getUserMailingPreferences = () => {
     "Do you wanna save that to your preferences for later on? (y)es/(no)",
     "yeap"
   );
-  if (wannaSaveDat.slice(0, 1).toLowerCase() === "y") {
+  if (wannaSaveDat && wannaSaveDat.slice(0, 1).toLowerCase() === "y") {
     storage.set("mail", whoMailing);
   }
   return whoMailing;
@@ -38,6 +41,10 @@ const getUserMailingPreferences = () => {
 
 const mailTo = what => {
   const email = getUserMailingPreferences();
+  if (email === null) {
+    notify.info("Sending mail cancelled 😶");
+    return undefined;
+  }
   sendMail(what, email);
 };
 
