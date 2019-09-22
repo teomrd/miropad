@@ -4,11 +4,7 @@ import welcomeUser from "./welcome";
 import keyListener from "./utils/keyListener";
 import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
-<<<<<<< HEAD
 import { markDownIt } from "./toggleMarkDownViewer";
-=======
-import toggleMarkDownViewer, { markDownIt } from "./toggleMarkDownViewer";
->>>>>>> #markdown markdown preview is updated on the fly
 import getCaretCoordinates from "textarea-caret";
 import commands from "./commands";
 
