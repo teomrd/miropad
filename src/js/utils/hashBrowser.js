@@ -1,4 +1,3 @@
-/* global crypto, TextEncoder */
 // more info about the hashBrowser function ==> https://github.com/Chalarangelo/30-seconds-of-code#hashbrowser-
 
 const hashBrowser = val =>
