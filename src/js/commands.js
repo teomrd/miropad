@@ -1,6 +1,7 @@
 import toggleMarkDownViewer from "./toggleMarkDownViewer";
 import prettifyJSON from "./utils/prettifyJSON";
 import storage from "./utils/localstorage";
+import { mailTo } from "./utils/mail";
 
 const commands = [
   {
@@ -8,14 +9,21 @@ const commands = [
     call: toggleMarkDownViewer
   },
   {
-    key: "p",
+    key: "j",
     call: () => prettifyJSON(".terminal")
   },
   {
     key: "s",
     call: () => {
-      const text = document.querySelector(".terminal").value;
-      storage.saveToLocalStorage(text);
+      const note = document.querySelector(".terminal").value;
+      storage.saveToLocalStorage(note);
+    }
+  },
+  {
+    key: "e",
+    call: () => {
+      const note = document.querySelector(".terminal").value;
+      mailTo(note);
     }
   }
 ];
