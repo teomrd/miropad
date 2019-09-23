@@ -64,20 +64,11 @@ export const initCommander = async () => {
   select("#commander input").listen("keyup", e => {
     generateCommands(e.target.value);
 
-    // console.log("e", e.keyCode);
-    // // arrow down
-    // if (e.keyCode === 40) {
-    //   select("#commands li:first-child").addClass("selected");
-    //   console.log(select("#commands").childNodes);
-    // }
-    // // arrow up
-    // if (e.keyCode === 38) {
-    //   select("#commander li:first-child").hide();
-    // }
     // enter
     if (e.keyCode === 13) {
       select("#commands li.selected").click();
     }
+    // escape
     if (e.keyCode === 27) {
       select(".terminal").focus();
     }
