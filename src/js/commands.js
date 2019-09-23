@@ -34,7 +34,10 @@ const commands = [
   {
     title: "Toggle command palette",
     key: "p",
-    call: () => select(".commander").toggle()
+    call: () => {
+      select("#commander").toggle();
+      select("#commander input").focus();
+    }
   }
 ];
 

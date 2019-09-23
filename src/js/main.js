@@ -17,6 +17,7 @@ const main = () => {
   welcomeUser();
 
   keyListener.listen().on(commands);
+  select(".terminal").listen("focus", () => select("#commander").hide());
   commands.map(({ title, key }) => {
     const li = document.createElement("LI");
     li.appendChild(document.createTextNode(title));

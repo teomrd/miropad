@@ -32,9 +32,25 @@ const select = el => ({
   hasClass(cls) {
     return (" " + this.el.className + " ").indexOf(" " + cls + " ") > -1;
   },
+  show() {
+    this.removeClass("hidden");
+    return this;
+  },
+  hide() {
+    this.addClass("hidden");
+    return this;
+  },
   toggle(className = "hidden") {
     if (this.hasClass(className)) this.removeClass(className);
     else this.addClass(className);
+    return this;
+  },
+  focus() {
+    this.el.focus();
+    return this;
+  },
+  listen(event, fn) {
+    this.el.addEventListener(event, fn);
     return this;
   }
 });
