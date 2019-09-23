@@ -2,6 +2,7 @@ import toggleMarkDownViewer from "./toggleMarkDownViewer";
 import prettifyJSON from "./utils/prettifyJSON";
 import storage from "./utils/localstorage";
 import { mailTo } from "./utils/mail";
+import select from "./utils/dom";
 
 const commands = [
   {
@@ -29,6 +30,11 @@ const commands = [
       const note = document.querySelector(".terminal").value;
       mailTo(note);
     }
+  },
+  {
+    title: "Toggle command palette",
+    key: "p",
+    call: () => select(".commander").toggle()
   }
 ];
 
