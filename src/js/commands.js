@@ -4,7 +4,7 @@ import storage from "./utils/localstorage";
 import { mailTo } from "./utils/mail";
 import select from "./utils/dom";
 
-const commands = [
+export const commands = [
   {
     title: "Toggle MarkDown Viewer",
     key: "m",
@@ -41,4 +41,28 @@ const commands = [
   }
 ];
 
-export default commands;
+export const generateCommands = async (value = "") => {
+  select("#commands").html("");
+  commands
+    .filter(({ title }) => title.toLowerCase().includes(value.toLowerCase()))
+    .map(({ title, key, call }) => {
+      const li = document.createElement("LI");
+      li.onclick = () => {
+        call();
+        select("#commander").hide();
+      };
+      li.appendChild(document.createTextNode(title));
+      const span = document.createElement("span");
+      span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
+      li.appendChild(span);
+      select("#commands").append(li);
+    });
+};
+
+export const initCommander = async () => {
+  select("#commander input").listen("keyup", e =>
+    generateCommands(e.target.value)
+  );
+
+  await generateCommands();
+};

@@ -6,7 +6,7 @@ import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
 import { markDownIt } from "./toggleMarkDownViewer";
 import getCaretCoordinates from "textarea-caret";
-import commands from "./commands";
+import { commands, initCommander, generateCommands } from "./commands";
 import select from "./utils/dom";
 
 const main = () => {
@@ -17,15 +17,24 @@ const main = () => {
   welcomeUser();
 
   keyListener.listen().on(commands);
-  select(".terminal").listen("focus", () => select("#commander").hide());
-  commands.map(({ title, key }) => {
-    const li = document.createElement("LI");
-    li.appendChild(document.createTextNode(title));
-    const span = document.createElement("span");
-    span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
-    li.appendChild(span);
-    select("#commands").append(li);
-  });
+  select(".terminal")
+    .listen("focus", () => select("#commander").hide())
+    .listen("keyup", () => {
+      // MarkDown on the fly
+      markDownIt();
+      const dictionary = storage.getDictionary();
+      const lastWord = terminal.value.split(" ").pop();
+
+      if (lastWord.length > 1) {
+        const matches = dictionary.filter(word => word.startsWith(lastWord));
+        const firstMatch = matches.shift();
+        const prediction = firstMatch || "";
+        storage.set("prediction", prediction);
+        suggestion.innerHTML = prediction.replace(lastWord, "");
+      }
+    });
+
+  initCommander();
 
   const savedTxt = storage.getSavedState();
   terminal.value = savedTxt;
@@ -34,21 +43,6 @@ const main = () => {
     suggestion.style.top = caret.top - caret.height / 3;
     suggestion.style.left = caret.left;
   });
-
-  terminal.onkeyup = () => {
-    // MarkDown on the fly
-    markDownIt();
-    const dictionary = storage.getDictionary();
-    const lastWord = terminal.value.split(" ").pop();
-
-    if (lastWord.length > 1) {
-      const matches = dictionary.filter(word => word.startsWith(lastWord));
-      const firstMatch = matches.shift();
-      const prediction = firstMatch || "";
-      storage.set("prediction", prediction);
-      suggestion.innerHTML = prediction.replace(lastWord, "");
-    }
-  };
 
   terminal.addEventListener("keydown", async e => {
     if (e.which === 9) {

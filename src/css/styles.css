@@ -139,7 +139,7 @@ main {
   background-color: #212121;
   display: flex;
   justify-content: center;
-  padding: 8px;
+  padding: 8px 8px 0 8px;
   display: flex;
   flex-direction: column;
 }
@@ -157,6 +157,7 @@ main {
   display: flex;
   justify-content: space-between;
 }
+
 .commander .palette ul li:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.25);
