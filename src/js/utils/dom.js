@@ -52,6 +52,11 @@ const select = el => ({
   listen(event, fn) {
     this.el.addEventListener(event, fn);
     return this;
+  },
+  click() {
+    if (this.el) {
+      this.el.click();
+    }
   }
 });
 

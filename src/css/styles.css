@@ -158,9 +158,14 @@ main {
   justify-content: space-between;
 }
 
-.commander .palette ul li:hover {
+.commander .palette ul li.selected {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.25);
+}
+
+.commander .palette ul li:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.40);
 }
 
 .commander .palette input {

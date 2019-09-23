@@ -6,7 +6,7 @@ import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
 import { markDownIt } from "./toggleMarkDownViewer";
 import getCaretCoordinates from "textarea-caret";
-import { commands, initCommander, generateCommands } from "./commands";
+import { commands, initCommander } from "./commands";
 import select from "./utils/dom";
 
 const main = () => {
