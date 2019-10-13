@@ -1,5 +1,6 @@
 import hashBrowser from "./hashBrowser";
 import notify from "../notify";
+import IPFS from "ipfs";
 
 const storage = {
   set: function(key, what) {
@@ -7,6 +8,18 @@ const storage = {
   },
   get: function(key) {
     return localStorage.getItem(key);
+  },
+  saveToIPFS: async function(value) {
+    try {
+      const ipfs = await IPFS.create();
+      const content = IPFS.Buffer.from(value);
+      const results = await ipfs.add(content);
+      const hash = results[0].hash;
+      window.location.assign(`#${hash}`);
+      notify.success("👌 Note saved to IPFS!");
+    } catch (e) {
+      notify.error(`😱 Something went wrong while trying to save to IPFS ${e}`); // eslint-disable-line
+    }
   },
   saveToLocalStorage: async function(what) {
     await this.saveToDictionary(what);
@@ -26,10 +39,8 @@ const storage = {
     }
     return this;
   },
-  getSavedState: () => {
-    const hash = window.location.hash.substr(1);
-    const savedTxt = localStorage.getItem(hash);
-    return savedTxt;
+  getLocalValue: key => {
+    return localStorage.getItem(key);
   },
   getDictionary: () => {
     const savedTxt = localStorage.getItem("dictionary");

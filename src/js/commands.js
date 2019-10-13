@@ -19,8 +19,14 @@ export const commands = [
     title: "Save",
     key: "s",
     call: () => {
-      const note = document.querySelector(".terminal").value;
-      storage.saveToLocalStorage(note);
+      storage.saveToLocalStorage(select(".terminal").getValue());
+    }
+  },
+  {
+    title: "Save to IPFS",
+    key: "i",
+    call: () => {
+      storage.saveToIPFS(select(".terminal").getValue());
     }
   },
   {
