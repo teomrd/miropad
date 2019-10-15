@@ -1,7 +1,11 @@
 const select = el => ({
   el: document.querySelector(el),
-  value() {
+  getValue() {
     return this.el.value;
+  },
+  setValue(value) {
+    this.el.value = value;
+    return this;
   },
   html(content) {
     this.el.innerHTML = content;
