@@ -68,9 +68,6 @@ const main = async () => {
       }
     }
   });
-  const q = new URL(window.location.href).searchParams.get("q");
-  const queryResult = search(q);
-  if (queryResult) select(".terminal").setValue(queryResult);
 
   const hash = window.location.hash.substr(1);
   const savedTxt = storage.getLocalValue(hash);
@@ -83,6 +80,10 @@ const main = async () => {
       : "";
     select(".terminal").setValue(retrievedValueFromIPFS);
   }
+
+  const q = new URL(window.location.href).searchParams.get("q");
+  const queryResult = search(q);
+  if (queryResult) select(".terminal").setValue(queryResult);
 };
 
 export default main;
