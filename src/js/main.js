@@ -35,6 +35,8 @@ const main = async () => {
         const firstMatch = matches.shift();
         const prediction = firstMatch || "";
         storage.set("prediction", prediction);
+        console.log("pred", prediction);
+        select(".suggestions").html(prediction);
         suggestion.innerHTML = prediction.replace(lastWord, "");
       }
     });

@@ -181,3 +181,68 @@ main {
 .hidden {
   display: none;
 }
+
+/****** mobile devices *********/
+
+@media (max-width: 481px) {
+  .notification {
+    position: fixed;
+    right: 10px;
+    width: 50%;
+  }
+  .notification.info, .notification.success, .notification.error, .notification.warning {
+    bottom: 11vh;
+  }
+  .mobile-dock {
+    height: 10vh;
+    background: rgba(33, 33, 33, 1);
+    display: flex;
+    max-width: 100%;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    position: fixed;
+    z-index: 1;
+    align-items: center;
+    color: white;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+  .suggestions {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 2;
+    padding: 0 10px;
+  }
+  .divider {
+    width: 1px;
+    height: 40%;
+    background: rgba(255, 255, 255, 0.25);
+  }
+  .menu {
+    display: flex;
+    align-items: center;
+    max-height: 100%;
+  }
+  .menu:after {
+    max-height: 100%;
+    content: '\2807';
+    font-size: 3em;
+    color: rgba(255, 255, 255, 0.75);
+    margin-left: 10px;
+  }
+  .menu:hover:after {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+@media (max-width: 768px) and (orientation:landscape) {
+  .mobile-dock {
+    min-height: 10%;
+    background: rgba(255, 255, 255, 0.75);
+  }
+}
+
+/****** mobile devices *********/
