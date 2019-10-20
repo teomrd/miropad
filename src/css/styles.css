@@ -189,10 +189,11 @@ main {
 }
 
 @media (max-width: 481px) {
-  .notification {
-    position: fixed;
-    right: 10px;
-    width: 50%;
+  .commander .palette ul li {
+    padding: 10px;
+  }
+  .commander .palette ul li span {
+    display: none;
   }
   .notification.info, .notification.success, .notification.error, .notification.warning {
     top: 10px;
