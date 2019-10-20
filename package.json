@@ -11,7 +11,8 @@
     "postbuild": "git add ./dist/",
     "lint": "eslint 'src/**/*js'",
     "predeploy": "npm run build",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "ddeploy": "git checkout gh-pages"
   },
   "devDependencies": {
     "css-loader": "^3.2.0",
