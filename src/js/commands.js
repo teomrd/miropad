@@ -4,6 +4,11 @@ import storage from "./utils/localstorage";
 import { mailTo } from "./utils/mail";
 import select from "./utils/dom";
 
+export const toggleCommandPalette = () => {
+  select("#commander").toggle();
+  select("#commander input").focus();
+};
+
 export const commands = [
   {
     title: "Toggle MarkDown Viewer",
@@ -40,10 +45,7 @@ export const commands = [
   {
     title: "Toggle command palette",
     key: "p",
-    call: () => {
-      select("#commander").toggle();
-      select("#commander input").focus();
-    }
+    call: toggleCommandPalette
   }
 ];
 

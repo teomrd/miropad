@@ -184,6 +184,10 @@ main {
 
 /****** mobile devices *********/
 
+.suggestions {
+  display: none;
+}
+
 @media (max-width: 481px) {
   .notification {
     position: fixed;

@@ -7,7 +7,7 @@ import errorHandler from "./utils/errorHandler";
 import search from "./utils/search";
 import { markDownIt } from "./toggleMarkDownViewer";
 import getCaretCoordinates from "textarea-caret";
-import { commands, initCommander } from "./commands";
+import { commands, initCommander, toggleCommandPalette } from "./commands";
 import select from "./utils/dom";
 import ipfs from "./utils/ipfs";
 
@@ -17,6 +17,8 @@ const main = async () => {
   window.addEventListener("error", errorHandler);
 
   welcomeUser();
+
+  select(".menu").listen("click", toggleCommandPalette);
 
   keyListener.listen().on(commands);
   select(".terminal")
