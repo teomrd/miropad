@@ -38,7 +38,9 @@ export const commands = [
     title: "Email note to...",
     key: "e",
     call: () => {
-      const note = document.querySelector(".terminal").value;
+      const note = `${document.querySelector(".terminal").value} \n ${
+        window.location.href
+      }`;
       mailTo(note);
     }
   },
