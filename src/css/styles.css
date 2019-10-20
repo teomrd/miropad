@@ -58,29 +58,29 @@ main {
 }
 
 .notification.info {
-  border: 1px solid rgba(0, 123, 255, 0.25);
-  background: rgba(0, 123, 255, 0.25);
+  border: 1px solid rgba(0, 123, 255, 0.85);
+  background: rgba(0, 123, 255, 0.85);
   bottom: 25px;
   transition: all 0.5s linear;
 }
 
 .notification.success {
-  border: 1px solid rgba(0, 255, 0, 0.25);
-  background: rgba(0, 255, 0, 0.25);
+  border: 1px solid rgba(0, 255, 0, 0.85);
+  background: rgba(0, 255, 0, 0.85);
   bottom: 25px;
   transition: all 0.5s linear;
 }
 
 .notification.error {
-  border: 1px solid rgba(255, 0, 0, 0.25);
-  background: rgba(255, 0, 0, 0.25);
+  border: 1px solid rgba(255, 0, 0, 0.85);
+  background: rgba(255, 0, 0, 0.85);
   bottom: 25px;
   transition: all 0.5s linear;
 }
 
 .notification.warning {
-  border: 1px solid rgba(255, 255, 0, 0.25);
-  background: rgba(255, 255, 0, 0.25);
+  border: 1px solid rgba(255, 255, 0, 0.85);
+  background: rgba(255, 255, 0, 0.85);
   bottom: 25px;
   transition: all 0.5s linear;
 }
@@ -195,7 +195,8 @@ main {
     width: 50%;
   }
   .notification.info, .notification.success, .notification.error, .notification.warning {
-    bottom: 11vh;
+    top: 10px;
+    bottom: auto;
   }
   .mobile-dock {
     height: 10vh;
@@ -233,7 +234,7 @@ main {
   .menu:after {
     max-height: 100%;
     content: '\2807';
-    font-size: 3em;
+    font-size: 50px;
     color: rgba(255, 255, 255, 0.75);
     margin-left: 10px;
   }
