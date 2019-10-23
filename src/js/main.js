@@ -1,5 +1,6 @@
 import IPFS from "ipfs";
 import "../css/styles.css";
+import "../css/print.css";
 import storage from "./utils/localstorage";
 import welcomeUser from "./welcome";
 import keyListener from "./utils/keyListener";

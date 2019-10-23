@@ -1,0 +1,16 @@
+@media only print {
+  .terminal, .suggestion, .notification, .commander, .mobile-dock {
+    display: none;
+  }
+  .preview {
+    background-color: white;
+    color: black;
+    display: block;
+  }
+  .preview>* {
+    display: block;
+  }
+  .preview.hidden {
+    display: block;
+  }
+}

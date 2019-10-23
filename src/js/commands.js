@@ -1,4 +1,4 @@
-import toggleMarkDownViewer from "./toggleMarkDownViewer";
+import toggleMarkDownViewer, { markDownIt } from "./toggleMarkDownViewer";
 import prettifyJSON from "./utils/prettifyJSON";
 import storage from "./utils/localstorage";
 import { mailTo } from "./utils/mail";
@@ -35,6 +35,15 @@ export const commands = [
     }
   },
   {
+    title: "🖨 Print MarkDown output",
+    key: null,
+    call: () => {
+      select(".preview").show();
+      markDownIt();
+      window.print();
+    }
+  },
+  {
     title: "🔳 Toggle MarkDown Viewer",
     key: "m",
     call: toggleMarkDownViewer
@@ -64,7 +73,9 @@ export const generateCommands = async (value = "") => {
       };
       li.appendChild(document.createTextNode(title));
       const span = document.createElement("span");
-      span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
+      if (key) {
+        span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
+      }
       li.appendChild(span);
       select("#commands").append(li);
     });

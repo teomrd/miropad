@@ -16,9 +16,8 @@ const keyListener = {
           }
         }
       ];
-    } else {
-      throw Error("on method does not have all the required parameters");
     }
+
     return this;
   },
   listen() {

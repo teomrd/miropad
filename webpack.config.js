@@ -1,20 +1,20 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   module: {
     rules: [
       {
         test: /\.css?$/,
-        use: ['style-loader', 'css-loader'],
-      },
-    ],
+        use: ["style-loader", "css-loader"]
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      favicon: 'src/assets/favicon.ico',
+      favicon: "src/assets/favicon.ico",
       hash: true,
-      title: '✍️ MiroPad',
-      template: './src/index.html',
-    }),
-  ],
+      title: "✍️ MiroPad",
+      template: "./src/index.html"
+    })
+  ]
 };
