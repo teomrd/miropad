@@ -235,7 +235,7 @@ main {
   .menu:after {
     max-height: 100%;
     content: '\2807';
-    font-size: 50px;
+    font-size: 30px;
     color: rgba(255, 255, 255, 0.75);
     margin-left: 10px;
   }
