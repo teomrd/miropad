@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
-    "postbuild": "git add ./dist/",
+    "postbuild": "git commit --amend --reuse-message=HEAD -n",
     "lint": "eslint 'src/**/*js'",
     "predeploy": "npm run build",
     "deploy": "git subtree push --prefix dist origin gh-pages"
