@@ -11,31 +11,21 @@ export const toggleCommandPalette = () => {
 
 export const commands = [
   {
-    title: "Toggle MarkDown Viewer",
-    key: "m",
-    call: toggleMarkDownViewer
-  },
-  {
-    key: "j",
-    title: "Prettify JSON document",
-    call: () => prettifyJSON(".terminal")
-  },
-  {
-    title: "Save",
+    title: "💾 Save",
     key: "s",
     call: () => {
       storage.saveToLocalStorage(select(".terminal").getValue());
     }
   },
   {
-    title: "Save to IPFS",
+    title: "📡 Save to IPFS",
     key: "i",
     call: () => {
       storage.saveToIPFS(select(".terminal").getValue());
     }
   },
   {
-    title: "Email note to...",
+    title: "📬 Email note to...",
     key: "e",
     call: () => {
       const note = `${document.querySelector(".terminal").value} \n ${
@@ -45,7 +35,17 @@ export const commands = [
     }
   },
   {
-    title: "Toggle command palette",
+    title: "🔳 Toggle MarkDown Viewer",
+    key: "m",
+    call: toggleMarkDownViewer
+  },
+  {
+    key: "j",
+    title: "💄 Prettify JSON document",
+    call: () => prettifyJSON(".terminal")
+  },
+  {
+    title: "🎨 Toggle command palette",
     key: "p",
     call: toggleCommandPalette
   }
