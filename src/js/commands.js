@@ -92,9 +92,15 @@ export const generateCommands = async (value = "") => {
     });
 };
 
-export const generateNotes = () => {
+export const generateNotes = (value = "") => {
   select("#notes").html("");
   Object.keys(localStorage)
+    .filter(key =>
+      storage
+        .get(key)
+        .toLowerCase()
+        .includes(value.toLowerCase())
+    )
     .slice(0, 10)
     .map((key, i) => {
       const item = storage.get(key).slice(0, 100);
@@ -116,7 +122,7 @@ export const initCommander = async () => {
       select("#notes").hide();
       select("#commander input").placeholder("Search for commands...");
     } else {
-      generateNotes();
+      generateNotes(e.target.value);
       select("#notes").show();
       select("#commands").hide();
       select("#commander input").placeholder("Search for saved notes...");
