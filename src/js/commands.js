@@ -14,8 +14,8 @@ export const commands = [
     title: "📒 List saved notes",
     key: "p",
     call: () => {
-      select("#commander input").setValue("");
       toggleCommandPalette();
+      select("#commander input").setValue("");
     }
   },
   {
@@ -65,8 +65,8 @@ export const commands = [
     title: "🎨 Toggle command palette",
     key: "shift p",
     call: () => {
-      select("#commander input").setValue("> ");
       toggleCommandPalette();
+      select("#commander input").setValue("> ");
     }
   }
 ];
