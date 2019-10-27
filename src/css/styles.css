@@ -176,6 +176,11 @@ main {
   border: none;
 }
 
+.commander .palette a {
+  color: white;
+  text-decoration: none;
+}
+
 /****** commander *********/
 
 .hidden {

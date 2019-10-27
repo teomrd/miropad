@@ -11,6 +11,14 @@ export const toggleCommandPalette = () => {
 
 export const commands = [
   {
+    title: "📒 List saved notes",
+    key: "p",
+    call: () => {
+      select("#commander input").setValue("");
+      toggleCommandPalette();
+    }
+  },
+  {
     title: "💾 Save",
     key: "s",
     call: () => {
@@ -55,8 +63,11 @@ export const commands = [
   },
   {
     title: "🎨 Toggle command palette",
-    key: "p",
-    call: toggleCommandPalette
+    key: "shift p",
+    call: () => {
+      select("#commander input").setValue("> ");
+      toggleCommandPalette();
+    }
   }
 ];
 
@@ -81,9 +92,35 @@ export const generateCommands = async (value = "") => {
     });
 };
 
+export const generateNotes = () => {
+  select("#notes").html("");
+  Object.keys(localStorage)
+    .slice(0, 10)
+    .map((key, i) => {
+      const item = storage.get(key).slice(0, 100);
+      const li = document.createElement("LI");
+      li.className = i === 0 ? "selected" : "";
+      const a = document.createElement("a");
+      a.href = `${window.location.origin}/#${key}`;
+      a.appendChild(document.createTextNode(item));
+      li.appendChild(a);
+      select("#notes").append(li);
+    });
+};
+
 export const initCommander = async () => {
   select("#commander input").listen("keyup", e => {
-    generateCommands(e.target.value);
+    if (e.target.value.slice(0, 1) === ">") {
+      generateCommands(e.target.value.slice(1, -1).trim());
+      select("#commands").show();
+      select("#notes").hide();
+      select("#commander input").placeholder("Search for commands...");
+    } else {
+      generateNotes();
+      select("#notes").show();
+      select("#commands").hide();
+      select("#commander input").placeholder("Search for saved notes...");
+    }
 
     // enter
     if (e.keyCode === 13) {
@@ -95,5 +132,5 @@ export const initCommander = async () => {
     }
   });
 
-  await generateCommands();
+  generateCommands();
 };

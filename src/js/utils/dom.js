@@ -1,5 +1,9 @@
 const select = el => ({
   el: document.querySelector(el),
+  placeholder(what) {
+    this.el.placeholder = what;
+    return this;
+  },
   getValue() {
     return this.el.value;
   },

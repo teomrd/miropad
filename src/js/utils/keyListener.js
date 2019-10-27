@@ -10,7 +10,8 @@ const keyListener = {
       this.events = [
         ...this.events,
         {
-          key,
+          key: key.includes("shift") ? key.replace("shift", "").trim() : key,
+          shift: key.includes("shift"),
           fn() {
             fn();
           }
@@ -28,7 +29,11 @@ const keyListener = {
   },
   handleEvent(e) {
     this.events.map(event => {
-      if (event.key === e.key && (e.ctrlKey === true || e.metaKey === true)) {
+      if (
+        event.key === e.key &&
+        (e.ctrlKey === true || e.metaKey === true) &&
+        e.shiftKey === event.shift
+      ) {
         e.preventDefault();
         event.fn();
       }
