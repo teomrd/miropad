@@ -107,7 +107,7 @@ export const generateNotes = (value = "") => {
       const li = document.createElement("LI");
       li.className = i === 0 ? "selected" : "";
       const a = document.createElement("a");
-      a.href = `${window.location.origin}/miropad#${key}`;
+      a.href = `${window.location.origin}${window.location.pathname}#${key}`;
       a.appendChild(document.createTextNode(item));
       li.appendChild(a);
       select("#notes").append(li);
