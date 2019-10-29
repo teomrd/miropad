@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -13,8 +14,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       favicon: "src/assets/favicon.ico",
       hash: true,
-      title: "✍️ MiroPad",
+      title: `✍️ MiroPad v${require("./package.json").version}`,
       template: "./src/index.html"
+    }),
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(require("./package.json").version)
     })
   ]
 };

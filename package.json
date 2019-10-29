@@ -21,6 +21,8 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
+    "file-loader": "^4.2.0",
+    "html-loader": "^0.5.5",
     "prettier": "1.18.2",
     "showdown": "^1.9.0",
     "style-loader": "^1.0.0",
