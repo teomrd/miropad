@@ -12,6 +12,11 @@ import { commands, initCommander, toggleCommandPalette } from "./commands";
 import select from "./utils/dom";
 import ipfs from "./utils/ipfs";
 
+const setNoteFromHash = hash => {
+  const savedTxt = storage.getLocalValue(hash);
+  select(".terminal").setValue(savedTxt);
+};
+
 const main = async () => {
   const suggestion = document.querySelector(".suggestion");
   const terminal = document.querySelector(".terminal");
@@ -74,8 +79,10 @@ const main = async () => {
   });
 
   const hash = window.location.hash.substr(1);
-  const savedTxt = storage.getLocalValue(hash);
-  select(".terminal").setValue(savedTxt);
+  setNoteFromHash(hash);
+  window.addEventListener("hashchange", () =>
+    setNoteFromHash(window.location.hash.substr(1))
+  );
 
   const ipfsNode = await IPFS.create();
   if (ipfs.isValidCid(hash)) {

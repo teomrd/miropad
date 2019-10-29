@@ -179,6 +179,7 @@ main {
 .commander .palette a {
   color: white;
   text-decoration: none;
+  width: 100%;
 }
 
 /****** commander *********/
