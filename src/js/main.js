@@ -1,6 +1,7 @@
 import IPFS from "ipfs";
 import "../css/styles.css";
 import "../css/print.css";
+import "github-markdown-css";
 import storage from "./utils/localstorage";
 import welcomeUser from "./welcome";
 import errorHandler from "./utils/errorHandler";
