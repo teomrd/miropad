@@ -95,10 +95,6 @@ const main = async () => {
   });
 
   const hash = window.location.hash.substr(1);
-  setNoteFromHash(hash);
-  window.addEventListener("hashchange", () =>
-    setNoteFromHash(window.location.hash.substr(1))
-  );
 
   const ipfsNode = await IPFS.create();
   if (ipfs.isValidCid(hash)) {
@@ -106,6 +102,11 @@ const main = async () => {
       ? await ipfs.getFileContents(ipfsNode, hash)
       : "";
     select(".terminal").setValue(retrievedValueFromIPFS);
+  } else {
+    setNoteFromHash(hash);
+    window.addEventListener("hashchange", () =>
+      setNoteFromHash(window.location.hash.substr(1))
+    );
   }
 
   const q = new URL(window.location.href).searchParams.get("q");
