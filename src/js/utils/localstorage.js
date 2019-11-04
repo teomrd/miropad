@@ -36,7 +36,7 @@ const storage = {
         console.log("note", note);
 
         localStorage.setItem(
-          title,
+          encodeURIComponent(title),
           JSON.stringify({
             title,
             revisions: {
