@@ -26,8 +26,29 @@ const storage = {
     if (what.length) {
       const hash = await hashBrowser(what);
       try {
-        localStorage.setItem(hash, what);
-        window.location.assign(`#${hash}`);
+        const title = what
+          .split("\n")[0]
+          .trim()
+          .replace("#", "")
+          .trim();
+        const currentNote = this.get(title);
+        const note = JSON.parse(currentNote);
+        console.log("note", note);
+
+        localStorage.setItem(
+          title,
+          JSON.stringify({
+            title,
+            revisions: {
+              ...((note && note.revisions) || {}),
+              [hash]: {
+                dateCreated: Date.now(),
+                text: what
+              }
+            }
+          })
+        );
+        window.location.assign(`#${title}?v=${hash}`);
         notify.success("👌 Note saved!");
       } catch (e) {
         notify.error(

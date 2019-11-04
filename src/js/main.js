@@ -13,8 +13,26 @@ import ipfs from "./utils/ipfs";
 import commander from "./components/commander/commander";
 
 const setNoteFromHash = hash => {
-  const savedTxt = storage.getLocalValue(hash);
-  select(".terminal").setValue(savedTxt);
+  const hashWithVersion = hash.split("?");
+  const title = hashWithVersion[0].replace("%20", " "); // replace URL space representation with space
+  const doc = JSON.parse(storage.getLocalValue(title));
+  const revision = hashWithVersion[1]
+    ? hashWithVersion[1].replace("v=", "")
+    : undefined; // get just the revision id
+
+  const newerNote = Object.values(doc.revisions).reduce(
+    (acc, note) => {
+      if (note.dateCreated > acc.dateCreated) {
+        return note;
+      }
+    },
+    {
+      dateCreated: 0
+    }
+  );
+  const note = revision ? doc.revisions[revision].text : newerNote.text;
+
+  select(".terminal").setValue(note);
 };
 
 const main = async () => {
