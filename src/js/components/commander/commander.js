@@ -4,6 +4,7 @@ import { mailTo } from "../../utils/mail";
 import keyListener from "../../utils/keyListener";
 import select from "../../utils/dom";
 import storage from "../../utils/localstorage";
+import isJSON from "../../utils/isJSON";
 
 const toggleCommandPalette = () => {
   select("#commander").toggle();
@@ -117,23 +118,29 @@ const commander = {
   generateNotes: function(value = "") {
     select("#notes").html("");
     Object.keys(localStorage)
-      .filter(key =>
-        storage
-          .get(key)
-          .toLowerCase()
-          .includes(value.toLowerCase())
-      )
-      .slice(0, 10)
-      .map((key, i) => {
-        const item = storage.get(key).slice(0, 100);
+      .map(key => {
+        if (key !== "dictionary") {
+          return storage.get(key);
+        }
+      })
+      .filter(isJSON) // filter out non-notes
+      .map(n => {
+        const note = JSON.parse(n);
+        return note;
+      })
+      .filter(note => {
+        return note.title.toLowerCase().includes(value.toLowerCase());
+      })
+      .map((note, i) => {
         const li = document.createElement("LI");
         li.className = i === 0 ? "selected" : "";
         const a = document.createElement("a");
-        a.href = `${window.location.origin}${window.location.pathname}#${key}`;
-        a.appendChild(document.createTextNode(item));
+        a.href = `${window.location.origin}${window.location.pathname}#${note.title}`;
+        a.appendChild(document.createTextNode(note.title));
         li.appendChild(a);
         select("#notes").append(li);
-      });
+      })
+      .slice(0, 10);
   },
   generateCommands: async function(value = "") {
     select("#commands").html("");
