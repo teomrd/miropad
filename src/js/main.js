@@ -103,10 +103,11 @@ const main = async () => {
     select(".terminal").setValue(retrievedValueFromIPFS);
   } else {
     setNoteFromHash(hash);
-    window.addEventListener("hashchange", () =>
-      setNoteFromHash(window.location.hash.substr(1))
-    );
   }
+
+  window.addEventListener("hashchange", () =>
+    setNoteFromHash(window.location.hash.substr(1))
+  );
 
   const q = new URL(window.location.href).searchParams.get("q");
   const queryResult = search(q);
