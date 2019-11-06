@@ -1,6 +1,6 @@
 {
   "name": "miropad",
-  "version": "2.0.0",
+  "version": "1.1.0",
   "main": "src/index.js",
   "repository": "https://github.com/teomrd/MiroPad.git",
   "author": "teomrd <mironidis.gr@gmail.com>",
@@ -9,6 +9,7 @@
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "lint": "eslint 'src/**/*js'",
+    "predeploy": "git push -n",
     "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
