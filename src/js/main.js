@@ -22,9 +22,7 @@ const setNoteFromHash = hash => {
     : undefined; // get just the revision id
   const newerNote = Object.values(doc.revisions).reduce(
     (acc, note) => {
-      if (note.dateCreated > acc.dateCreated) {
-        return note;
-      }
+      return note.dateCreated > acc.dateCreated ? note : acc;
     },
     {
       dateCreated: 0
