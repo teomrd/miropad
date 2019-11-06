@@ -14,7 +14,7 @@ import commander from "./components/commander/commander";
 
 const setNoteFromHash = hash => {
   const hashWithVersion = hash.split("?");
-  const title = hashWithVersion[0]; // replace URL space representation with space
+  const title = hashWithVersion[0];
   const doc = JSON.parse(storage.getLocalValue(title));
   const revision = hashWithVersion[1]
     ? hashWithVersion[1].replace("v=", "")

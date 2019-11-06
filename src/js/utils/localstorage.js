@@ -26,17 +26,19 @@ const storage = {
     if (what.length) {
       const hash = await hashBrowser(what);
       try {
-        const title = what
-          .split("\n")[0]
-          .trim()
-          .replace("#", "")
-          .trim();
+        const title = encodeURIComponent(
+          what
+            .split("\n")[0]
+            .trim()
+            .replace("#", "")
+            .replace(/[^\w\s]/gi, "")
+            .trim()
+        );
         const currentNote = this.get(title);
         const note = JSON.parse(currentNote);
-        console.log("note", note);
 
         localStorage.setItem(
-          encodeURIComponent(title),
+          title,
           JSON.stringify({
             title,
             revisions: {
