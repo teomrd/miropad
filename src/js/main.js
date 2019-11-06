@@ -11,6 +11,7 @@ import getCaretCoordinates from "textarea-caret";
 import select from "./utils/dom";
 import ipfs from "./utils/ipfs";
 import commander from "./components/commander/commander";
+import setTitle from "./utils/pageTitle";
 
 const setNoteFromHash = hash => {
   const hashWithVersion = hash.split("?");
@@ -30,7 +31,7 @@ const setNoteFromHash = hash => {
     }
   );
   const note = revision ? doc.revisions[revision].text : newerNote.text;
-
+  setTitle(decodeURIComponent(title));
   select(".terminal").setValue(note);
 };
 

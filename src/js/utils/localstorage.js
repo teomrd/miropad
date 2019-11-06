@@ -1,6 +1,7 @@
 import hashBrowser from "./hashBrowser";
 import notify from "../notify";
 import IPFS from "ipfs";
+import setPageTitle from "./pageTitle";
 
 const storage = {
   set: function(key, what) {
@@ -26,19 +27,18 @@ const storage = {
     if (what.length) {
       const hash = await hashBrowser(what);
       try {
-        const title = encodeURIComponent(
-          what
-            .split("\n")[0]
-            .trim()
-            .replace("#", "")
-            .replace(/[^\w\s]/gi, "")
-            .trim()
-        );
+        const title = what
+          .split("\n")[0]
+          .trim()
+          .replace("#", "")
+          .replace(/[^\w\s]/gi, "")
+          .trim();
+        const titleID = encodeURIComponent(title);
         const currentNote = this.get(title);
         const note = JSON.parse(currentNote);
-
+        setPageTitle(title);
         localStorage.setItem(
-          title,
+          titleID,
           JSON.stringify({
             title,
             revisions: {
