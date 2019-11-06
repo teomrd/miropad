@@ -34,7 +34,7 @@ const storage = {
           .replace(/[^\w\s]/gi, "")
           .trim();
         const titleID = encodeURIComponent(title);
-        const currentNote = this.get(title);
+        const currentNote = this.get(titleID);
         const note = JSON.parse(currentNote);
         setPageTitle(title);
         localStorage.setItem(
