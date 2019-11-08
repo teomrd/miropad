@@ -1,9 +1,25 @@
 #!/bin/bash
-############################
-# deploy.sh
-############################
+#===============================================================================
+#
+#          FILE: deploy.sh
+#
+#         USAGE:  ./deploy.sh
+#
+#   DESCRIPTION: upgrades the version and deploying to github pages
+#
+#       OPTIONS:  $1: patch(default), minor, major 
+#  REQUIREMENTS:  npm, git
+#          BUGS:  ---
+#         NOTES:  ---
+#        AUTHOR:  teomrd
+#       COMPANY:  null
+#       VERSION:  1.0
+#       CREATED:  08/11/2019
+#===============================================================================
 
-npm version minor &&
+version_type=${1:-patch};
+
+npm version "$version_type" &&
   npm run build &&
   git add ./dist/* &&
   git amend -n &&
