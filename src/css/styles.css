@@ -15,7 +15,29 @@ body {
 
 main {
   display: flex;
-  height: 100%;
+  height: calc(100% - 50px);
+}
+
+header {
+  background-color: rgb(17, 21, 24);
+  display: flex;
+  align-items: center;
+  height: 50px;
+  color: #fff;
+  padding: 0 10px;
+}
+header .logo {
+  color: #00ec00;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #000;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+header .title {
+  font-weight: 400;
 }
 
 .preview {
