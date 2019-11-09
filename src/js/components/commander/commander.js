@@ -66,6 +66,7 @@ const commander = {
         key: "s",
         call: () => {
           storage.saveToLocalStorage(select(".terminal").getValue());
+          this.hide();
         }
       },
       {
@@ -73,6 +74,7 @@ const commander = {
         key: "i",
         call: () => {
           storage.saveToIPFS(select(".terminal").getValue());
+          this.hide();
         }
       },
       {
@@ -83,6 +85,7 @@ const commander = {
             window.location.href
           }`;
           mailTo(note);
+          this.hide();
         }
       },
       {
@@ -92,17 +95,24 @@ const commander = {
           select(".preview").show();
           markDownIt();
           window.print();
+          this.hide();
         }
       },
       {
         title: "🔳 Toggle MarkDown Viewer",
         key: "m",
-        call: toggleMarkDownViewer
+        call: () => {
+          toggleMarkDownViewer();
+          this.hide();
+        }
       },
       {
         key: "j",
         title: "💄 Prettify JSON document",
-        call: () => prettifyJSON(".terminal")
+        call: () => {
+          prettifyJSON(".terminal");
+          this.hide();
+        }
       },
       {
         title: "🎨 Toggle command palette",
@@ -182,10 +192,7 @@ const commander = {
       .map(({ title, key, call }, i) => {
         const li = document.createElement("LI");
         li.className = i === 0 ? "selected" : "";
-        li.onclick = () => {
-          call();
-          this.hide();
-        };
+        li.onclick = call;
         li.appendChild(document.createTextNode(title));
         const span = document.createElement("span");
         if (key) {
