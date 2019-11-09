@@ -35,17 +35,20 @@ const commander = {
         // do nothing;
         break;
     }
+    return this;
   },
   hide: function() {
     select("#commander").hide();
     this.state.mode = commanderModes.off;
+    return this;
   },
   toggle: function() {
     if (this.state.mode === commanderModes.off) {
-      select("#commander").show();
+      this.show();
     } else {
-      select("#commander").hide();
+      this.hide();
     }
+    return this;
   },
   commands: function() {
     return [
@@ -140,7 +143,7 @@ const commander = {
   init: function() {
     this.initCommander();
     keyListener.listen().on(this.commands());
-    select(".menu").listen("click", this.toggle());
+    select(".menu").listen("click", () => this.toggle());
     return this;
   },
   generateNotes: function(value = "") {
