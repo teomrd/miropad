@@ -182,7 +182,10 @@ const commander = {
       .map(({ title, key, call }, i) => {
         const li = document.createElement("LI");
         li.className = i === 0 ? "selected" : "";
-        li.onclick = call;
+        li.onclick = () => {
+          call();
+          this.hide();
+        };
         li.appendChild(document.createTextNode(title));
         const span = document.createElement("span");
         if (key) {
