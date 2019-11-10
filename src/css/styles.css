@@ -42,6 +42,19 @@ header .logo {
   background: #000;
   border-radius: 10px;
   margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+
+header .logo:hover {
+  transform: scale(1.2);
+}
+
+header .logo:active {
+  transform: scale(0.9);
 }
 
 header .title {

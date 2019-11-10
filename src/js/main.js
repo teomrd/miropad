@@ -20,17 +20,21 @@ const setNoteFromHash = hash => {
   const revision = hashWithVersion[1]
     ? hashWithVersion[1].replace("v=", "")
     : undefined; // get just the revision id
-  const newerNote = Object.values(doc.revisions).reduce(
-    (acc, note) => {
-      return note.dateCreated > acc.dateCreated ? note : acc;
-    },
-    {
-      dateCreated: 0
-    }
-  );
-  const note = revision ? doc.revisions[revision].text : newerNote.text;
-  setTitle(decodeURIComponent(title));
-  select(".terminal").setValue(note);
+  if (doc) {
+    const newerNote = Object.values(doc.revisions).reduce(
+      (acc, note) => {
+        return note.dateCreated > acc.dateCreated ? note : acc;
+      },
+      {
+        dateCreated: 0
+      }
+    );
+    const note = revision ? doc.revisions[revision].text : newerNote.text;
+    setTitle(decodeURIComponent(title));
+    select(".terminal").setValue(note);
+  } else {
+    select(".terminal").setValue("");
+  }
 };
 
 const main = async () => {
@@ -110,6 +114,10 @@ const main = async () => {
   const q = new URL(window.location.href).searchParams.get("q");
   const queryResult = search(q);
   if (queryResult) select(".terminal").setValue(queryResult);
+
+  select(".logo").listen("click", () => {
+    location.hash = "";
+  });
 };
 
 export default main;
