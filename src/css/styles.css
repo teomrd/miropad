@@ -214,10 +214,11 @@ header .title {
 }
 
 .commander .palette ul li {
-  padding: 2px;
+  padding: 0 2px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
 }
 
 .commander .palette ul li.selected {
@@ -240,9 +241,16 @@ header .title {
   color: white;
   text-decoration: none;
   flex-grow: 1;
+  padding: 10px 0;
 }
 
-.commander .palette ul li span {
+.commander .palette ul li div {
+  padding: 10px 0;
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.commander .palette ul li>span {
   font-size: small;
   align-self: center;
   opacity: 0.5;

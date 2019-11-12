@@ -219,7 +219,9 @@ const commander = {
         const li = document.createElement("LI");
         li.className = i === 0 ? "selected" : "";
         li.onclick = call;
-        li.appendChild(document.createTextNode(title));
+        const commandContainer = document.createElement("div");
+        commandContainer.appendChild(document.createTextNode(title));
+        li.appendChild(commandContainer);
         const span = document.createElement("span");
         if (key) {
           span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
