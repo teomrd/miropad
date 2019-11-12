@@ -170,16 +170,42 @@ const commander = {
         return note;
       })
       .filter(note => {
+        const hasTitle = Object.prototype.hasOwnProperty.call(note, "title");
+        const hasRevisions = Object.prototype.hasOwnProperty.call(
+          note,
+          "revisions"
+        );
+        if (!(hasTitle && hasRevisions)) {
+          return false; // if not valid note drop it
+        }
         return note.title.toLowerCase().includes(value.toLowerCase());
+      })
+      .sort((a, b) => {
+        const aDateCreated = Object.values(a.revisions)[0].dateCreated;
+        const bDateCreated = Object.values(b.revisions)[0].dateCreated;
+        return bDateCreated - aDateCreated;
       })
       .map((note, i) => {
         const li = document.createElement("LI");
+        const dateSpan = document.createElement("span");
+        const dateCreated = new Date(
+          Object.values(note.revisions)[0].dateCreated
+        );
+        console.log("dateCreated", dateCreated);
+        dateSpan.appendChild(
+          document.createTextNode(
+            `${new Date(dateCreated).toLocaleDateString()} ${new Date(
+              dateCreated
+            ).toLocaleTimeString()}`
+          )
+        );
         li.className = i === 0 ? "selected" : "";
         li.onclick = () => this.hide();
         const a = document.createElement("a");
         a.href = `${window.location.origin}${window.location.pathname}#${note.title}`;
         a.appendChild(document.createTextNode(note.title));
         li.appendChild(a);
+        li.appendChild(dateSpan);
         select("#commands").append(li);
       })
       .slice(0, 10);

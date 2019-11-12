@@ -216,16 +216,15 @@ header .title {
 .commander .palette ul li {
   padding: 2px;
   display: flex;
+  flex-flow: row nowrap;
   justify-content: space-between;
 }
 
 .commander .palette ul li.selected {
-  cursor: pointer;
   background-color: rgba(255, 255, 255, 0.25);
 }
 
 .commander .palette ul li:hover {
-  cursor: pointer;
   background-color: rgba(255, 255, 255, 0.40);
 }
 
@@ -237,10 +236,16 @@ header .title {
   border: none;
 }
 
-.commander .palette a {
+.commander .palette ul li a {
   color: white;
   text-decoration: none;
-  width: 100%;
+  flex-grow: 1;
+}
+
+.commander .palette ul li span {
+  font-size: small;
+  align-self: center;
+  opacity: 0.5;
 }
 
 /****** commander *********/
