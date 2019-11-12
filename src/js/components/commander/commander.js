@@ -191,7 +191,6 @@ const commander = {
         const dateCreated = new Date(
           Object.values(note.revisions)[0].dateCreated
         );
-        console.log("dateCreated", dateCreated);
         dateSpan.appendChild(
           document.createTextNode(
             `${new Date(dateCreated).toLocaleDateString()} ${new Date(
