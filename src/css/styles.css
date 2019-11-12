@@ -253,12 +253,6 @@ header .title {
   flex-grow: 1;
 }
 
-.commander .palette ul li>span {
-  font-size: small;
-  align-self: center;
-  opacity: 0.5;
-}
-
 /****** commander *********/
 
 .hidden {
@@ -267,10 +261,17 @@ header .title {
 
 /****** menu *********/
 
+.secondary {
+  opacity: 0.5;
+  align-self: center;
+  font-size: small;
+}
+
 .divider {
   width: 1px;
   height: 15px;
   background: rgba(255, 255, 255, 0.25);
+  margin: 0 10px;
 }
 
 .menu {
@@ -285,7 +286,6 @@ header .title {
   content: '\2807';
   font-size: 30px;
   color: rgba(255, 255, 255, 0.75);
-  margin-left: 10px;
 }
 
 .menu:hover:after {

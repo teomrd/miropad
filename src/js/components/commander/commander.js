@@ -188,6 +188,7 @@ const commander = {
       .map((note, i) => {
         const li = document.createElement("LI");
         const dateSpan = document.createElement("span");
+        dateSpan.className = "secondary";
         const dateCreated = new Date(
           Object.values(note.revisions)[0].dateCreated
         );
@@ -222,6 +223,7 @@ const commander = {
         commandContainer.appendChild(document.createTextNode(title));
         li.appendChild(commandContainer);
         const span = document.createElement("span");
+        span.className = "secondary";
         if (key) {
           span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
         }

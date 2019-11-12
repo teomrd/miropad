@@ -30,6 +30,10 @@ const setNoteFromHash = hash => {
       }
     );
     const note = revision ? doc.revisions[revision].text : newerNote.text;
+    const revisionsCount = Object.keys(doc.revisions).length;
+    select("#revisions").html(
+      `${revisionsCount} revision${revisionsCount > 1 ? "s" : ""}`
+    );
     setPageTitle(decodeURIComponent(title));
     select(".terminal").setValue(note);
   } else {
@@ -118,6 +122,7 @@ const main = async () => {
   select(".logo").listen("click", () => {
     location.hash = "";
     resetPageTitle();
+    select("#revisions").html("");
   });
 };
 
