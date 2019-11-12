@@ -1,7 +1,7 @@
 import hashBrowser from "./hashBrowser";
 import notify from "../notify";
 import IPFS from "ipfs";
-import setPageTitle from "./pageTitle";
+import { setPageTitle } from "./pageTitle";
 
 const storage = {
   set: function(key, what) {
