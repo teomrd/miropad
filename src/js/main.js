@@ -124,6 +124,7 @@ const main = async () => {
     location.hash = "";
     resetPageTitle();
     select("#revisions").html("");
+    select(".logo").removeClass("unsaved");
   });
 };
 
