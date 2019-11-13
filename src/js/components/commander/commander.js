@@ -6,6 +6,7 @@ import keyListener from "../../utils/keyListener";
 import select from "../../utils/dom";
 import storage from "../../utils/localstorage";
 import isJSON from "../../utils/isJSON";
+import { getCurrentNote, resetNoteManager } from "../noteManager/noteManager";
 
 const commanderModes = {
   off: "off",
@@ -68,6 +69,19 @@ const commander = {
           storage.saveToLocalStorage(select(".terminal").getValue());
           this.hide();
           select(".logo").removeClass("unsaved");
+        }
+      },
+      {
+        title: "🗑 Trash note",
+        key: "shift d",
+        call: () => {
+          const confirmation = confirm("Are you sure you want do that?");
+          if (confirmation) {
+            const { titleId } = getCurrentNote();
+            localStorage.removeItem(titleId);
+            resetNoteManager();
+          }
+          this.hide();
         }
       },
       {

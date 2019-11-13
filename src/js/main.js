@@ -11,35 +11,11 @@ import getCaretCoordinates from "textarea-caret";
 import select from "./utils/dom";
 import ipfs from "./utils/ipfs";
 import commander from "./components/commander/commander";
-import { setPageTitle, resetPageTitle } from "./utils/pageTitle";
-
-const setNoteFromHash = hash => {
-  const hashWithVersion = hash.split("?");
-  const title = hashWithVersion[0];
-  const doc = JSON.parse(storage.getLocalValue(title));
-  const revision = hashWithVersion[1]
-    ? hashWithVersion[1].replace("v=", "")
-    : undefined; // get just the revision id
-  if (doc) {
-    const newerNote = Object.values(doc.revisions).reduce(
-      (acc, note) => {
-        return note.dateCreated > acc.dateCreated ? note : acc;
-      },
-      {
-        dateCreated: 0
-      }
-    );
-    const note = revision ? doc.revisions[revision].text : newerNote.text;
-    const revisionsCount = Object.keys(doc.revisions).length;
-    select("#revisions").html(
-      `${revisionsCount} revision${revisionsCount > 1 ? "s" : ""}`
-    );
-    setPageTitle(decodeURIComponent(title));
-    select(".terminal").setValue(note);
-  } else {
-    select(".terminal").setValue("");
-  }
-};
+import {
+  setNoteFromHash,
+  resetNoteManager,
+  getCurrentNote
+} from "./components/noteManager/noteManager";
 
 const main = async () => {
   const suggestion = document.querySelector(".suggestion");
@@ -52,8 +28,16 @@ const main = async () => {
 
   select(".terminal")
     .listen("focus", () => select("#commander").hide())
-    .listen("keydown", () => select(".logo").addClass("unsaved"))
     .listen("keyup", () => {
+      const { text } = getCurrentNote();
+      console.log("ter", select(".terminal").getValue());
+      console.log("text", text);
+      if (select(".terminal").getValue() !== text) {
+        select(".logo").addClass("unsaved");
+      } else {
+        select(".logo").removeClass("unsaved");
+      }
+
       // MarkDown on the fly
       markDownIt();
       const dictionary = storage.getDictionary();
@@ -109,23 +93,16 @@ const main = async () => {
       : "";
     select(".terminal").setValue(retrievedValueFromIPFS);
   } else {
-    setNoteFromHash(hash);
+    setNoteFromHash();
   }
 
-  window.addEventListener("hashchange", () =>
-    setNoteFromHash(window.location.hash.substr(1))
-  );
+  window.addEventListener("hashchange", () => setNoteFromHash());
 
   const q = new URL(window.location.href).searchParams.get("q");
   const queryResult = search(q);
   if (queryResult) select(".terminal").setValue(queryResult);
 
-  select(".logo").listen("click", () => {
-    location.hash = "";
-    resetPageTitle();
-    select("#revisions").html("");
-    select(".logo").removeClass("unsaved");
-  });
+  select(".logo").listen("click", resetNoteManager);
 };
 
 export default main;
