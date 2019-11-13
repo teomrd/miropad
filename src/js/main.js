@@ -52,6 +52,7 @@ const main = async () => {
 
   select(".terminal")
     .listen("focus", () => select("#commander").hide())
+    .listen("keydown", () => select(".logo").addClass("unsaved"))
     .listen("keyup", () => {
       // MarkDown on the fly
       markDownIt();

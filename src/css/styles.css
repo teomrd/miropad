@@ -44,13 +44,21 @@ header .logo {
   margin-right: 10px;
   align-items: center;
   justify-content: center;
-  display: flex;
+  display: block;
+  position: relative;
   transition: all .2s ease-in-out;
   cursor: pointer;
 }
 
-header .logo:hover {
-  transform: scale(1.2);
+header .logo.unsaved::after {
+  width: 7px;
+  height: 7px;
+  background-color: red;
+  border-radius: 50%;
+  content: "";
+  top: -2px;
+  right: -2px;
+  position: absolute;
 }
 
 header .logo:active {

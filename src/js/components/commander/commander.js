@@ -67,6 +67,7 @@ const commander = {
         call: () => {
           storage.saveToLocalStorage(select(".terminal").getValue());
           this.hide();
+          select(".logo").removeClass("unsaved");
         }
       },
       {
