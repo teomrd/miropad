@@ -1,5 +1,5 @@
 @media only print {
-  .terminal, .suggestion, .notification, .commander, .mobile-dock {
+  .terminal, .notification, .commander, .mobile-dock {
     display: none;
   }
   .preview {

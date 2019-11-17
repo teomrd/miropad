@@ -156,16 +156,6 @@ header .title {
 
 /****** custom scrollbar *********/
 
-.suggestion {
-  position: absolute;
-  color: #00ec00;
-  font-style: italic;
-  z-index: 10;
-  opacity: 0.4;
-  font-family: monospace;
-  font-size: 25px;
-}
-
 ::-webkit-scrollbar {
   width: 5px;
 }
