@@ -105,7 +105,7 @@ const main = async () => {
 
   select(".logo").listen("click", resetNoteManager);
 
-  registerSW();
+  registerSW("./sw.js");
 };
 
 export default main;
