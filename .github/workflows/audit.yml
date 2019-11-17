@@ -1,0 +1,17 @@
+name: Lighthouse Audits
+
+on:
+  push:
+    branches:
+    - master
+    - gh-pages
+    - audits-action 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Lighthouse Audit
+      uses: jakejarvis/lighthouse-action@v0.1.0
