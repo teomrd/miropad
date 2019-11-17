@@ -16,6 +16,7 @@ import {
   resetNoteManager,
   getCurrentNote
 } from "./components/noteManager/noteManager";
+import { registerSW } from "./components/serviceWorkers/register";
 
 const main = async () => {
   const suggestion = document.querySelector(".suggestion");
@@ -103,6 +104,8 @@ const main = async () => {
   if (queryResult) select(".terminal").setValue(queryResult);
 
   select(".logo").listen("click", resetNoteManager);
+
+  registerSW();
 };
 
 export default main;

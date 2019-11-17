@@ -1,13 +1,13 @@
 {
   "name": "miropad",
-  "version": "2.7.20",
+  "version": "2.7.19",
   "main": "src/index.js",
   "repository": "https://github.com/teomrd/MiroPad.git",
   "author": "teomrd <mironidis.gr@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && workbox injectManifest workbox-config.js",
     "lint": "eslint 'src/**/*js'",
     "deploy": "./scripts/deploy.sh"
   },
@@ -24,7 +24,8 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2"
+    "webpack-dev-server": "^3.8.2",
+    "workbox-cli": "^4.3.1"
   },
   "dependencies": {
     "cids": "^0.7.1",
