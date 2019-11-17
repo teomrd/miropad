@@ -30,13 +30,14 @@ const main = async () => {
   select(".terminal")
     .listen("focus", () => select("#commander").hide())
     .listen("keyup", () => {
-      const { text } = getCurrentNote();
-      console.log("ter", select(".terminal").getValue());
-      console.log("text", text);
-      if (select(".terminal").getValue() !== text) {
-        select(".logo").addClass("unsaved");
-      } else {
-        select(".logo").removeClass("unsaved");
+      const currentNode = getCurrentNote();
+      if (currentNode) {
+        const { text = "" } = currentNode;
+        if (select(".terminal").getValue() !== text) {
+          select(".logo").addClass("unsaved");
+        } else {
+          select(".logo").removeClass("unsaved");
+        }
       }
 
       // MarkDown on the fly
