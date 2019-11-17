@@ -6,6 +6,7 @@
   "author": "teomrd <mironidis.gr@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "http-server dist",
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production && workbox injectManifest workbox-config.js",
     "lint": "eslint 'src/**/*js'",
