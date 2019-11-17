@@ -3,8 +3,5 @@ export const registerSW = serviceWorker => {
     window.addEventListener("load", function() {
       navigator.serviceWorker.register(serviceWorker);
     });
-    console.log("serviceWorker registered!");
-  } else {
-    console.log("serviceWorker 😬!");
   }
 };
