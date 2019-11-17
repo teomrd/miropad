@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox-sw.js"
 );
@@ -44,11 +45,11 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "ce4b5f081b5c76040e8d6e59ac93a32f"
+    "revision": "b832d0bc98e46370caf8bcaf81395245"
   },
   {
     "url": "main.js",
-    "revision": "b918b1a15754f7fdf62d265b645b364a"
+    "revision": "9e6dc17e7c4d1c5e08c6b6585182e2f8"
   },
   {
     "url": "manifest.json",
