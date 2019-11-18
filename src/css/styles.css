@@ -61,9 +61,14 @@ header .logo.unsaved::after {
   position: absolute;
 }
 
+header .logo:hover {
+  transform: scale(1.2);
+}
+
 header .logo:active {
   transform: scale(0.9);
 }
+
 
 header .title {
   font-weight: 400;
