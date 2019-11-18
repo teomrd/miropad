@@ -6,7 +6,11 @@ import keyListener from "../../utils/keyListener";
 import select from "../../utils/dom";
 import storage from "../../utils/localstorage";
 import isJSON from "../../utils/isJSON";
-import { getCurrentNote, resetNoteManager } from "../noteManager/noteManager";
+import {
+  getCurrentNote,
+  resetNoteManager,
+  saveNote
+} from "../noteManager/noteManager";
 
 const commanderModes = {
   off: "off",
@@ -66,7 +70,7 @@ const commander = {
         title: "💾 Save",
         key: "s",
         call: () => {
-          storage.saveToLocalStorage(select(".terminal").getValue());
+          saveNote(select(".terminal").getValue());
           this.hide();
           select(".logo").removeClass("unsaved");
         }
@@ -77,8 +81,10 @@ const commander = {
         call: () => {
           const confirmation = confirm("Are you sure you want do that?");
           if (confirmation) {
-            const { titleId } = getCurrentNote();
-            localStorage.removeItem(titleId);
+            const note = getCurrentNote();
+            if (note && note.id) {
+              localStorage.removeItem(note.id);
+            }
             resetNoteManager();
           }
           this.hide();
@@ -173,40 +179,39 @@ const commander = {
   },
   generateNotes: function(value = "") {
     select("#commands").html("");
-    Object.keys(localStorage)
-      .map(key => {
-        if (key !== "dictionary") {
-          return storage.get(key);
-        }
-      })
-      .filter(isJSON) // filter out non-notes
-      .map(n => {
-        const note = JSON.parse(n);
-        return note;
-      })
-      .filter(note => {
-        const hasTitle = Object.prototype.hasOwnProperty.call(note, "title");
-        const hasRevisions = Object.prototype.hasOwnProperty.call(
-          note,
-          "revisions"
+    Object.entries(localStorage)
+      .reduce((acc, current) => {
+        const noteId = current[0];
+        const noteBody = isJSON(current[1]) ? JSON.parse(current[1]) : {};
+        const hasTitle = Object.prototype.hasOwnProperty.call(
+          noteBody,
+          "title"
         );
-        if (!(hasTitle && hasRevisions)) {
-          return false; // if not valid note drop it
-        }
-        return note.title.toLowerCase().includes(value.toLowerCase());
+        return [
+          ...acc,
+          ...(hasTitle
+            ? [
+                {
+                  id: noteId,
+                  ...noteBody
+                }
+              ]
+            : [])
+        ];
+      }, [])
+      .filter(({ title }) => {
+        return title.toLowerCase().includes(value.toLowerCase());
       })
       .sort((a, b) => {
         const aDateCreated = Object.values(a.revisions)[0].dateCreated;
         const bDateCreated = Object.values(b.revisions)[0].dateCreated;
         return bDateCreated - aDateCreated;
       })
-      .map((note, i) => {
+      .map(({ id, title, revisions }, i) => {
         const li = document.createElement("LI");
         const dateSpan = document.createElement("span");
         dateSpan.className = "secondary";
-        const dateCreated = new Date(
-          Object.values(note.revisions)[0].dateCreated
-        );
+        const dateCreated = new Date(Object.values(revisions)[0].dateCreated);
         dateSpan.appendChild(
           document.createTextNode(
             `${new Date(dateCreated).toLocaleDateString()} ${new Date(
@@ -217,8 +222,8 @@ const commander = {
         li.className = i === 0 ? "selected" : "";
         li.onclick = () => this.hide();
         const a = document.createElement("a");
-        a.href = `${window.location.origin}${window.location.pathname}#${note.title}`;
-        a.appendChild(document.createTextNode(note.title));
+        a.href = `${window.location.origin}${window.location.pathname}#${id}`;
+        a.appendChild(document.createTextNode(title));
         li.appendChild(a);
         li.appendChild(dateSpan);
         select("#commands").append(li);
