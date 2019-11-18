@@ -1,8 +1,25 @@
-# MiroPad
+# ✍️ MiroPad
 
-Dead-simple notes solution for the browser
+> Temporary note keeping app for the browser
 
-Supports:
+## Usage
 
-* Prettify JSON (Ctrl+p)
-* Saving current state (Ctrl+s)
+```commands
+Ctrl/⌘ + Shift + P
+```
+
+to explore the available commands on the command palette
+
+## Development
+
+Start development
+
+```bash
+  npm run dev
+```
+
+Deploy
+
+```bash
+  npm run deploy
+```
