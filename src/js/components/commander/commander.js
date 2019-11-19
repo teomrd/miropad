@@ -20,7 +20,11 @@ const commanderModes = {
 
 const commander = {
   state: {
-    mode: commanderModes.off
+    mode: commanderModes.off,
+    options: {
+      selected: 0,
+      length: 0
+    }
   },
   show: function(what = commanderModes.commands) {
     select("#commander").show();
@@ -146,33 +150,53 @@ const commander = {
       }
     ];
   },
+  selectOption: function(e, direction) {
+    const currentlySelected = this.state.options.selected;
+    const lastOption = this.state.options.length - 1;
+    const isLastOption = currentlySelected === lastOption;
+    const isFirstOption = currentlySelected === 0;
+    const isDown = direction === "down";
+
+    const indexToSelect = isDown
+      ? isLastOption
+        ? 0
+        : currentlySelected + 1
+      : isFirstOption
+      ? lastOption
+      : currentlySelected - 1;
+
+    this.state.options = {
+      ...this.state.options,
+      selected: indexToSelect
+    };
+  },
   initCommander: function() {
-    select("#commander input").listen("keyup", e => {
-      if (e.target.value.slice(0, 1) === ">") {
-        this.state.mode = commanderModes.commands;
-        this.generateCommands(e.target.value.slice(1, -1).trim());
-        select("#commander input").placeholder("Search for commands...");
-      } else {
-        this.state.mode = commanderModes.notes;
-        this.generateNotes(e.target.value);
-        select("#commander input").placeholder("Search for saved notes...");
-      }
-
-      // enter
-      if (e.keyCode === 13) {
-        if (this.state.mode === commanderModes.commands) {
-          select("#commands li.selected").click();
-        } else {
-          select("#commands li.selected a").click();
+    select("#commander input")
+      .listen("keydown", e => {
+        // arrow down 40
+        if (e.keyCode === 40) {
+          this.selectOption(e, "down");
         }
-      }
-      // escape
-      if (e.keyCode === 27) {
-        select(".terminal").focus();
-      }
-    });
-
-    this.generateCommands();
+        // arrow up 38
+        if (e.keyCode === 38) {
+          this.selectOption(e, "up");
+        }
+      })
+      .listen("keyup", e => {
+        // enter
+        if (e.keyCode === 13) {
+          if (this.state.mode === commanderModes.commands) {
+            select("#commands li.selected").click();
+          } else {
+            select("#commands li.selected a").click();
+          }
+        }
+        // escape
+        if (e.keyCode === 27) {
+          select(".terminal").focus();
+        }
+        this.generateOptions(e.target.value);
+      });
     return this;
   },
   init: function() {
@@ -181,9 +205,21 @@ const commander = {
     select(".menu").listen("click", () => this.toggle());
     return this;
   },
+  generateOptions: function(value) {
+    if (value.slice(0, 1) === ">") {
+      this.state.mode = commanderModes.commands;
+      this.generateCommands(value.slice(1, -1).trim());
+      select("#commander input").placeholder("Search for commands...");
+    } else {
+      this.state.mode = commanderModes.notes;
+      this.generateNotes(value);
+      select("#commander input").placeholder("Search for saved notes...");
+    }
+  },
   generateNotes: function(value = "") {
+    const indexToSelect = this.state.options.selected;
     select("#commands").html("");
-    Object.entries(localStorage)
+    const notes = Object.entries(localStorage)
       .reduce((acc, current) => {
         const noteId = current[0];
         const noteBody = isJSON(current[1]) ? JSON.parse(current[1]) : {};
@@ -223,7 +259,7 @@ const commander = {
             ).toLocaleTimeString()}`
           )
         );
-        li.className = i === 0 ? "selected" : "";
+        li.className = i === indexToSelect ? "selected" : "";
         li.onclick = () => this.hide();
         const a = document.createElement("a");
         a.href = `${window.location.origin}${window.location.pathname}#${id}`;
@@ -233,15 +269,20 @@ const commander = {
         select("#commands").append(li);
       })
       .slice(0, 10);
+    this.state.options = {
+      ...this.state.options,
+      length: notes.length
+    };
     return this;
   },
   generateCommands: async function(value = "") {
+    const indexToSelect = this.state.options.selected;
     select("#commands").html("");
-    this.commands()
+    const commands = this.commands()
       .filter(({ title }) => title.toLowerCase().includes(value.toLowerCase()))
       .map(({ title, key, call }, i) => {
         const li = document.createElement("LI");
-        li.className = i === 0 ? "selected" : "";
+        li.className = i === indexToSelect ? "selected" : "";
         li.onclick = call;
         const commandContainer = document.createElement("div");
         commandContainer.appendChild(document.createTextNode(title));
@@ -254,6 +295,10 @@ const commander = {
         li.appendChild(span);
         select("#commands").append(li);
       });
+    this.state.options = {
+      ...this.state.options,
+      length: commands.length
+    };
     return this;
   }
 };
