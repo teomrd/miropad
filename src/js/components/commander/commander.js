@@ -72,6 +72,34 @@ const commander = {
         }
       },
       {
+        title: " 🕵️‍♂️ Find and Replace...",
+        key: "shift f",
+        call: () => {
+          const selectedValue = select(".terminal")
+            .getValue()
+            .slice(
+              select(".terminal").el.selectionStart,
+              select(".terminal").el.selectionEnd
+            );
+          const valueToFind = prompt("What do you wanna find?", selectedValue);
+          if (!valueToFind) {
+            return this;
+          }
+          const positionOfFirstChar = select(".terminal")
+            .getValue()
+            .indexOf(valueToFind);
+
+          select(".terminal").el.setSelectionRange(
+            positionOfFirstChar,
+            positionOfFirstChar + valueToFind.length
+          );
+          const replacementValue = prompt(`Replace ${valueToFind} with...`);
+          if (replacementValue) {
+            select(".terminal").el.setRangeText(replacementValue);
+          }
+        }
+      },
+      {
         title: "💾 Save",
         key: "s",
         call: () => {
