@@ -20,6 +20,7 @@ const commanderModes = {
 
 const commander = {
   state: {
+    input: "",
     mode: commanderModes.off,
     options: {
       selected: 0,
@@ -195,6 +196,10 @@ const commander = {
         if (e.keyCode === 27) {
           select(".terminal").focus();
         }
+        if (this.state.input !== e.target.value) {
+          this.state.options.selected = 0;
+        }
+        this.state.input = e.target.value;
         this.generateOptions(e.target.value);
       });
     return this;
@@ -247,6 +252,7 @@ const commander = {
         const bDateCreated = Object.values(b.revisions)[0].dateCreated;
         return bDateCreated - aDateCreated;
       })
+      .slice(0, 10)
       .map(({ id, title, revisions }, i) => {
         const li = document.createElement("LI");
         const dateSpan = document.createElement("span");
@@ -267,8 +273,7 @@ const commander = {
         li.appendChild(a);
         li.appendChild(dateSpan);
         select("#commands").append(li);
-      })
-      .slice(0, 10);
+      });
     this.state.options = {
       ...this.state.options,
       length: notes.length
