@@ -9,6 +9,11 @@ const select = el => ({
   },
   setValue(value) {
     this.el.value = value;
+    const event = new Event("input", {
+      bubbles: true,
+      cancelable: true
+    });
+    this.el.dispatchEvent(event);
     return this;
   },
   html(content) {

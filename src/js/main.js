@@ -34,9 +34,8 @@ const main = async () => {
           select(".logo").removeClass("unsaved");
         }
       }
-      // MarkDown on the fly
-      markDownIt();
-    });
+    })
+    .listen("input", () => markDownIt());
 
   const hash = window.location.hash.substr(1);
 
