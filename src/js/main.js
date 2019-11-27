@@ -14,6 +14,7 @@ import {
   resetNoteManager,
   getCurrentNote
 } from "./components/noteManager/noteManager";
+import notify from "./notify";
 
 const main = async () => {
   window.addEventListener("error", errorHandler);
@@ -56,6 +57,10 @@ const main = async () => {
   if (queryResult) select(".terminal").setValue(queryResult);
 
   select(".logo").listen("click", resetNoteManager);
+  select("#permalink").listen("click", async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    notify.success("🔗 Link copied to clipboard");
+  });
 };
 
 export default main;
