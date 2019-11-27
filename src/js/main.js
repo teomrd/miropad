@@ -61,6 +61,8 @@ const main = async () => {
     await navigator.clipboard.writeText(window.location.href);
     notify.success("🔗 Link copied to clipboard");
   });
+
+  markDownIt().init();
 };
 
 export default main;
