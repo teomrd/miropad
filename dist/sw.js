@@ -45,11 +45,11 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "ec55a1e5a6b31829fafd19edb6fa13a4"
+    "revision": "2fe7b10d91d3bedd2620b018093962fa"
   },
   {
     "url": "main.js",
-    "revision": "ba2ede33066edaf9990139efc633e303"
+    "revision": "0fc8afd883925549016b746b0f6faaa1"
   },
   {
     "url": "manifest.json",
