@@ -4,11 +4,10 @@ import select from "../../utils/dom";
 import { setPageTitle, resetPageTitle } from "../../utils/pageTitle";
 import hashBrowser from "../../utils/hashBrowser";
 import notify from "../../notify";
+import { url } from "../../utils/urlManager";
 
 export const getCurrentNote = () => {
-  const hash = window.location.hash.substr(1);
-  const hashWithVersion = hash.split("?");
-  const titleID = hashWithVersion[0] || null;
+  const titleID = url.getPageId();
   const doc = JSON.parse(storage.get(titleID));
 
   const newerNote = doc

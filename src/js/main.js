@@ -15,6 +15,7 @@ import {
   getCurrentNote
 } from "./components/noteManager/noteManager";
 import notify from "./notify";
+import { url } from "./utils/urlManager";
 
 const main = async () => {
   window.addEventListener("error", errorHandler);
@@ -38,12 +39,12 @@ const main = async () => {
     })
     .listen("input", () => markDownIt());
 
-  const hash = window.location.hash.substr(1);
+  const pageId = url.getPageId();
 
   const ipfsNode = await IPFS.create();
-  if (ipfs.isValidCid(hash)) {
-    const retrievedValueFromIPFS = hash
-      ? await ipfs.getFileContents(ipfsNode, hash)
+  if (ipfs.isValidCid(pageId)) {
+    const retrievedValueFromIPFS = pageId
+      ? await ipfs.getFileContents(ipfsNode, pageId)
       : "";
     select(".terminal").setValue(retrievedValueFromIPFS);
   } else {
