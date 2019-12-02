@@ -1,5 +1,6 @@
 import notify from "../notify";
 import IPFS from "ipfs";
+import { url } from "./urlManager";
 
 const storage = {
   set: function(key, what) {
@@ -15,7 +16,7 @@ const storage = {
       const content = IPFS.Buffer.from(value);
       const results = await ipfs.add(content);
       const hash = results[0].hash;
-      window.location.assign(`#${hash}`);
+      url.set(hash);
       notify.success("👌 Note saved to IPFS!");
     } catch (e) {
       notify.error(`😱 Something went wrong while trying to save to IPFS ${e}`); // eslint-disable-line

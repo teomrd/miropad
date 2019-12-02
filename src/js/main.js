@@ -53,13 +53,13 @@ const main = async () => {
 
   window.addEventListener("hashchange", () => setNoteFromHash());
 
-  const q = new URL(window.location.href).searchParams.get("q");
+  const q = url.getSearchParam("q");
   const queryResult = search(q);
   if (queryResult) select(".terminal").setValue(queryResult);
 
   select(".logo").listen("click", resetNoteManager);
   select("#permalink").listen("click", async () => {
-    await navigator.clipboard.writeText(window.location.href);
+    await navigator.clipboard.writeText(url.get());
     notify.success("🔗 Link copied to clipboard");
   });
 

@@ -79,7 +79,9 @@ export const saveNote = async what => {
           }
         })
       );
-      window.location.assign(`#${titleID}?v=${hash}`);
+      url.set(titleID, {
+        v: hash
+      });
       notify.success("👌 Note saved!");
     } catch (e) {
       notify.error(

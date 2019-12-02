@@ -1,5 +1,6 @@
 import showdown from "showdown";
 import select from "./utils/dom";
+import { url } from "./utils/urlManager";
 
 const converter = new showdown.Converter({
   tasklists: true,
@@ -18,32 +19,23 @@ export const markDownIt = () => {
   return {
     ...mdView,
     init: () => {
-      const urlParts = window.location.href.split("?");
-      const currentParams = urlParts[1] || "";
-      const searchParams = new URLSearchParams(currentParams);
-      const isVisible =
-        searchParams.has("md") && searchParams.get("md") !== "false";
-      if (isVisible) {
+      const isVisible = Boolean(url.getSearchParam("md"));
+      if (isVisible === true) {
         mdView.show();
       } else {
         mdView.hide();
       }
     },
     toggle: () => {
-      const urlParts = window.location.href.split("?");
-      const currentBaseUrl = urlParts[0];
-      const currentParams = urlParts[1] || "";
-      const searchParams = new URLSearchParams(currentParams);
-      const isVisible =
-        searchParams.has("md") && searchParams.get("md") !== "false";
-      if (isVisible) {
+      const isVisible = Boolean(url.getSearchParam("md"));
+      if (isVisible === true) {
         mdView.hide();
-        searchParams.delete("md");
-        window.location.assign(`${currentBaseUrl}?${searchParams.toString()}`);
+        url.deleteParam("md");
       } else {
         mdView.show();
-        searchParams.set("md", true);
-        window.location.assign(`${currentBaseUrl}?${searchParams.toString()}`);
+        url.set(undefined, {
+          md: true
+        });
       }
     }
   };

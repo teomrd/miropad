@@ -11,6 +11,7 @@ import {
   resetNoteManager,
   saveNote
 } from "../noteManager/noteManager";
+import { url } from "../../utils/urlManager";
 
 const commanderModes = {
   off: "off",
@@ -135,9 +136,9 @@ const commander = {
         title: "📬 Email note to...",
         key: "e",
         call: () => {
-          const note = `${document.querySelector(".terminal").value} \n ${
-            window.location.href
-          }`;
+          const note = `${
+            document.querySelector(".terminal").value
+          } \n ${url.get()}`;
           mailTo(note);
           this.hide();
         }
