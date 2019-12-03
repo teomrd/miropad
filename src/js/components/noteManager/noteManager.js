@@ -51,7 +51,7 @@ export const resetNoteManager = () => {
   select(".logo").removeClass("unsaved");
 };
 
-export const saveNote = async what => {
+export const saveNote = async (what, cid) => {
   await storage.saveToDictionary(what);
   if (what.length) {
     const hash = await hashBrowser(what);
@@ -74,13 +74,15 @@ export const saveNote = async what => {
             ...((note && note.revisions) || {}),
             [hash]: {
               dateCreated: Date.now(),
-              text: what
+              text: what,
+              ...(cid ? { cid: cid } : {})
             }
           }
         })
       );
       url.set(titleID, {
-        v: hash
+        v: hash,
+        ...(cid ? { cid: cid } : {})
       });
       notify.success("👌 Note saved!");
     } catch (e) {

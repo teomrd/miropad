@@ -12,7 +12,8 @@ import commander from "./components/commander/commander";
 import {
   setNoteFromHash,
   resetNoteManager,
-  getCurrentNote
+  getCurrentNote,
+  saveNote
 } from "./components/noteManager/noteManager";
 import notify from "./notify";
 import { url } from "./utils/urlManager";
@@ -47,6 +48,7 @@ const main = async () => {
       ? await ipfs.getFileContents(ipfsNode, pageId)
       : "";
     select(".terminal").setValue(retrievedValueFromIPFS);
+    await saveNote(retrievedValueFromIPFS, pageId);
   } else {
     setNoteFromHash();
   }
