@@ -154,6 +154,16 @@ const commander = {
         }
       },
       {
+        title: "◽ Full MarkDown view",
+        key: "shift m",
+        call: () => {
+          url.set(undefined, {
+            md: "full"
+          });
+          this.hide();
+        }
+      },
+      {
         title: "🔳 Toggle MarkDown Viewer",
         key: "m",
         call: () => {

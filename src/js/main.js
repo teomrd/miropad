@@ -18,6 +18,20 @@ import {
 import notify from "./notify";
 import { url } from "./utils/urlManager";
 
+const initURLState = () => {
+  setNoteFromHash();
+
+  if (url.getSearchParam("md") === "full") {
+    select(".terminal").hide();
+  } else {
+    select(".terminal").show();
+  }
+
+  const q = url.getSearchParam("q");
+  const queryResult = search(q);
+  if (queryResult) select(".terminal").setValue(queryResult);
+};
+
 const main = async () => {
   window.addEventListener("error", errorHandler);
 
@@ -59,12 +73,6 @@ const main = async () => {
     setNoteFromHash();
   }
 
-  window.addEventListener("hashchange", setNoteFromHash);
-
-  const q = url.getSearchParam("q");
-  const queryResult = search(q);
-  if (queryResult) select(".terminal").setValue(queryResult);
-
   select(".logo").listen("click", resetNoteManager);
   select("#permalink").listen("click", async () => {
     await navigator.clipboard.writeText(url.get());
@@ -72,6 +80,9 @@ const main = async () => {
   });
 
   markDownIt().init();
+
+  window.addEventListener("hashchange", initURLState);
+  initURLState();
 };
 
 export default main;
