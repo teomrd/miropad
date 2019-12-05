@@ -7,6 +7,15 @@ const select = el => ({
   getValue() {
     return this.el.value;
   },
+  insertAtCaret(text) {
+    this.el.setRangeText(
+      text,
+      this.el.selectionStart,
+      this.el.selectionEnd,
+      "end"
+    );
+    return this;
+  },
   setValue(value) {
     this.el.value = value;
     const event = new Event("input", {

@@ -27,6 +27,12 @@ const main = async () => {
 
   select(".terminal")
     .listen("focus", () => select("#commander").hide())
+    .listen("keydown", e => {
+      if (e.keyCode === 9) {
+        e.preventDefault();
+        select(".terminal").insertAtCaret("  ");
+      }
+    })
     .listen("keyup", () => {
       const currentNode = getCurrentNote();
       if (currentNode) {
@@ -53,7 +59,7 @@ const main = async () => {
     setNoteFromHash();
   }
 
-  window.addEventListener("hashchange", () => setNoteFromHash());
+  window.addEventListener("hashchange", setNoteFromHash);
 
   const q = url.getSearchParam("q");
   const queryResult = search(q);

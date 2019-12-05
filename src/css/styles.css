@@ -140,6 +140,7 @@ header .logo:active {
   padding: 10px;
   outline-color: red;
   z-index: 1;
+  resize: none;
 }
 
 .notification {
