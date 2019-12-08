@@ -143,6 +143,10 @@ header .logo:active {
   resize: none;
 }
 
+label {
+  display: none;
+}
+
 .notification {
   position: fixed;
   right: 5px;
