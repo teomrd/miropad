@@ -62,13 +62,17 @@ const main = async () => {
 
   const pageId = url.getPageId();
 
-  const ipfsNode = await IPFS.create();
   if (ipfs.isValidCid(pageId)) {
-    const retrievedValueFromIPFS = pageId
-      ? await ipfs.getFileContents(ipfsNode, pageId)
-      : "";
-    select(".terminal").setValue(retrievedValueFromIPFS);
-    await saveNote(retrievedValueFromIPFS, pageId);
+    try {
+      const ipfsNode = await IPFS.create();
+      const retrievedValueFromIPFS = pageId
+        ? await ipfs.getFileContents(ipfsNode, pageId)
+        : "";
+      select(".terminal").setValue(retrievedValueFromIPFS);
+      await saveNote(retrievedValueFromIPFS, pageId);
+    } catch (error) {
+      console.log("IPFS Error", error);
+    }
   } else {
     setNoteFromHash();
   }
