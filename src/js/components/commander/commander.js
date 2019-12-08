@@ -12,6 +12,7 @@ import {
   getNotes
 } from "../noteManager/noteManager";
 import { url } from "../../utils/urlManager";
+import { saveFileAs } from "../fileSystem/fileSystem";
 
 const commanderModes = {
   off: "off",
@@ -107,6 +108,16 @@ const commander = {
           saveNote(select(".terminal").getValue());
           this.hide();
           select(".logo").removeClass("unsaved");
+        }
+      },
+      {
+        title: "💾 Save As...",
+        key: "shift s",
+        call: async () => {
+          const { text, title } = getNote();
+          await navigator.clipboard.writeText(title);
+          saveFileAs(text);
+          this.hide();
         }
       },
       {
