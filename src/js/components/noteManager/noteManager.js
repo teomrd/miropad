@@ -5,10 +5,18 @@ import { setPageTitle, resetPageTitle } from "../../utils/pageTitle";
 import hashBrowser from "../../utils/hashBrowser";
 import notify from "../../notify";
 import { url } from "../../utils/urlManager";
+import isJSON from "../../utils/isJSON";
 
-export const getCurrentNote = () => {
-  const titleID = url.getPageId();
-  const doc = JSON.parse(storage.get(titleID));
+export const getNote = (titleID = url.getPageId()) => {
+  let doc;
+  try {
+    doc = JSON.parse(storage.get(titleID));
+    if (!doc.revisions) {
+      throw new Error("This is not a note!");
+    }
+  } catch (error) {
+    return null;
+  }
 
   const newerNote = doc
     ? Object.values(doc.revisions).reduce(
@@ -30,7 +38,7 @@ export const getCurrentNote = () => {
 };
 
 export const setNoteFromHash = () => {
-  const note = getCurrentNote();
+  const note = getNote();
   if (note) {
     select("#revisions").html(
       `${note.numberOfRevisions} revision${
@@ -94,3 +102,21 @@ export const saveNote = async (what, cid) => {
       notify.warning("😕 Nothing to save!"); // eslint-disable-line
   }
 };
+
+export const getNotes = () =>
+  Object.entries(localStorage).reduce((acc, current) => {
+    const noteId = current[0];
+    const noteBody = isJSON(current[1]) ? JSON.parse(current[1]) : {};
+    const hasTitle = Object.prototype.hasOwnProperty.call(noteBody, "title");
+    return [
+      ...acc,
+      ...(hasTitle
+        ? [
+            {
+              id: noteId,
+              ...noteBody
+            }
+          ]
+        : [])
+    ];
+  }, []);

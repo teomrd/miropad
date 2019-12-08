@@ -1,12 +1,15 @@
+import { getNote, getNotes } from "../components/noteManager/noteManager";
+
 const search = q => {
   if (!q) {
     return undefined;
   }
-  const items = { ...localStorage };
-  const result = Object.values(items).filter(val =>
-    val.toLowerCase().includes(q.toLowerCase())
-  );
-  return result[0];
+
+  const results = getNotes()
+    .map(({ id }) => getNote(id))
+    .filter(({ text }) => text.toLowerCase().includes(q.toLowerCase()));
+
+  return results[0];
 };
 
 export default search;

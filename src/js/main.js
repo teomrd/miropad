@@ -12,7 +12,7 @@ import commander from "./components/commander/commander";
 import {
   setNoteFromHash,
   resetNoteManager,
-  getCurrentNote,
+  getNote,
   saveNote
 } from "./components/noteManager/noteManager";
 import notify from "./notify";
@@ -29,7 +29,7 @@ const initURLState = () => {
 
   const q = url.getSearchParam("q");
   const queryResult = search(q);
-  if (queryResult) select(".terminal").setValue(queryResult);
+  if (queryResult) select(".terminal").setValue(queryResult.text);
 };
 
 const main = async () => {
@@ -48,7 +48,7 @@ const main = async () => {
       }
     })
     .listen("keyup", () => {
-      const currentNode = getCurrentNote();
+      const currentNode = getNote();
       if (currentNode) {
         const { text = "" } = currentNode;
         if (select(".terminal").getValue() !== text) {

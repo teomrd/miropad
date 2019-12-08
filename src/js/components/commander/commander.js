@@ -5,11 +5,11 @@ import { mailTo } from "../../utils/mail";
 import keyListener from "../../utils/keyListener";
 import select from "../../utils/dom";
 import storage from "../../utils/localstorage";
-import isJSON from "../../utils/isJSON";
 import {
-  getCurrentNote,
+  getNote,
   resetNoteManager,
-  saveNote
+  saveNote,
+  getNotes
 } from "../noteManager/noteManager";
 import { url } from "../../utils/urlManager";
 
@@ -115,7 +115,7 @@ const commander = {
         call: () => {
           const confirmation = confirm("Are you sure you want do that?");
           if (confirmation) {
-            const note = getCurrentNote();
+            const note = getNote();
             if (note && note.id) {
               localStorage.removeItem(note.id);
             }
@@ -263,26 +263,7 @@ const commander = {
   generateNotes: function(value = "") {
     const indexToSelect = this.state.options.selected;
     select("#commands").html("");
-    const notes = Object.entries(localStorage)
-      .reduce((acc, current) => {
-        const noteId = current[0];
-        const noteBody = isJSON(current[1]) ? JSON.parse(current[1]) : {};
-        const hasTitle = Object.prototype.hasOwnProperty.call(
-          noteBody,
-          "title"
-        );
-        return [
-          ...acc,
-          ...(hasTitle
-            ? [
-                {
-                  id: noteId,
-                  ...noteBody
-                }
-              ]
-            : [])
-        ];
-      }, [])
+    const notes = getNotes()
       .filter(({ title }) => {
         return title.toLowerCase().includes(value.toLowerCase());
       })
