@@ -11,7 +11,7 @@
     <link rel="manifest" href="/miropad/manifest.json" crossOrigin="use-credentials" />
     <link rel="apple-touch-icon" href="./images/icons/icon-192x192.png">
     <title>
-      ✍️ MiroPad v2.7.50
+      ✍️ MiroPad v2.7.51
     </title>
   <link rel="shortcut icon" href="favicon.ico"></head>
 
@@ -49,8 +49,18 @@
         <div class="divider"></div>
         <div class="menu"></div>
       </div>
-    </div>
-  </main>
-<script type="text/javascript" src="main.js?6c0addbc13afac37d59e"></script></body>
+    </header>
+    <main>
+      <textarea aria-label="Keep you notes here safely" autocomplete autofocus class="terminal"></textarea>
+      <div id='notification' class="notification"></div>
+      <div class="preview hidden markdown-body"></div>
+      <div id="commander" class="commander hidden">
+        <div class="palette">
+            <input />
+            <ul id="commands"></ul>
+        </div>
+      </div>
+    </main>
+  <script type="text/javascript" src="main.js?13effc044a7e259303d7"></script></body>
 
 </html>

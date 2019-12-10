@@ -45,11 +45,15 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "cab212c143d34037ab0b640362bce03f"
+    "revision": "017edc398ba39b46d39f83070ffd85e8"
   },
   {
     "url": "manifest.json",
     "revision": "1902079dc63081da4f976d545c3d896e"
+  },
+  {
+    "url": "serviceWorker.js",
+    "revision": "61a7d0307631d06a564e47d99cf2aedf"
   }
 ]);
 } else {
