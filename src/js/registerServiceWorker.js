@@ -11,7 +11,7 @@ export const registerServiceWorker = () => {
       navigator.serviceWorker.register("/sw.js");
       await requestNotificationPermission();
       await navigator.serviceWorker.register(
-        `${window.location.href}/serviceWorker.js?v=${VERSION}`
+        `${window.location.pathname}/serviceWorker.js?v=${VERSION}`
       );
       // navigator.serviceWorker.controller.postMessage({ hello: "world" });
     });
