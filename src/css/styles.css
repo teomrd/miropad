@@ -19,6 +19,7 @@ main {
   top: 50px;
   bottom: 0;
   position: fixed;
+  background-color: #24292e;
 }
 
 header {
