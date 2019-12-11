@@ -45,7 +45,7 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "51cdc9b8a8e10343af544d6d0d46c409"
+    "revision": "8466733d868894f17ac752cd6c7788e6"
   },
   {
     "url": "manifest.json",

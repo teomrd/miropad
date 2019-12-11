@@ -1,7 +1,7 @@
 let currentVersion;
 
-const checkForNewerVersion = currentVersion =>
-  setInterval(async () => {
+const checkForNewerVersion = currentVersion => {
+  const intervalChecker = setInterval(async () => {
     try {
       const res = await fetch(
         "https://raw.githubusercontent.com/teomrd/miropad/master/package.json"
@@ -11,11 +11,13 @@ const checkForNewerVersion = currentVersion =>
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`
         });
+        clearInterval(intervalChecker);
       }
     } catch (error) {
       console.log("error", error);
     }
   }, 5000);
+};
 
 // self.addEventListener("message", event => {
 //   console.log(event.data); // outputs {'hello':'world'}
