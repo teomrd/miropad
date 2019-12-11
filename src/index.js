@@ -1,8 +1,8 @@
 import main from "./js/main";
-import { registerServiceWorkers } from "./js/serviceWorkers";
+import { registerServiceWorker } from "./js/registerServiceWorker";
 
 (() => {
   console.log("VERSION: ", VERSION);
   main();
-  registerServiceWorkers();
+  registerServiceWorker();
 })();
