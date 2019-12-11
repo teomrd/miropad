@@ -7,8 +7,6 @@ const checkForNewerVersion = currentVersion =>
         "https://raw.githubusercontent.com/teomrd/miropad/master/package.json"
       );
       const { version } = await res.json();
-      console.log("Latest Version", version);
-      console.log("Current Version is ", currentVersion);
       if (currentVersion !== version) {
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`
