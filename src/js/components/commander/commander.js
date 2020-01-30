@@ -168,6 +168,7 @@ const commander = {
         title: "◽ Full MarkDown view",
         key: "shift m",
         call: () => {
+          markDownIt();
           url.set(undefined, {
             md: "full"
           });
