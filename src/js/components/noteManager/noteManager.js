@@ -7,7 +7,7 @@ import notify from "../../notify";
 import { url } from "../../utils/urlManager";
 import isJSON from "../../utils/isJSON";
 
-export const getNote = (titleID = url.getPageId()) => {
+export const getNote = (titleID = url.getPageId(), revision) => {
   let doc;
   try {
     doc = JSON.parse(storage.get(titleID));
@@ -25,11 +25,13 @@ export const getNote = (titleID = url.getPageId()) => {
       )
     : {};
 
+  const noteToReturn = revision ? doc.revisions[revision] : newerNote;
+
   return titleID
     ? {
         ...doc,
         id: titleID,
-        ...(newerNote ? newerNote : {}),
+        ...(noteToReturn ? noteToReturn : {}),
         numberOfRevisions:
           doc && doc.revisions ? Object.keys(doc.revisions).length : undefined,
         title: doc.title
@@ -37,8 +39,8 @@ export const getNote = (titleID = url.getPageId()) => {
     : null;
 };
 
-export const setNoteFromHash = () => {
-  const note = getNote();
+export const setNoteFromHash = version => {
+  const note = getNote(undefined, version);
   if (note) {
     select("#revisions").html(
       `${note.numberOfRevisions} revision${

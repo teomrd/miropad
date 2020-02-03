@@ -13,10 +13,12 @@ import {
 } from "../noteManager/noteManager";
 import { url } from "../../utils/urlManager";
 import { saveFileAs } from "../fileSystem/fileSystem";
+import { commands } from "./commands";
 
 const commanderModes = {
   off: "off",
   notes: "notes",
+  revisions: "revisions",
   commands: "commands"
 };
 
@@ -42,6 +44,11 @@ const commander = {
         this.generateNotes();
         select("#commander input").setValue("");
         this.state.mode = commanderModes.notes;
+        break;
+      case commanderModes.revisions:
+        this.generateRevisions();
+        select("#commander input").setValue("");
+        this.state.mode = commanderModes.revisions;
         break;
       default:
         // do nothing;
@@ -259,17 +266,54 @@ const commander = {
     this.initCommander();
     keyListener.listen().on(this.commands());
     select(".menu").listen("click", () => this.toggle());
+    select("#revisions").listen("click", () => this.generateRevisions());
+    return this;
+  },
+  generateRevisions: function() {
+    this.show();
+    this.state.mode = commanderModes.revisions;
+    const { revisions } = getNote();
+    select("#commands").html("");
+
+    const revisionsOptions = Object.keys(revisions).map((id, i) => ({
+      title: i + 1,
+      secondary: `${new Date(
+        revisions[id].dateCreated
+      ).toLocaleDateString()} ${new Date(
+        revisions[id].dateCreated
+      ).toLocaleTimeString()}`,
+      onclick: () => {
+        url.set(undefined, {
+          v: id
+        });
+        this.state.options.selected = i;
+        this.generateRevisions();
+      }
+    }));
+
+    commands(revisionsOptions, this.state.options.selected).map(el =>
+      select("#commands").append(el)
+    );
+
+    this.state.options = {
+      ...this.state.options,
+      length: revisionsOptions.length
+    };
     return this;
   },
   generateOptions: function(value) {
-    if (value.slice(0, 1) === ">") {
-      this.state.mode = commanderModes.commands;
-      this.generateCommands(value.slice(1, -1).trim());
-      select("#commander input").placeholder("Search for commands...");
+    if (this.state.mode !== commanderModes.revisions) {
+      if (value.slice(0, 1) === ">") {
+        this.state.mode = commanderModes.commands;
+        this.generateCommands(value.slice(1, -1).trim());
+        select("#commander input").placeholder("Search for commands...");
+      } else {
+        this.state.mode = commanderModes.notes;
+        this.generateNotes(value);
+        select("#commander input").placeholder("Search for saved notes...");
+      }
     } else {
-      this.state.mode = commanderModes.notes;
-      this.generateNotes(value);
-      select("#commander input").placeholder("Search for saved notes...");
+      this.generateRevisions();
     }
   },
   generateNotes: function(value = "") {

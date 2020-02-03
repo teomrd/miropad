@@ -111,6 +111,10 @@ header .logo:active {
   overflow-y: auto;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 /****** markdown *********/
 
 .markdown-body {

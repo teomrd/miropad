@@ -19,7 +19,7 @@ import notify from "./notify";
 import { url } from "./utils/urlManager";
 
 const initURLState = () => {
-  setNoteFromHash();
+  setNoteFromHash(url.getSearchParam("v"));
 
   if (url.getSearchParam("md") === "full") {
     select(".terminal").hide();
