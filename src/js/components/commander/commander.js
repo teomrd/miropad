@@ -234,10 +234,16 @@ const commander = {
       .listen("keydown", e => {
         // arrow down 40
         if (e.keyCode === 40) {
+          if (this.state.mode === commanderModes.revisions) {
+            select("#commands li.selected").click();
+          }
           this.selectOption(e, "down");
         }
         // arrow up 38
         if (e.keyCode === 38) {
+          if (this.state.mode === commanderModes.revisions) {
+            select("#commands li.selected").click();
+          }
           this.selectOption(e, "up");
         }
       })
@@ -273,8 +279,8 @@ const commander = {
     this.show();
     this.state.mode = commanderModes.revisions;
     const { revisions } = getNote();
-    select("#commands").html("");
 
+    select("#commands").html("");
     const revisionsOptions = Object.keys(revisions).map((id, i) => ({
       title: i + 1,
       secondary: `${new Date(
