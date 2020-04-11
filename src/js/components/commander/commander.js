@@ -14,11 +14,13 @@ import {
 import { url } from "../../utils/urlManager";
 import { saveFileAs } from "../fileSystem/fileSystem";
 import { commands } from "./commands";
-import notify from "../../notify";
-import { configuration } from "../../../configuration";
-import { getAuthenticatedUsersGists } from "../../utils/githubAPI";
+import {
+  goAuthenticate,
+  setGistToSyncWith,
+  updateLocalNotesFromGitHub
+} from "../../utils/github";
 
-const commanderModes = {
+export const commanderModes = {
   off: "off",
   notes: "notes",
   revisions: "revisions",
@@ -76,21 +78,19 @@ const commander = {
   commands: function() {
     return [
       {
-        title: "⬇ Sync: Download of from my GitHub Gists",
+        title: "🔄 Sync: Notes my GitHub Gist (requires auth)",
         key: null,
         call: async () => {
           const token = storage.get("authToken");
           if (!token) {
-            notify.info("You need to be authenticated!");
-            this.hide();
-            return window.location.replace(
-              `https://github.com/login/oauth/authorize?client_id=${configuration.github.client_id}&scope=gist&state=${configuration.github.request_state}`
-            );
+            return await goAuthenticate();
           }
-          notify.info("Downloading my Gists!");
-          const gists = await getAuthenticatedUsersGists(token);
-          this.state.mode = commanderModes.gists;
-          console.log("gists", gists);
+          const gistId = storage.get("gistId");
+          if (!gistId) {
+            return await setGistToSyncWith(token);
+          }
+          this.hide();
+          await updateLocalNotesFromGitHub();
         }
       },
       {
