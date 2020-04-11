@@ -17,7 +17,7 @@ import { commands } from "./commands";
 import {
   goAuthenticate,
   setGistToSyncWith,
-  updateLocalNotesFromGitHub
+  syncNotesWithGitHub
 } from "../../utils/github";
 
 export const commanderModes = {
@@ -108,7 +108,7 @@ const commander = {
             return await setGistToSyncWith(token);
           }
           this.hide();
-          await updateLocalNotesFromGitHub();
+          await syncNotesWithGitHub();
         }
       },
       {

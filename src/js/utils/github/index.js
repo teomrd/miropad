@@ -6,7 +6,7 @@ import { url } from "../urlManager";
 import commander, {
   commanderModes
 } from "../../components/commander/commander";
-import { getAuthenticatedUsersGists, createNewGist } from "./api";
+import { getAuthenticatedUsersGists, createNewGist, updateGist } from "./api";
 import { commands } from "../../components/commander/commands";
 import select from "../dom";
 import { configuration } from "../../../configuration";
@@ -46,7 +46,6 @@ export const setGistToSyncWith = async token => {
         notify.info("Syncing your MiroPads to a new Gist");
         try {
           const { id } = await createNewGist();
-          console.log("id", id);
           storage.set("gistId", id);
           notify.success("MiroPads synced to a new Gist 🎉");
         } catch (error) {
@@ -61,15 +60,21 @@ export const setGistToSyncWith = async token => {
   select("#commands").append(gistOptionComponents);
 };
 
-export const updateLocalNotesFromGitHub = async (
-  gistId = storage.get("gistId")
-) => {
+export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
   const authToken = storage.get("authToken");
+
   if (authToken && gistId) {
     const { files } = await getGist(gistId);
-    Object.values(files).forEach(({ content }) => {
-      updateNote(content);
-    });
+    const lastSync = new Date(storage.get("lastSync")).getTime();
+    const lastLocalUpdate = new Date(storage.get("lastLocalUpdate")).getTime();
+    if (lastLocalUpdate > lastSync) {
+      await updateGist();
+    } else {
+      Object.values(files).forEach(({ content }) => {
+        updateNote(content);
+      });
+      storage.set("lastSync", new Date());
+    }
     notify.success("MiroPad notes got synced ✅");
   }
 };

@@ -123,6 +123,7 @@ export const saveNote = async (what, cid) => {
         v: hash,
         ...(cid ? { cid: cid } : {})
       });
+      storage.set("lastLocalUpdate", new Date());
       notify.success("👌 Note saved!");
     } catch (e) {
       notify.error(
