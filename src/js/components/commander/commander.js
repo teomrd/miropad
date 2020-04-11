@@ -78,6 +78,24 @@ const commander = {
   commands: function() {
     return [
       {
+        title: "📒 List saved notes",
+        key: "p",
+        call: () => {
+          this.state.mode !== commanderModes.notes
+            ? this.show(commanderModes.notes)
+            : this.hide();
+        }
+      },
+      {
+        title: "💾 Save",
+        key: "s",
+        call: () => {
+          saveNote(select(".terminal").getValue());
+          this.hide();
+          select(".logo").removeClass("unsaved");
+        }
+      },
+      {
         title: "🔄 Sync: Notes my GitHub Gist (requires auth)",
         key: null,
         call: async () => {
@@ -94,53 +112,7 @@ const commander = {
         }
       },
       {
-        title: "📒 List saved notes",
-        key: "p",
-        call: () => {
-          this.state.mode !== commanderModes.notes
-            ? this.show(commanderModes.notes)
-            : this.hide();
-        }
-      },
-      {
-        title: " 🕵️‍♂️ Find and Replace...",
-        key: "shift f",
-        call: () => {
-          const selectedValue = select(".terminal")
-            .getValue()
-            .slice(
-              select(".terminal").el.selectionStart,
-              select(".terminal").el.selectionEnd
-            );
-          const valueToFind = prompt("What do you wanna find?", selectedValue);
-          if (!valueToFind) {
-            return this;
-          }
-          const positionOfFirstChar = select(".terminal")
-            .getValue()
-            .indexOf(valueToFind);
-
-          select(".terminal").el.setSelectionRange(
-            positionOfFirstChar,
-            positionOfFirstChar + valueToFind.length
-          );
-          const replacementValue = prompt(`Replace ${valueToFind} with...`);
-          if (replacementValue) {
-            select(".terminal").el.setRangeText(replacementValue);
-          }
-        }
-      },
-      {
-        title: "💾 Save",
-        key: "s",
-        call: () => {
-          saveNote(select(".terminal").getValue());
-          this.hide();
-          select(".logo").removeClass("unsaved");
-        }
-      },
-      {
-        title: "💾 Save As...",
+        title: "💾 Save to File System (Experimental browser feature)...",
         key: "shift s",
         call: async () => {
           const { text, title } = getNote();
@@ -227,6 +199,34 @@ const commander = {
           this.state.mode !== commanderModes.commands
             ? this.show(commanderModes.commands)
             : this.hide();
+        }
+      },
+      {
+        title: " 🕵️‍♂️ Find and Replace...",
+        key: "shift f",
+        call: () => {
+          const selectedValue = select(".terminal")
+            .getValue()
+            .slice(
+              select(".terminal").el.selectionStart,
+              select(".terminal").el.selectionEnd
+            );
+          const valueToFind = prompt("What do you wanna find?", selectedValue);
+          if (!valueToFind) {
+            return this;
+          }
+          const positionOfFirstChar = select(".terminal")
+            .getValue()
+            .indexOf(valueToFind);
+
+          select(".terminal").el.setSelectionRange(
+            positionOfFirstChar,
+            positionOfFirstChar + valueToFind.length
+          );
+          const replacementValue = prompt(`Replace ${valueToFind} with...`);
+          if (replacementValue) {
+            select(".terminal").el.setRangeText(replacementValue);
+          }
         }
       }
     ];
