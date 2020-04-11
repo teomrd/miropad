@@ -32,11 +32,17 @@ export const url = {
   },
   deleteParam: function(param) {
     const searchParams = this.getSearchParams();
+    if (typeof param === "object" && param.length > 0) {
+      param.forEach(p => {
+        searchParams.delete(p);
+      });
+    } else {
+      searchParams.delete(param);
+    }
 
-    searchParams.delete(param);
-    return window.location.assign(
-      `#${this.getPageId()}?${searchParams.toString()}`
-    );
+    return this.getPageId()
+      ? window.location.assign(`#${this.getPageId()}?${searchParams.toString()}`) // eslint-disable-line
+      : window.location.replace(`${window.location.origin}?${searchParams.toString()}`); // eslint-disable-line
   },
   set: function(pageId = this.getPageId(), params = this.getParamsObject()) {
     const allParams = {

@@ -14,12 +14,18 @@ import {
 import { url } from "../../utils/urlManager";
 import { saveFileAs } from "../fileSystem/fileSystem";
 import { commands } from "./commands";
+import {
+  goAuthenticate,
+  setGistToSyncWith,
+  updateLocalNotesFromGitHub
+} from "../../utils/github";
 
-const commanderModes = {
+export const commanderModes = {
   off: "off",
   notes: "notes",
   revisions: "revisions",
-  commands: "commands"
+  commands: "commands",
+  gists: "gists"
 };
 
 const commander = {
@@ -71,6 +77,22 @@ const commander = {
   },
   commands: function() {
     return [
+      {
+        title: "🔄 Sync: Notes my GitHub Gist (requires auth)",
+        key: null,
+        call: async () => {
+          const token = storage.get("authToken");
+          if (!token) {
+            return await goAuthenticate();
+          }
+          const gistId = storage.get("gistId");
+          if (!gistId) {
+            return await setGistToSyncWith(token);
+          }
+          this.hide();
+          await updateLocalNotesFromGitHub();
+        }
+      },
       {
         title: "📒 List saved notes",
         key: "p",

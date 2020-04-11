@@ -61,6 +61,35 @@ export const resetNoteManager = () => {
   select(".logo").removeClass("unsaved");
 };
 
+export const updateNote = async (what, cid) => {
+  if (what.length) {
+    const hash = await hashBrowser(what);
+    const title = what
+      .split("\n")[0]
+      .trim()
+      .replace("#", "")
+      .trim();
+
+    const titleID = encodeURIComponent(title.replace(/[^\w\s]/gi, ""));
+    const currentNote = storage.get(titleID);
+    const note = JSON.parse(currentNote);
+    storage.set(
+      titleID,
+      JSON.stringify({
+        title,
+        revisions: {
+          ...((note && note.revisions) || {}),
+          [hash]: {
+            dateCreated: Date.now(),
+            text: what,
+            ...(cid ? { cid: cid } : {})
+          }
+        }
+      })
+    );
+  }
+};
+
 export const saveNote = async (what, cid) => {
   await storage.saveToDictionary(what);
   if (what.length) {
@@ -116,6 +145,7 @@ export const getNotes = () =>
         ? [
             {
               id: noteId,
+              text: getNote(noteId).text,
               ...noteBody
             }
           ]

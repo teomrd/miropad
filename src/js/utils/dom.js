@@ -1,3 +1,5 @@
+const isArray = what => typeof what === "object" && what.length > 0;
+
 const select = el => ({
   el: document.querySelector(el),
   placeholder(what) {
@@ -30,7 +32,8 @@ const select = el => ({
     return this;
   },
   append(el) {
-    this.el.appendChild(el);
+    const elements = isArray(el) ? el : [el];
+    elements.forEach(e => this.el.appendChild(e));
     return this;
   },
   appendListElement(text) {
