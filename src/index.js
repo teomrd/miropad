@@ -1,7 +1,7 @@
 import main from "./js/main";
 import { registerServiceWorker } from "./js/registerServiceWorker";
 import {
-  updateLocalNotesFromGitHub,
+  syncNotesWithGitHub,
   setAuthTokenFromCallback
 } from "./js/utils/github";
 
@@ -10,6 +10,6 @@ import {
   main();
   registerServiceWorker();
 
-  await updateLocalNotesFromGitHub();
+  await syncNotesWithGitHub();
   await setAuthTokenFromCallback();
 })();
