@@ -62,7 +62,7 @@ export const setGistToSyncWith = async token => {
 
 export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
   const authToken = storage.get("authToken");
-
+  select("#logo").addClass("loading");
   if (authToken && gistId) {
     const { files } = await getGist(gistId);
     const lastSync = new Date(storage.get("lastSync")).getTime();
@@ -75,6 +75,7 @@ export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
       });
       storage.set("lastSync", new Date());
     }
+    select("#logo").removeClass("loading");
     notify.success("MiroPad notes got synced ✅");
   }
 };
@@ -83,6 +84,7 @@ export const setAuthTokenFromCallback = async () => {
   const code = url.getSearchParam("code");
   const state = url.getSearchParam("state");
   if (code && state) {
+    select("#logo").addClass("loading");
     notify.info("🔐 Authenticating...");
     try {
       const { token } = await getAuthToken(code, state);
@@ -93,5 +95,6 @@ export const setAuthTokenFromCallback = async () => {
       console.log("error", error);
       notify.error(error.message);
     }
+    select("#logo").removeClass("loading");
   }
 };
