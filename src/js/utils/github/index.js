@@ -64,19 +64,20 @@ export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
   const authToken = storage.get("authToken");
   select("#logo").addClass("loading");
   if (authToken && gistId) {
-    const { files } = await getGist(gistId);
-    const lastSync = new Date(storage.get("lastSync")).getTime();
+    const { files, updated_at } = await getGist(gistId);
+    const lastRemoteUpdate = new Date(updated_at).getTime();
     const lastLocalUpdate = new Date(storage.get("lastLocalUpdate")).getTime();
-    if (lastLocalUpdate > lastSync) {
+    if (lastLocalUpdate > lastRemoteUpdate) {
       await updateGist();
+      notify.success("⬆ MiroPad notes synced on Gist ✅");
     } else {
       Object.values(files).forEach(({ content }) => {
         updateNote(content);
       });
       storage.set("lastSync", new Date());
+      notify.success("⬇ MiroPad synced ✅");
     }
     select("#logo").removeClass("loading");
-    notify.success("MiroPad notes got synced ✅");
   }
 };
 
