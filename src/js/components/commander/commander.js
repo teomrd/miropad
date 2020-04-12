@@ -356,7 +356,7 @@ const commander = {
         const bDateCreated = Object.values(b.revisions)[0].dateCreated;
         return bDateCreated - aDateCreated;
       })
-      .slice(0, 10)
+      .slice(0, 100)
       .map(({ id, title, revisions }, i) => {
         const li = document.createElement("LI");
         const dateSpan = document.createElement("span");
