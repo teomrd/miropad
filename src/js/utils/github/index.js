@@ -62,8 +62,8 @@ export const setGistToSyncWith = async (token) => {
 
 export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
   const authToken = storage.get("authToken");
-  select("#logo").addClass("loading");
   if (authToken && gistId) {
+    select("#logo").addClass("loading");
     const { files, updated_at } = await getGist(gistId);
     const lastRemoteUpdate = new Date(updated_at).getTime();
     const lastLocalUpdate = new Date(storage.get("lastLocalUpdate")).getTime();
