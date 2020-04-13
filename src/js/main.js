@@ -40,7 +40,7 @@ const main = async () => {
   commander.init();
 
   select(".terminal")
-    .listen("focus", () => select("#commander").hide())
+    .listen("focus", () => commander.hide())
     .listen("keydown", (e) => {
       if (e.keyCode === 9) {
         e.preventDefault();
