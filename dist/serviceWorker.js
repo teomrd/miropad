@@ -4,7 +4,10 @@ const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
     try {
       const res = await fetch(
-        "https://raw.githubusercontent.com/teomrd/miropad/master/package.json"
+        "https://raw.githubusercontent.com/teomrd/miropad/master/package.json",
+        {
+          cache: "no-cache",
+        }
       );
       const { version } = await res.json();
       if (currentVersion !== version) {
