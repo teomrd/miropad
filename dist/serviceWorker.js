@@ -1,6 +1,6 @@
 let currentVersion;
 
-const checkForNewerVersion = currentVersion => {
+const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
     try {
       const res = await fetch(
@@ -9,7 +9,7 @@ const checkForNewerVersion = currentVersion => {
       const { version } = await res.json();
       if (currentVersion !== version) {
         self.registration.showNotification("✍️ MiroPad has been updated", {
-          body: `Version ${version} is available, refresh to update!`
+          body: `Version ${version} is available, refresh to update!`,
         });
         clearInterval(intervalChecker);
       }
