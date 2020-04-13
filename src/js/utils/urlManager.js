@@ -39,10 +39,10 @@ export const url = {
     } else {
       searchParams.delete(param);
     }
-
+    const { protocol, host, pathname } = window.location;
     return this.getPageId()
       ? window.location.assign(`#${this.getPageId()}?${searchParams.toString()}`) // eslint-disable-line
-      : window.location.replace(`${window.location.origin}?${searchParams.toString()}`); // eslint-disable-line
+      : window.location.replace(`${protocol}/${host}${pathname}?${searchParams.toString()}`); // eslint-disable-line
   },
   set: function (pageId = this.getPageId(), params = this.getParamsObject()) {
     const allParams = {
