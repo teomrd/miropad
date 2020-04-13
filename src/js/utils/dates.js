@@ -27,9 +27,40 @@ const isSameDate = (aDate, bDate = new Date()) => {
   );
 };
 
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const shortMonthNames = monthNames.map((name) => name.slice(0, 3));
+
+const isYesterday = (date = new Date()) => {
+  const theDate = new Date(date);
+  const yesterDate = new Date().getDate() - 1;
+  return (
+    isSameMonth(theDate) &&
+    isSameYear(theDate) &&
+    theDate.getDate() === yesterDate
+  );
+};
+
 export const relativeDate = (dateCreated) => {
   const date = new Date(dateCreated);
-  return `${isSameDate(date) ? "" : date.toLocaleDateString()} ${
+  const month = !isYesterday ? shortMonthNames[date.getMonth()] : "";
+  const year = isSameYear(date) ? "" : date.getFullYear();
+  const day = isYesterday(date) ? "Yesterday" : date.getDate();
+
+  return `${isSameDate(date) ? "" : `${day} ${month} ${year}`} ${
     isSameDate(date) ? date.toLocaleTimeString() : ""
   }`;
 };
