@@ -37,7 +37,7 @@ const select = (el) => ({
     return this;
   },
   append(el) {
-    const elements = typeof el === "string" ? [el] : el;
+    const elements = isArray(el) ? el : [el];
     elements.forEach((e) => {
       const newContent = isElement(e) ? e : document.createTextNode(e);
       this.el.appendChild(newContent);
