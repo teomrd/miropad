@@ -1,4 +1,4 @@
-const isArray = (what) => typeof what === "object" && what.length > 0;
+import { isArray } from "./isArray";
 
 const select = (el) => ({
   el: document.querySelector(el),
@@ -28,12 +28,16 @@ const select = (el) => ({
     return this;
   },
   html(content) {
-    this.el.innerHTML = content;
+    this.el.innerHTML = "";
+    this.append(content);
     return this;
   },
   append(el) {
-    const elements = isArray(el) ? el : [el];
-    elements.forEach((e) => this.el.appendChild(e));
+    const elements = typeof el === "string" ? [el] : el;
+    elements.forEach((e) => {
+      const newContent = isElement(e) ? e : document.createTextNode(e);
+      this.el.appendChild(newContent);
+    });
     return this;
   },
   appendListElement(text) {

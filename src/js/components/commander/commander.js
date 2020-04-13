@@ -22,6 +22,8 @@ import {
 } from "../../utils/github";
 import { command } from "./command";
 import { link } from "../link/link";
+import { div } from "../div/div";
+import { relativeDate } from "../../utils/dates";
 
 export const commanderModes = {
   off: "off",
@@ -349,7 +351,6 @@ const commander = {
   },
   generateNotes: function (value = "") {
     const indexToSelect = this.state.options.selected;
-    select("#commands").html("");
     const notes = getNotes()
       .filter(({ title }) => {
         return title.toLowerCase().includes(value.toLowerCase());
@@ -366,20 +367,18 @@ const commander = {
           title,
           `${window.location.origin}${window.location.pathname}#${id}`
         );
+
         const noteCommand = command(
           {
             title: noteLink,
-            secondary: `${new Date(
-              dateCreated
-            ).toLocaleDateString()} ${new Date(
-              dateCreated
-            ).toLocaleTimeString()}`,
+            secondary: relativeDate(dateCreated),
             onclick: () => this.hide(),
           },
           i === indexToSelect
         );
-        select("#commands").append(noteCommand);
+        return noteCommand;
       });
+    select("#commands").html(notes);
     this.state.options = {
       ...this.state.options,
       length: notes.length,
