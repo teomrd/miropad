@@ -24,6 +24,5 @@ npm version "$version_type" &&
   npm run build &&
   git add ./dist/* &&
   git amend -n &&
-  echo "done"
-# git push &&
-# git subtree push --prefix dist origin gh-pages
+  git push &&
+  git subtree push --prefix dist origin gh-pages
