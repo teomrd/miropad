@@ -387,27 +387,24 @@ const commander = {
   },
   generateCommands: async function (value = "") {
     const indexToSelect = this.state.options.selected;
-    select("#commands").html("");
-    const commands = this.commands()
+    const commandComponents = this.commands()
       .filter(({ title }) => title.toLowerCase().includes(value.toLowerCase()))
       .map(({ title, key, call }, i) => {
-        const li = document.createElement("LI");
-        li.className = i === indexToSelect ? "selected" : "";
-        li.onclick = call;
-        const commandContainer = document.createElement("div");
-        commandContainer.appendChild(document.createTextNode(title));
-        li.appendChild(commandContainer);
-        const span = document.createElement("span");
-        span.className = "secondary";
-        if (key) {
-          span.appendChild(document.createTextNode(`⌘+${key.toUpperCase()}`));
-        }
-        li.appendChild(span);
-        select("#commands").append(li);
+        const keyCompo = key ? `⌘+${key.toUpperCase()}` : "";
+        const commandComponent = command(
+          {
+            title: div(title),
+            secondary: keyCompo,
+            onclick: call,
+          },
+          i === indexToSelect
+        );
+        return commandComponent;
       });
+    select("#commands").html(commandComponents);
     this.state.options = {
       ...this.state.options,
-      length: commands.length,
+      length: commandComponents.length,
     };
     return this;
   },
