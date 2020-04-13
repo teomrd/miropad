@@ -10,9 +10,6 @@ const checkForNewerVersion = (currentVersion) => {
         }
       );
       const version = await res.text();
-      console.log("version", version);
-      console.log("clean version", version.replace("\"", "")); // eslint-disable-line
-      console.log("currentVersion", currentVersion);
       if (currentVersion !== version.replace("\"", "")) { // eslint-disable-line
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`,
