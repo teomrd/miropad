@@ -6,7 +6,7 @@ const _getBasePageTitle = () => {
   return baseTitle;
 };
 
-const setPageTitle = what => {
+const setPageTitle = (what) => {
   const baseTitle = _getBasePageTitle();
   document.title = baseTitle.trim() + " | " + what.trim();
   select(".title h3").html(what.trim());

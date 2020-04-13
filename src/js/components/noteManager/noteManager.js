@@ -34,12 +34,12 @@ export const getNote = (titleID = url.getPageId(), revision) => {
         ...(noteToReturn ? noteToReturn : {}),
         numberOfRevisions:
           doc && doc.revisions ? Object.keys(doc.revisions).length : undefined,
-        title: doc.title
+        title: doc.title,
       }
     : null;
 };
 
-export const setNoteFromHash = version => {
+export const setNoteFromHash = (version) => {
   const note = getNote(undefined, version);
   if (note) {
     select("#revisions").html(
@@ -61,21 +61,17 @@ export const resetNoteManager = () => {
   select(".logo").removeClass("unsaved");
 };
 
-const getTitle = note => {
-  const title = note
-    .split("\n")[0]
-    .trim()
-    .replace("#", "")
-    .trim();
+const getTitle = (note) => {
+  const title = note.split("\n")[0].trim().replace("#", "").trim();
   return title;
 };
 
-const getTitleId = note => {
+const getTitleId = (note) => {
   const title = getTitle(note);
   return encodeURIComponent(title.replace(/[^\w\s]/gi, ""));
 };
 
-export const updateNote = async what => {
+export const updateNote = async (what) => {
   if (what.length) {
     const titleID = getTitleId(what);
     const title = getTitle(what);
@@ -99,9 +95,9 @@ export const updateNote = async what => {
           ...((note && note.revisions) || {}),
           [hashOfIncomingNote]: {
             dateCreated: Date.now(),
-            text: what
-          }
-        }
+            text: what,
+          },
+        },
       })
     );
   }
@@ -112,11 +108,7 @@ export const saveNote = async (what, cid) => {
   if (what.length) {
     const hash = await hashBrowser(what);
     try {
-      const title = what
-        .split("\n")[0]
-        .trim()
-        .replace("#", "")
-        .trim();
+      const title = what.split("\n")[0].trim().replace("#", "").trim();
 
       setPageTitle(title);
       const titleID = encodeURIComponent(title.replace(/[^\w\s]/gi, ""));
@@ -131,14 +123,14 @@ export const saveNote = async (what, cid) => {
             [hash]: {
               dateCreated: Date.now(),
               text: what,
-              ...(cid ? { cid: cid } : {})
-            }
-          }
+              ...(cid ? { cid: cid } : {}),
+            },
+          },
         })
       );
       url.set(titleID, {
         v: hash,
-        ...(cid ? { cid: cid } : {})
+        ...(cid ? { cid: cid } : {}),
       });
       storage.set("lastLocalUpdate", new Date());
       notify.success("👌 Note saved!");
@@ -164,9 +156,9 @@ export const getNotes = () =>
             {
               id: noteId,
               text: getNote(noteId).text,
-              ...noteBody
-            }
+              ...noteBody,
+            },
           ]
-        : [])
+        : []),
     ];
   }, []);

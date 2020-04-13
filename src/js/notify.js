@@ -4,7 +4,7 @@ const notificationTypes = {
   info: "info",
   success: "success",
   error: "error",
-  warning: "warning"
+  warning: "warning",
 };
 
 const notification = select("#notification");
@@ -18,7 +18,7 @@ const notificationFactory = () =>
       ...acc,
       [notificationType](message) {
         this.showNotification(message, notificationType);
-      }
+      },
     }),
     {}
   );
@@ -37,7 +37,7 @@ const Notification = (autohideDuration = 5) => ({
     clearTimeout(this.timer);
     this.removeAfter();
   },
-  ...notificationFactory()
+  ...notificationFactory(),
 });
 
 const notify = Notification();

@@ -7,7 +7,7 @@ const converter = new showdown.Converter({
   emoji: true,
   simplifiedAutoLink: true,
   tables: true,
-  openLinksInNewWindow: true
+  openLinksInNewWindow: true,
 });
 
 converter.setFlavor("github");
@@ -34,10 +34,10 @@ export const markDownIt = () => {
       } else {
         mdView.show();
         url.set(undefined, {
-          md: true
+          md: true,
         });
       }
-    }
+    },
   };
 };
 

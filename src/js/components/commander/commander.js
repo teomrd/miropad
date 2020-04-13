@@ -9,7 +9,7 @@ import {
   getNote,
   resetNoteManager,
   saveNote,
-  getNotes
+  getNotes,
 } from "../noteManager/noteManager";
 import { url } from "../../utils/urlManager";
 import { saveFileAs } from "../fileSystem/fileSystem";
@@ -17,7 +17,7 @@ import { commands } from "./commands";
 import {
   goAuthenticate,
   setGistToSyncWith,
-  syncNotesWithGitHub
+  syncNotesWithGitHub,
 } from "../../utils/github";
 
 export const commanderModes = {
@@ -25,7 +25,7 @@ export const commanderModes = {
   notes: "notes",
   revisions: "revisions",
   commands: "commands",
-  gists: "gists"
+  gists: "gists",
 };
 
 const commander = {
@@ -34,10 +34,10 @@ const commander = {
     mode: commanderModes.off,
     options: {
       selected: 0,
-      length: 0
-    }
+      length: 0,
+    },
   },
-  show: function(what = commanderModes.commands) {
+  show: function (what = commanderModes.commands) {
     select("#commander").show();
     select("#commander input").focus();
     switch (what) {
@@ -62,12 +62,12 @@ const commander = {
     }
     return this;
   },
-  hide: function() {
+  hide: function () {
     select("#commander").hide();
     this.state.mode = commanderModes.off;
     return this;
   },
-  toggle: function() {
+  toggle: function () {
     if (this.state.mode === commanderModes.off) {
       this.show();
     } else {
@@ -75,7 +75,7 @@ const commander = {
     }
     return this;
   },
-  commands: function() {
+  commands: function () {
     return [
       {
         title: "📒 List saved notes",
@@ -84,7 +84,7 @@ const commander = {
           this.state.mode !== commanderModes.notes
             ? this.show(commanderModes.notes)
             : this.hide();
-        }
+        },
       },
       {
         title: "💾 Save",
@@ -93,7 +93,7 @@ const commander = {
           saveNote(select(".terminal").getValue());
           this.hide();
           select(".logo").removeClass("unsaved");
-        }
+        },
       },
       {
         title: "🔄 Sync: Notes my GitHub Gist (requires auth)",
@@ -109,7 +109,7 @@ const commander = {
           }
           this.hide();
           await syncNotesWithGitHub();
-        }
+        },
       },
       {
         title: "💾 Save to File System (Experimental browser feature)...",
@@ -119,7 +119,7 @@ const commander = {
           await navigator.clipboard.writeText(title);
           saveFileAs(text);
           this.hide();
-        }
+        },
       },
       {
         title: "🗑 Trash note",
@@ -134,7 +134,7 @@ const commander = {
             resetNoteManager();
           }
           this.hide();
-        }
+        },
       },
       {
         title: "📡 Save to IPFS",
@@ -142,7 +142,7 @@ const commander = {
         call: () => {
           storage.saveToIPFS(select(".terminal").getValue());
           this.hide();
-        }
+        },
       },
       {
         title: "📬 Email note to...",
@@ -153,7 +153,7 @@ const commander = {
           } \n ${url.get()}`;
           mailTo(note);
           this.hide();
-        }
+        },
       },
       {
         title: "🖨 Print MarkDown output",
@@ -163,7 +163,7 @@ const commander = {
           markDownIt();
           window.print();
           this.hide();
-        }
+        },
       },
       {
         title: "◽ Full MarkDown view",
@@ -171,10 +171,10 @@ const commander = {
         call: () => {
           markDownIt();
           url.set(undefined, {
-            md: "full"
+            md: "full",
           });
           this.hide();
-        }
+        },
       },
       {
         title: "🔳 Toggle MarkDown Viewer",
@@ -182,7 +182,7 @@ const commander = {
         call: () => {
           toggleMarkDownViewer();
           this.hide();
-        }
+        },
       },
       {
         key: "j",
@@ -190,7 +190,7 @@ const commander = {
         call: () => {
           prettifyJSON(".terminal");
           this.hide();
-        }
+        },
       },
       {
         title: "🎨 Toggle command palette",
@@ -199,7 +199,7 @@ const commander = {
           this.state.mode !== commanderModes.commands
             ? this.show(commanderModes.commands)
             : this.hide();
-        }
+        },
       },
       {
         title: " 🕵️‍♂️ Find and Replace...",
@@ -227,11 +227,11 @@ const commander = {
           if (replacementValue) {
             select(".terminal").el.setRangeText(replacementValue);
           }
-        }
-      }
+        },
+      },
     ];
   },
-  selectOption: function(e, direction) {
+  selectOption: function (e, direction) {
     const currentlySelected = this.state.options.selected;
     const lastOption = this.state.options.length - 1;
     const isLastOption = currentlySelected === lastOption;
@@ -248,12 +248,12 @@ const commander = {
 
     this.state.options = {
       ...this.state.options,
-      selected: indexToSelect
+      selected: indexToSelect,
     };
   },
-  initCommander: function() {
+  initCommander: function () {
     select("#commander input")
-      .listen("keydown", e => {
+      .listen("keydown", (e) => {
         // arrow down 40
         if (e.keyCode === 40) {
           if (this.state.mode === commanderModes.revisions) {
@@ -269,7 +269,7 @@ const commander = {
           this.selectOption(e, "up");
         }
       })
-      .listen("keyup", e => {
+      .listen("keyup", (e) => {
         // enter
         if (e.keyCode === 13) {
           if (this.state.mode === commanderModes.commands) {
@@ -290,14 +290,14 @@ const commander = {
       });
     return this;
   },
-  init: function() {
+  init: function () {
     this.initCommander();
     keyListener.listen().on(this.commands());
     select(".menu").listen("click", () => this.toggle());
     select("#revisions").listen("click", () => this.generateRevisions());
     return this;
   },
-  generateRevisions: function() {
+  generateRevisions: function () {
     this.show();
     this.state.mode = commanderModes.revisions;
     const { revisions } = getNote();
@@ -312,24 +312,24 @@ const commander = {
       ).toLocaleTimeString()}`,
       onclick: () => {
         url.set(undefined, {
-          v: id
+          v: id,
         });
         this.state.options.selected = i;
         this.generateRevisions();
-      }
+      },
     }));
 
-    commands(revisionsOptions, this.state.options.selected).map(el =>
+    commands(revisionsOptions, this.state.options.selected).map((el) =>
       select("#commands").append(el)
     );
 
     this.state.options = {
       ...this.state.options,
-      length: revisionsOptions.length
+      length: revisionsOptions.length,
     };
     return this;
   },
-  generateOptions: function(value) {
+  generateOptions: function (value) {
     if (this.state.mode !== commanderModes.revisions) {
       if (value.slice(0, 1) === ">") {
         this.state.mode = commanderModes.commands;
@@ -344,7 +344,7 @@ const commander = {
       this.generateRevisions();
     }
   },
-  generateNotes: function(value = "") {
+  generateNotes: function (value = "") {
     const indexToSelect = this.state.options.selected;
     select("#commands").html("");
     const notes = getNotes()
@@ -380,11 +380,11 @@ const commander = {
       });
     this.state.options = {
       ...this.state.options,
-      length: notes.length
+      length: notes.length,
     };
     return this;
   },
-  generateCommands: async function(value = "") {
+  generateCommands: async function (value = "") {
     const indexToSelect = this.state.options.selected;
     select("#commands").html("");
     const commands = this.commands()
@@ -406,10 +406,10 @@ const commander = {
       });
     this.state.options = {
       ...this.state.options,
-      length: commands.length
+      length: commands.length,
     };
     return this;
-  }
+  },
 };
 
 export default commander;

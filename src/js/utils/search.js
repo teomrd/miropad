@@ -1,6 +1,6 @@
 import { getNote, getNotes } from "../components/noteManager/noteManager";
 
-const search = q => {
+const search = (q) => {
   if (!q) {
     return undefined;
   }

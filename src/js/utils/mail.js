@@ -39,7 +39,7 @@ const getUserMailingPreferences = () => {
   return whoMailing;
 };
 
-const mailTo = what => {
+const mailTo = (what) => {
   const email = getUserMailingPreferences();
   if (email === null) {
     notify.info("Sending mail cancelled 😶");

@@ -7,9 +7,9 @@ export const getNewFileHandle = () => {
       {
         description: "Text file",
         extensions: ["miropad"],
-        mimeTypes: ["text/plain"]
-      }
-    ]
+        mimeTypes: ["text/plain"],
+      },
+    ],
   });
   return handle;
 };
@@ -26,7 +26,7 @@ export const writeFile = async (fileHandle, contents) => {
 /**
  * Saves a new file to disk.
  */
-export const saveFileAs = async contents => {
+export const saveFileAs = async (contents) => {
   let fileHandle;
   try {
     fileHandle = await getNewFileHandle();

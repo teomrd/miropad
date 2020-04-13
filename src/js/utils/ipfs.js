@@ -10,7 +10,7 @@ const ipfs = {
       return false;
     }
   },
-  getFileContents: async function(ipfsNode, cid) {
+  getFileContents: async function (ipfsNode, cid) {
     try {
       const file = await ipfsNode.cat(cid);
       return Promise.resolve(file.toString("utf8"));
@@ -18,7 +18,7 @@ const ipfs = {
       notify.error(`The requested CID: ${cid} was not found`);
       return Promise.reject(new Error("Not valid CID"));
     }
-  }
+  },
 };
 
 export default ipfs;

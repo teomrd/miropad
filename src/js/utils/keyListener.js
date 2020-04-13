@@ -2,7 +2,7 @@ const keyListener = {
   events: [],
   on(key, fn) {
     if (typeof key === "object" && typeof fn === "undefined") {
-      key.map(k => this.on(k.key, k.call));
+      key.map((k) => this.on(k.key, k.call));
       return this;
     }
 
@@ -14,21 +14,21 @@ const keyListener = {
           shift: key.includes("shift"),
           fn() {
             fn();
-          }
-        }
+          },
+        },
       ];
     }
 
     return this;
   },
   listen() {
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
       this.handleEvent(e);
     });
     return this;
   },
   handleEvent(e) {
-    this.events.map(event => {
+    this.events.map((event) => {
       if (
         event.key === e.key &&
         (e.ctrlKey === true || e.metaKey === true) &&
@@ -39,7 +39,7 @@ const keyListener = {
       }
       return true;
     });
-  }
+  },
 };
 
 export default keyListener;

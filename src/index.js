@@ -2,7 +2,7 @@ import main from "./js/main";
 import { registerServiceWorker } from "./js/registerServiceWorker";
 import {
   syncNotesWithGitHub,
-  setAuthTokenFromCallback
+  setAuthTokenFromCallback,
 } from "./js/utils/github";
 
 (async () => {

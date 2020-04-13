@@ -13,7 +13,7 @@ import {
   setNoteFromHash,
   resetNoteManager,
   getNote,
-  saveNote
+  saveNote,
 } from "./components/noteManager/noteManager";
 import notify from "./notify";
 import { url } from "./utils/urlManager";
@@ -41,7 +41,7 @@ const main = async () => {
 
   select(".terminal")
     .listen("focus", () => select("#commander").hide())
-    .listen("keydown", e => {
+    .listen("keydown", (e) => {
       if (e.keyCode === 9) {
         e.preventDefault();
         select(".terminal").insertAtCaret("  ");

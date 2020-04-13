@@ -4,7 +4,7 @@ import notify from "../../notify";
 import storage from "../localstorage";
 import { url } from "../urlManager";
 import commander, {
-  commanderModes
+  commanderModes,
 } from "../../components/commander/commander";
 import { getAuthenticatedUsersGists, createNewGist, updateGist } from "./api";
 import { commands } from "../../components/commander/commands";
@@ -19,7 +19,7 @@ export const goAuthenticate = async () => {
   );
 };
 
-export const setGistToSyncWith = async token => {
+export const setGistToSyncWith = async (token) => {
   notify.info("Downloading my Gists!");
   const gists = await getAuthenticatedUsersGists(token);
   commander.state.mode = commanderModes.gists;
@@ -36,7 +36,7 @@ export const setGistToSyncWith = async token => {
         storage.set("gistId", id);
         notify.success(`${description}(${id}) selected for synchronization!`);
         commander.hide();
-      }
+      },
     }));
 
   const gistOptionComponents = commands([
@@ -52,9 +52,9 @@ export const setGistToSyncWith = async token => {
           notify.error(error.message);
         }
         commander.hide();
-      }
+      },
     },
-    ...gistOptions
+    ...gistOptions,
   ]);
   select("#commands").html("");
   select("#commands").append(gistOptionComponents);

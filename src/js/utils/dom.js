@@ -1,6 +1,6 @@
-const isArray = what => typeof what === "object" && what.length > 0;
+const isArray = (what) => typeof what === "object" && what.length > 0;
 
-const select = el => ({
+const select = (el) => ({
   el: document.querySelector(el),
   placeholder(what) {
     this.el.placeholder = what;
@@ -22,7 +22,7 @@ const select = el => ({
     this.el.value = value;
     const event = new Event("input", {
       bubbles: true,
-      cancelable: true
+      cancelable: true,
     });
     this.el.dispatchEvent(event);
     return this;
@@ -33,7 +33,7 @@ const select = el => ({
   },
   append(el) {
     const elements = isArray(el) ? el : [el];
-    elements.forEach(e => this.el.appendChild(e));
+    elements.forEach((e) => this.el.appendChild(e));
     return this;
   },
   appendListElement(text) {
@@ -47,7 +47,7 @@ const select = el => ({
     return this;
   },
   removeClasses(classes = []) {
-    classes.map(className => this.removeClass(className));
+    classes.map((className) => this.removeClass(className));
     return this;
   },
   addClass(className) {
@@ -82,7 +82,7 @@ const select = el => ({
     if (this.el) {
       this.el.click();
     }
-  }
+  },
 });
 
 export default select;
