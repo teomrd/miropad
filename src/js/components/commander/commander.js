@@ -335,18 +335,26 @@ const commander = {
     return this;
   },
   generateOptions: function (value) {
-    if (this.state.mode !== commanderModes.revisions) {
-      if (value.slice(0, 1) === ">") {
-        this.state.mode = commanderModes.commands;
-        this.generateCommands(value.slice(1, -1).trim());
-        select("#commander input").placeholder("Search for commands...");
-      } else {
-        this.state.mode = commanderModes.notes;
-        this.generateNotes(value);
-        select("#commander input").placeholder("Search for saved notes...");
-      }
-    } else {
-      this.generateRevisions();
+    switch (this.state.mode) {
+      case commanderModes.commands:
+      case commanderModes.notes:
+        if (value.slice(0, 1) === ">") {
+          this.state.mode = commanderModes.commands;
+          this.generateCommands(value.slice(1, -1).trim());
+          select("#commander input").placeholder("Search for commands...");
+        } else {
+          this.state.mode = commanderModes.notes;
+          this.generateNotes(value);
+          select("#commander input").placeholder("Search for saved notes...");
+        }
+        return;
+      case commanderModes.revisions:
+        return this.generateRevisions();
+      case commanderModes.off:
+        console.log("off");
+        break;
+      default:
+        break;
     }
   },
   generateNotes: function (value = "") {
