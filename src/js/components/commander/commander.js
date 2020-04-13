@@ -20,6 +20,8 @@ import {
   setGistToSyncWith,
   syncNotesWithGitHub,
 } from "../../utils/github";
+import { command } from "./command";
+import { link } from "../link/link";
 
 export const commanderModes = {
   off: "off",
@@ -358,26 +360,25 @@ const commander = {
         return bDateCreated - aDateCreated;
       })
       .slice(0, 100)
-      .map(({ id, title, revisions }, i) => {
-        const li = document.createElement("LI");
-        const dateSpan = document.createElement("span");
-        dateSpan.className = "secondary";
-        const dateCreated = new Date(Object.values(revisions)[0].dateCreated);
-        dateSpan.appendChild(
-          document.createTextNode(
-            `${new Date(dateCreated).toLocaleDateString()} ${new Date(
-              dateCreated
-            ).toLocaleTimeString()}`
-          )
+      .map(({ id, title }, i) => {
+        const dateCreated = getDateCreatedFromTitle(title);
+        const noteLink = link(
+          title,
+          `${window.location.origin}${window.location.pathname}#${id}`
         );
-        li.className = i === indexToSelect ? "selected" : "";
-        li.onclick = () => this.hide();
-        const a = document.createElement("a");
-        a.href = `${window.location.origin}${window.location.pathname}#${id}`;
-        a.appendChild(document.createTextNode(title));
-        li.appendChild(a);
-        li.appendChild(dateSpan);
-        select("#commands").append(li);
+        const noteCommand = command(
+          {
+            title: noteLink,
+            secondary: `${new Date(
+              dateCreated
+            ).toLocaleDateString()} ${new Date(
+              dateCreated
+            ).toLocaleTimeString()}`,
+            onclick: () => this.hide(),
+          },
+          i === indexToSelect
+        );
+        select("#commands").append(noteCommand);
       });
     this.state.options = {
       ...this.state.options,
