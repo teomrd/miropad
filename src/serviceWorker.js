@@ -9,7 +9,7 @@ const checkForNewerVersion = (currentVersion) => {
           cache: "no-cache",
         }
       );
-      const { version } = await res.text();
+      const version = await res.text();
       console.log("version", version);
       console.log("clean version", version.replace("\"", "")); // eslint-disable-line
       console.log("currentVersion", currentVersion);
