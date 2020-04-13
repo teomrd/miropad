@@ -4,7 +4,7 @@ const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
     try {
       const res = await fetch(
-        "https://raw.githubusercontent.com/teomrd/miropad/gh-pages/.version",
+        "https://raw.githubusercontent.com/teomrd/miropad/gh-pages/version",
         {
           cache: "no-cache",
         }
