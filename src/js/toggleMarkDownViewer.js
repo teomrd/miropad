@@ -1,6 +1,7 @@
 import showdown from "showdown";
 import select from "./utils/dom";
 import { url } from "./utils/urlManager";
+import { div } from "./components/div/div";
 
 const converter = new showdown.Converter({
   tasklists: true,
@@ -13,7 +14,7 @@ const converter = new showdown.Converter({
 converter.setFlavor("github");
 
 export const markDownIt = () => {
-  const mdView = select(".preview").html(
+  const mdView = select(".preview").innerHTML(
     converter.makeHtml(select(".terminal").getValue())
   );
   return {

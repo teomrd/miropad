@@ -27,6 +27,10 @@ const select = (el) => ({
     this.el.dispatchEvent(event);
     return this;
   },
+  innerHTML(htmlString) {
+    this.el.innerHTML = htmlString;
+    return this;
+  },
   html(content) {
     this.el.innerHTML = "";
     this.append(content);
