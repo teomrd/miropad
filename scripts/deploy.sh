@@ -20,9 +20,10 @@
 version_type=${1:-patch}
 
 npm version "$version_type" &&
-  jq .version ./package.json >./dist/.version &&
+  jq .version ./package.json >./dist/version &&
   npm run build &&
   git add ./dist/* &&
   git amend -n &&
-  git push &&
-  git subtree push --prefix dist origin gh-pages
+  echo "done"
+# git push &&
+# git subtree push --prefix dist origin gh-pages
