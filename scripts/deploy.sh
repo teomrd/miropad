@@ -7,7 +7,7 @@
 #
 #   DESCRIPTION: upgrades the version and deploying to github pages
 #
-#       OPTIONS:  $1: patch(default), minor, major 
+#       OPTIONS:  $1: patch(default), minor, major
 #  REQUIREMENTS:  npm, git
 #          BUGS:  ---
 #         NOTES:  ---
@@ -17,7 +17,9 @@
 #       CREATED:  08/11/2019
 #===============================================================================
 
-version_type=${1:-patch};
+version_type=${1:-patch}
+
+jq .version ./package.json >./dist/.version
 
 npm version "$version_type" &&
   npm run build &&
