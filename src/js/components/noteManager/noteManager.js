@@ -7,6 +7,13 @@ import notify from "../../notify";
 import { url } from "../../utils/urlManager";
 import isJSON from "../../utils/isJSON";
 
+export const getDateCreatedFromTitle = (title) => {
+  const titleID = getTitleId(title);
+  const note = getNote(titleID);
+  const { dateCreated } = note;
+  return dateCreated;
+};
+
 export const getNote = (titleID = url.getPageId(), revision) => {
   let doc;
   try {
@@ -61,12 +68,12 @@ export const resetNoteManager = () => {
   select(".logo").removeClass("unsaved");
 };
 
-const getTitle = (note) => {
+export const getTitle = (note) => {
   const title = note.split("\n")[0].trim().replace("#", "").trim();
   return title;
 };
 
-const getTitleId = (note) => {
+export const getTitleId = (note) => {
   const title = getTitle(note);
   return encodeURIComponent(title.replace(/[^\w\s]/gi, ""));
 };

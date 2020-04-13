@@ -10,6 +10,7 @@ import {
   resetNoteManager,
   saveNote,
   getNotes,
+  getDateCreatedFromTitle,
 } from "../noteManager/noteManager";
 import { url } from "../../utils/urlManager";
 import { saveFileAs } from "../fileSystem/fileSystem";
@@ -352,8 +353,8 @@ const commander = {
         return title.toLowerCase().includes(value.toLowerCase());
       })
       .sort((a, b) => {
-        const aDateCreated = Object.values(a.revisions)[0].dateCreated;
-        const bDateCreated = Object.values(b.revisions)[0].dateCreated;
+        const aDateCreated = getDateCreatedFromTitle(a.title);
+        const bDateCreated = getDateCreatedFromTitle(b.title);
         return bDateCreated - aDateCreated;
       })
       .slice(0, 100)
