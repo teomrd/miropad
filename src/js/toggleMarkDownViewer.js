@@ -2,6 +2,8 @@ import showdown from "showdown";
 import select from "./utils/dom";
 import { url } from "./utils/urlManager";
 import { copyToClipboard } from "./utils/copyToClipboard";
+import { button } from "./components/button/button";
+import notify from "./notify";
 
 const converter = new showdown.Converter({
   tasklists: true,
@@ -18,9 +20,22 @@ export const markDownIt = () => {
     converter.makeHtml(select(".terminal").getValue())
   );
 
-  select("code").listenAll("click", async ({ innerHTML }) => {
-    await copyToClipboard(innerHTML, "📋 Code copied to clipboard");
+  const { elements } = select("pre");
+  Array.prototype.slice.call(elements).forEach((el) => {
+    const copyBtn = button("📋 Copy", async (e) => {
+      e.stopPropagation();
+      const codeToCopy = e.srcElement.previousSibling.innerHTML;
+      await copyToClipboard(codeToCopy, "📋 Code copied to clipboard");
+    });
+    el.appendChild(copyBtn);
   });
+
+  select("code").listenAll("click", async ({ innerHTML }) => {
+    const result = eval(innerHTML);
+    console.log(result);
+    select(".console").show().innerHTML(result);
+  });
+  select(".console").listen("click", (el) => el.hide());
 
   return {
     ...mdView,
