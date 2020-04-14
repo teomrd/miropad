@@ -56,7 +56,9 @@ const isYesterday = (date = new Date()) => {
 
 export const relativeDate = (dateCreated) => {
   const date = new Date(dateCreated);
-  const month = !isYesterday ? shortMonthNames[date.getMonth()] : "";
+  const month = !isYesterday(dateCreated)
+    ? shortMonthNames[date.getMonth()]
+    : "";
   const year = isSameYear(date) ? "" : date.getFullYear();
   const day = isYesterday(date) ? "Yesterday" : date.getDate();
 
