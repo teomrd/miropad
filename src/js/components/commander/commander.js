@@ -351,7 +351,6 @@ const commander = {
       case commanderModes.revisions:
         return this.generateRevisions();
       case commanderModes.off:
-        console.log("off");
         break;
       default:
         break;

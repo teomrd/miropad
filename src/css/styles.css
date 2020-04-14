@@ -382,3 +382,7 @@ header .logo:active {
 }
 
 /****** menu *********/
+
+code {
+  cursor: pointer;
+}

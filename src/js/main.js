@@ -15,8 +15,8 @@ import {
   getNote,
   saveNote,
 } from "./components/noteManager/noteManager";
-import notify from "./notify";
 import { url } from "./utils/urlManager";
+import { copyToClipboard } from "./utils/copyToClipboard";
 
 const initURLState = () => {
   setNoteFromHash(url.getSearchParam("v"));
@@ -79,8 +79,7 @@ const main = async () => {
 
   select(".logo").listen("click", resetNoteManager);
   select("#permalink").listen("click", async () => {
-    await navigator.clipboard.writeText(url.get());
-    notify.success("🔗 Link copied to clipboard");
+    await copyToClipboard(url.get());
   });
 
   markDownIt().init();

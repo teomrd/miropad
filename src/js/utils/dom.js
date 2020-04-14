@@ -1,7 +1,8 @@
 import { isArray } from "./isArray";
 
-const select = (el) => ({
-  el: document.querySelector(el),
+const select = (selector) => ({
+  el: document.querySelector(selector),
+  elements: document.querySelectorAll(selector),
   placeholder(what) {
     this.el.placeholder = what;
     return this;
@@ -80,6 +81,13 @@ const select = (el) => ({
   },
   focus() {
     this.el.focus();
+    return this;
+  },
+  listenAll(event, fn) {
+    const elements = Array.prototype.slice.call(this.elements);
+    elements.map((el) => {
+      el.addEventListener(event, (e) => fn(e.srcElement));
+    });
     return this;
   },
   listen(event, fn) {

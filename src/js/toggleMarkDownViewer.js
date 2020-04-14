@@ -1,7 +1,7 @@
 import showdown from "showdown";
 import select from "./utils/dom";
 import { url } from "./utils/urlManager";
-import { div } from "./components/div/div";
+import { copyToClipboard } from "./utils/copyToClipboard";
 
 const converter = new showdown.Converter({
   tasklists: true,
@@ -17,6 +17,11 @@ export const markDownIt = () => {
   const mdView = select(".preview").innerHTML(
     converter.makeHtml(select(".terminal").getValue())
   );
+
+  select("code").listenAll("click", async ({ innerHTML }) => {
+    await copyToClipboard(innerHTML, "📋 Code copied to clipboard");
+  });
+
   return {
     ...mdView,
     init: () => {
