@@ -35,7 +35,9 @@ export const markDownIt = () => {
     console.log(result);
     select(".console").show().innerHTML(result);
   });
-  select(".console").listen("click", (el) => el.hide());
+  select(".console").listen("click", (e) =>
+    e.srcElement.classList.add("hidden")
+  );
 
   return {
     ...mdView,

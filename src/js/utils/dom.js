@@ -91,7 +91,7 @@ const select = (selector) => ({
     return this;
   },
   listen(event, fn) {
-    this.el.addEventListener(event, () => fn(this));
+    this.el.addEventListener(event, fn);
     return this;
   },
   click() {
