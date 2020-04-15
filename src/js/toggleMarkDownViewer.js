@@ -35,9 +35,11 @@ export const markDownIt = () => {
     console.log(result);
     select(".console").show().innerHTML(result);
   });
-  select(".console").listen("click", (e) =>
-    e.srcElement.classList.add("hidden")
-  );
+  select(".console").listen("click", async (e) => {
+    e.srcElement.classList.add("hidden");
+    const codeToCopy = e.srcElement.innerHTML;
+    await copyToClipboard(codeToCopy, "📋 Code copied to clipboard");
+  });
 
   return {
     ...mdView,

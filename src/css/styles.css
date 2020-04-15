@@ -325,7 +325,7 @@ header .logo:active {
 .commander .palette input {
   background-color: #424242;
   color: white;
-  padding: 0 5px;
+  padding: 5px;
   border: none;
 }
 
