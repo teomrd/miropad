@@ -81,9 +81,14 @@ export const getTitleId = (note) => {
 export const updateNote = async (what) => {
   if (what.length) {
     const titleID = getTitleId(what);
+    console.log("titleID", titleID);
     const title = getTitle(what);
-    const { text } = getNote(titleID);
-
+    const existingNote = getNote(titleID);
+    if (existingNote === null) {
+      // new existingNote
+      return saveNote(what);
+    }
+    const { text } = existingNote;
     const hashOfIncomingNote = await hashBrowser(what);
     const hashOfCurrentNote = await hashBrowser(text);
 
