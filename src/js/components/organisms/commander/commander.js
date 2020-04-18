@@ -173,7 +173,6 @@ const commander = {
         } else {
           this.state.mode = commanderModes.notes;
           this.generateNotes(value);
-          select("#commander input").placeholder("Search for saved notes...");
         }
         return;
       case commanderModes.revisions:
@@ -196,7 +195,6 @@ const commander = {
         const bDateCreated = getDateCreatedFromTitle(b.title);
         return bDateCreated - aDateCreated;
       })
-      .slice(0, 100)
       .map(({ id, title }, i) => {
         const dateCreated = getDateCreatedFromTitle(title);
         const noteLink = link(
@@ -215,6 +213,9 @@ const commander = {
         return noteCommand;
       });
     select("#commands").html(notes);
+    select("#commander input").placeholder(
+      `Search from ${notes.length} saved notes...`
+    );
     this.state.options = {
       ...this.state.options,
       length: notes.length,

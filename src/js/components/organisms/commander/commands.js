@@ -18,6 +18,7 @@ import { url } from "../../../utils/urlManager";
 import { mailTo } from "../../../utils/mail";
 import toggleMarkDownViewer, { markDownIt } from "../markDownViewer";
 import prettifyJSON from "../../../utils/prettifyJSON";
+import notify from "../../molecules/notify";
 
 export const commands = [
   {
@@ -62,6 +63,7 @@ export const commands = [
       localStorage.removeItem("gistId");
       localStorage.removeItem("lastLocalUpdate");
       localStorage.removeItem("lastSync");
+      notify.info("Gist setting have been reset!");
       commander.hide();
     },
   },
