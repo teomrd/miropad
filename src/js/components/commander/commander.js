@@ -11,6 +11,7 @@ import {
   saveNote,
   getNotes,
   getDateCreatedFromTitle,
+  markNoteForDeletion,
 } from "../noteManager/noteManager";
 import { url } from "../../utils/urlManager";
 import { saveFileAs } from "../fileSystem/fileSystem";
@@ -134,7 +135,7 @@ const commander = {
           if (confirmation) {
             const note = getNote();
             if (note && note.id) {
-              localStorage.removeItem(note.id);
+              markNoteForDeletion(note.id);
             }
             resetNoteManager();
           }

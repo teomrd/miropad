@@ -30,12 +30,10 @@ export const updateGist = (
   token = storage.get("authToken")
 ) => {
   const notes = getNotes();
-  const noteToFiles = notes.reduce((acc, note) => {
+  const noteToFiles = notes.reduce((acc, { id, text, deleted }) => {
     return {
       ...acc,
-      [note.id]: {
-        content: note.text,
-      },
+      [id]: deleted ? null : { content: text },
     };
   }, {});
   return fetch(`https://api.github.com/gists/${gistId}`, {

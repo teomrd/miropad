@@ -14,6 +14,18 @@ export const getDateCreatedFromTitle = (title) => {
   return dateCreated;
 };
 
+export const markNoteForDeletion = (id) => {
+  const note = getNote(id);
+  localStorage.setItem(
+    id,
+    JSON.stringify({
+      title: note.title,
+      deleted: true,
+      revisions: note.revisions,
+    })
+  );
+};
+
 export const getNote = (titleID = url.getPageId(), revision) => {
   let doc;
   try {
