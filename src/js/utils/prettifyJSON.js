@@ -1,5 +1,5 @@
 import isJSON from "./isJSON";
-import notify from "../notify";
+import notify from "../components/molecules/notify";
 
 const prettifyJSON = (selector) => {
   const el = document.querySelector(selector);

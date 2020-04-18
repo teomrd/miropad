@@ -1,11 +1,11 @@
 /* eslint-disable indent */
-import storage from "../../utils/localstorage";
-import select from "../../utils/dom";
-import { setPageTitle, resetPageTitle } from "../../utils/pageTitle";
-import hashBrowser from "../../utils/hashBrowser";
-import notify from "../../notify";
-import { url } from "../../utils/urlManager";
-import isJSON from "../../utils/isJSON";
+import storage from "../../../utils/localstorage";
+import select from "../../../utils/dom";
+import { setPageTitle, resetPageTitle } from "../../../utils/pageTitle";
+import hashBrowser from "../../../utils/hashBrowser";
+import notify from "../../molecules/notify";
+import { url } from "../../../utils/urlManager";
+import isJSON from "../../../utils/isJSON";
 
 export const getDateCreatedFromTitle = (title) => {
   const titleID = getTitleId(title);
@@ -93,7 +93,6 @@ export const getTitleId = (note) => {
 export const updateNote = async (what) => {
   if (what.length) {
     const titleID = getTitleId(what);
-    console.log("titleID", titleID);
     const title = getTitle(what);
     const existingNote = getNote(titleID);
     if (existingNote === null) {
@@ -186,3 +185,15 @@ export const getNotes = () =>
         : []),
     ];
   }, []);
+
+export const search = (q) => {
+  if (!q) {
+    return undefined;
+  }
+
+  const results = getNotes()
+    .map(({ id }) => getNote(id))
+    .filter(({ text }) => text.toLowerCase().includes(q.toLowerCase()));
+
+  return results[0];
+};

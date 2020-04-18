@@ -1,4 +1,4 @@
-import notify from "../notify";
+import notify from "../components/molecules/notify";
 
 export const copyToClipboard = async (
   what,

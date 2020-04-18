@@ -1,38 +1,18 @@
 /* eslint-disable indent */
-import toggleMarkDownViewer, { markDownIt } from "../../toggleMarkDownViewer";
-import prettifyJSON from "../../utils/prettifyJSON";
-import { mailTo } from "../../utils/mail";
-import keyListener from "../../utils/keyListener";
-import select from "../../utils/dom";
-import storage from "../../utils/localstorage";
 import {
   getNote,
-  resetNoteManager,
-  saveNote,
   getNotes,
   getDateCreatedFromTitle,
-  markNoteForDeletion,
 } from "../noteManager/noteManager";
-import { url } from "../../utils/urlManager";
-import { saveFileAs } from "../fileSystem/fileSystem";
 import { commands } from "./commands";
-import {
-  goAuthenticate,
-  setGistToSyncWith,
-  syncNotesWithGitHub,
-} from "../../utils/github";
-import { command } from "./command";
-import { link } from "../link/link";
-import { div } from "../div/div";
-import { relativeDate } from "../../utils/dates";
-
-export const commanderModes = {
-  off: "off",
-  notes: "notes",
-  revisions: "revisions",
-  commands: "commands",
-  gists: "gists",
-};
+import { commanderModes } from "./modes";
+import keyListener from "../../../utils/keyListener";
+import select from "../../../utils/dom";
+import { url } from "../../../utils/urlManager";
+import { command } from "../../molecules/commands/command";
+import { link } from "../../atoms/link/link";
+import { div } from "../../atoms/div/div";
+import { relativeDate } from "../../../utils/dates";
 
 const commander = {
   state: {
@@ -82,160 +62,7 @@ const commander = {
     return this;
   },
   commands: function () {
-    return [
-      {
-        title: "📒 List saved notes",
-        key: "p",
-        call: () => {
-          this.state.mode !== commanderModes.notes
-            ? this.show(commanderModes.notes)
-            : this.hide();
-        },
-      },
-      {
-        title: "💾 Save",
-        key: "s",
-        call: () => {
-          saveNote(select(".terminal").getValue());
-          this.hide();
-          select(".logo").removeClass("unsaved");
-        },
-      },
-      {
-        title: "🔄 Sync: Notes my GitHub Gist (requires auth)",
-        key: null,
-        call: async () => {
-          const token = storage.get("authToken");
-          if (!token) {
-            return await goAuthenticate();
-          }
-          const gistId = storage.get("gistId");
-          if (!gistId) {
-            return await setGistToSyncWith(token);
-          }
-          this.hide();
-          await syncNotesWithGitHub();
-        },
-      },
-      {
-        title: "💾 Save to File System (Experimental browser feature)...",
-        key: "shift s",
-        call: async () => {
-          const { text, title } = getNote();
-          await navigator.clipboard.writeText(title);
-          saveFileAs(text);
-          this.hide();
-        },
-      },
-      {
-        title: "🗑 Trash note",
-        key: "shift d",
-        call: () => {
-          const confirmation = confirm("Are you sure you want do that?");
-          if (confirmation) {
-            const note = getNote();
-            if (note && note.id) {
-              markNoteForDeletion(note.id);
-            }
-            resetNoteManager();
-          }
-          this.hide();
-        },
-      },
-      {
-        title: "📡 Save to IPFS",
-        key: "i",
-        call: () => {
-          storage.saveToIPFS(select(".terminal").getValue());
-          this.hide();
-        },
-      },
-      {
-        title: "📬 Email note to...",
-        key: "e",
-        call: () => {
-          const note = `${
-            document.querySelector(".terminal").value
-          } \n ${url.get()}`;
-          mailTo(note);
-          this.hide();
-        },
-      },
-      {
-        title: "🖨 Print MarkDown output",
-        key: null,
-        call: () => {
-          select(".preview").show();
-          markDownIt();
-          window.print();
-          this.hide();
-        },
-      },
-      {
-        title: "◽ Full MarkDown view",
-        key: "shift m",
-        call: () => {
-          markDownIt();
-          url.set(undefined, {
-            md: "full",
-          });
-          this.hide();
-        },
-      },
-      {
-        title: "🔳 Toggle MarkDown Viewer",
-        key: "m",
-        call: () => {
-          toggleMarkDownViewer();
-          this.hide();
-        },
-      },
-      {
-        key: "j",
-        title: "💄 Prettify JSON document",
-        call: () => {
-          prettifyJSON(".terminal");
-          this.hide();
-        },
-      },
-      {
-        title: "🎨 Toggle command palette",
-        key: "shift p",
-        call: () => {
-          this.state.mode !== commanderModes.commands
-            ? this.show(commanderModes.commands)
-            : this.hide();
-        },
-      },
-      {
-        title: " 🕵️‍♂️ Find and Replace...",
-        key: "shift f",
-        call: () => {
-          const selectedValue = select(".terminal")
-            .getValue()
-            .slice(
-              select(".terminal").el.selectionStart,
-              select(".terminal").el.selectionEnd
-            );
-          const valueToFind = prompt("What do you wanna find?", selectedValue);
-          if (!valueToFind) {
-            return this;
-          }
-          const positionOfFirstChar = select(".terminal")
-            .getValue()
-            .indexOf(valueToFind);
-
-          select(".terminal").el.setSelectionRange(
-            positionOfFirstChar,
-            positionOfFirstChar + valueToFind.length
-          );
-          const replacementValue = prompt(`Replace ${valueToFind} with...`);
-          if (replacementValue) {
-            select(".terminal").el.setRangeText(replacementValue);
-          }
-        },
-      },
-    ];
+    return;
   },
   selectOption: function (e, direction) {
     const currentlySelected = this.state.options.selected;

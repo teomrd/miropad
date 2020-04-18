@@ -1,9 +1,8 @@
 import showdown from "showdown";
-import select from "./utils/dom";
-import { url } from "./utils/urlManager";
-import { copyToClipboard } from "./utils/copyToClipboard";
-import { button } from "./components/button/button";
-import notify from "./notify";
+import select from "../../utils/dom";
+import { url } from "../../utils/urlManager";
+import { copyToClipboard } from "../../utils/copyToClipboard";
+import { button } from "../atoms/button/button";
 
 const converter = new showdown.Converter({
   tasklists: true,
@@ -32,7 +31,6 @@ export const markDownIt = () => {
 
   select("code").listenAll("click", async ({ innerHTML }) => {
     const result = eval(innerHTML);
-    console.log(result);
     select(".console").show().innerHTML(result);
   });
   select(".console").listen("click", async (e) => {

@@ -1,5 +1,5 @@
-import notify from "../notify";
 import storage from "./localstorage";
+import notify from "../components/molecules/notify";
 
 const sendMail = (body, email, subject = "MiroPad note") => {
   if (!body) {

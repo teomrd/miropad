@@ -1,6 +1,6 @@
-import notify from "../notify";
 import IPFS from "ipfs";
 import { url } from "./urlManager";
+import notify from "../components/molecules/notify";
 
 const storage = {
   set: function (key, what) {

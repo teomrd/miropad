@@ -1,4 +1,4 @@
-import notify from "../../notify";
+import notify from "../../components/molecules/notify";
 
 export const getNewFileHandle = () => {
   const handle = window.chooseFileSystemEntries({
@@ -36,7 +36,6 @@ export const saveFileAs = async (contents) => {
       return;
     }
     const msg = "An error occurred trying to open the file.";
-    console.error(msg, ex);
     notify.error(msg);
     return;
   }
@@ -44,7 +43,6 @@ export const saveFileAs = async (contents) => {
     await writeFile(fileHandle, contents);
   } catch (ex) {
     const msg = "Unable to save file.";
-    console.error(msg, ex);
     notify.error(msg);
   }
 };

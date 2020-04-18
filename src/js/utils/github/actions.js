@@ -1,15 +1,19 @@
-import { getGist, getAuthToken } from "../github/api";
-import { updateNote } from "../../components/noteManager/noteManager";
-import notify from "../../notify";
+import {
+  getGist,
+  getAuthToken,
+  getAuthenticatedUsersGists,
+  createNewGist,
+  updateGist,
+} from "./api";
 import storage from "../localstorage";
 import { url } from "../urlManager";
-import commander, {
-  commanderModes,
-} from "../../components/commander/commander";
-import { getAuthenticatedUsersGists, createNewGist, updateGist } from "./api";
-import { commands } from "../../components/commander/commands";
 import select from "../dom";
 import { configuration } from "../../../configuration";
+import { updateNote } from "../../components/organisms/noteManager/noteManager";
+import notify from "../../components/molecules/notify";
+import { commanderModes } from "../../components/organisms/commander/modes";
+import { commands } from "../../components/molecules/commands/commands";
+import commander from "../../components/organisms/commander/commander";
 
 export const goAuthenticate = async () => {
   notify.info("You need to be authenticated!");
@@ -93,7 +97,6 @@ export const setAuthTokenFromCallback = async () => {
       notify.info("⛳ You have been authenticated!");
       url.deleteParam(["code", "state"]);
     } catch (error) {
-      console.log("error", error);
       notify.error(error.message);
     }
     select("#logo").removeClass("loading");

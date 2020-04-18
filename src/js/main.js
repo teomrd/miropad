@@ -2,21 +2,27 @@ import IPFS from "ipfs";
 import "../css/styles.css";
 import "../css/print.css";
 import "github-markdown-css";
-import welcomeUser from "./welcome";
+import welcomeUser from "./components/molecules/welcome";
 import errorHandler from "./utils/errorHandler";
-import search from "./utils/search";
-import { markDownIt } from "./toggleMarkDownViewer";
 import select from "./utils/dom";
 import ipfs from "./utils/ipfs";
-import commander from "./components/commander/commander";
 import {
   setNoteFromHash,
   resetNoteManager,
   getNote,
   saveNote,
-} from "./components/noteManager/noteManager";
+  search,
+} from "./components/organisms/noteManager/noteManager";
 import { url } from "./utils/urlManager";
 import { copyToClipboard } from "./utils/copyToClipboard";
+import { markDownIt } from "./components/organisms/markDownViewer";
+import commander from "./components/organisms/commander/commander";
+import {
+  syncNotesWithGitHub,
+  setAuthTokenFromCallback,
+} from "./utils/github/actions";
+import { registerServiceWorker } from "./registerServiceWorker";
+import notify from "./components/molecules/notify";
 
 const initURLState = () => {
   setNoteFromHash(url.getSearchParam("v"));
@@ -71,7 +77,7 @@ const main = async () => {
       select(".terminal").setValue(retrievedValueFromIPFS);
       await saveNote(retrievedValueFromIPFS, pageId);
     } catch (error) {
-      console.log("IPFS Error", error);
+      notify.error(`IPFS Error ${error.message}`);
     }
   } else {
     setNoteFromHash();
@@ -86,6 +92,11 @@ const main = async () => {
 
   window.addEventListener("hashchange", initURLState);
   initURLState();
+
+  registerServiceWorker();
+
+  await syncNotesWithGitHub();
+  await setAuthTokenFromCallback();
 };
 
 export default main;

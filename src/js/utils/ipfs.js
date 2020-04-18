@@ -1,5 +1,5 @@
-import notify from "../notify";
 import CID from "cids";
+import notify from "../components/molecules/notify";
 
 const ipfs = {
   isValidCid(hash) {

@@ -1,4 +1,4 @@
-import { isElement } from "../../utils/dom";
+import { isElement } from "../../../utils/dom";
 
 export const command = ({ title, secondary, onclick }, selected = false) => {
   const li = document.createElement("LI");

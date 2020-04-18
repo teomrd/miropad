@@ -1,4 +1,4 @@
-import { isElement } from "../../utils/dom";
+import { isElement } from "../../../utils/dom";
 
 export const div = (content = "") => {
   const elementsToAdd = typeof content === "string" ? [content] : content;

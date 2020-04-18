@@ -1,5 +1,5 @@
 import storage from "../localstorage";
-import { getNotes } from "../../components/noteManager/noteManager";
+import { getNotes } from "../../components/organisms/noteManager/noteManager";
 
 export const getGist = (id, token = storage.get("authToken")) =>
   fetch(`https://api.github.com/gists/${id}`, {
@@ -56,7 +56,6 @@ export const updateGist = (
       return response.json();
     })
     .then((responseAsJson) => {
-      console.log(responseAsJson);
       return responseAsJson;
     });
 };
@@ -91,7 +90,6 @@ export const createNewGist = (token = storage.get("authToken")) => {
       return response.json();
     })
     .then((responseAsJson) => {
-      console.log(responseAsJson);
       return responseAsJson;
     });
 };
@@ -104,13 +102,11 @@ export const getAuthToken = (code, state) =>
     },
   })
     .then((response) => {
-      console.log("response", response);
       if (!response.ok) {
         throw Error(response.statusText);
       }
       return response.json();
     })
     .then((responseAsJson) => {
-      console.log(responseAsJson);
       return responseAsJson;
     });
