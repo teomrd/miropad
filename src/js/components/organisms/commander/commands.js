@@ -19,7 +19,7 @@ import { mailTo } from "../../../utils/mail";
 import toggleMarkDownViewer, { markDownIt } from "../markDownViewer";
 import prettifyJSON from "../../../utils/prettifyJSON";
 
-export const commands = () => [
+export const commands = [
   {
     title: "📒 List saved notes",
     key: "p",

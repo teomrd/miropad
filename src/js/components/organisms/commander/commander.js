@@ -62,7 +62,7 @@ const commander = {
     return this;
   },
   commands: function () {
-    return;
+    return commands;
   },
   selectOption: function (e, direction) {
     const currentlySelected = this.state.options.selected;
