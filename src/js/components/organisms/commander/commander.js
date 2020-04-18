@@ -190,6 +190,7 @@ const commander = {
       .filter(({ title }) => {
         return title.toLowerCase().includes(value.toLowerCase());
       })
+      .filter(({ deleted }) => !deleted)
       .sort((a, b) => {
         const aDateCreated = getDateCreatedFromTitle(a.title);
         const bDateCreated = getDateCreatedFromTitle(b.title);

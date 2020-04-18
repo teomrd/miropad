@@ -60,6 +60,9 @@ export const commands = [
     call: async () => {
       localStorage.removeItem("authToken");
       localStorage.removeItem("gistId");
+      localStorage.removeItem("lastLocalUpdate");
+      localStorage.removeItem("lastSync");
+      commander.hide();
     },
   },
   {
