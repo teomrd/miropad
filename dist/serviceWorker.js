@@ -1,3 +1,4 @@
+import notify from "./js/components/molecules/notify";
 let currentVersion;
 
 const checkForNewerVersion = (currentVersion) => {
@@ -17,7 +18,7 @@ const checkForNewerVersion = (currentVersion) => {
         clearInterval(intervalChecker);
       }
     } catch (error) {
-      console.log("error", error);
+      notify.error(error.message);
     }
   }, 5000);
 };
@@ -30,6 +31,5 @@ checkForNewerVersion();
 
 self.addEventListener("install", () => {
   currentVersion = new URL(location).searchParams.get("v");
-  console.log("currentVersion is ", currentVersion);
   checkForNewerVersion(currentVersion);
 });
