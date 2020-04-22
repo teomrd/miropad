@@ -25,7 +25,7 @@ export const getAuthenticatedUsersGists = (token = storage.get("authToken")) =>
     return response.json();
   });
 
-export const updateGist = (
+export const updateGist = async (
   gistId = storage.get("gistId"),
   token = storage.get("authToken")
 ) => {
@@ -51,11 +51,14 @@ export const updateGist = (
   })
     .then((response) => {
       if (!response.ok) {
-        throw Error(response.statusText);
+        throw new Error(response.statusText);
       }
       return response.json();
     })
     .then((responseAsJson) => {
+      notes.map(({ id, deleted }) => {
+        if (deleted) localStorage.removeItem(id);
+      });
       return responseAsJson;
     });
 };
