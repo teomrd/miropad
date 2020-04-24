@@ -1,5 +1,6 @@
 const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
+    console.log("checking!", currentVersion); // eslint-disable-line
     try {
       const res = await fetch(
         "https://raw.githubusercontent.com/teomrd/miropad/gh-pages/version",
