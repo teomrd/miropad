@@ -22,6 +22,8 @@ const checkForNewerVersion = (currentVersion) => {
   }, 5000);
 };
 
+checkForNewerVersion();
+
 // self.addEventListener("message", (event) => {
 //   console.log(event.data); // outputs {'hello':'world'}
 // });
