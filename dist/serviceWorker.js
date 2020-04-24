@@ -1,5 +1,3 @@
-let currentVersion;
-
 const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
     try {
@@ -10,9 +8,9 @@ const checkForNewerVersion = (currentVersion) => {
         }
       );
       const version = await res.text();
-      console.log("version", version); // eslint-disable-line
+      console.log("version", version.trim()); // eslint-disable-line
       console.log("currentVersion", currentVersion); // eslint-disable-line
-      if (currentVersion !== version) {
+      if (currentVersion !== version.trim()) {
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`,
         });
@@ -33,6 +31,6 @@ const checkForNewerVersion = (currentVersion) => {
 // });
 
 self.addEventListener("install", () => {
-  currentVersion = new URL(location).searchParams.get("v");
-  checkForNewerVersion(currentVersion);
+  const currentVersion = new URL(location).searchParams.get("v");
+  checkForNewerVersion(currentVersion.trim());
 });
