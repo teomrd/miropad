@@ -28,6 +28,7 @@ const initURLState = () => {
   setNoteFromHash(url.getSearchParam("v"));
 
   if (url.getSearchParam("md") === "full") {
+    markDownIt();
     select(".terminal").hide();
   } else {
     select(".terminal").show();
@@ -40,9 +41,7 @@ const initURLState = () => {
 
 const main = async () => {
   window.addEventListener("error", errorHandler);
-
   welcomeUser();
-
   commander.init();
 
   select(".terminal")
