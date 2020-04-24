@@ -20,7 +20,7 @@
 version_type=${1:-patch}
 
 npm version "$version_type" &&
-  jq .version ./package.json >./dist/version &&
+  jq .version ./package.json | sed 's/"//g' >./dist/version &&
   npm run build &&
   git add ./dist/* &&
   git amend -n &&
