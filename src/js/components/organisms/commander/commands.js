@@ -16,7 +16,7 @@ import commander from "./commander";
 import { saveFileAs } from "../../../utils/fileSystem/fileSystem";
 import { url } from "../../../utils/urlManager";
 import { mailTo } from "../../../utils/mail";
-import toggleMarkDownViewer, { markDownIt } from "../markDownViewer";
+import markDownViewer from "../markDownViewer";
 import prettifyJSON from "../../../utils/prettifyJSON";
 import notify from "../../molecules/notify";
 
@@ -116,7 +116,7 @@ export const commands = [
     key: null,
     call: () => {
       select(".preview").show();
-      markDownIt();
+      markDownViewer();
       window.print();
       commander.hide();
     },
@@ -125,10 +125,7 @@ export const commands = [
     title: "◽ Full MarkDown view",
     key: "shift m",
     call: () => {
-      markDownIt();
-      url.set(undefined, {
-        md: "full",
-      });
+      markDownViewer().show("full");
       commander.hide();
     },
   },
@@ -136,7 +133,7 @@ export const commands = [
     title: "🔳 Toggle MarkDown Viewer",
     key: "m",
     call: () => {
-      toggleMarkDownViewer();
+      markDownViewer().toggle();
       commander.hide();
     },
   },

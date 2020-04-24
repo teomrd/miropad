@@ -14,11 +14,7 @@ const converter = new showdown.Converter({
 
 converter.setFlavor("github");
 
-export const markDownIt = () => {
-  const mdView = select(".preview").innerHTML(
-    converter.makeHtml(select(".terminal").getValue())
-  );
-
+const markDownViewer = () => {
   const { elements } = select("pre");
   Array.prototype.slice.call(elements).forEach((el) => {
     const copyBtn = button("📋 Copy", async (e) => {
@@ -40,30 +36,41 @@ export const markDownIt = () => {
   });
 
   return {
-    ...mdView,
-    init: () => {
+    view: select(".preview"),
+    init: function () {
+      this.update();
+      select(".terminal").listen("keyup", () => this.update());
       const isVisible = Boolean(url.getSearchParam("md"));
       if (isVisible === true) {
-        mdView.show();
+        this.view.show();
       } else {
-        mdView.hide();
+        this.view.hide();
       }
+      return this;
     },
-    toggle: () => {
+    update: function () {
+      this.view.innerHTML(converter.makeHtml(select(".terminal").getValue()));
+    },
+    show: function (mode = true) {
+      this.view.show();
+      url.set(undefined, {
+        md: mode,
+      });
+    },
+    hide: function () {
+      this.view.hide();
+      url.deleteParam("md");
+    },
+    toggle: function () {
       const isVisible = Boolean(url.getSearchParam("md"));
       if (isVisible === true) {
-        mdView.hide();
-        url.deleteParam("md");
+        this.hide();
       } else {
-        mdView.show();
-        url.set(undefined, {
-          md: true,
-        });
+        this.show();
       }
+      return this;
     },
   };
 };
 
-const toggleMarkDownViewer = () => markDownIt().toggle();
-
-export default toggleMarkDownViewer;
+export default markDownViewer;

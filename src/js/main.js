@@ -15,7 +15,7 @@ import {
 } from "./components/organisms/noteManager/noteManager";
 import { url } from "./utils/urlManager";
 import { copyToClipboard } from "./utils/copyToClipboard";
-import { markDownIt } from "./components/organisms/markDownViewer";
+import markDownViewer from "./components/organisms/markDownViewer";
 import commander from "./components/organisms/commander/commander";
 import {
   syncNotesWithGitHub,
@@ -24,11 +24,10 @@ import {
 import { registerServiceWorker } from "./registerServiceWorker";
 import notify from "./components/molecules/notify";
 
-const initURLState = () => {
+const actOnURLStateChange = () => {
   setNoteFromHash(url.getSearchParam("v"));
 
   if (url.getSearchParam("md") === "full") {
-    markDownIt();
     select(".terminal").hide();
   } else {
     select(".terminal").show();
@@ -47,12 +46,14 @@ const main = async () => {
   select(".terminal")
     .listen("focus", () => commander.hide())
     .listen("keydown", (e) => {
+      // tab feature
       if (e.keyCode === 9) {
         e.preventDefault();
         select(".terminal").insertAtCaret("  ");
       }
     })
     .listen("keyup", () => {
+      // unsaved state UI indication
       const currentNode = getNote();
       if (currentNode) {
         const { text = "" } = currentNode;
@@ -62,8 +63,7 @@ const main = async () => {
           select(".logo").removeClass("unsaved");
         }
       }
-    })
-    .listen("input", () => markDownIt());
+    });
 
   const pageId = url.getPageId();
 
@@ -87,10 +87,10 @@ const main = async () => {
     await copyToClipboard(url.get());
   });
 
-  markDownIt().init();
+  markDownViewer().init();
 
-  window.addEventListener("hashchange", initURLState);
-  initURLState();
+  window.addEventListener("hashchange", actOnURLStateChange);
+  actOnURLStateChange();
 
   registerServiceWorker();
 
