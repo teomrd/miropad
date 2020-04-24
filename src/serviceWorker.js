@@ -20,7 +20,7 @@ const checkForNewerVersion = (currentVersion) => {
         body: error.message,
       });
     }
-  }, 2000);
+  }, 5000);
 };
 
 // self.addEventListener("message", (event) => {
