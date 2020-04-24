@@ -1,4 +1,3 @@
-import notify from "./js/components/molecules/notify";
 let currentVersion;
 
 const checkForNewerVersion = (currentVersion) => {
@@ -11,19 +10,24 @@ const checkForNewerVersion = (currentVersion) => {
         }
       );
       const version = await res.text();
+      console.log("version", version); // eslint-disable-line
       if (currentVersion !== version.replace("\"", "")) { // eslint-disable-line
+        console.log("currentVersion", currentVersion); // eslint-disable-line
+        console.log("version rr", version.replace("\"", "")); // eslint-disable-line
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`,
         });
         clearInterval(intervalChecker);
       }
     } catch (error) {
-      notify.error(error.message);
+      self.registration.showNotification("✍️ MiroPad Error", {
+        body: error.message,
+      });
     }
   }, 5000);
 };
 
-checkForNewerVersion();
+// checkForNewerVersion();
 
 // self.addEventListener("message", (event) => {
 //   console.log(event.data); // outputs {'hello':'world'}
