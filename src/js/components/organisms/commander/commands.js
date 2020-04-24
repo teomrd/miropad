@@ -19,6 +19,7 @@ import { mailTo } from "../../../utils/mail";
 import markDownViewer from "../markDownViewer";
 import prettifyJSON from "../../../utils/prettifyJSON";
 import notify from "../../molecules/notify";
+import ipfs from "../../../utils/ipfs";
 
 export const commands = [
   {
@@ -96,7 +97,7 @@ export const commands = [
     title: "📡 Save to IPFS",
     key: "i",
     call: () => {
-      storage.saveToIPFS(select(".terminal").getValue());
+      ipfs.save(select(".terminal").getValue());
       commander.hide();
     },
   },

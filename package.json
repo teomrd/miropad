@@ -34,7 +34,7 @@
     "github-markdown-css": "^4.0.0",
     "global": "^4.4.0",
     "html-webpack-plugin": "^4.2.0",
-    "ipfs": "^0.43.0",
+    "ipfs": "^0.40.0",
     "multihashing-async": "^0.8.1",
     "textarea-caret": "^3.1.0",
     "workbox": "^0.0.0"

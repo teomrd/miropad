@@ -1,5 +1,3 @@
-import IPFS from "ipfs";
-import { url } from "./urlManager";
 import notify from "../components/molecules/notify";
 
 const storage = {
@@ -9,18 +7,6 @@ const storage = {
   },
   get: (key) => {
     return localStorage.getItem(key);
-  },
-  saveToIPFS: async function (value) {
-    try {
-      const ipfs = await IPFS.create();
-      const content = IPFS.Buffer.from(value);
-      const results = await ipfs.add(content);
-      const hash = results[0].hash;
-      url.set(hash);
-      notify.success("👌 Note saved to IPFS!");
-    } catch (e) {
-      notify.error(`😱 Something went wrong while trying to save to IPFS ${e}`); // eslint-disable-line
-    }
   },
   getDictionary: () => {
     const savedTxt = localStorage.getItem("dictionary");
