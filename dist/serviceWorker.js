@@ -9,8 +9,6 @@ const checkForNewerVersion = (currentVersion) => {
         }
       );
       const version = await res.text();
-      console.log("currentVersion!", currentVersion);
-      console.log("version!", version);
       if (currentVersion !== version.trim()) {
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`,
