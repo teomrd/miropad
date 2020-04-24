@@ -1,6 +1,6 @@
 const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
-    console.log("checking!", currentVersion); // eslint-disable-line
+     // eslint-disable-line
     try {
       const res = await fetch(
         "https://raw.githubusercontent.com/teomrd/miropad/gh-pages/version",
@@ -9,6 +9,8 @@ const checkForNewerVersion = (currentVersion) => {
         }
       );
       const version = await res.text();
+      console.log("currentVersion!", currentVersion);
+      console.log("version!", version);
       if (currentVersion !== version.trim()) {
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`,
@@ -20,10 +22,8 @@ const checkForNewerVersion = (currentVersion) => {
         body: error.message,
       });
     }
-  }, 5000);
+  }, 2000);
 };
-
-checkForNewerVersion();
 
 // self.addEventListener("message", (event) => {
 //   console.log(event.data); // outputs {'hello':'world'}
