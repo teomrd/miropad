@@ -39,7 +39,7 @@ const markDownViewer = () => {
     view: select(".preview"),
     init: function () {
       this.update();
-      select(".terminal").listen("keyup", () => this.update());
+      select(".terminal").listen("input", () => this.update());
       const isVisible = Boolean(url.getSearchParam("md"));
       if (isVisible === true) {
         this.view.show();
