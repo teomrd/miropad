@@ -1,5 +1,6 @@
 import storage from "../localstorage";
 import { getNotes } from "../../components/organisms/noteManager/noteManager";
+import notify from "../../components/molecules/notify";
 
 export const getGist = (id, token = storage.get("authToken")) =>
   fetch(`https://api.github.com/gists/${id}`, {
@@ -24,6 +25,38 @@ export const getAuthenticatedUsersGists = (token = storage.get("authToken")) =>
     }
     return response.json();
   });
+
+export const deleteFileOnGist = async (
+  fileName,
+  gistId = storage.get("gistId"),
+  token = storage.get("authToken")
+) => {
+  return fetch(`https://api.github.com/gists/${gistId}`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      files: {
+        [fileName]: null,
+      },
+      description: "MiroPad Gist",
+      public: false,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    })
+    .then((responseAsJson) => {
+      notify.info(`${fileName} deleted on Gist!`);
+      return responseAsJson;
+    });
+};
 
 export const updateGist = async (
   gistId = storage.get("gistId"),

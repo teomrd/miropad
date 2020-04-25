@@ -20,6 +20,8 @@ import markDownViewer from "../markDownViewer";
 import prettifyJSON from "../../../utils/prettifyJSON";
 import notify from "../../molecules/notify";
 import ipfs from "../../../utils/ipfs";
+import { copyToClipboard } from "../../../utils/copyToClipboard";
+import { sleep } from "../../../utils/sleep";
 
 export const commands = [
   {
@@ -110,6 +112,23 @@ export const commands = [
       } \n ${url.get()}`;
       mailTo(note);
       commander.hide();
+    },
+  },
+  {
+    title: "🌌 Add a cover picture",
+    key: null,
+    call: async () => {
+      const bgImage = prompt("Paste the image URL in here...");
+      commander.hide();
+      await sleep(200); // need to wait after prompt for some reason before copy
+      copyToClipboard(
+        `<div class="cover" style="background-image: url('${bgImage}')"></div>`,
+        "👌Copied! Paste the code on the MiroPad editor"
+      );
+      select(".terminal").focus();
+      notify.info(
+        "Paste the cover picture wherever you prefer on the MirPad editor"
+      );
     },
   },
   {
