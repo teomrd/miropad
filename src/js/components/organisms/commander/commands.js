@@ -2,7 +2,6 @@ import { commanderModes } from "./modes";
 import {
   saveNote,
   getNote,
-  markNoteForDeletion,
   resetNoteManager,
 } from "../noteManager/noteManager";
 import select from "../../../utils/dom";
@@ -22,6 +21,7 @@ import notify from "../../molecules/notify";
 import ipfs from "../../../utils/ipfs";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { sleep } from "../../../utils/sleep";
+import { deleteFileOnGist } from "../../../utils/github/api";
 
 export const commands = [
   {
@@ -88,7 +88,7 @@ export const commands = [
       if (confirmation) {
         const note = getNote();
         if (note && note.id) {
-          markNoteForDeletion(note.id);
+          deleteFileOnGist(note.id);
         }
         resetNoteManager();
       }
