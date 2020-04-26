@@ -168,7 +168,7 @@ const commander = {
       case commanderModes.notes:
         if (value.slice(0, 1) === ">") {
           this.state.mode = commanderModes.commands;
-          this.generateCommands(value.slice(1, -1).trim());
+          this.generateCommands(value.slice(1).trim());
           select("#commander input").placeholder("Search for commands...");
         } else {
           this.state.mode = commanderModes.notes;
@@ -230,7 +230,7 @@ const commander = {
         const keyCompo = key ? `⌘+${key.toUpperCase()}` : "";
         const commandComponent = command(
           {
-            title: div(title),
+            title: div({ content: title, highlight: value }),
             secondary: keyCompo,
             onclick: call,
           },
