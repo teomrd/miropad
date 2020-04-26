@@ -198,7 +198,7 @@ const commander = {
       .map(({ id, title }, i) => {
         const dateCreated = getDateCreatedFromTitle(title);
         const noteLink = link(
-          title,
+          div({ content: title, highlight: value }),
           `${window.location.origin}${window.location.pathname}#${id}`
         );
 

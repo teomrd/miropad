@@ -1,6 +1,9 @@
-export const link = (text, url) => {
+import { isElement } from "../../../utils/dom";
+export const link = (textOrNode, url) => {
   const a = document.createElement("a");
   a.href = url;
-  a.appendChild(document.createTextNode(text));
+  a.appendChild(
+    isElement(textOrNode) ? textOrNode : document.createTextNode(textOrNode)
+  );
   return a;
 };
