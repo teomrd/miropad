@@ -9,28 +9,46 @@ const mark = (word) => {
 export const div = ({ content = "", highlight = "" }) => {
   const div = document.createElement("div");
   const words = content.split(" ");
-  const wordToHighlight = highlight.toLowerCase();
+  const wordsToHighlight = highlight.toLowerCase().split(" ");
+  if (highlight.trim() === "") {
+    div.appendChild(document.createTextNode(content));
+    return div;
+  }
+  words
+    .map((word) => {
+      const matches = wordsToHighlight
+        .map((wordToHighlight) => {
+          return word.toLocaleLowerCase().includes(wordToHighlight)
+            ? wordToHighlight
+            : undefined;
+        })
+        .filter((m) => m !== undefined);
 
-  words.forEach((w) => {
-    const word = w.toLocaleLowerCase();
-    if (word.includes(wordToHighlight) && wordToHighlight !== "") {
-      if (word === wordToHighlight) {
-        div.appendChild(mark(w));
+      return {
+        word: word,
+        matches: matches,
+      };
+    })
+    .forEach(({ word, matches }) => {
+      if (matches.length > 0) {
+        const match = matches[0];
+        if (word === match) {
+          div.appendChild(mark(` ${word}`));
+        } else {
+          const parts = wordParts(word, match);
+          const wordElements = parts.map((syllable) =>
+            syllable.toLowerCase() === match
+              ? mark(syllable)
+              : document.createTextNode(syllable)
+          );
+          div.appendChild(document.createTextNode(" "));
+          wordElements.forEach((w) => {
+            div.appendChild(w);
+          });
+        }
       } else {
-        const parts = wordParts(w, wordToHighlight);
-        const wordElements = parts.map((syllable) =>
-          syllable.toLowerCase() === wordToHighlight
-            ? mark(syllable)
-            : document.createTextNode(syllable)
-        );
-        wordElements.forEach((w) => {
-          div.appendChild(w);
-        });
+        div.appendChild(document.createTextNode(` ${word} `));
       }
-    } else {
-      div.appendChild(document.createTextNode(` ${w} `));
-    }
-  });
-
+    });
   return div;
 };
