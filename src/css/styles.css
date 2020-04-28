@@ -354,7 +354,7 @@ header .logo:active {
   padding: 10px 0;
 }
 
-.commander .palette ul li div {
+.commander .palette ul li>div {
   padding: 10px 0;
   cursor: pointer;
   flex-grow: 1;

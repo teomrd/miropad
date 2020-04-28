@@ -13,6 +13,7 @@ import { command } from "../../molecules/commands/command";
 import { link } from "../../atoms/link/link";
 import { div } from "../../atoms/div/div";
 import { relativeDate } from "../../../utils/dates";
+import { smartFilter } from "./smartFilter";
 
 const commander = {
   state: {
@@ -187,7 +188,7 @@ const commander = {
     const indexToSelect = this.state.options.selected;
     const notes = getNotes()
       .filter(({ title }) => {
-        return title.toLowerCase().includes(value.toLowerCase());
+        return smartFilter(title, value);
       })
       .filter(({ deleted }) => !deleted)
       .sort((a, b) => {
@@ -225,7 +226,7 @@ const commander = {
   generateCommands: async function (value = "") {
     const indexToSelect = this.state.options.selected;
     const commandComponents = this.commands()
-      .filter(({ title }) => title.toLowerCase().includes(value.toLowerCase()))
+      .filter(({ title }) => smartFilter(title, value))
       .map(({ title, key, call }, i) => {
         const keyCompo = key ? `⌘+${key.toUpperCase()}` : "";
         const commandComponent = command(
