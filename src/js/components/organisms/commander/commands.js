@@ -91,8 +91,8 @@ export const commands = [
         const note = getNote();
         resetNoteManager();
         if (note && note.id) {
-          markNoteForDeletion();
           deleteFileOnGist(note.id);
+          markNoteForDeletion(note.id);
         }
       }
       commander.hide();
