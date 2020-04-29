@@ -135,27 +135,26 @@ const commander = {
     this.show();
     this.state.mode = commanderModes.revisions;
     const { revisions } = getNote();
+    const indexToSelect = this.state.options.selected;
+    const revisionsOptions = Object.keys(revisions)
+      .map((id, i) => ({
+        title: i + 1,
+        secondary: `${new Date(
+          revisions[id].dateCreated
+        ).toLocaleDateString()} ${new Date(
+          revisions[id].dateCreated
+        ).toLocaleTimeString()}`,
+        onclick: () => {
+          url.set(undefined, {
+            v: id,
+          });
+          this.state.options.selected = i;
+          this.generateRevisions();
+        },
+      }))
+      .map((r, i) => command(r, i === indexToSelect));
 
-    select("#commands").html("");
-    const revisionsOptions = Object.keys(revisions).map((id, i) => ({
-      title: i + 1,
-      secondary: `${new Date(
-        revisions[id].dateCreated
-      ).toLocaleDateString()} ${new Date(
-        revisions[id].dateCreated
-      ).toLocaleTimeString()}`,
-      onclick: () => {
-        url.set(undefined, {
-          v: id,
-        });
-        this.state.options.selected = i;
-        this.generateRevisions();
-      },
-    }));
-
-    commands(revisionsOptions, this.state.options.selected).map((el) =>
-      select("#commands").append(el)
-    );
+    select("#commands").html(revisionsOptions);
 
     this.state.options = {
       ...this.state.options,
