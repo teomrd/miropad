@@ -38,8 +38,8 @@ export const commands = [
   {
     title: "💾 Save",
     key: "s",
-    call: () => {
-      saveNote(select(".terminal").getValue());
+    call: async () => {
+      await saveNote(select(".terminal").getValue());
       updateGist([getNote()]);
       select(".logo").removeClass("unsaved");
     },
