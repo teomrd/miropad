@@ -4,6 +4,7 @@ import {
   getNote,
   resetNoteManager,
   getNotes,
+  markNoteForDeletion,
 } from "../noteManager/noteManager";
 import select from "../../../utils/dom";
 import storage from "../../../utils/localstorage";
@@ -88,10 +89,11 @@ export const commands = [
       const confirmation = confirm("Are you sure you want do that?");
       if (confirmation) {
         const note = getNote();
+        resetNoteManager();
         if (note && note.id) {
+          markNoteForDeletion();
           deleteFileOnGist(note.id);
         }
-        resetNoteManager();
       }
       commander.hide();
     },
