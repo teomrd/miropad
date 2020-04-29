@@ -68,23 +68,12 @@ export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
   const authToken = storage.get("authToken");
   if (authToken && gistId) {
     select("#logo").addClass("loading");
-    const { files, updated_at } = await getGist(gistId);
-    const lastRemoteUpdate = new Date(updated_at).getTime();
-    const lastLocalUpdate = new Date(storage.get("lastLocalUpdate")).getTime();
-    if (lastLocalUpdate > lastRemoteUpdate) {
-      try {
-        await updateGist();
-        notify.success("⬆ MiroPad notes synced on Gist ✅");
-      } catch (e) {
-        notify.error(e.message);
-      }
-    } else {
-      Object.values(files).forEach(({ content }) => {
-        updateNote(content);
-      });
-      storage.set("lastSync", new Date());
-      notify.success("⬇ MiroPad synced ✅");
-    }
+    const { files } = await getGist(gistId);
+    Object.values(files).forEach(({ content }) => {
+      updateNote(content);
+    });
+    storage.set("lastSync", new Date());
+    notify.success("⬇ MiroPad synced ✅");
     select("#logo").removeClass("loading");
   }
 };
