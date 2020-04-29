@@ -3,6 +3,7 @@ import {
   saveNote,
   getNote,
   resetNoteManager,
+  getNotes,
 } from "../noteManager/noteManager";
 import select from "../../../utils/dom";
 import storage from "../../../utils/localstorage";
@@ -21,7 +22,7 @@ import notify from "../../molecules/notify";
 import ipfs from "../../../utils/ipfs";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { sleep } from "../../../utils/sleep";
-import { deleteFileOnGist } from "../../../utils/github/api";
+import { deleteFileOnGist, updateGist } from "../../../utils/github/api";
 
 export const commands = [
   {
@@ -38,7 +39,7 @@ export const commands = [
     key: "s",
     call: () => {
       saveNote(select(".terminal").getValue());
-      commander.hide();
+      updateGist([getNote()]);
       select(".logo").removeClass("unsaved");
     },
   },

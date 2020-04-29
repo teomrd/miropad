@@ -59,10 +59,10 @@ export const deleteFileOnGist = async (
 };
 
 export const updateGist = async (
+  notes = getNotes(),
   gistId = storage.get("gistId"),
   token = storage.get("authToken")
 ) => {
-  const notes = getNotes();
   const noteToFiles = notes.reduce((acc, { id, text, deleted }) => {
     return {
       ...acc,
