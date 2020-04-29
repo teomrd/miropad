@@ -8,7 +8,7 @@ const smartFilter = (phrase, filter) => {
       return w.includes(f) ? i : -1;
     });
     const firstIndexFound = foundIndexes.reduce((currentValue, fi) => {
-      return fi > 0 ? fi : currentValue;
+      return fi > -1 ? fi : currentValue;
     }, -1);
     return firstIndexFound;
   });

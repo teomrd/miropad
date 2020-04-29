@@ -13,6 +13,10 @@ describe("smartFilter", () => {
     expect(smartFilter("✍️ MiroPad ToDo list", "last")).toEqual(false);
   });
 
+  it("should find on the first word", () => {
+    expect(smartFilter("abc def", "bc")).toEqual(true);
+  });
+
   it("should return the right output with multiple words on the filter", () => {
     expect(smartFilter("✍️ MiroPad ToDo list", "miro to li")).toEqual(true);
     expect(smartFilter("✍️ MiroPad ToDo list", "miro li to")).toEqual(false);
