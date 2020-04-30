@@ -15,26 +15,6 @@ const converter = new showdown.Converter({
 converter.setFlavor("github");
 
 const markDownViewer = () => {
-  const { elements } = select("pre");
-  Array.prototype.slice.call(elements).forEach((el) => {
-    const copyBtn = button("📋 Copy", async (e) => {
-      e.stopPropagation();
-      const codeToCopy = e.srcElement.previousSibling.innerHTML;
-      await copyToClipboard(codeToCopy, "📋 Code copied to clipboard");
-    });
-    el.appendChild(copyBtn);
-  });
-
-  select("code").listenAll("click", async ({ innerHTML }) => {
-    const result = eval(innerHTML);
-    select(".console").show().innerHTML(result);
-  });
-  select(".console").listen("click", async (e) => {
-    e.srcElement.classList.add("hidden");
-    const codeToCopy = e.srcElement.innerHTML;
-    await copyToClipboard(codeToCopy, "📋 Code copied to clipboard");
-  });
-
   return {
     view: select(".preview"),
     init: function () {
@@ -50,6 +30,25 @@ const markDownViewer = () => {
     },
     update: function () {
       this.view.innerHTML(converter.makeHtml(select(".terminal").getValue()));
+      const { elements } = select("pre");
+      Array.prototype.slice.call(elements).forEach((el) => {
+        const copyBtn = button("📋 Copy", async (e) => {
+          e.stopPropagation();
+          const codeToCopy = e.srcElement.previousSibling.innerHTML;
+          await copyToClipboard(codeToCopy, "📋 Code copied to clipboard");
+        });
+        el.appendChild(copyBtn);
+      });
+
+      select("code").listenAll("click", async ({ innerHTML }) => {
+        const result = eval(innerHTML);
+        select(".console").show().innerHTML(result);
+      });
+      select(".console").listen("click", async (e) => {
+        e.srcElement.classList.add("hidden");
+        const codeToCopy = e.srcElement.innerHTML;
+        await copyToClipboard(codeToCopy, "📋 Code copied to clipboard");
+      });
     },
     show: function (mode = true) {
       this.view.show();
