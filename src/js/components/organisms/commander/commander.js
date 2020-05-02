@@ -14,6 +14,7 @@ import { link } from "../../atoms/link/link";
 import { div } from "../../atoms/div/div";
 import { relativeDate } from "../../../utils/dates";
 import { smartFilter } from "./smartFilter";
+import { button } from '../../atoms/button/button';
 
 const commander = {
   state: {
@@ -86,6 +87,11 @@ const commander = {
     };
   },
   initCommander: function () {
+    // initialize mobile-dock
+    commands.slice(0, 3).map(command => {
+      select(".mobile-dock").append(button(command.icon, command.call));
+    });
+    
     select("#commander button").listen("click", () => {
       this.hide();
     });

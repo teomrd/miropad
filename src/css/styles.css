@@ -458,3 +458,26 @@ pre button {
   transition: all 0.25s cubic-bezier(1, 0, 0.7, 1);
   bottom: -100%;
 }
+/* mobile-dock */
+.mobile-dock {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  .mobile-dock {
+    position: fixed;
+    bottom: 0px;
+    background: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid grey;
+  }
+  .mobile-dock button {
+    background: transparent;
+    border: none;
+    padding: 10px;
+    font-size: 2em;
+    cursor: pointer;
+  }
+}
+/* mobile-dock */

@@ -28,6 +28,7 @@ import { deleteFileOnGist, updateGist } from "../../../utils/github/api";
 export const commands = [
   {
     title: "📒 List saved notes",
+    icon: document.createTextNode("📒"),
     key: "p",
     call: () => {
       commander.state.mode !== commanderModes.notes
@@ -38,11 +39,29 @@ export const commands = [
   {
     title: "💾 Save",
     key: "s",
+    icon: document.createTextNode("💾"),
     call: async () => {
       commander.hide();
       await saveNote(select(".terminal").getValue());
       updateGist([getNote()]);
       select(".logo").removeClass("unsaved");
+    },
+  },
+  {
+    title: "🗑 Trash note",
+    key: "shift d",
+    icon: document.createTextNode("🗑"),
+    call: () => {
+      const confirmation = confirm("Are you sure you want do that?");
+      if (confirmation) {
+        const note = getNote();
+        resetNoteManager();
+        if (note && note.id) {
+          deleteFileOnGist(note.id);
+          markNoteForDeletion(note.id);
+        }
+      }
+      commander.hide();
     },
   },
   {
@@ -80,22 +99,6 @@ export const commands = [
       const { text, title } = getNote();
       await navigator.clipboard.writeText(title);
       saveFileAs(text);
-      commander.hide();
-    },
-  },
-  {
-    title: "🗑 Trash note",
-    key: "shift d",
-    call: () => {
-      const confirmation = confirm("Are you sure you want do that?");
-      if (confirmation) {
-        const note = getNote();
-        resetNoteManager();
-        if (note && note.id) {
-          deleteFileOnGist(note.id);
-          markNoteForDeletion(note.id);
-        }
-      }
       commander.hide();
     },
   },
