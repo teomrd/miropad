@@ -41,12 +41,16 @@ header .title {
   flex-direction: column;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 50vw;
 }
 
 header .title h3 {
   margin: 0;
   font-weight: 400;
+}
+
+header div.brand {
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 header>div {
