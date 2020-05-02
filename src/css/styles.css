@@ -41,7 +41,7 @@ header .title {
   flex-direction: column;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 70vw;
+  max-width: 50vw;
 }
 
 header .title h3 {
