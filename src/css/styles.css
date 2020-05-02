@@ -136,6 +136,7 @@ header .anchor {
   justify-content: center;
   cursor: pointer;
   opacity: 0.5;
+  padding-right: 10px;
 }
 
 header .anchor:hover {
@@ -401,7 +402,6 @@ header .logo:active {
   width: 1px;
   height: 15px;
   background: rgba(255, 255, 255, 0.25);
-  margin: 0 10px;
 }
 
 .menu {
@@ -409,6 +409,7 @@ header .logo:active {
   align-items: center;
   max-height: 100%;
   cursor: pointer;
+  padding-left: 10px;
 }
 
 .menu:after {
