@@ -308,6 +308,10 @@ header .logo:active {
   flex-direction: column;
 }
 
+.commander .palette>div {
+  display: flex; 
+} 
+
 .commander .palette ul {
   color: white;
   list-style: none;
@@ -345,6 +349,21 @@ header .logo:active {
   color: white;
   padding: 5px;
   border: none;
+  border-radius: 4px;
+  flex-grow: 1;
+}
+
+.commander .palette button {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255,255, 0.75);
+  font-size: medium;
+  padding: 0 1em;
+  cursor: pointer;
+}
+.commander .palette button:focus,
+.commander .palette button:hover {
+  color: rgba(255, 255,255, 1);
 }
 
 .commander .palette ul li a {

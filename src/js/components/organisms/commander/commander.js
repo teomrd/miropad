@@ -86,6 +86,10 @@ const commander = {
     };
   },
   initCommander: function () {
+    select("#commander button").listen("click", () => {
+      this.hide();
+    });
+
     select("#commander input")
       .listen("keydown", (e) => {
         // arrow down 40

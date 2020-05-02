@@ -39,6 +39,7 @@ export const commands = [
     title: "💾 Save",
     key: "s",
     call: async () => {
+      commander.hide();
       await saveNote(select(".terminal").getValue());
       updateGist([getNote()]);
       select(".logo").removeClass("unsaved");
