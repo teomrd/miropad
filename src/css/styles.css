@@ -65,7 +65,7 @@ header .logo {
   text-align: center;
   background: #000;
   border-radius: 10px;
-  margin: 0 10px;
+  margin: 10px;
   align-items: center;
   justify-content: center;
   display: block;
@@ -477,7 +477,7 @@ pre button {
   .mobile-dock {
     position: fixed;
     bottom: 0px;
-    background: black;
+    background: rgb(17, 21, 24);
     width: 100%;
     display: flex;
     justify-content: space-evenly;
