@@ -462,6 +462,17 @@ pre button {
 .mobile-dock {
   display: none;
 }
+.mobile-dock button {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75em;
+  align-items: center;
+  opacity: 0.75;
+}
+.mobile-dock button:hover {
+  opacity: 1;
+}
 @media only screen and (max-width: 600px) {
   .mobile-dock {
     position: fixed;
@@ -475,8 +486,8 @@ pre button {
   .mobile-dock button {
     background: transparent;
     border: none;
-    padding: 10px;
-    font-size: 2em;
+    padding: 0 10px;
+    padding-bottom: 5px;
     cursor: pointer;
   }
 }

@@ -24,11 +24,16 @@ import ipfs from "../../../utils/ipfs";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { sleep } from "../../../utils/sleep";
 import { deleteFileOnGist, updateGist } from "../../../utils/github/api";
+import { icon } from '../../atoms/icon/icon';
+import ListSVG from '../../../../assets/svg/list.svg';
+import TrashSVG from '../../../../assets/svg/trash.svg';
+import CheckmarkCircleSVG from '../../../../assets/svg/checkmark-circle.svg';
 
 export const commands = [
   {
     title: "📒 List saved notes",
-    icon: document.createTextNode("📒"),
+    icon: icon(ListSVG),
+    sortTitle: "Notes",
     key: "p",
     call: () => {
       commander.state.mode !== commanderModes.notes
@@ -39,7 +44,8 @@ export const commands = [
   {
     title: "💾 Save",
     key: "s",
-    icon: document.createTextNode("💾"),
+    icon: icon(CheckmarkCircleSVG),
+    sortTitle: "Save",
     call: async () => {
       commander.hide();
       await saveNote(select(".terminal").getValue());
@@ -48,9 +54,10 @@ export const commands = [
     },
   },
   {
-    title: "🗑 Trash note",
+    title: "🗑 Delete note",
     key: "shift d",
-    icon: document.createTextNode("🗑"),
+    icon: icon(TrashSVG),
+    sortTitle: "Delete",
     call: () => {
       const confirmation = confirm("Are you sure you want do that?");
       if (confirmation) {

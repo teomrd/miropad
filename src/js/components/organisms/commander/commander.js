@@ -89,7 +89,7 @@ const commander = {
   initCommander: function () {
     // initialize mobile-dock
     commands.slice(0, 3).map(command => {
-      select(".mobile-dock").append(button(command.icon, command.call));
+      select(".mobile-dock").append(button([command.icon, document.createTextNode(command.sortTitle)], command.call));
     });
     
     select("#commander button").listen("click", () => {
