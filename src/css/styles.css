@@ -220,7 +220,8 @@ header .logo:active {
 .notification {
   position: fixed;
   right: 5px;
-  width: 30%;
+  min-width: 30%;
+  max-width: 80%;
   background: #000;
   color: #fff;
   text-align: center;
