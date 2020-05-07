@@ -343,10 +343,10 @@ header .logo:active {
   font-size: 1.15em;
 }
 .commander .palette ul li:hover img {
-  width: 40px;
+  width: 35px;
 }
 .commander .palette ul li.selected img {
-  width: 50px;
+  width: 40px;
 }
 
 .commander .palette ul li:hover {
@@ -493,8 +493,10 @@ pre button {
     background: transparent;
     border: none;
     padding: 0 10px;
-    padding-bottom: 5px;
     cursor: pointer;
+  }
+  .mobile-dock button img {
+    width: 25px;
   }
 }
 /* mobile-dock */
