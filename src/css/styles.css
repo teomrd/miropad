@@ -342,6 +342,12 @@ header .logo:active {
   padding-left: 8px;
   font-size: 1.15em;
 }
+.commander .palette ul li:hover img {
+  width: 40px;
+}
+.commander .palette ul li.selected img {
+  width: 50px;
+}
 
 .commander .palette ul li:hover {
   opacity: 1;
@@ -492,3 +498,7 @@ pre button {
   }
 }
 /* mobile-dock */
+
+.rotate90 {
+  transform: rotate(90deg);
+}

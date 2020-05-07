@@ -236,11 +236,12 @@ const commander = {
     const indexToSelect = this.state.options.selected;
     const commandComponents = this.commands()
       .filter(({ title }) => smartFilter(title, value))
-      .map(({ title, key, call }, i) => {
+      .map(({ title, key, call, icon }, i) => {
         const keyCompo = key ? `⌘+${key.toUpperCase()}` : "";
         const commandComponent = command(
           {
             title: div({ content: title, highlight: value }),
+            icon: icon,
             secondary: keyCompo,
             onclick: call,
           },

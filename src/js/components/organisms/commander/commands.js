@@ -28,10 +28,22 @@ import { icon } from '../../atoms/icon/icon';
 import ListSVG from '../../../../assets/svg/list.svg';
 import TrashSVG from '../../../../assets/svg/trash.svg';
 import CheckmarkCircleSVG from '../../../../assets/svg/checkmark-circle.svg';
+import CloudSyncSVG from '../../../../assets/svg/cloud-sync.svg';
+import LighterSVG from '../../../../assets/svg/lighter.svg';
+import CloudUploadSVG from '../../../../assets/svg/cloud-upload.svg';
+import DownloadSVG from '../../../../assets/svg/download.svg';
+import EnvelopeSVG from '../../../../assets/svg/envelope.svg';
+import PictureSVG from '../../../../assets/svg/picture.svg';
+import PrinterSVG from '../../../../assets/svg/printer.svg';
+import PageBreakSVG from '../../../../assets/svg/page-break.svg';
+import FrameExpandSVG from '../../../../assets/svg/frame-expand.svg';
+import MagicWandSVG from '../../../../assets/svg/magic-wand.svg';
+import RocketSVG from '../../../../assets/svg/rocket.svg';
+import SpellCheckSVG from '../../../../assets/svg/spell-check.svg';
 
 export const commands = [
   {
-    title: "📒 List saved notes",
+    title: "List saved notes",
     icon: icon(ListSVG),
     sortTitle: "Notes",
     key: "p",
@@ -42,7 +54,7 @@ export const commands = [
     },
   },
   {
-    title: "💾 Save",
+    title: "Save",
     key: "s",
     icon: icon(CheckmarkCircleSVG),
     sortTitle: "Save",
@@ -54,7 +66,7 @@ export const commands = [
     },
   },
   {
-    title: "🗑 Delete note",
+    title: "Delete note",
     key: "shift d",
     icon: icon(TrashSVG),
     sortTitle: "Delete",
@@ -72,7 +84,8 @@ export const commands = [
     },
   },
   {
-    title: "🔄 Sync: Notes my GitHub Gist (requires auth)",
+    title: "Sync: Notes my GitHub Gist (requires auth)",
+    icon: icon(CloudSyncSVG),
     key: null,
     call: async () => {
       const token = storage.get("authToken");
@@ -88,7 +101,8 @@ export const commands = [
     },
   },
   {
-    title: "🔄 Sync: Reset Gist settings",
+    title: "Sync: Reset Gist settings",
+    icon: icon(LighterSVG),
     key: null,
     call: async () => {
       localStorage.removeItem("authToken");
@@ -100,7 +114,8 @@ export const commands = [
     },
   },
   {
-    title: "💾 Save to File System (Experimental browser feature)...",
+    title: "Save to File System (Experimental browser feature)...",
+    icon: icon(DownloadSVG),
     key: "shift s",
     call: async () => {
       const { text, title } = getNote();
@@ -110,15 +125,17 @@ export const commands = [
     },
   },
   {
-    title: "📡 Save to IPFS",
+    title: "Save to IPFS",
     key: "i",
+    icon: icon(CloudUploadSVG),
     call: () => {
       ipfs.save(select(".terminal").getValue());
       commander.hide();
     },
   },
   {
-    title: "📬 Email note to...",
+    title: "Email note to...",
+    icon: icon(EnvelopeSVG),
     key: "e",
     call: () => {
       const note = `${
@@ -129,7 +146,8 @@ export const commands = [
     },
   },
   {
-    title: "🌌 Add a cover picture",
+    title: "Add a cover picture",
+    icon: icon(PictureSVG),
     key: null,
     call: async () => {
       const bgImage = prompt("Paste the image URL in here...");
@@ -146,7 +164,8 @@ export const commands = [
     },
   },
   {
-    title: "🖨 Print MarkDown output",
+    title: "Print MarkDown output",
+    icon: icon(PrinterSVG),
     key: null,
     call: () => {
       select(".preview").show();
@@ -156,7 +175,8 @@ export const commands = [
     },
   },
   {
-    title: "◽ Full MarkDown view",
+    title: "Full MarkDown view",
+    icon: icon(FrameExpandSVG),
     key: "shift m",
     call: () => {
       markDownViewer().show("full");
@@ -164,7 +184,8 @@ export const commands = [
     },
   },
   {
-    title: "🔳 Toggle MarkDown Viewer",
+    title: "Toggle MarkDown Viewer",
+    icon: icon(PageBreakSVG, "rotate90"),
     key: "m",
     call: () => {
       markDownViewer().toggle();
@@ -173,14 +194,16 @@ export const commands = [
   },
   {
     key: "j",
-    title: "💄 Prettify JSON document",
+    title: "Prettify JSON document",
+    icon: icon(MagicWandSVG),
     call: () => {
       prettifyJSON(".terminal");
       commander.hide();
     },
   },
   {
-    title: "🎨 Toggle command palette",
+    title: "Toggle command palette",
+    icon: icon(RocketSVG),
     key: "shift p",
     call: () => {
       commander.state.mode !== commanderModes.commands
@@ -189,7 +212,8 @@ export const commands = [
     },
   },
   {
-    title: " 🕵️‍♂️ Find and Replace...",
+    title: "Find and Replace...",
+    icon: icon(SpellCheckSVG),
     key: "shift f",
     call: () => {
       const selectedValue = select(".terminal")
