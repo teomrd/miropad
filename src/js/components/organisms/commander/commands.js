@@ -84,6 +84,26 @@ export const commands = [
     },
   },
   {
+    title: "Toggle MarkDown Viewer",
+    icon: icon(PageBreakSVG, "rotate90"),
+    sortTitle: "Split",
+    key: "m",
+    call: () => {
+      markDownViewer().toggle();
+      commander.hide();
+    },
+  },
+  {
+    title: "Full MarkDown view",
+    icon: icon(FrameExpandSVG),
+    sortTitle: "Full view",
+    key: "shift m",
+    call: () => {
+      markDownViewer().show("full");
+      commander.hide();
+    },
+  },
+  {
     title: "Sync: Notes my GitHub Gist (requires auth)",
     icon: icon(CloudSyncSVG),
     key: null,
@@ -171,24 +191,6 @@ export const commands = [
       select(".preview").show();
       markDownViewer();
       window.print();
-      commander.hide();
-    },
-  },
-  {
-    title: "Full MarkDown view",
-    icon: icon(FrameExpandSVG),
-    key: "shift m",
-    call: () => {
-      markDownViewer().show("full");
-      commander.hide();
-    },
-  },
-  {
-    title: "Toggle MarkDown Viewer",
-    icon: icon(PageBreakSVG, "rotate90"),
-    key: "m",
-    call: () => {
-      markDownViewer().toggle();
       commander.hide();
     },
   },
