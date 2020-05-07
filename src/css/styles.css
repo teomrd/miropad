@@ -214,6 +214,7 @@ header .logo:active {
   outline-color: red;
   z-index: 1;
   resize: none;
+  border: none;
 }
 
 .notification {
@@ -483,7 +484,9 @@ pre button {
   .mobile-dock {
     position: fixed;
     bottom: 0px;
-    background: rgb(17, 21, 24);
+    background: rgba(17, 21, 24, .75);
+    -webkit-backdrop-filter: blur(7.5px);
+    backdrop-filter: blur(7.5px);
     width: 100%;
     display: flex;
     justify-content: space-evenly;
