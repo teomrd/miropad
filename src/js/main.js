@@ -25,7 +25,7 @@ import { registerServiceWorker } from "./registerServiceWorker";
 import notify from "./components/molecules/notify";
 
 const actOnURLStateChange = () => {
-  setNoteFromHash(url.getSearchParam("v"));
+  if(url.getSearchParam("v")) setNoteFromHash(url.getSearchParam("v"));
 
   if (url.getSearchParam("md") === "full") {
     select(".terminal").hide();
@@ -65,22 +65,7 @@ const main = async () => {
       }
     });
 
-  const pageId = url.getPageId();
-
-  if (ipfs.isValidCid(pageId)) {
-    try {
-      const ipfsNode = await IPFS.create();
-      const retrievedValueFromIPFS = pageId
-        ? await ipfs.getFileContents(ipfsNode, pageId)
-        : "";
-      select(".terminal").setValue(retrievedValueFromIPFS);
-      await saveNote(retrievedValueFromIPFS, pageId);
-    } catch (error) {
-      notify.error(`IPFS Error ${error.message}`);
-    }
-  } else {
-    setNoteFromHash();
-  }
+  setNoteFromHash(url.getPageId());
 
   select(".logo").listen("click", resetNoteManager);
   select("#permalink").listen("click", async () => {

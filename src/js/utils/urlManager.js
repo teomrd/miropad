@@ -1,4 +1,5 @@
 export const url = {
+  baseUrl: `${window.location.origin}${window.location.pathname}`,
   get: function () {
     return window.location.href;
   },
