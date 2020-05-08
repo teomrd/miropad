@@ -91,6 +91,7 @@ export const resetNoteManager = () => {
   location.hash = "";
   resetPageTitle();
   select("#revisions").html("");
+  select(".terminal").setValue("");
   select(".logo").removeClass("unsaved");
 };
 
