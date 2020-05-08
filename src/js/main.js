@@ -25,7 +25,7 @@ import { registerServiceWorker } from "./registerServiceWorker";
 import notify from "./components/molecules/notify";
 
 const actOnURLStateChange = () => {
-  if(url.getSearchParam("v")) setNoteFromHash(url.getSearchParam("v"));
+  setNoteFromHash();
 
   if (url.getSearchParam("md") === "full") {
     select(".terminal").hide();
