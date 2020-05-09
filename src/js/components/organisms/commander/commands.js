@@ -24,22 +24,22 @@ import ipfs from "../../../utils/ipfs";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { sleep } from "../../../utils/sleep";
 import { deleteFileOnGist, updateGist } from "../../../utils/github/api";
-import { icon } from '../../atoms/icon/icon';
-import ListSVG from '../../../../assets/svg/list.svg';
-import TrashSVG from '../../../../assets/svg/trash.svg';
-import CheckmarkCircleSVG from '../../../../assets/svg/checkmark-circle.svg';
-import CloudSyncSVG from '../../../../assets/svg/cloud-sync.svg';
-import LighterSVG from '../../../../assets/svg/lighter.svg';
-import CloudUploadSVG from '../../../../assets/svg/cloud-upload.svg';
-import DownloadSVG from '../../../../assets/svg/download.svg';
-import EnvelopeSVG from '../../../../assets/svg/envelope.svg';
-import PictureSVG from '../../../../assets/svg/picture.svg';
-import PrinterSVG from '../../../../assets/svg/printer.svg';
-import PageBreakSVG from '../../../../assets/svg/page-break.svg';
-import FrameExpandSVG from '../../../../assets/svg/frame-expand.svg';
-import MagicWandSVG from '../../../../assets/svg/magic-wand.svg';
-import RocketSVG from '../../../../assets/svg/rocket.svg';
-import SpellCheckSVG from '../../../../assets/svg/spell-check.svg';
+import { icon } from "../../atoms/icon/icon";
+import ListSVG from "../../../../assets/svg/list.svg";
+import TrashSVG from "../../../../assets/svg/trash.svg";
+import CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
+import CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
+import LighterSVG from "../../../../assets/svg/lighter.svg";
+import CloudUploadSVG from "../../../../assets/svg/cloud-upload.svg";
+import DownloadSVG from "../../../../assets/svg/download.svg";
+import EnvelopeSVG from "../../../../assets/svg/envelope.svg";
+import PictureSVG from "../../../../assets/svg/picture.svg";
+import PrinterSVG from "../../../../assets/svg/printer.svg";
+import PageBreakSVG from "../../../../assets/svg/page-break.svg";
+import FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
+import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
+import RocketSVG from "../../../../assets/svg/rocket.svg";
+import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
 
 export const commands = [
   {
@@ -47,11 +47,7 @@ export const commands = [
     icon: icon(ListSVG),
     sortTitle: "Notes",
     key: "p",
-    call: () => {
-      commander.state.mode !== commanderModes.notes
-        ? commander.show(commanderModes.notes)
-        : commander.hide();
-    },
+    call: () => commander.toggle(commanderModes.notes),
   },
   {
     title: "Save",
@@ -207,11 +203,7 @@ export const commands = [
     title: "Toggle command palette",
     icon: icon(RocketSVG),
     key: "shift p",
-    call: () => {
-      commander.state.mode !== commanderModes.commands
-        ? commander.show(commanderModes.commands)
-        : commander.hide();
-    },
+    call: () => commander.toggle(commanderModes.commands),
   },
   {
     title: "Find and Replace...",
