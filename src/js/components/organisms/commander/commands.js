@@ -3,7 +3,6 @@ import {
   saveNote,
   getNote,
   resetNoteManager,
-  getNotes,
   markNoteForDeletion,
 } from "../noteManager/noteManager";
 import select from "../../../utils/dom";

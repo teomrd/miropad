@@ -6,7 +6,7 @@ import hashBrowser from "../../../utils/hashBrowser";
 import notify from "../../molecules/notify";
 import { url } from "../../../utils/urlManager";
 import isJSON from "../../../utils/isJSON";
-import ipfs, { retrieveFromIPFS } from '../../../utils/ipfs';
+import ipfs, { retrieveFromIPFS } from "../../../utils/ipfs";
 
 export const getDateCreatedFromTitle = (title) => {
   const titleID = getTitleId(title);
@@ -64,9 +64,9 @@ export const setNoteFromHash = async (hash = url.getPageId()) => {
     if (ipfs.isValidCid(hash)) {
       retrieveFromIPFS(hash);
     } else {
-      const version = url.getSearchParam('v');
+      const version = url.getSearchParam("v");
       const note = getNote(undefined, version);
-      const cid = url.getSearchParam('cid');    
+      const cid = url.getSearchParam("cid");
       if (note) {
         select("#revisions").html(
           `${note.numberOfRevisions} revision${
@@ -75,9 +75,8 @@ export const setNoteFromHash = async (hash = url.getPageId()) => {
         );
         setPageTitle(note.title);
         select(".terminal").setValue(note.text);
-      }
-      else {
-        if(cid && ipfs.isValidCid(cid)) {
+      } else {
+        if (cid && ipfs.isValidCid(cid)) {
           retrieveFromIPFS(cid);
         } else {
           notify.error("404 Note not found 🤷‍♂️");

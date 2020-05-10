@@ -2,8 +2,8 @@ import IPFS from "ipfs";
 import { url } from "./urlManager";
 import CID from "cids";
 import notify from "../components/molecules/notify";
-import { copyToClipboard } from './copyToClipboard';
-import select from './dom';
+import { copyToClipboard } from "./copyToClipboard";
+import select from "./dom";
 
 export const retrieveFromIPFS = async (cid) => {
   try {
@@ -14,7 +14,7 @@ export const retrieveFromIPFS = async (cid) => {
   } catch (error) {
     notify.error(`IPFS Error ${error.message}`);
   }
-}
+};
 
 const ipfs = {
   isValidCid(hash) {
@@ -40,7 +40,10 @@ const ipfs = {
       const content = IPFS.Buffer.from(value);
       const results = await ipfs.add(content);
       const hash = results[0].hash;
-      copyToClipboard(`${url.baseUrl}#${hash}`, "👌 Note saved. IPFS Link copied to clipboard!");
+      copyToClipboard(
+        `${url.baseUrl}#${hash}`,
+        "👌 Note saved. IPFS Link copied to clipboard!"
+      );
     } catch (e) {
       notify.error(`😱 Something went wrong while trying to save to IPFS ${e}`); // eslint-disable-line
     }

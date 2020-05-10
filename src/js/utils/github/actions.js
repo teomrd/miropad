@@ -3,7 +3,6 @@ import {
   getAuthToken,
   getAuthenticatedUsersGists,
   createNewGist,
-  updateGist,
 } from "./api";
 import storage from "../localstorage";
 import { url } from "../urlManager";

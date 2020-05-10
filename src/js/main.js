@@ -1,16 +1,13 @@
-import IPFS from "ipfs";
 import "../css/styles.css";
 import "../css/print.css";
 import "github-markdown-css";
 import welcomeUser from "./components/molecules/welcome";
 import errorHandler from "./utils/errorHandler";
 import select from "./utils/dom";
-import ipfs from "./utils/ipfs";
 import {
   setNoteFromHash,
   resetNoteManager,
   getNote,
-  saveNote,
   search,
 } from "./components/organisms/noteManager/noteManager";
 import { url } from "./utils/urlManager";
@@ -22,7 +19,6 @@ import {
   setAuthTokenFromCallback,
 } from "./utils/github/actions";
 import { registerServiceWorker } from "./registerServiceWorker";
-import notify from "./components/molecules/notify";
 
 const actOnURLStateChange = () => {
   setNoteFromHash();
