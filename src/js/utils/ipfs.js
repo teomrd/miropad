@@ -4,10 +4,20 @@ import CID from "cids";
 import notify from "../components/molecules/notify";
 import { copyToClipboard } from "./copyToClipboard";
 import select from "./dom";
+import storage from "./localstorage";
 
 let ipfsNode;
 
-const initIpfsNode = async () => ipfsNode || (await IPFS.create());
+const setInfo = async (node) => {
+  const nodeInfo = await node.id();
+  storage.set("ipfsNode", JSON.stringify(nodeInfo));
+};
+
+const initIpfsNode = async () => {
+  const node = ipfsNode || (await IPFS.create());
+  setInfo(node);
+  return node;
+};
 
 export const retrieveFromIPFS = async (cid) => {
   try {
