@@ -5,10 +5,13 @@ import notify from "../components/molecules/notify";
 import { copyToClipboard } from "./copyToClipboard";
 import select from "./dom";
 
+let ipfsNode;
+
+const initIpfsNode = async () => ipfsNode || (await IPFS.create());
+
 export const retrieveFromIPFS = async (cid) => {
   try {
-    const ipfsNode = await IPFS.create();
-    const retrievedValueFromIPFS = await ipfs.getFileContents(ipfsNode, cid);
+    const retrievedValueFromIPFS = await ipfs.getFileContents(cid);
     select(".terminal").setValue(retrievedValueFromIPFS);
     notify.success("IPFS note retrieved!");
   } catch (error) {
@@ -25,9 +28,10 @@ const ipfs = {
       return false;
     }
   },
-  getFileContents: async function (ipfsNode, cid) {
+  getFileContents: async function (cid) {
     try {
-      const file = await ipfsNode.cat(cid);
+      const node = await initIpfsNode();
+      const file = await node.cat(cid);
       return Promise.resolve(file.toString("utf8"));
     } catch (error) {
       notify.error(`The requested CID: ${cid} was not found`);
@@ -36,9 +40,9 @@ const ipfs = {
   },
   save: async function (value) {
     try {
-      const ipfs = await IPFS.create();
+      const node = await initIpfsNode();
       const content = IPFS.Buffer.from(value);
-      const results = await ipfs.add(content);
+      const results = await node.add(content);
       const hash = results[0].hash;
       copyToClipboard(
         `${url.baseUrl}#${hash}`,
