@@ -4,7 +4,6 @@ import { url } from "../../utils/urlManager";
 import { copyToClipboard } from "../../utils/copyToClipboard";
 import { button } from "../atoms/button/button";
 
-
 const converter = new showdown.Converter({
   tasklists: true,
   emoji: true,

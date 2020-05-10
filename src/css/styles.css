@@ -192,6 +192,9 @@ header .logo:active {
   margin: 0 auto;
   padding: 45px;
 }
+.preview.markdown-body {
+  padding-bottom: 50px;
+}
 
 @media (max-width: 767px) {
   .markdown-body {
