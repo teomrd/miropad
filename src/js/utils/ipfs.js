@@ -1,3 +1,4 @@
+/*global Buffer */
 import IPFS from "ipfs";
 import { url } from "./urlManager";
 import CID from "cids";
@@ -41,19 +42,26 @@ const ipfs = {
   getFileContents: async function (cid) {
     try {
       const node = await initIpfsNode();
-      const file = await node.cat(cid);
-      return Promise.resolve(file.toString("utf8"));
+      const source = await node.cat(cid);
+      let data = "";
+      for await (const chunk of source) {
+        data = `${data}${chunk.toString()}`;
+      }
+      return Promise.resolve(data);
     } catch (error) {
       notify.error(`The requested CID: ${cid} was not found`);
       return Promise.reject(new Error("Not valid CID"));
     }
   },
   save: async function (value) {
-    try {
+    const add = async () => {
       const node = await initIpfsNode();
-      const content = IPFS.Buffer.from(value);
-      const results = await node.add(content);
-      const hash = results[0].hash;
+      const results = await node.add([{ content: Buffer.from(value) }]);
+      const [{ hash }] = await Promise.all(results);
+      return hash;
+    };
+    try {
+      const hash = await add(value);
       copyToClipboard(
         `${url.baseUrl}#${hash}`,
         "👌 Note saved. IPFS Link copied to clipboard!"
