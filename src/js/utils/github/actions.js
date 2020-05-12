@@ -25,7 +25,10 @@ export const goAuthenticate = async () => {
 export const setGistToSyncWith = async (token) => {
   notify.info("Downloading my Gists!");
   const gists = await getAuthenticatedUsersGists(token);
-  commander.state.mode = commanderModes.gists;
+  commander.setState({
+    mode: commanderModes.gists,
+  });
+
   notify.info("Select Gist to sync with");
   const gistOptions = gists
     .sort(

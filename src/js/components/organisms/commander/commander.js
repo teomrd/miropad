@@ -26,6 +26,15 @@ const commander = (() => {
     },
   };
   return {
+    getState: function () {
+      return state;
+    },
+    setState: function (newState) {
+      state = {
+        ...state,
+        ...newState,
+      };
+    },
     show: function (what = commanderModes.commands) {
       select("#commander").show();
       select("#commander input").focus();
