@@ -211,11 +211,14 @@ const commander = (() => {
           const bDateCreated = getDateCreatedFromTitle(b.title);
           return bDateCreated - aDateCreated;
         })
-        .map(({ id, title }, i) => {
+        .map(({ id, title, cid }, i) => {
           const dateCreated = getDateCreatedFromTitle(title);
+          const linkParams = cid ? `?cid=${cid}` : "";
+          const href = `${window.location.origin}${window.location.pathname}#${id}${linkParams}`;
+
           const noteLink = link(
             div({ content: title, highlight: value }),
-            `${window.location.origin}${window.location.pathname}#${id}`
+            href
           );
 
           const noteCommand = command(

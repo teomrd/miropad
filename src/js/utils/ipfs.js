@@ -6,6 +6,7 @@ import notify from "../components/molecules/notify";
 import { copyToClipboard } from "./copyToClipboard";
 import select from "./dom";
 import storage from "./localstorage";
+import { saveNote } from "../components/organisms/noteManager/noteManager";
 
 let ipfsNode;
 
@@ -67,6 +68,7 @@ const ipfs = {
     };
     try {
       const hash = await add(value);
+      saveNote(value, hash);
       copyToClipboard(
         `${url.baseUrl}#${hash}`,
         "👌 Note saved. IPFS Link copied to clipboard!"
