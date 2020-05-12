@@ -138,7 +138,9 @@ header .anchor {
   opacity: 0.5;
   padding-right: 10px;
 }
-
+header .anchor.hidden {
+  display: none;
+}
 header .anchor:hover {
   opacity: 1;
 }

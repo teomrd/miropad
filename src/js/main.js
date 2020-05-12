@@ -29,6 +29,12 @@ const actOnURLStateChange = () => {
     select(".terminal").show();
   }
 
+  if (url.getSearchParam("cid")) {
+    select(".anchor").show();
+  } else {
+    select(".anchor").hide();
+  }
+
   const q = url.getSearchParam("q");
   const queryResult = search(q);
   if (queryResult) select(".terminal").setValue(queryResult.text);
