@@ -57,8 +57,13 @@ const ipfs = {
     const add = async () => {
       const node = await initIpfsNode();
       const results = await node.add([{ content: Buffer.from(value) }]);
-      const [{ hash }] = await Promise.all(results);
-      return hash;
+      let hash;
+      for await (const result of results) {
+        hash = result.path;
+      }
+      return hash
+        ? Promise.resolve(hash)
+        : Promise.reject("IPFS Error: No path found");
     };
     try {
       const hash = await add(value);
