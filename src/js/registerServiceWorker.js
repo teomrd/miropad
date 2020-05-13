@@ -1,7 +1,9 @@
+import notify from "./components/molecules/notify";
+
 export const requestNotificationPermission = async () => {
   const permission = await window.Notification.requestPermission();
   if (permission !== "granted") {
-    throw new Error("Permission not granted for Notification");
+    notify.info("Permission not granted for Notifications");
   }
   // navigator.serviceWorker.controller.postMessage({ hello: "world" });
 };
