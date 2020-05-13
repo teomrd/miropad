@@ -114,7 +114,6 @@ const commander = (() => {
       };
     },
     initCommander: function () {
-      requestNotificationPermission();
       // initialize mobile-dock
       commands.slice(0, 5).map((command) => {
         select(".mobile-dock").append(
@@ -269,6 +268,7 @@ const commander = (() => {
       return this;
     },
     generateCommands: async function (value = "") {
+      requestNotificationPermission();
       const indexToSelect = state.options.selected;
       const commandComponents = this.commands()
         .filter(({ title }) => smartFilter(title, value))
