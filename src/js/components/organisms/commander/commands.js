@@ -42,7 +42,7 @@ import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
 export const commands = [
   {
     title: "List saved notes",
-    icon: icon(ListSVG),
+    icon: icon(ListSVG, "list notes"),
     sortTitle: "Notes",
     key: "p",
     call: () => commander.toggle(commander.getModes().notes),
@@ -50,7 +50,7 @@ export const commands = [
   {
     title: "Save",
     key: "s",
-    icon: icon(CheckmarkCircleSVG),
+    icon: icon(CheckmarkCircleSVG, "save"),
     sortTitle: "Save",
     call: async () => {
       commander.hide();
@@ -62,7 +62,7 @@ export const commands = [
   {
     title: "Delete note",
     key: "shift d",
-    icon: icon(TrashSVG),
+    icon: icon(TrashSVG, "delete note"),
     sortTitle: "Delete",
     call: () => {
       const confirmation = confirm("Are you sure you want do that?");
@@ -79,7 +79,7 @@ export const commands = [
   },
   {
     title: "Toggle MarkDown Viewer",
-    icon: icon(PageBreakSVG, "rotate90"),
+    icon: icon(PageBreakSVG, "toggle markdown viewer", "rotate90"),
     sortTitle: "Split",
     key: "m",
     call: () => {
@@ -89,7 +89,7 @@ export const commands = [
   },
   {
     title: "Full MarkDown view",
-    icon: icon(FrameExpandSVG),
+    icon: icon(FrameExpandSVG, "full view"),
     sortTitle: "Full view",
     key: "shift m",
     call: () => {
@@ -99,7 +99,7 @@ export const commands = [
   },
   {
     title: "Sync: Notes my GitHub Gist (requires auth)",
-    icon: icon(CloudSyncSVG),
+    icon: icon(CloudSyncSVG, "sync with github"),
     key: null,
     call: async () => {
       const token = storage.get("authToken");
@@ -116,7 +116,7 @@ export const commands = [
   },
   {
     title: "Sync: Reset Gist settings",
-    icon: icon(LighterSVG),
+    icon: icon(LighterSVG, "reset github settings"),
     key: null,
     call: async () => {
       localStorage.removeItem("authToken");
@@ -129,7 +129,7 @@ export const commands = [
   },
   {
     title: "Save to File System (Experimental browser feature)...",
-    icon: icon(DownloadSVG),
+    icon: icon(DownloadSVG, "save file"),
     key: "shift s",
     call: async () => {
       const { text, title } = getNote();
@@ -141,7 +141,7 @@ export const commands = [
   {
     title: "Save to IPFS",
     key: "i",
-    icon: icon(CloudUploadSVG),
+    icon: icon(CloudUploadSVG, "save to ipfs"),
     call: () => {
       ipfs.save(select(".terminal").getValue());
       commander.hide();
@@ -149,7 +149,7 @@ export const commands = [
   },
   {
     title: "Email note to...",
-    icon: icon(EnvelopeSVG),
+    icon: icon(EnvelopeSVG, "email"),
     key: "e",
     call: () => {
       const note = `${
@@ -161,7 +161,7 @@ export const commands = [
   },
   {
     title: "Add a cover picture",
-    icon: icon(PictureSVG),
+    icon: icon(PictureSVG, "cover picture"),
     key: null,
     call: async () => {
       const bgImage = prompt("Paste the image URL in here...");
@@ -179,7 +179,7 @@ export const commands = [
   },
   {
     title: "Print MarkDown output",
-    icon: icon(PrinterSVG),
+    icon: icon(PrinterSVG, "print"),
     key: null,
     call: () => {
       select(".preview").show();
@@ -191,7 +191,7 @@ export const commands = [
   {
     key: "j",
     title: "Prettify JSON document",
-    icon: icon(MagicWandSVG),
+    icon: icon(MagicWandSVG, "prettify json"),
     call: () => {
       prettifyJSON(".terminal");
       commander.hide();
@@ -199,13 +199,13 @@ export const commands = [
   },
   {
     title: "Toggle command palette",
-    icon: icon(RocketSVG),
+    icon: icon(RocketSVG, "toggle command palette"),
     key: "shift p",
     call: () => commander.toggle(commander.getModes().commands),
   },
   {
     title: "Find and Replace...",
-    icon: icon(SpellCheckSVG),
+    icon: icon(SpellCheckSVG, "find and replace"),
     key: "shift f",
     call: () => {
       const selectedValue = select(".terminal")
