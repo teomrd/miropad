@@ -10,7 +10,6 @@ import select from "../dom";
 import { configuration } from "../../../configuration";
 import { updateNote } from "../../components/organisms/noteManager/noteManager";
 import notify from "../../components/molecules/notify";
-import { commanderModes } from "../../components/organisms/commander/modes";
 import { commands } from "../../components/molecules/commands/commands";
 import commander from "../../components/organisms/commander/commander";
 
@@ -26,7 +25,7 @@ export const setGistToSyncWith = async (token) => {
   notify.info("Downloading my Gists!");
   const gists = await getAuthenticatedUsersGists(token);
   commander.setState({
-    mode: commanderModes.gists,
+    mode: commander.getModes().gists,
   });
 
   notify.info("Select Gist to sync with");

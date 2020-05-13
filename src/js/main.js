@@ -74,7 +74,7 @@ const main = async () => {
     await copyToClipboard(url.get());
   });
 
-  markDownViewer().init();
+  markDownViewer.init();
 
   window.addEventListener("hashchange", actOnURLStateChange);
   actOnURLStateChange();

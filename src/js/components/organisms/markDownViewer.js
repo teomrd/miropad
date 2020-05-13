@@ -14,7 +14,7 @@ const converter = new showdown.Converter({
 
 converter.setFlavor("github");
 
-const markDownViewer = () => {
+const markDownViewer = (() => {
   return {
     view: select(".preview"),
     init: function () {
@@ -60,16 +60,15 @@ const markDownViewer = () => {
       this.view.hide();
       url.deleteParam("md");
     },
-    toggle: function () {
-      const isVisible = Boolean(url.getSearchParam("md"));
-      if (isVisible === true) {
+    toggle: function (mode = "true") {
+      if (url.getSearchParam("md") === mode) {
         this.hide();
       } else {
-        this.show();
+        this.show(mode);
       }
       return this;
     },
   };
-};
+})();
 
 export default markDownViewer;

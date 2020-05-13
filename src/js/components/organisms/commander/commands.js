@@ -1,4 +1,3 @@
-import { commanderModes } from "./modes";
 import {
   saveNote,
   getNote,
@@ -46,7 +45,7 @@ export const commands = [
     icon: icon(ListSVG),
     sortTitle: "Notes",
     key: "p",
-    call: () => commander.toggle(commanderModes.notes),
+    call: () => commander.toggle(commander.getModes().notes),
   },
   {
     title: "Save",
@@ -84,7 +83,7 @@ export const commands = [
     sortTitle: "Split",
     key: "m",
     call: () => {
-      markDownViewer().toggle();
+      markDownViewer.toggle();
       commander.hide();
     },
   },
@@ -94,7 +93,7 @@ export const commands = [
     sortTitle: "Full view",
     key: "shift m",
     call: () => {
-      markDownViewer().show("full");
+      markDownViewer.toggle("full");
       commander.hide();
     },
   },
@@ -184,7 +183,7 @@ export const commands = [
     key: null,
     call: () => {
       select(".preview").show();
-      markDownViewer();
+      markDownViewer.init();
       window.print();
       commander.hide();
     },
@@ -202,7 +201,7 @@ export const commands = [
     title: "Toggle command palette",
     icon: icon(RocketSVG),
     key: "shift p",
-    call: () => commander.toggle(commanderModes.commands),
+    call: () => commander.toggle(commander.getModes().commands),
   },
   {
     title: "Find and Replace...",

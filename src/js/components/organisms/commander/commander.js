@@ -5,7 +5,6 @@ import {
   getDateCreatedFromTitle,
 } from "../noteManager/noteManager";
 import { commands } from "./commands";
-import { commanderModes } from "./modes";
 import keyListener from "../../../utils/keyListener";
 import select from "../../../utils/dom";
 import { url } from "../../../utils/urlManager";
@@ -17,6 +16,13 @@ import { smartFilter } from "./smartFilter";
 import { button } from "../../atoms/button/button";
 
 const commander = (() => {
+  const commanderModes = {
+    off: "off",
+    notes: "notes",
+    revisions: "revisions",
+    commands: "commands",
+    gists: "gists",
+  };
   let state = {
     input: "",
     mode: commanderModes.off,
@@ -29,11 +35,15 @@ const commander = (() => {
     getState: function () {
       return state;
     },
+    getModes: function () {
+      return commanderModes;
+    },
     setState: function (newState) {
       state = {
         ...state,
         ...newState,
       };
+      return state;
     },
     show: function (what = commanderModes.commands) {
       select("#commander").show();
@@ -42,17 +52,23 @@ const commander = (() => {
         case commanderModes.commands:
           this.generateCommands();
           select("#commander input").setValue("> ");
-          state.mode = commanderModes.commands;
+          this.setState({
+            mode: commanderModes.commands,
+          });
           break;
         case commanderModes.notes:
           this.generateNotes();
           select("#commander input").setValue("");
-          state.mode = commanderModes.notes;
+          this.setState({
+            mode: commanderModes.notes,
+          });
           break;
         case commanderModes.revisions:
           this.generateRevisions();
           select("#commander input").setValue("");
-          state.mode = commanderModes.revisions;
+          this.setState({
+            mode: commanderModes.revisions,
+          });
           break;
         default:
           // do nothing;
