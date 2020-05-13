@@ -25,3 +25,7 @@ Deploy
 ```bash
   npm run deploy
 ```
+
+## Lighthouse Audit results
+
+![Lighthouse Audit results](docs/lighthouse-results.gif)
