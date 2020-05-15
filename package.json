@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "repository": "https://github.com/teomrd/MiroPad.git",
   "author": "teomrd <mironidis.gr@gmail.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "scripts": {
     "start": "http-server dist",
     "dev": "webpack-dev-server --mode development --open",
