@@ -513,3 +513,13 @@ pre button {
 .rotate90 {
   transform: rotate(90deg);
 }
+
+.suggestion {	
+  position: absolute;	
+  color: #00ec00;	
+  font-style: italic;	
+  z-index: 10;	
+  opacity: 0.4;	
+  font-family: monospace;	
+  font-size: 20px;	
+}
