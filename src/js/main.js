@@ -7,7 +7,6 @@ import select from "./utils/dom";
 import {
   setNoteFromHash,
   resetNoteManager,
-  getNote,
   search,
 } from "./components/organisms/noteManager/noteManager";
 import { url } from "./utils/urlManager";
@@ -19,6 +18,7 @@ import {
   setAuthTokenFromCallback,
 } from "./utils/github/actions";
 import { registerServiceWorker } from "./registerServiceWorker";
+import { initTerminal } from "./components/organisms/terminal";
 
 const actOnURLStateChange = () => {
   setNoteFromHash();
@@ -45,30 +45,9 @@ const main = async () => {
   welcomeUser();
   commander.init();
 
-  select(".terminal")
-    .listen("focus", () => commander.hide())
-    .listen("keydown", (e) => {
-      // tab feature
-      if (e.keyCode === 9) {
-        e.preventDefault();
-        select(".terminal").insertAtCaret("  ");
-      }
-    })
-    .listen("keyup", () => {
-      // unsaved state UI indication
-      const currentNode = getNote();
-      if (currentNode) {
-        const { text = "" } = currentNode;
-        if (select(".terminal").getValue() !== text) {
-          select(".logo").addClass("unsaved");
-        } else {
-          select(".logo").removeClass("unsaved");
-        }
-      }
-    });
+  initTerminal();
 
   setNoteFromHash(url.getPageId());
-
   select(".logo").listen("click", resetNoteManager);
   select("#permalink").listen("click", async () => {
     await copyToClipboard(url.get());
