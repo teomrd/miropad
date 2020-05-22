@@ -9,7 +9,7 @@ const storage = {
     return localStorage.getItem(key);
   },
   getDictionary: () => {
-    const savedTxt = localStorage.getItem("dictionary");
+    const savedTxt = localStorage.getItem("__dictionary__");
     return savedTxt ? JSON.parse(savedTxt) : [];
   },
   saveToDictionary: async function (what) {
@@ -24,7 +24,7 @@ const storage = {
           ...current,
         ];
         const distinctWords = [...new Set(words)];
-        localStorage.setItem("dictionary", JSON.stringify(distinctWords));
+        localStorage.setItem("__dictionary__", JSON.stringify(distinctWords));
       } catch (e) {
         notify.error(
           `😱 Something went wrong while trying to save to local storage ${e}`
