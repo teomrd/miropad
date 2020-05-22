@@ -14,7 +14,25 @@ const placeSuggestion = (textEl) => {
   select(".suggestion").el.style.left = `${left - 30}px`;
 };
 
+const acceptCompletion = () => {
+  const prediction = storage.get("__prediction__");
+  const word = storage.get("__word__");
+  const completion = prediction.replace(word.toLowerCase(), "");
+  const autoComplete = completion && completion !== "";
+  if (autoComplete) {
+    const where = select(".terminal").el.selectionEnd;
+    const theEndCharIndex = select(".terminal").getValue().trim().length;
+    const isItTheEnd = where === theEndCharIndex;
+    select(".terminal").insertAtCaret(`${completion}${isItTheEnd ? " " : ""}`);
+  } else {
+    select(".terminal").insertAtCaret("  ");
+  }
+  select(".suggestion").hide();
+  storage.set("__prediction__", "");
+};
+
 export const initTerminal = () => {
+  select(".suggestion").listen("click", acceptCompletion);
   select(".terminal")
     .listen("focus", () => commander.hide())
     .listen("input", (e) => {
@@ -58,23 +76,7 @@ export const initTerminal = () => {
       // tab feature
       if (e.keyCode === 9) {
         e.preventDefault();
-
-        const prediction = storage.get("__prediction__");
-        const word = storage.get("__word__");
-        const completion = prediction.replace(word.toLowerCase(), "");
-        const autoComplete = completion && completion !== "";
-        if (autoComplete) {
-          const where = select(".terminal").el.selectionEnd;
-          const theEndCharIndex = select(".terminal").getValue().trim().length;
-          const isItTheEnd = where === theEndCharIndex;
-          select(".terminal").insertAtCaret(
-            `${completion}${isItTheEnd ? " " : ""}`
-          );
-        } else {
-          select(".terminal").insertAtCaret("  ");
-        }
-        select(".suggestion").hide();
-        storage.set("__prediction__", "");
+        acceptCompletion();
       }
     })
     .listen("keyup", () => {

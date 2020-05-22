@@ -522,4 +522,5 @@ pre button {
   opacity: 0.4;	
   font-family: monospace;	
   font-size: 20px;	
+  cursor: pointer;
 }
