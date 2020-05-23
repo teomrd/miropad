@@ -3,6 +3,7 @@ import {
   getNote,
   resetNoteManager,
   markNoteForDeletion,
+  getNotes,
 } from "../noteManager/noteManager";
 import select from "../../../utils/dom";
 import storage from "../../../utils/localstorage";
@@ -12,7 +13,10 @@ import {
   syncNotesWithGitHub,
 } from "../../../utils/github/actions";
 import commander from "./commander";
-import { saveFileAs } from "../../../utils/fileSystem/fileSystem";
+import {
+  saveFileAs,
+  saveDataToFile,
+} from "../../../utils/fileSystem/fileSystem";
 import { url } from "../../../utils/urlManager";
 import { mailTo } from "../../../utils/mail";
 import markDownViewer from "../markDownViewer";
@@ -29,6 +33,7 @@ import CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
 import CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
 import LighterSVG from "../../../../assets/svg/lighter.svg";
 import CloudUploadSVG from "../../../../assets/svg/cloud-upload.svg";
+import EnterDownSVG from "../../../../assets/svg/enter-down.svg";
 import DownloadSVG from "../../../../assets/svg/download.svg";
 import EnvelopeSVG from "../../../../assets/svg/envelope.svg";
 import PictureSVG from "../../../../assets/svg/picture.svg";
@@ -129,7 +134,7 @@ export const commands = [
   },
   {
     title: "Save to File System (Experimental browser feature)...",
-    icon: icon(DownloadSVG, "save file"),
+    icon: icon(EnterDownSVG, "save file"),
     key: "shift s",
     call: async () => {
       const { text, title } = getNote();
@@ -230,6 +235,36 @@ export const commands = [
       if (replacementValue) {
         select(".terminal").el.setRangeText(replacementValue);
       }
+    },
+  },
+  {
+    title: "Download all notes!",
+    icon: icon(DownloadSVG, "Download all notes on your local file system"),
+    call: () => {
+      const notes = getNotes({
+        includeDeleted: true,
+      });
+      saveDataToFile(notes);
+      commander.hide();
+    },
+  },
+  {
+    title: "❗⚠ Permanently delete ALL notes ⚠ ❗",
+    icon: icon(TrashSVG, "delete note"),
+    call: () => {
+      const confirmation = confirm(
+        "Are you sure you want do delete ALL your notes?"
+      );
+      if (confirmation) {
+        const notes = getNotes({
+          includeDeleted: true,
+        });
+        notes.forEach((note) => {
+          storage.remove(note.id);
+        });
+        resetNoteManager();
+      }
+      commander.hide();
     },
   },
 ];

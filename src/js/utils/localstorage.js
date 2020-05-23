@@ -5,6 +5,10 @@ const storage = {
     localStorage.setItem(key, what);
     return this;
   },
+  remove: function (key) {
+    localStorage.removeItem(key);
+    return this;
+  },
   get: (key) => {
     return localStorage.getItem(key);
   },

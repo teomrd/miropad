@@ -184,7 +184,7 @@ export const saveNote = async (what, cid) => {
   }
 };
 
-export const getNotes = () =>
+export const getNotes = ({ includeDeleted } = {}) =>
   Object.entries(localStorage)
     .reduce((acc, current) => {
       const noteId = current[0];
@@ -204,7 +204,7 @@ export const getNotes = () =>
           : []),
       ];
     }, [])
-    .filter(({ deleted }) => !deleted);
+    .filter(({ deleted }) => (includeDeleted ? true : !deleted));
 
 export const search = (q) => {
   if (!q) {
