@@ -185,24 +185,26 @@ export const saveNote = async (what, cid) => {
 };
 
 export const getNotes = () =>
-  Object.entries(localStorage).reduce((acc, current) => {
-    const noteId = current[0];
-    const noteBody = isJSON(current[1]) ? JSON.parse(current[1]) : {};
-    const hasTitle = Object.prototype.hasOwnProperty.call(noteBody, "title");
-    const currentNote = getNote(noteId) || {};
-    return [
-      ...acc,
-      ...(hasTitle
-        ? [
-            {
-              id: noteId,
-              ...currentNote,
-              ...noteBody,
-            },
-          ]
-        : []),
-    ];
-  }, []);
+  Object.entries(localStorage)
+    .reduce((acc, current) => {
+      const noteId = current[0];
+      const noteBody = isJSON(current[1]) ? JSON.parse(current[1]) : {};
+      const hasTitle = Object.prototype.hasOwnProperty.call(noteBody, "title");
+      const currentNote = getNote(noteId) || {};
+      return [
+        ...acc,
+        ...(hasTitle
+          ? [
+              {
+                id: noteId,
+                ...currentNote,
+                ...noteBody,
+              },
+            ]
+          : []),
+      ];
+    }, [])
+    .filter(({ deleted }) => !deleted);
 
 export const search = (q) => {
   if (!q) {
