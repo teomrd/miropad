@@ -92,7 +92,7 @@ const commander = (() => {
       return this;
     },
     commands: function () {
-      return commands;
+      return commands();
     },
     selectOption: function (e, direction) {
       const currentlySelected = state.options.selected;
@@ -116,14 +116,16 @@ const commander = (() => {
     },
     initCommander: function () {
       // initialize mobile-dock
-      commands.slice(0, 5).map((command) => {
-        select(".mobile-dock").append(
-          button(
-            [command.icon, document.createTextNode(command.sortTitle)],
-            command.call
-          )
-        );
-      });
+      commands()
+        .slice(0, 5)
+        .map((command) => {
+          select(".mobile-dock").append(
+            button(
+              [command.icon, document.createTextNode(command.sortTitle)],
+              command.call
+            )
+          );
+        });
 
       select("#commander button").listen("click", () => {
         this.hide();
