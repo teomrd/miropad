@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-import { precacheAndRoute } from "workbox-precaching";
 importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js"
 );
@@ -9,6 +8,10 @@ if (workbox) {
 } else {
   console.log("Boo! Workbox didn't load 😬");
 }
+
+const { precacheAndRoute } = workbox.precaching;
+
+precacheAndRoute(self.__WB_MANIFEST);
 
 const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
@@ -43,7 +46,3 @@ self.addEventListener("install", () => {
   const currentVersion = new URL(location).searchParams.get("v");
   checkForNewerVersion(currentVersion.trim());
 });
-
-precacheAndRoute(self.__WB_MANIFEST);
-
-workbox.precaching.precacheAndRoute([]);
