@@ -37,9 +37,10 @@ export const setGistToSyncWith = async (token) => {
     .map(({ description, updated_at, id }) => ({
       title: `${description}(${id})`,
       secondary: updated_at,
-      onclick: () => {
-        storage.set("gistId", id);
+      onclick: async () => {
+        await storage.set("gistId", id);
         notify.success(`${description}(${id}) selected for synchronization!`);
+        syncNotesWithGitHub();
         commander.hide();
       },
     }));
