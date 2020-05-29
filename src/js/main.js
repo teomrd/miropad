@@ -17,7 +17,10 @@ import {
   syncNotesWithGitHub,
   setAuthTokenFromCallback,
 } from "./utils/github/actions";
-import { registerServiceWorker } from "./registerServiceWorker";
+import {
+  registerServiceWorker,
+  requestNotificationPermission,
+} from "./registerServiceWorker";
 import { initTerminal } from "./components/organisms/terminal";
 
 const actOnURLStateChange = () => {
@@ -58,6 +61,7 @@ const main = async () => {
   window.addEventListener("hashchange", actOnURLStateChange);
   actOnURLStateChange();
 
+  await requestNotificationPermission();
   registerServiceWorker();
 
   await syncNotesWithGitHub();

@@ -5,16 +5,13 @@ export const requestNotificationPermission = async () => {
   if (permission !== "granted") {
     notify.info("Permission not granted for Notifications");
   }
-  // navigator.serviceWorker.controller.postMessage({ hello: "world" });
+  navigator.serviceWorker.controller.postMessage({ hello: "world" });
 };
 
 export const registerServiceWorker = async () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register(
-      `${window.location.pathname}service-worker.js`
-    );
-    await navigator.serviceWorker.register(
-      `${window.location.pathname}serviceWorker.js?v=${VERSION}`
+      `${window.location.pathname}service-worker.js?v=${VERSION}`
     );
   }
 };

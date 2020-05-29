@@ -14,7 +14,6 @@ import { div } from "../../atoms/div/div";
 import { relativeDate } from "../../../utils/dates";
 import { smartFilter } from "./smartFilter";
 import { button } from "../../atoms/button/button";
-import { requestNotificationPermission } from "../../../registerServiceWorker";
 
 const commander = (() => {
   const commanderModes = {
@@ -268,7 +267,6 @@ const commander = (() => {
       return this;
     },
     generateCommands: async function (value = "") {
-      requestNotificationPermission();
       const indexToSelect = state.options.selected;
       const commandComponents = this.commands()
         .filter(({ title }) => smartFilter(title, value))
