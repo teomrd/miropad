@@ -5,7 +5,6 @@ export const requestNotificationPermission = async () => {
   if (permission !== "granted") {
     notify.info("Permission not granted for Notifications");
   }
-  navigator.serviceWorker.controller.postMessage({ hello: "world" });
 };
 
 export const registerServiceWorker = async () => {

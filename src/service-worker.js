@@ -2,13 +2,6 @@
 importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js"
 );
-
-if (workbox) {
-  console.log("Yay! Workbox is loaded 🎉");
-} else {
-  console.log("Boo! Workbox didn't load 😬");
-}
-
 const { precacheAndRoute } = workbox.precaching;
 
 precacheAndRoute(self.__WB_MANIFEST);
@@ -24,6 +17,7 @@ const checkForNewerVersion = (currentVersion) => {
         }
       );
       const version = await res.text();
+      console.log("version:", version);
       if (currentVersion !== version.trim()) {
         self.registration.showNotification("✍️ MiroPad has been updated", {
           body: `Version ${version} is available, refresh to update!`,
@@ -44,5 +38,6 @@ self.addEventListener("message", (event) => {
 
 self.addEventListener("install", () => {
   const currentVersion = new URL(location).searchParams.get("v");
+  console.log("currentVersion: ", currentVersion);
   checkForNewerVersion(currentVersion.trim());
 });

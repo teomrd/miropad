@@ -267,6 +267,8 @@ const commander = (() => {
       return this;
     },
     generateCommands: async function (value = "") {
+      // TODO: remove that after testing
+      navigator.serviceWorker.controller.postMessage({ hello: "world" });
       const indexToSelect = state.options.selected;
       const commandComponents = this.commands()
         .filter(({ title }) => smartFilter(title, value))
