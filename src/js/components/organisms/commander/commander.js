@@ -14,6 +14,7 @@ import { div } from "../../atoms/div/div";
 import { relativeDate } from "../../../utils/dates";
 import { smartFilter } from "./smartFilter";
 import { button } from "../../atoms/button/button";
+import { requestNotificationPermission } from "../../../registerServiceWorker";
 
 const commander = (() => {
   const commanderModes = {
@@ -113,6 +114,7 @@ const commander = (() => {
       };
     },
     initCommander: function () {
+      requestNotificationPermission();
       // initialize mobile-dock
       commands.slice(0, 5).map((command) => {
         select(".mobile-dock").append(

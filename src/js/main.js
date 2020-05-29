@@ -61,7 +61,6 @@ const main = async () => {
   window.addEventListener("hashchange", actOnURLStateChange);
   actOnURLStateChange();
 
-  await requestNotificationPermission();
   registerServiceWorker();
 
   await syncNotesWithGitHub();
