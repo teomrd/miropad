@@ -1,9 +1,9 @@
-import notify from "./components/molecules/notify";
+import storage from "./utils/localstorage";
 
 export const requestNotificationPermission = async () => {
-  const permission = await window.Notification.requestPermission();
-  if (permission !== "granted") {
-    notify.info("Permission not granted for Notifications");
+  if (!storage.get("__notification-permission__")) {
+    const permission = await window.Notification.requestPermission();
+    storage.set("__notification-permission__", permission);
   }
 };
 

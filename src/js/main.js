@@ -17,10 +17,7 @@ import {
   syncNotesWithGitHub,
   setAuthTokenFromCallback,
 } from "./utils/github/actions";
-import {
-  registerServiceWorker,
-  requestNotificationPermission,
-} from "./registerServiceWorker";
+import { registerServiceWorker } from "./registerServiceWorker";
 import { initTerminal } from "./components/organisms/terminal";
 
 const actOnURLStateChange = () => {

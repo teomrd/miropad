@@ -83,6 +83,7 @@ const commander = (() => {
       return this;
     },
     toggle: function (mode) {
+      requestNotificationPermission();
       if (state.mode === commanderModes.off || state.mode !== mode) {
         this.show(mode);
       } else {
@@ -114,7 +115,6 @@ const commander = (() => {
       };
     },
     initCommander: function () {
-      requestNotificationPermission();
       // initialize mobile-dock
       commands.slice(0, 5).map((command) => {
         select(".mobile-dock").append(
