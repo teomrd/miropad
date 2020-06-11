@@ -8,6 +8,16 @@ import { url } from "../../../utils/urlManager";
 import isJSON from "../../../utils/isJSON";
 import ipfs, { retrieveFromIPFS } from "../../../utils/ipfs";
 
+const normalizeTitle = (title) => {
+  const encodedTitle = encodeURIComponent(title)
+    .replace(/[^a-zA-Zα-ωΑ-Ω]/g, "")
+    .trim();
+  if (encodedTitle.length === 0) {
+    throw new Error("You need to start with a valid title for your note!");
+  }
+  return encodedTitle;
+};
+
 export const getDateCreatedFromTitle = (title) => {
   const titleID = getTitleId(title);
   const note = getNote(titleID);
@@ -101,7 +111,7 @@ export const getTitle = (note) => {
 
 export const getTitleId = (note) => {
   const title = getTitle(note);
-  return encodeURIComponent(title.replace(/[^\w\s]/gi, ""));
+  return normalizeTitle(title);
 };
 
 export const updateNote = async (what) => {
@@ -148,7 +158,8 @@ export const saveNote = async (what, cid) => {
       const title = what.split("\n")[0].trim().replace("#", "").trim();
 
       setPageTitle(title);
-      const titleID = encodeURIComponent(title.replace(/[^\w\s]/gi, ""));
+
+      const titleID = normalizeTitle(title);
       const currentNote = storage.get(titleID);
       const note = JSON.parse(currentNote);
       storage.set(
