@@ -63,37 +63,39 @@ export const updateGist = async (
   gistId = storage.get("gistId"),
   token = storage.get("authToken")
 ) => {
-  const noteToFiles = notes.reduce((acc, { id, text, deleted }) => {
-    return {
-      ...acc,
-      [id]: deleted ? null : { content: text },
-    };
-  }, {});
-  return fetch(`https://api.github.com/gists/${gistId}`, {
-    method: "PATCH",
-    headers: {
-      Authorization: `token ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      files: noteToFiles,
-      description: "MiroPad Gist",
-      public: false,
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
+  if (gistId && token) {
+    const noteToFiles = notes.reduce((acc, { id, text, deleted }) => {
+      return {
+        ...acc,
+        [id]: deleted ? null : { content: text },
+      };
+    }, {});
+    return fetch(`https://api.github.com/gists/${gistId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        files: noteToFiles,
+        description: "MiroPad Gist",
+        public: false,
+      }),
     })
-    .then((responseAsJson) => {
-      notes.map(({ id, deleted }) => {
-        if (deleted) localStorage.removeItem(id);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((responseAsJson) => {
+        notes.map(({ id, deleted }) => {
+          if (deleted) localStorage.removeItem(id);
+        });
+        return responseAsJson;
       });
-      return responseAsJson;
-    });
+  }
 };
 
 export const createNewGist = (token = storage.get("authToken")) => {
