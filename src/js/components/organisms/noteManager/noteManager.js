@@ -69,6 +69,13 @@ export const getNote = (titleID = url.getPageId(), revision) => {
     : null;
 };
 
+export const disableSyncOnCurrentNote = (value) => {
+  const { id } = getNote();
+  storage.update(id, {
+    disableSync: value,
+  });
+};
+
 export const setNoteFromHash = async (hash = url.getPageId()) => {
   if (hash) {
     if (ipfs.isValidCid(hash)) {
@@ -133,10 +140,10 @@ export const updateNote = async (what) => {
 
     const currentNote = storage.get(titleID);
     const note = JSON.parse(currentNote);
-
     storage.set(
       titleID,
       JSON.stringify({
+        ...note,
         title,
         revisions: {
           ...((note && note.revisions) || {}),
@@ -165,6 +172,7 @@ export const saveNote = async (what, cid) => {
       storage.set(
         titleID,
         JSON.stringify({
+          ...note,
           title,
           revisions: {
             ...((note && note.revisions) || {}),

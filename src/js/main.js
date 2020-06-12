@@ -8,6 +8,8 @@ import {
   setNoteFromHash,
   resetNoteManager,
   search,
+  getNote,
+  disableSyncOnCurrentNote,
 } from "./components/organisms/noteManager/noteManager";
 import { url } from "./utils/urlManager";
 import { copyToClipboard } from "./utils/copyToClipboard";
@@ -19,6 +21,7 @@ import {
 } from "./utils/github/actions";
 import { registerServiceWorker } from "./registerServiceWorker";
 import { initTerminal } from "./components/organisms/terminal";
+import { isSyncEnabled } from "./isSyncEnabled";
 
 const actOnURLStateChange = () => {
   setNoteFromHash();
@@ -33,6 +36,16 @@ const actOnURLStateChange = () => {
     select(".anchor").show();
   } else {
     select(".anchor").hide();
+  }
+
+  const isSyncOn = isSyncEnabled();
+  const currentNote = getNote();
+  if (isSyncOn && currentNote) {
+    const { disableSync = false } = currentNote;
+    select(".switch").show();
+    select("#sync").checked(!disableSync);
+  } else {
+    select(".switch").hide();
   }
 
   const q = url.getSearchParam("q");
@@ -57,6 +70,10 @@ const main = async () => {
 
   window.addEventListener("hashchange", actOnURLStateChange);
   actOnURLStateChange();
+
+  select("#sync").listen("click", (e) => {
+    disableSyncOnCurrentNote(!e.target.checked);
+  });
 
   registerServiceWorker();
 

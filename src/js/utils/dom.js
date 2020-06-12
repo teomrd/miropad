@@ -99,6 +99,10 @@ const select = (selector) => ({
       this.el.click();
     }
   },
+  checked(value) {
+    this.el.checked = !!value;
+    return this;
+  },
 });
 
 export const isElement = (obj) => {

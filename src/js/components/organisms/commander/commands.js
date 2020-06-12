@@ -73,7 +73,11 @@ export const commands = () => {
       call: async () => {
         commander.hide();
         await saveNote(select(".terminal").getValue());
-        updateGist([getNote()]);
+        const note = getNote();
+        const { disableSync = false } = note;
+        if (!disableSync) {
+          updateGist([note]);
+        }
         select(".logo").removeClass("unsaved");
       },
     },
