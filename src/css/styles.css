@@ -34,6 +34,21 @@ aside {
   flex: 1;
   order: 2;
 }
+@media only screen and (max-width: 600px) {
+  aside {
+    position: fixed;
+    height: calc(100vh - 60px);
+    background: white;
+    bottom: 0px;
+    z-index: 1;
+    right: 0;
+  }
+}
+
+footer {
+  display: flex;
+  order: 3;
+}
 
 header {
   background-color: rgb(17, 21, 24);
@@ -505,6 +520,7 @@ pre button {
     display: flex;
     justify-content: space-evenly;
     border-top: 1px solid grey;
+    z-index: 1;
   }
   .mobile-dock button {
     background: transparent;
