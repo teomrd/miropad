@@ -70,10 +70,11 @@ export const getNote = (titleID = url.getPageId(), revision) => {
 };
 
 export const disableSyncOnCurrentNote = (value) => {
-  const { id } = getNote();
+  const { id, title } = getNote();
   storage.update(id, {
     disableSync: value,
   });
+  notify.info(`"${title}" cloud sync ${value ? "disabled 😶" : "enabled ⚡️"}`);
 };
 
 export const setNoteFromHash = async (hash = url.getPageId()) => {
