@@ -150,6 +150,13 @@ export const commands = () => {
       },
     },
     {
+      title: "Toggle sidebar",
+      key: "l",
+      call: () => {
+        select("aside").toggle();
+      },
+    },
+    {
       title: "Save to File System (Experimental browser feature)...",
       icon: icon(EnterDownSVG, "save file"),
       key: "shift s",

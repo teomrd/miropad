@@ -22,6 +22,7 @@ import {
 import { registerServiceWorker } from "./registerServiceWorker";
 import { initTerminal } from "./components/organisms/terminal";
 import { isSyncEnabled } from "./isSyncEnabled";
+import "../js/components/web-components/editable-list";
 
 const actOnURLStateChange = () => {
   setNoteFromHash();
