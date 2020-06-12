@@ -234,7 +234,7 @@ const commander = (() => {
         .filter(({ title }) => {
           return smartFilter(title, value);
         })
-        .filter(({ deleted }) => !deleted)
+        .filter(({ id, deleted }) => !deleted && id !== url.getPageId())
         .sort((a, b) => {
           const aDateCreated = getDateCreatedFromTitle(a.title);
           const bDateCreated = getDateCreatedFromTitle(b.title);
