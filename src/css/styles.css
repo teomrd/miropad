@@ -328,6 +328,7 @@ header .logo:active {
   padding: 8px 8px 0 8px;
   display: flex;
   flex-direction: column;
+  max-height: 100vh;
 }
 
 .commander .palette>div {
@@ -340,6 +341,7 @@ header .logo:active {
   margin: 0;
   padding: 0;
   margin: 8px 0;
+  overflow-y: auto;
 }
 
 .commander .palette ul li {
