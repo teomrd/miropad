@@ -51,10 +51,11 @@ footer {
 }
 
 header {
+  max-width: calc(100% - 20px);
+  height: 60px;
   background-color: rgb(17, 21, 24);
   display: flex;
   align-items: center;
-  height: 60px;
   color: #fff;
   padding: 0 10px;
   justify-content: space-between;
