@@ -2,8 +2,6 @@
 
 > Temporary note keeping app for the browser
 
-Also hosted on IPFS: https://miropad.on.fleek.co
-
 ## Usage
 
 ```commands
