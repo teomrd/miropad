@@ -80,11 +80,12 @@ export const initTerminal = () => {
       }
     })
     .listen("keyup", () => {
+      const currentNote = getNote();
+      const { text = "" } = currentNote || {};
+      const isNoteUnSaved = select(".terminal").getValue() !== text;
       // unsaved state UI indication
-      const currentNode = getNote();
-      if (currentNode) {
-        const { text = "" } = currentNode;
-        if (select(".terminal").getValue() !== text) {
+      if (currentNote) {
+        if (isNoteUnSaved) {
           select(".logo").addClass("unsaved");
         } else {
           select(".logo").removeClass("unsaved");

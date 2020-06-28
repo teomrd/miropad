@@ -3,20 +3,22 @@ export const url = {
   get: function () {
     return window.location.href;
   },
-  getPageId: function () {
-    const hash = window.location.hash.substr(1);
+  getPageId: function (url = window.location.href) {
+    const URLObject = new URL(url);
+    const hash = URLObject.hash.substr(1);
     const hashWithVersion = hash.split("?");
     const pageId = hashWithVersion[0] || null;
     return pageId;
   },
-  getSearchParams: function () {
-    const urlParts = window.location.href.split("?");
+  getSearchParams: function (url = window.location.href) {
+    const URLObject = new URL(url);
+    const urlParts = URLObject.href.split("?");
     const currentParams = urlParts[1] || "";
     const searchParams = new URLSearchParams(currentParams);
     return searchParams;
   },
-  getParamsObject: function () {
-    const params = this.getSearchParams();
+  getParamsObject: function (url = window.location.href) {
+    const params = this.getSearchParams(url);
     let parametersObject = {};
     for (const key of params.keys()) {
       parametersObject = {

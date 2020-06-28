@@ -24,8 +24,18 @@ import { initTerminal } from "./components/organisms/terminal";
 import { isSyncEnabled } from "./isSyncEnabled";
 import "../js/components/web-components/editable-list";
 
-const actOnURLStateChange = () => {
-  setNoteFromHash();
+const actOnURLStateChange = (e) => {
+  const { oldURL, newURL } = e;
+  const oldPageId = url.getPageId(oldURL);
+  const newPageId = url.getPageId(newURL);
+  const hasPageIdChanged = oldPageId !== newPageId;
+  const { v: oldV } = url.getParamsObject(oldURL);
+  const { v: newV } = url.getParamsObject(newURL);
+  const hasPageVersionChanged = oldV !== newV;
+  const shouldChangeNote = [hasPageIdChanged, hasPageVersionChanged].some(
+    (r) => r === true
+  );
+  if (shouldChangeNote) setNoteFromHash();
 
   if (url.getSearchParam("md") === "full") {
     select(".terminal").hide();

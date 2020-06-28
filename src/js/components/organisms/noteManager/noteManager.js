@@ -84,7 +84,6 @@ export const setNoteFromHash = async (hash = url.getPageId()) => {
     } else {
       const version = url.getSearchParam("v");
       const note = getNote(undefined, version);
-      const cid = url.getSearchParam("cid");
       if (note) {
         select("#revisions").html(
           `${note.numberOfRevisions} revision${
@@ -93,12 +92,13 @@ export const setNoteFromHash = async (hash = url.getPageId()) => {
         );
         setPageTitle(note.title);
         select(".terminal").setValue(note.text);
-      } else {
-        if (cid && ipfs.isValidCid(cid)) {
-          retrieveFromIPFS(cid);
-        } else {
-          notify.error("404 Note not found 🤷‍♂️");
-        }
+      }
+      const cid = url.getSearchParam("cid");
+      if (cid && ipfs.isValidCid(cid)) {
+        retrieveFromIPFS(cid);
+      }
+      if (!note && !cid) {
+        notify.error("404 Note not found 🤷‍♂️");
       }
     }
   }
@@ -158,7 +158,7 @@ export const updateNote = async (what) => {
   }
 };
 
-export const saveNote = async (what, cid) => {
+export const saveNote = async (what = select(".terminal").getValue(), cid) => {
   await storage.saveToDictionary(what);
   if (what.length) {
     const hash = await hashBrowser(what);
