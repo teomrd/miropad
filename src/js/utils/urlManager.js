@@ -23,13 +23,13 @@ export const url = {
     for (const key of params.keys()) {
       parametersObject = {
         ...parametersObject,
-        [key]: this.getSearchParam(key),
+        [key]: this.getSearchParam(key, url),
       };
     }
     return parametersObject;
   },
-  getSearchParam(param) {
-    const params = this.getSearchParams();
+  getSearchParam(param, url = window.location.href) {
+    const params = this.getSearchParams(url);
     const paramValue = params.get(param);
     return paramValue;
   },

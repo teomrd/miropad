@@ -32,6 +32,7 @@ const actOnURLStateChange = (e) => {
   const { v: oldV } = url.getParamsObject(oldURL);
   const { v: newV } = url.getParamsObject(newURL);
   const hasPageVersionChanged = oldV !== newV;
+  console.log({ hasPageVersionChanged });
   const shouldChangeNote = [hasPageIdChanged, hasPageVersionChanged].some(
     (r) => r === true
   );
