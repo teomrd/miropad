@@ -151,13 +151,15 @@ export const commands = () => {
     },
     {
       title: "Toggle sidebar",
+      experimental: true,
       key: "l",
       call: () => {
         select("aside").toggle();
       },
     },
     {
-      title: "Save to File System (Experimental browser feature)...",
+      title: "Save to File System...",
+      experimental: true,
       icon: icon(EnterDownSVG, "save file"),
       key: "shift s",
       call: async () => {
@@ -178,6 +180,7 @@ export const commands = () => {
     },
     {
       title: "Email note to...",
+      experimental: true,
       icon: icon(EnvelopeSVG, "email"),
       key: "e",
       call: () => {
@@ -190,6 +193,7 @@ export const commands = () => {
     },
     {
       title: "Add a cover picture",
+      experimental: true,
       icon: icon(PictureSVG, "cover picture"),
       key: null,
       call: async () => {
@@ -208,6 +212,7 @@ export const commands = () => {
     },
     {
       title: "Print MarkDown output",
+      experimental: true,
       icon: icon(PrinterSVG, "print"),
       key: null,
       call: () => {
@@ -234,6 +239,7 @@ export const commands = () => {
     },
     {
       title: "Find and Replace...",
+      experimental: true,
       icon: icon(SpellCheckSVG, "find and replace"),
       key: "shift f",
       call: () => {

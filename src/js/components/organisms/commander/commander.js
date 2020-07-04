@@ -15,6 +15,7 @@ import { relativeDate } from "../../../utils/dates";
 import { smartFilter } from "./smartFilter";
 import { button } from "../../atoms/button/button";
 import { requestNotificationPermission } from "../../../registerServiceWorker";
+import storage from "../../../utils/localstorage";
 
 const commander = (() => {
   const commanderModes = {
@@ -274,6 +275,9 @@ const commander = (() => {
       const indexToSelect = state.options.selected;
       const commandComponents = this.commands()
         .filter(({ title }) => smartFilter(title, value))
+        .filter(({ experimental = false }) => {
+          return storage.get("__experimental__") ? true : !experimental;
+        })
         .map(({ title, key, call, icon }, i) => {
           const keyCompo = key ? `⌘+${key.toUpperCase()}` : "";
           const commandComponent = command(
