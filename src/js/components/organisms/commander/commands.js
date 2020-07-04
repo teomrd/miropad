@@ -43,6 +43,7 @@ import FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
 import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
 import RocketSVG from "../../../../assets/svg/rocket.svg";
 import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
+import PencilSVG from "../../../../assets/svg/pencil.svg";
 
 const getSyncTitle = () => {
   const gistId = storage.get("gistId");
@@ -59,11 +60,11 @@ const getSyncTitle = () => {
 export const commands = () => {
   return [
     {
-      title: "List saved notes",
-      icon: icon(ListSVG, "list notes"),
-      sortTitle: "Notes",
-      key: "p",
-      call: () => commander.toggle(commander.getModes().notes),
+      title: "New note",
+      icon: icon(PencilSVG, "new note"),
+      sortTitle: "New",
+      key: "n",
+      call: () => resetNoteManager(),
     },
     {
       title: "Save",
@@ -118,6 +119,13 @@ export const commands = () => {
         markDownViewer.toggle("full");
         commander.hide();
       },
+    },
+    {
+      title: "List saved notes",
+      icon: icon(ListSVG, "list notes"),
+      sortTitle: "Notes",
+      key: "p",
+      call: () => commander.toggle(commander.getModes().notes),
     },
     {
       title: getSyncTitle(),

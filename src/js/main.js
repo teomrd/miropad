@@ -6,7 +6,6 @@ import errorHandler from "./utils/errorHandler";
 import select from "./utils/dom";
 import {
   setNoteFromHash,
-  resetNoteManager,
   search,
   getNote,
   disableSyncOnCurrentNote,
@@ -77,7 +76,9 @@ const main = async () => {
   initTerminal();
 
   setNoteFromHash(url.getPageId());
-  select(".logo").listen("click", resetNoteManager);
+  select(".logo").listen("click", () => {
+    commander.toggle(commander.getModes().notes);
+  });
   select("#permalink").listen("click", async () => {
     await copyToClipboard(url.get());
   });
