@@ -48,6 +48,7 @@ aside {
 footer {
   display: flex;
   order: 3;
+  z-index: 1;
 }
 
 header {
@@ -488,6 +489,7 @@ pre button {
   box-shadow: 2px -4px 10px rgba(0,0,0,.2);
   bottom: 0px;
   transition: all 0.5s linear;
+  z-index: 1;
 }
 
 .console.hidden {
