@@ -279,7 +279,7 @@ export const commands = () => {
       },
     },
     {
-      title: "❗⚠ Permanently delete ALL notes ⚠ ❗",
+      title: "Permanently delete ALL notes ❗",
       icon: icon(TrashSVG, "delete note"),
       call: () => {
         const confirmation = confirm(
