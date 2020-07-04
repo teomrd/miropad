@@ -9,9 +9,9 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-         test: /\.(png|svg|jpg|gif|svg)$/,
-         use: ["file-loader"],
-       },
+        test: /\.(png|svg|jpg|gif|svg)$/,
+        use: ["file-loader"],
+      },
     ],
   },
   plugins: [
@@ -22,6 +22,7 @@ module.exports = {
       template: "./src/index.html",
     }),
     new webpack.DefinePlugin({
+      TITLE_NAME: JSON.stringify("✍️ MiroPad"),
       VERSION: JSON.stringify(require("./package.json").version),
     }),
   ],

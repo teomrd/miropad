@@ -75,6 +75,13 @@ header .title h3 {
   font-weight: 400;
 }
 
+header .title .version {
+  font-size: 0.6em;
+  position: absolute;
+  margin-left: 3px;
+  font-weight: 300;
+}
+
 header div.brand {
   flex-grow: 1;
   overflow: hidden;

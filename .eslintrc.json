@@ -28,6 +28,7 @@
     "import/prefer-default-export": "off"
   },
   "globals": {
+    "TITLE_NAME": "readonly",
     "VERSION": "readonly"
   },
   "settings": {

@@ -15,7 +15,9 @@ const setPageTitle = (what) => {
 const resetPageTitle = () => {
   const baseTitle = _getBasePageTitle();
   document.title = baseTitle;
-  select(".title h3").html(baseTitle);
+  select(".title h3").innerHTML(
+    `${TITLE_NAME} <span class="version">v${VERSION}</span>`
+  );
 };
 
 export { setPageTitle, resetPageTitle };

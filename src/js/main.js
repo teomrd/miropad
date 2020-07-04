@@ -23,6 +23,7 @@ import { initTerminal } from "./components/organisms/terminal";
 import { isSyncEnabled } from "./isSyncEnabled";
 import "../js/components/web-components/editable-list";
 import notify from "./components/molecules/notify";
+import { resetPageTitle } from "./utils/pageTitle";
 
 const actOnURLStateChange = (e = {}) => {
   try {
@@ -74,7 +75,7 @@ const main = async () => {
   commander.init();
 
   initTerminal();
-
+  resetPageTitle();
   setNoteFromHash(url.getPageId());
   select(".logo").listen("click", () => {
     commander.toggle(commander.getModes().notes);
