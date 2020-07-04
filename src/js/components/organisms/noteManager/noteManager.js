@@ -109,7 +109,7 @@ export const resetNoteManager = () => {
   resetPageTitle();
   select("#revisions").html("");
   select(".terminal").setValue("");
-  select(".logo").removeClass("unsaved");
+  select("#save").removeClass("unsaved");
 };
 
 export const getTitle = (note) => {

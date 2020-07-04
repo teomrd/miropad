@@ -78,7 +78,7 @@ export const commands = () => {
         if (!disableSync) {
           updateGist([note]);
         }
-        select(".logo").removeClass("unsaved");
+        select("#save").removeClass("unsaved");
       },
     },
     {

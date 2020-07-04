@@ -86,9 +86,9 @@ export const initTerminal = () => {
       // unsaved state UI indication
       if (currentNote) {
         if (isNoteUnSaved) {
-          select(".logo").addClass("unsaved");
+          select("#save").addClass("unsaved");
         } else {
-          select(".logo").removeClass("unsaved");
+          select("#save").removeClass("unsaved");
         }
       }
     });

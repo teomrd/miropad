@@ -369,6 +369,7 @@ header .logo:active {
   align-items: center;
   opacity: 0.5;
   padding-left: 10px;
+  cursor: pointer;
 }
 
 .commander .palette ul li.selected {
@@ -500,6 +501,7 @@ pre button {
 /* mobile-dock */
 .mobile-dock {
   display: none;
+  padding: 1.5px 0;
 }
 .mobile-dock button {
   color: white;
@@ -508,9 +510,21 @@ pre button {
   font-size: 0.75em;
   align-items: center;
   opacity: 0.75;
+  position: relative;
+  padding: 2.5px;
 }
 .mobile-dock button:hover {
   opacity: 1;
+}
+.mobile-dock button.unsaved::after {
+  width: 7px;
+  height: 7px;
+  background-color: red;
+  border-radius: 50%;
+  content: "";
+  top: 0px;
+  right: 0px;
+  position: absolute;
 }
 @media only screen and (max-width: 600px) {
   .mobile-dock {
@@ -528,7 +542,6 @@ pre button {
   .mobile-dock button {
     background: transparent;
     border: none;
-    padding: 0 10px;
     cursor: pointer;
   }
   .mobile-dock button img {

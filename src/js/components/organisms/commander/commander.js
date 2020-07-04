@@ -123,7 +123,8 @@ const commander = (() => {
           select(".mobile-dock").append(
             button(
               [command.icon, document.createTextNode(command.sortTitle)],
-              command.call
+              command.call,
+              command.title.toLowerCase()
             )
           );
         });
