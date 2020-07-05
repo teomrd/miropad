@@ -19,10 +19,11 @@
 
 version_type=${1:-patch}
 
-npm version "$version_type" &&
-  jq .version ./package.json | sed 's/"//g' >./dist/version &&
-  npm run build &&
-  git add ./dist/* &&
-  git amend -n &&
-  git push &&
-  git subtree push --prefix dist origin gh-pages
+npm version "$version_type"
+cp ./src/manifest.json ./dist
+jq .version ./package.json | sed 's/"//g' >./dist/version
+npm run build
+git add ./dist/*
+git amend -n
+git push
+git subtree push --prefix dist origin gh-pages
