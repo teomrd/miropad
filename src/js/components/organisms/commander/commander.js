@@ -124,7 +124,7 @@ const commander = (() => {
             button(
               [command.icon, document.createTextNode(command.sortTitle)],
               command.call,
-              command.title.toLowerCase()
+              command.title.toLowerCase().replace(/\s/g, "-")
             )
           );
         });

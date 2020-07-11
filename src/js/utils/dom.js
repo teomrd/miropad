@@ -107,6 +107,10 @@ const select = (selector) => ({
     this.el.checked = !!value;
     return this;
   },
+  disable(shouldDisable = true) {
+    this.el.disabled = shouldDisable;
+    return this;
+  },
 });
 
 export const isElement = (obj) => {

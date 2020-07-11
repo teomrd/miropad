@@ -524,6 +524,11 @@ pre button {
 .mobile-dock button:hover {
   opacity: 1;
 }
+.mobile-dock button:disabled,
+.mobile-dock button[disabled]{
+  opacity: 0.3;
+  cursor: auto;
+}
 .mobile-dock button.unsaved::after {
   width: 7px;
   height: 7px;

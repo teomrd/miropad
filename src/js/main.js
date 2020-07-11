@@ -45,6 +45,8 @@ const actOnURLStateChange = (e = {}) => {
 
   const isANewNote = !url.getPageId();
   select("#note-info-button").show(!isANewNote);
+  select("#new-note").disable(isANewNote);
+  select("#delete-note").disable(isANewNote);
 
   if (url.getSearchParam("md") === "full") {
     select(".terminal").hide();
