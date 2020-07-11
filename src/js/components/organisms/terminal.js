@@ -34,7 +34,10 @@ const acceptCompletion = () => {
 export const initTerminal = () => {
   select(".suggestion").listen("click", acceptCompletion);
   select(".terminal")
-    .listen("focus", () => commander.hide())
+    .listen("focus", () => {
+      commander.hide();
+      select(".note-info").hide();
+    })
     .listen("input", (e) => {
       const characterIndex = e.target.selectionEnd;
       const text = select(".terminal").getValue();

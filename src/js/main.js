@@ -24,6 +24,7 @@ import { isSyncEnabled } from "./isSyncEnabled";
 import "../js/components/web-components/editable-list";
 import notify from "./components/molecules/notify";
 import { resetPageTitle } from "./utils/pageTitle";
+import { relativeDate } from "./utils/dates";
 
 const actOnURLStateChange = (e = {}) => {
   try {
@@ -54,25 +55,71 @@ const actOnURLStateChange = (e = {}) => {
     select(".anchor").hide();
   }
 
-  const isSyncOn = isSyncEnabled();
-  const currentNote = getNote();
-  if (isSyncOn && currentNote) {
-    const { disableSync = false } = currentNote;
-    select(".switch").show();
-    select("#sync").checked(!disableSync);
-  } else {
-    select(".switch").hide();
-  }
+  select(".note-info").hide();
 
   const q = url.getSearchParam("q");
   const queryResult = search(q);
   if (queryResult) select(".terminal").setValue(queryResult.text);
 };
 
+const initInfoPanel = () => {
+  select("#note-info-close").listen("click", () => {
+    select(".note-info").hide();
+  });
+  select("#note-info-button").listen("click", () => {
+    const note = getNote();
+    select(".note-info").show();
+
+    select(".note-info .details").innerHTML(
+      `<p>
+      <label>
+      Title
+      </label>
+      ${note.title}
+      </p>
+      <p>
+        <label>
+        Modified
+        </label>
+        ${relativeDate(note.dateCreated)}
+      </p>
+      <p>
+        <label>
+        No. of revisions
+        </label>
+        ${note.numberOfRevisions}
+      </p>
+      `
+    );
+
+    const isSyncOn = isSyncEnabled();
+    if (isSyncOn && note) {
+      const syncEl = (() => {
+        const { disableSync } = note;
+        const p = document.createElement("P");
+        p.innerHTML = `
+          <label>Sync</label>
+            <label class="switch" title="Cloud Sync">
+              <input id="sync" type="checkbox" ${!disableSync && "checked"}>
+            <span class="slider round"></span>
+          </label>
+        `;
+        return p;
+      })();
+      select(".note-info .details").append(syncEl);
+      select("#sync").listen("click", (e) => {
+        disableSyncOnCurrentNote(!e.target.checked);
+      });
+    }
+  });
+};
+
 const main = async () => {
   window.addEventListener("error", errorHandler);
   welcomeUser();
   commander.init();
+
+  initInfoPanel();
 
   initTerminal();
   resetPageTitle();
@@ -88,10 +135,6 @@ const main = async () => {
 
   window.addEventListener("hashchange", actOnURLStateChange);
   actOnURLStateChange();
-
-  select("#sync").listen("click", (e) => {
-    disableSyncOnCurrentNote(!e.target.checked);
-  });
 
   registerServiceWorker();
 

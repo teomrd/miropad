@@ -252,7 +252,6 @@ header .logo:active {
   font-size: 25px;
   padding: 10px;
   outline-color: red;
-  z-index: 1;
   resize: none;
   border: none;
 }
@@ -638,6 +637,62 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /**** switch ****/
+
+/**** note-info sidebar ****/
+.icon-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  opacity: 0.75;
+}
+.icon-button:hover {
+  opacity: 1;
+} 
+.icon-button svg {
+  fill: currentColor;
+}
+
+.note-info {
+  display: block;
+  flex: 1;
+  order: 2;
+  position: fixed;
+  width: 20%;
+  min-width: 200px;
+  height: 100%;
+  background: #1d2327;
+  box-shadow: 0 10px 20px rgba(255,255,255,0.19), 0 6px 6px rgba(255,255,255,0.23);
+  color: #fff;
+  right: 0px;
+  padding: 0 25px;
+}
+.note-info-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50px;
+  width: 100%;  
+  justify-content: space-between;
+}
+.note-info .details label {
+  opacity: 0.8;
+  font-size: 0.8em;
+}
+.note-info .details p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 0.5px solid chartreuse;
+  padding: 7.5px 0;
+  margin: 0;
+}
+/**** note-info sidebar ****/
 
 /* base classes */
 .hidden {
