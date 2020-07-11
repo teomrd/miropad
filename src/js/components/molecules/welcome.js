@@ -7,8 +7,9 @@ const welcomeUser = () => {
   } else {
     notify.info(
       `<h1>Welcome 👋 😃 </h1>
-    <p>Use  Ctrl+S:  to save your note<p/>
-    <p>& Ctrl+P: to format a JSON doc<p/>`,
+       <p>Use  Ctrl+S:  to save your note<p/>
+       <p>& Ctrl+P: to format a JSON doc<p/>
+      `,
       100
     );
   }
