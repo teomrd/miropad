@@ -66,8 +66,12 @@ const select = (selector) => ({
   hasClass(cls) {
     return (" " + this.el.className + " ").indexOf(" " + cls + " ") > -1;
   },
-  show() {
-    this.removeClass("hidden");
+  show(shouldShow = true) {
+    if (shouldShow) {
+      this.removeClass("hidden");
+    } else {
+      this.hide();
+    }
     return this;
   },
   hide() {

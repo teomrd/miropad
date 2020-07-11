@@ -43,6 +43,9 @@ const actOnURLStateChange = (e = {}) => {
     notify.error(e.message);
   }
 
+  const isANewNote = !url.getPageId();
+  select("#note-info-button").show(!isANewNote);
+
   if (url.getSearchParam("md") === "full") {
     select(".terminal").hide();
   } else {
