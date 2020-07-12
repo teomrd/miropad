@@ -7,6 +7,8 @@ import notify from "../../molecules/notify";
 import { url } from "../../../utils/urlManager";
 import isJSON from "../../../utils/isJSON";
 import ipfs, { retrieveFromIPFS } from "../../../utils/ipfs";
+import { deleteFileOnGist } from "../../../utils/github/api";
+import commander from "../commander/commander";
 
 const normalizeTitle = (title) => {
   const encodedTitle = encodeURIComponent(title)
@@ -236,4 +238,17 @@ export const search = (q) => {
     .filter(({ text }) => text.toLowerCase().includes(q.toLowerCase()));
 
   return results[0];
+};
+
+export const deleteNote = () => {
+  const confirmation = confirm("Are you sure you want do that?");
+  if (confirmation) {
+    const note = getNote();
+    resetNoteManager();
+    if (note && note.id) {
+      deleteFileOnGist(note.id);
+      markNoteForDeletion(note.id);
+    }
+  }
+  commander.hide();
 };

@@ -4,6 +4,7 @@ import {
   resetNoteManager,
   markNoteForDeletion,
   getNotes,
+  deleteNote,
 } from "../noteManager/noteManager";
 import select from "../../../utils/dom";
 import storage from "../../../utils/localstorage";
@@ -87,18 +88,7 @@ export const commands = () => {
       key: "shift d",
       icon: icon(TrashSVG, "delete note"),
       sortTitle: "Delete",
-      call: () => {
-        const confirmation = confirm("Are you sure you want do that?");
-        if (confirmation) {
-          const note = getNote();
-          resetNoteManager();
-          if (note && note.id) {
-            deleteFileOnGist(note.id);
-            markNoteForDeletion(note.id);
-          }
-        }
-        commander.hide();
-      },
+      call: () => deleteNote(),
     },
     {
       title: "Toggle MarkDown Viewer",

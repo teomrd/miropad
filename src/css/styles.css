@@ -698,6 +698,21 @@ input:checked + .slider:before {
   padding: 7.5px 0;
   margin: 0;
 }
+.note-info .details p button { 
+  width: 100%;
+  display: flex;
+  background: crimson;
+  color: white;
+  font-size: 15px;
+  font-weight: 200;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 /**** note-info sidebar ****/
 
 /* base classes */
