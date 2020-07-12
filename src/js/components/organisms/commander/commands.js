@@ -2,7 +2,6 @@ import {
   saveNote,
   getNote,
   resetNoteManager,
-  markNoteForDeletion,
   getNotes,
   deleteNote,
 } from "../noteManager/noteManager";
@@ -26,7 +25,7 @@ import notify from "../../molecules/notify";
 import ipfs from "../../../utils/ipfs";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { sleep } from "../../../utils/sleep";
-import { deleteFileOnGist, updateGist } from "../../../utils/github/api";
+import { updateGist } from "../../../utils/github/api";
 import { icon } from "../../atoms/icon/icon";
 import ListSVG from "../../../../assets/svg/list.svg";
 import TrashSVG from "../../../../assets/svg/trash.svg";
@@ -45,6 +44,8 @@ import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
 import RocketSVG from "../../../../assets/svg/rocket.svg";
 import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
 import PencilSVG from "../../../../assets/svg/pencil.svg";
+import ShareSVG from "../../../../assets/svg/exit-up.svg";
+import { share } from "../../../utils/webShare";
 
 const getSyncTitle = () => {
   const gistId = storage.get("gistId");
@@ -56,6 +57,13 @@ const getSyncTitle = () => {
     return "Sync: Pick your Gist to sync with";
   }
   return "Sync: Notes with my GitHub Gist";
+};
+
+const shareNoteCommand = {
+  title: "Share note",
+  icon: icon(ShareSVG, "share note"),
+  sortTitle: "Share",
+  call: share,
 };
 
 export const commands = () => {
@@ -83,13 +91,9 @@ export const commands = () => {
         select("#save").removeClass("unsaved");
       },
     },
-    {
-      title: "Delete note",
-      key: "shift d",
-      icon: icon(TrashSVG, "delete note"),
-      sortTitle: "Delete",
-      call: () => deleteNote(),
-    },
+    ...(navigator.share && storage.get("__experimental__")
+      ? [shareNoteCommand]
+      : []),
     {
       title: "Toggle MarkDown Viewer",
       icon: icon(PageBreakSVG, "toggle markdown viewer", "rotate90"),
@@ -116,6 +120,13 @@ export const commands = () => {
       sortTitle: "Notes",
       key: "p",
       call: () => commander.toggle(commander.getModes().notes),
+    },
+    {
+      title: "Delete note",
+      key: "shift d",
+      icon: icon(TrashSVG, "delete note"),
+      sortTitle: "Delete",
+      call: () => deleteNote(),
     },
     {
       title: getSyncTitle(),
