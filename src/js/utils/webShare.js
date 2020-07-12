@@ -7,8 +7,8 @@ export const share = async () => {
     const note = getNote();
     const currentUrl = url.get();
     await navigator.share({
-      title: note.title || TITLE_NAME,
-      text: note.text || "Temporary note keeping app for the browser",
+      title: note ? note.title : TITLE_NAME,
+      text: note ? note.text : "Temporary note keeping app for the browser",
       url: currentUrl,
     });
   } catch (error) {
