@@ -4,14 +4,14 @@ import { url } from "./urlManager";
 
 export const share = async () => {
   try {
-    const { title, text } = getNote();
+    const note = getNote();
     const currentUrl = url.get();
     await navigator.share({
-      title,
-      text,
+      title: note.title || TITLE_NAME,
+      text: note.text || "Temporary note keeping app for the browser",
       url: currentUrl,
     });
   } catch (error) {
-    notify.error(`Error sharing: ${error.message}`);
+    notify.info(`${error.message}`);
   }
 };
