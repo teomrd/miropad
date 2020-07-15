@@ -91,9 +91,7 @@ export const commands = () => {
         select("#save").removeClass("unsaved");
       },
     },
-    ...(navigator.share && storage.get("__experimental__")
-      ? [shareNoteCommand]
-      : []),
+    ...(navigator.share ? [shareNoteCommand] : []),
     {
       title: "Toggle MarkDown Viewer",
       icon: icon(PageBreakSVG, "toggle markdown viewer", "rotate90"),
