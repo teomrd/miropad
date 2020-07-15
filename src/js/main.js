@@ -47,7 +47,6 @@ const actOnURLStateChange = (e = {}) => {
   const isANewNote = !url.getPageId();
   select("#note-info-button").show(!isANewNote);
   select("#new-note").disable(isANewNote);
-  select("#delete-note").disable(isANewNote);
 
   if (url.getSearchParam("md") === "full") {
     select(".terminal").hide();
@@ -137,7 +136,7 @@ const initInfoPanel = () => {
       return p;
     })();
     select(".note-info .details").append(deleteButton);
-    select(".note-info .details .icon-button").listen("click", () => {
+    select("#delete-note").listen("click", () => {
       deleteNote();
     });
   });
