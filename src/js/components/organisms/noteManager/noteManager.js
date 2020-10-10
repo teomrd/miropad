@@ -177,6 +177,7 @@ export const saveNote = async (what = select(".terminal").getValue(), cid) => {
         JSON.stringify({
           ...note,
           title,
+          lines: what.split("\n"),
           revisions: {
             ...((note && note.revisions) || {}),
             [hash]: {
