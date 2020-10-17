@@ -4,10 +4,10 @@
 MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 install:
-	npm install
+	yarn install
 
 dev: install
-	npm run dev
+	yarn run dev
 
 build: install
 	yarn build
