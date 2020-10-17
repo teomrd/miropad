@@ -27,7 +27,7 @@ echo "$NEW_VERSION" >./dist/version
 
 echo -e "🛠️  Building ${COLOR_GREEN}MiroPad${NO_COLOR} version ${COLOR_RED}${NEW_VERSION}${NO_COLOR} \n"
 
-npm run build
+yarn run build
 
 echo -e "🚀  Deploying... \n"
 
