@@ -17,18 +17,6 @@
 #       CREATED:  08/11/2019
 #===============================================================================
 
-version_type=${1:-patch}
-
-npm version "$version_type"
-cp ./src/manifest.json ./dist
-cp -r ./src/assets/images ./dist/images
-NEW_VERSION=$(jq -r .version ./package.json)
-echo "$NEW_VERSION" >./dist/version
-
-echo -e "🛠️  Building ${COLOR_GREEN}MiroPad${NO_COLOR} version ${COLOR_RED}${NEW_VERSION}${NO_COLOR} \n"
-
-yarn run build
-
 echo -e "🚀  Deploying... \n"
 
 git add ./dist/*

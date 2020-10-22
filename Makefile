@@ -9,11 +9,14 @@ install:
 dev: install
 	yarn run dev
 
-build: install
-	yarn build
-
 serve: build
 	open http://localhost:8080 && serve $(MAKE_DIR)/dist
 
-deploy:
+version:
+	$(MAKE_DIR)/scripts/version.sh
+
+build: install version
+	$(MAKE_DIR)/scripts/build.sh
+
+deploy: build
 	$(MAKE_DIR)/scripts/deploy.sh
