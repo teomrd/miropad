@@ -5,19 +5,12 @@
 #
 #         USAGE:  ./deploy.sh
 #
-#   DESCRIPTION: upgrades the version and deploying to github pages
+#   DESCRIPTION: deployed the ./dist folder to gh-pages
 #
-#       OPTIONS:  $1: patch(default), minor, major
-#  REQUIREMENTS:  npm, git, jq
-#          BUGS:  ---
-#         NOTES:  ---
-#        AUTHOR:  teomrd
-#       COMPANY:  null
-#       VERSION:  1.0
-#       CREATED:  08/11/2019
 #===============================================================================
 
 echo -e "🚀  Deploying... \n"
+NEW_VERSION=$(jq -r .version ./package.json)
 
 git add ./dist/*
 git amend -n
