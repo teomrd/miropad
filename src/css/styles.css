@@ -460,10 +460,10 @@ header .logo:active {
 }
 
 .menu:after {
-  max-height: 100%;
-  content: '\2807';
+  content: '\22EE';
   font-size: 30px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
 }
 
 .menu:hover:after {
