@@ -12,17 +12,24 @@ to explore the available commands on the command palette
 
 ## Development
 
-Start development
+Start development server
 
 ```bash
-  npm run dev
+  make dev
 ```
 
 Deploy
 
 ```bash
-  npm run deploy
+  make deploy
 ```
+
+### Git commit style
+
+Using semantic commit messages. The `.gitmessage` template could help
+following the pattern.
+
+`git config commit.template ./.gitmessage`
 
 ## Lighthouse Audit results
 
