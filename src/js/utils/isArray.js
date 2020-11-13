@@ -1,1 +1,1 @@
-export const isArray = (what) => typeof what === "object" && what.length > 0;
+export const isArray = (what) => Array.isArray(what);
