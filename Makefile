@@ -2,13 +2,17 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := dev
 
-.PHONY : install dev deploy serve version build deploy
+.PHONY : install dev deploy serve version build deploy clean
 
 install:
 	yarn install
 
 dev: install
 	yarn run dev
+
+clean:
+	rm -rf ./node_modules
+	rm -rf ./*lock*
 
 serve: build
 	open http://localhost:8080 && serve $(MAKE_DIR)/dist
