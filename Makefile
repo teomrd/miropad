@@ -12,10 +12,12 @@ dev: install
 
 clean:
 	rm -rf ./node_modules
+	rm -rf ./out
+	rm -rf ./dev
 	rm -rf ./*lock*
 
 serve: build
-	open http://localhost:8080 && serve $(MAKE_DIR)/dist
+	serve $(MAKE_DIR)/out
 
 version:
 	$(MAKE_DIR)/scripts/version.sh

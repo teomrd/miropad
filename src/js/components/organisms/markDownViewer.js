@@ -22,8 +22,6 @@ const markDownViewer = (() => {
       const md = select(".terminal").getValue();
       const html = await convertMarkDownToHtml(md);
 
-      console.log({ html });
-
       this.view.innerHTML(html);
 
       // this.view.innerHTML(converter.makeHtml(md));

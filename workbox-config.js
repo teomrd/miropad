@@ -1,7 +1,7 @@
 module.exports = {
-  globDirectory: "dist/",
+  globDirectory: "out/",
   globPatterns: ["**/*.{ico,png,html,js,json,svg}"],
-  swDest: "dist/service-worker.js",
+  swDest: "out/service-worker.js",
   swSrc: "src/service-worker.js",
   mode: "production",
 };
