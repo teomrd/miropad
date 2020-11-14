@@ -346,13 +346,14 @@ header .logo:active {
 
 .commander .palette {
   width: 100%;
-  background-color: #212121;
   display: flex;
   justify-content: center;
   padding: 8px 8px 0 8px;
   display: flex;
   flex-direction: column;
   max-height: 100vh;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .commander .palette>div {
@@ -539,13 +540,17 @@ pre button {
   right: 0px;
   position: absolute;
 }
+
+.frost {
+  background: rgba(17, 21, 24, .85);
+  -webkit-backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
+}
+
 @media only screen and (max-width: 600px) {
   .mobile-dock {
     position: fixed;
     bottom: 0px;
-    background: rgba(17, 21, 24, .75);
-    -webkit-backdrop-filter: blur(2.5px);
-    backdrop-filter: blur(2.5px);
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -672,7 +677,6 @@ input:checked + .slider:before {
   width: 20%;
   min-width: 200px;
   height: 100%;
-  background: #1d2327;
   box-shadow: 0 10px 20px rgba(255,255,255,0.19), 0 6px 6px rgba(255,255,255,0.23);
   color: #fff;
   right: 0px;
