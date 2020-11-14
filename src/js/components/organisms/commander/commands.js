@@ -159,7 +159,7 @@ export const commands = () => {
     {
       title: "Toggle sidebar",
       experimental: true,
-      key: "l",
+      key: "shift l",
       call: () => {
         select("aside").toggle();
       },
