@@ -15,7 +15,7 @@ clean:
 	rm -rf ./*lock*
 
 serve: build
-	open http://localhost:8080 && serve $(MAKE_DIR)/dist
+	serve $(MAKE_DIR)/dist
 
 version:
 	$(MAKE_DIR)/scripts/version.sh
