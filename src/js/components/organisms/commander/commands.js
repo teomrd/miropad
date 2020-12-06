@@ -179,6 +179,7 @@ export const commands = () => {
     {
       title: "Save to IPFS",
       key: "i",
+      experimental: true,
       icon: icon(CloudUploadSVG, "save to ipfs"),
       call: () => {
         ipfs.save(select(".terminal").getValue());
