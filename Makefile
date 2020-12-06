@@ -15,7 +15,7 @@ clean:
 	rm -rf ./*lock*
 
 serve: build
-	serve $(MAKE_DIR)/dist
+	serve $(MAKE_DIR)/out
 
 version:
 	$(MAKE_DIR)/scripts/version.sh

@@ -95,7 +95,7 @@
             </svg>
             Delete
           </button>
-        `,n})();b(".note-info .details").append(r),b("#delete-note").listen("click",()=>{gr()})})},h4=async()=>{window.addEventListener("error",Xi),Ji(),N.init(),p4(),of(),Ft(),Hi(O.getPageId()),b(".logo").listen("click",()=>{N.toggle(N.getModes().notes)}),b("#permalink").listen("click",async()=>{await Ot(O.get())}),nt.init(),window.addEventListener("hashchange",sf),sf(),Xh(),await ut(),await sa()},uf=h4;(()=>{uf()})();})();
+        `,n})();b(".note-info .details").append(r),b("#delete-note").listen("click",()=>{gr()})})},h4=async()=>{window.addEventListener("error",Xi),Ji(),N.init(),p4(),of(),Ft(),Hi(O.getPageId()),b(".logo").listen("click",()=>{N.toggle(N.getModes().notes)}),b("#permalink").listen("click",async()=>{await Ot(O.get())}),nt.init(),window.addEventListener("hashchange",sf),sf(),Xh(),await ut(),await sa()},uf=h4;console.log("\u{1F970} hey there");(()=>{uf()})();})();
 /*!
  * Determine if an object is a Buffer
  *
@@ -108,4 +108,4 @@
  * Copyright (c) 2014-2015, Jon Schlinkert.
  * Licensed under the MIT License.
  */
-//# sourceMappingURL=out.js.map
+//# sourceMappingURL=index.js.map

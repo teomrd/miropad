@@ -5,16 +5,16 @@
 #
 #         USAGE:  ./deploy.sh
 #
-#   DESCRIPTION: deployed the ./dist folder to gh-pages
+#   DESCRIPTION: deployed the ./out folder to gh-pages
 #
 #===============================================================================
 
 echo -e "🚀  Deploying... \n"
 NEW_VERSION=$(jq -r .version ./package.json)
 
-git add ./dist/*
+git add ./out/*
 git amend -n
 git push
-git subtree push --prefix dist origin gh-pages
+git subtree push --prefix out origin gh-pages
 
 echo -e "🎉 MiroPad v${COLOR_GREEN}${NEW_VERSION}${NO_COLOR} deployed \n"

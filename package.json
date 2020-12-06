@@ -6,9 +6,9 @@
   "author": "teomrd <mironidis.gr@gmail.com>",
   "license": "GPL-3.0-only",
   "scripts": {
-    "start": "serve dist",
+    "start": "serve out",
     "dev": "webpack-dev-server --mode development --open",
-    "build": "node ./scripts/esbuild.js && workbox injectManifest workbox-config.js",
+    "build": "node ./scripts/esbuild.js && cp ./static/index.html ./out && workbox injectManifest workbox-config.js",
     "test": "jest",
     "lint": "eslint 'src/**/*js'"
   },
