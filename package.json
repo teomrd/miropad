@@ -1,6 +1,6 @@
 {
   "name": "miropad",
-  "version": "2.11.6",
+  "version": "2.11.7",
   "browser": "src/index.html",
   "repository": "https://github.com/teomrd/MiroPad.git",
   "author": "teomrd <mironidis.gr@gmail.com>",
