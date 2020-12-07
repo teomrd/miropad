@@ -1,8 +1,8 @@
-import select from "../../utils/dom";
-import { url } from "../../utils/urlManager";
-import { copyToClipboard } from "../../utils/copyToClipboard";
-import { button } from "../atoms/button/button";
-import { convertMarkDownToHtml } from "./commander/markdown/convertMarkDownToHtml";
+import select from "../../../utils/dom";
+import { url } from "../../../utils/urlManager";
+import { copyToClipboard } from "../../../utils/copyToClipboard";
+import { button } from "../../atoms/button/button";
+import { convertMarkDownToHtml } from "./convertMarkDownToHtml";
 
 const markDownViewer = (() => {
   return {
@@ -11,7 +11,7 @@ const markDownViewer = (() => {
       this.update();
       select(".terminal").listen("input", () => this.update());
       const isVisible = Boolean(url.getSearchParam("md"));
-      if (isVisible === true) {
+      if (isVisible) {
         this.view.show();
       } else {
         this.view.hide();

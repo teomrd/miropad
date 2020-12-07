@@ -19,7 +19,7 @@ import {
 } from "../../../utils/fileSystem/fileSystem";
 import { url } from "../../../utils/urlManager";
 import { mailTo } from "../../../utils/mail";
-import markDownViewer from "../markDownViewer";
+import markDownViewer from "../markdown/markDownViewer";
 import prettifyJSON from "../../../utils/prettifyJSON";
 import notify from "../../molecules/notify";
 import ipfs from "../../../utils/ipfs";

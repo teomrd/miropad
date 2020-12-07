@@ -13,7 +13,7 @@ import {
 } from "./components/organisms/noteManager/noteManager";
 import { url } from "./utils/urlManager";
 import { copyToClipboard } from "./utils/copyToClipboard";
-import markDownViewer from "./components/organisms/markDownViewer";
+import markDownViewer from "./components/organisms/markdown/markDownViewer";
 import commander from "./components/organisms/commander/commander";
 import {
   syncNotesWithGitHub,

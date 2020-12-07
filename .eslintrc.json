@@ -32,7 +32,7 @@
     "VERSION": "readonly"
   },
   "settings": {
-    "import/resolver": "webpack",
+    "import/resolver": "node",
     "import/extensions": [".js"]
   }
 }
