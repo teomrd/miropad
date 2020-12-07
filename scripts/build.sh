@@ -7,6 +7,8 @@ echo -e "🛠️  Building ${COLOR_GREEN}MiroPad${NO_COLOR} v${COLOR_RED}${NEW_V
 mkdir -p ./out
 
 cp ./src/manifest.json ./out
+cp ./static/favicon.ico ./out
+
 cp -r ./src/assets/images ./out/images
 
 
