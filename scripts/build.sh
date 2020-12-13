@@ -11,7 +11,10 @@ cp ./static/favicon.ico ./out
 
 cp -r ./src/assets/images ./out/images
 
+node ./scripts/esbuild.js
 
-yarn run build
+cp ./static/index.html ./out
+
+workbox injectManifest ./workbox-config.js
 
 echo -e "✓ Build finished \n"
