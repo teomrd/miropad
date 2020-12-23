@@ -15,6 +15,6 @@ node ./scripts/esbuild.js
 
 cp ./static/index.html ./out
 
-workbox injectManifest ./workbox-config.js
+./node_modules/.bin/workbox injectManifest ./workbox-config.js
 
 echo -e "👷‍♂️ Build finished 🙌\n"
