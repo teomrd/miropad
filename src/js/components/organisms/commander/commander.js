@@ -184,13 +184,14 @@ const commander = (() => {
       const { revisions } = getNote();
       const indexToSelect = state.options.selected;
       const revisionsOptions = Object.keys(revisions)
+        .sort((a, b) => {
+          const { dateCreated: aDateCreated } = revisions[a];
+          const { dateCreated: bDateCreated } = revisions[b];
+          return bDateCreated - aDateCreated;
+        })
         .map((id, i) => ({
-          title: i + 1,
-          secondary: `${new Date(
-            revisions[id].dateCreated
-          ).toLocaleDateString()} ${new Date(
-            revisions[id].dateCreated
-          ).toLocaleTimeString()}`,
+          title: `...${id.slice(-10)}`,
+          secondary: `${relativeDate(revisions[id].dateCreated)}`,
           onclick: () => {
             url.set(undefined, {
               v: id,

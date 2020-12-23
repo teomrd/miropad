@@ -17,4 +17,4 @@ cp ./static/index.html ./out
 
 workbox injectManifest ./workbox-config.js
 
-echo -e "✓ Build finished \n"
+echo -e "👷‍♂️ Build finished 🙌\n"
