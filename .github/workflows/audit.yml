@@ -1,21 +1,11 @@
-name: Lighthouse Audits
-
-on:
-  push:
-    branches:
-    - master
-    - gh-pages
-
+name: CI
+on: [push]
 jobs:
-  audit:
+  lighthouseci:
     runs-on: ubuntu-latest
     steps:
-    - name: Lighthouse Audit
-      uses: jakejarvis/lighthouse-action@v0.3.2
-      with:
-        url: 'https://teomrd.github.io/miropad/'
-    - name: Upload results as an artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: report
-        path: './report'
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install && npm install -g @lhci/cli@0.6.x
+      - run: npm run build
+      - run: lhci autorun
