@@ -2,13 +2,16 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := dev
 
-.PHONY : install dev deploy serve version build deploy clean
+.PHONY : install dev audits deploy serve version build deploy clean
 
 install:
 	yarn install
 
 dev: install
 	yarn run dev
+
+audits: install build 
+	lhci autorun
 
 clean:
 	rm -rf ./node_modules
