@@ -7,7 +7,7 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 install:
 	yarn install
 
-dev: install
+dev: install build
 	yarn run dev
 
 audits: install build 
