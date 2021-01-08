@@ -25,8 +25,8 @@ serve: build
 version:
 	$(MAKE_DIR)/scripts/version.sh
 
-build: install version
+build: install
 	$(MAKE_DIR)/scripts/build.sh
 
-deploy: build
+deploy: version build
 	$(MAKE_DIR)/scripts/deploy.sh
