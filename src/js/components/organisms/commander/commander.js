@@ -257,7 +257,10 @@ const commander = (() => {
             {
               title: noteLink,
               secondary: relativeDate(dateCreated),
-              onclick: () => this.hide(),
+              onclick: () => {
+                this.hide();
+                select(".terminal").focus();
+              },
             },
             i === indexToSelect
           );
