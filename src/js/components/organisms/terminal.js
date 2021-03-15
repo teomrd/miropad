@@ -10,8 +10,8 @@ const isLastCharacterInTheWord = (text, characterIndex) =>
 const placeSuggestion = (textEl) => {
   const coords = getCaretCoordinates(textEl, textEl.selectionEnd);
   const { top, left } = coords;
-  select(".suggestion").el.style.top = `${top + 20}px`;
-  select(".suggestion").el.style.left = `${left - 30}px`;
+  select(".suggestion").el.style.top = `${top}px`;
+  select(".suggestion").el.style.left = `${left}px`;
 };
 
 const acceptCompletion = () => {
@@ -68,7 +68,10 @@ export const initTerminal = () => {
           const prediction = firstMatch || "";
           storage.set("__prediction__", prediction);
           storage.set("__word__", word);
-          select(".suggestion").show().html(`${prediction}`);
+
+          select(".suggestion")
+            .show()
+            .html(`${prediction.slice(sanitizedWord.length)}`);
         }
       }
     })
