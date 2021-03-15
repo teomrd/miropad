@@ -14,6 +14,24 @@ const placeSuggestion = (textEl) => {
   select(".suggestion").el.style.left = `${left}px`;
 };
 
+const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
+  let word = "";
+  let currentIndex = cursorIndexPosition - 1;
+  do {
+    const character = text[currentIndex] || "";
+    currentIndex = character.trim() === "" ? -1 : currentIndex - 1;
+    word = character.trim() !== "" ? `${character}${word}` : word;
+  } while (currentIndex >= 0);
+  return word;
+};
+
+const getPredictions = (word) => {
+  const sanitizedWord = word.replace(/[\r\n\t]+/g, "").toLowerCase();
+  const dictionary = storage.getDictionary();
+
+  return dictionary.filter((word) => word.startsWith(sanitizedWord));
+};
+
 const acceptCompletion = () => {
   const prediction = storage.get("__prediction__");
   const word = storage.get("__word__");
@@ -39,40 +57,31 @@ export const initTerminal = () => {
       select(".note-info").hide();
     })
     .listen("input", (e) => {
-      const characterIndex = e.target.selectionEnd;
-      const text = select(".terminal").getValue();
-      const charTyped = text[characterIndex - 1];
+      const cursorIndexPosition = e.target.selectionEnd;
+      const fullText = select(".terminal").getValue();
+
+      const charTyped = fullText[cursorIndexPosition - 1];
       if (e.inputType === "deleteContentBackward" || charTyped === " ") {
         storage.set("__prediction__", "");
         select(".suggestion").hide();
       }
+
       if (
         e.inputType === "insertText" &&
-        isLastCharacterInTheWord(text, characterIndex)
+        isLastCharacterInTheWord(fullText, cursorIndexPosition)
       ) {
         placeSuggestion(e.target);
-        const dictionary = storage.getDictionary();
-        let word = "";
-        let currentIndex = characterIndex - 1;
-        do {
-          const character = text[currentIndex] || "";
-          currentIndex = character.trim() === "" ? -1 : currentIndex - 1;
-          word = character.trim() !== "" ? `${character}${word}` : word;
-        } while (currentIndex >= 0);
+        const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
+        const matches = getPredictions(word);
+        const [firstMatch] = matches;
+        const prediction = firstMatch || "";
 
-        const sanitizedWord = word.replace(/[\r\n\t]+/g, "").toLowerCase();
-        if (sanitizedWord.length > 1) {
-          const firstMatch = dictionary.find((word) =>
-            word.startsWith(sanitizedWord)
-          );
-          const prediction = firstMatch || "";
-          storage.set("__prediction__", prediction);
-          storage.set("__word__", word);
+        storage.set("__prediction__", prediction);
+        storage.set("__word__", word);
 
-          select(".suggestion")
-            .show()
-            .html(`${prediction.slice(sanitizedWord.length)}`);
-        }
+        select(".suggestion")
+          .show()
+          .html(`${prediction.slice(word.length)}`);
       }
     })
     .listen("keydown", (e) => {
