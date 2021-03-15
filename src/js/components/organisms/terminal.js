@@ -34,19 +34,6 @@ const getPredictions = (word) => {
   return dictionary.filter((word) => word.startsWith(sanitizedWord));
 };
 
-const acceptCompletion = () => {
-  const prediction = storage.get("__prediction__");
-  const word = storage.get("__word__");
-  const completion = prediction.replace(word.toLowerCase(), "");
-  if (completion) {
-    select(".terminal").insertAtCaret(`${completion} `);
-  } else {
-    select(".terminal").insertAtCaret("  ");
-  }
-  select(".suggestion").hide();
-  storage.set("__prediction__", "");
-};
-
 export const terminal = (() => {
   const initState = {
     matches: [],
@@ -80,14 +67,40 @@ export const terminal = (() => {
           ? 0
           : currentlySelected + 1
         : isFirstOption
-          ? lastOption
-          : currentlySelected - 1;
+        ? lastOption
+        : currentlySelected - 1;
 
       state.options = {
         ...state.options,
         selected: indexToSelect,
       };
+
+      terminal.setState({
+        prediction: state.matches[state.options.selected],
+      });
+      terminal.renderInlineSuggestion();
       terminal.renderOptions();
+    },
+    acceptCompletion: () => {
+      const { prediction, currentWord } = state;
+
+      const completion = prediction.replace(currentWord.toLowerCase(), "");
+      if (completion) {
+        select(".terminal").insertAtCaret(`${completion} `);
+      } else {
+        select(".terminal").insertAtCaret("  ");
+      }
+      select(".suggestion").hide();
+      terminal.resetState();
+    },
+    renderInlineSuggestion: () => {
+      const { prediction, currentWord } = state;
+
+      const inlineSuggestion = div({
+        content: `${prediction.slice(currentWord.length)}`,
+      });
+      inlineSuggestion.setAttribute("id", "inlineSuggestion");
+      select(".suggestion").show().html(inlineSuggestion);
     },
     renderOptions: () => {
       const optionsUl = select(".suggestion .options");
@@ -98,9 +111,6 @@ export const terminal = (() => {
         command(
           {
             title: div({ content: word }),
-            onclick: (e) => {
-              console.log("Hello there", e);
-            },
           },
           i === selectedIndex
         )
@@ -122,7 +132,10 @@ export const terminal = (() => {
 
       const charTyped = fullText[cursorIndexPosition - 1];
       if (e.inputType === "deleteContentBackward" || charTyped === " ") {
-        storage.set("__prediction__", "");
+        terminal.setState({
+          prediction: initState.prediction,
+          currentWord: initState.currentWord,
+        });
         select(".suggestion").hide();
       }
 
@@ -138,6 +151,8 @@ export const terminal = (() => {
         const prediction = firstMatch || "";
 
         terminal.setState({
+          prediction,
+          currentWord: word,
           matches,
           options: {
             selected: 0,
@@ -145,15 +160,7 @@ export const terminal = (() => {
           },
         });
 
-        storage.set("__prediction__", prediction);
-        storage.set("__word__", word);
-
-        const inlineSuggestion = div({
-          content: `${prediction.slice(word.length)}`,
-        });
-        inlineSuggestion.setAttribute("id", "inlineSuggestion");
-        select(".suggestion").show().html(inlineSuggestion);
-
+        terminal.renderInlineSuggestion();
         terminal.renderOptions();
       }
     },
@@ -169,13 +176,21 @@ export const terminal = (() => {
         terminal.selectOption(e, "up");
       }
     },
+    onEnter: (e) => {
+      if (state.matches.length > 0) {
+        e.preventDefault();
+        terminal.acceptCompletion();
+      }
+    },
     onTab: (e) => {
       e.preventDefault();
-      terminal.resetState();
-      acceptCompletion();
+      terminal.acceptCompletion();
     },
     onKeyDown: (e) => {
-      // console.log({ code: e.keyCode });
+      // enter
+      if (e.keyCode === 13) {
+        terminal.onEnter(e);
+      }
       // arrow down
       if (e.keyCode === 40) {
         terminal.onArrowDown(e);
@@ -191,11 +206,12 @@ export const terminal = (() => {
       }
 
       if (e.keyCode === 32) {
-        storage.set("__prediction__", "");
+        terminal.setState({
+          prediction: "",
+        });
       }
     },
     onKeyUp: () => {
-      console.log({ state });
       const currentNote = getNote();
       const { text = "" } = currentNote || {};
       const isNoteUnSaved = terminal.el.getValue() !== text;
@@ -209,7 +225,7 @@ export const terminal = (() => {
       }
     },
     init: function () {
-      select(".suggestion").listen("click", acceptCompletion);
+      select(".suggestion").listen("click", terminal.acceptCompletion);
       this.el
         .listen("focus", this.onFocus)
         .listen("input", this.onInput)
