@@ -755,8 +755,8 @@ ul.options li {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  opacity: .5;
-  padding-left: 10px;
+  opacity: .25;
+  padding: 0 8px;
   cursor: pointer;
   font-size: smaller;
 }
@@ -765,5 +765,4 @@ ul.options li.selected {
   background-color: rgba(255, 255, 255, 0.25);
   opacity: 1;
   border-left: 2px solid red;
-  padding-left: 8px;
 }
