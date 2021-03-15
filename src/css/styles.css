@@ -577,13 +577,14 @@ pre button {
   position: absolute;	
   color: #00ec00;	
   font-style: italic;	
-  z-index: 10;	
-  opacity: 0.4;	
+  z-index: 10;
   font-family: monospace;	
   font-size: 20px;	
   cursor: pointer;
 }
-
+#inlineSuggestion {
+  opacity: 0.4;	
+}
 /**** switch ****/
 /* Thanks to w3schools awesome example https://www.w3schools.com/howto/howto_css_switch.asp */
 /* The switch - the box around the slider */
@@ -730,4 +731,39 @@ input:checked + .slider:before {
 editable-list {
   width: 100%;
   padding: 0 1.5em;
+}
+
+
+
+ul.options {
+  line-height: 1.5;
+  color: #fff;
+  list-style: none;
+  padding: 2.5px;
+  margin: 0;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+ul.options li {
+  color: #fff;
+  list-style: none;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  padding: 0 2px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  opacity: .5;
+  padding-left: 10px;
+  cursor: pointer;
+  font-size: smaller;
+}
+
+ul.options li.selected {
+  background-color: rgba(255, 255, 255, 0.25);
+  opacity: 1;
+  border-left: 2px solid red;
+  padding-left: 8px;
 }

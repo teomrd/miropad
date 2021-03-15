@@ -3,6 +3,24 @@ import storage from "../../utils/localstorage";
 import select from "../../utils/dom";
 import commander from "./commander/commander";
 import { getNote } from "./noteManager/noteManager";
+import { div } from "../atoms/div/div";
+import { command } from "../molecules/commands/command";
+
+const createAutocompletionList = (words, anchorEl) => {
+  const options = words.map((word) =>
+    command({
+      title: div({ content: word }),
+      onclick: (e) => {
+        console.log("Hello there", e);
+      },
+    })
+  );
+  const optionList = document.createElement("ul");
+  optionList.classList.add("options");
+  optionList.classList.add("frost");
+  options.forEach((el) => optionList.append(el));
+  anchorEl.append(optionList);
+};
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -69,15 +87,20 @@ export const initTerminal = () => {
         placeSuggestion(e.target);
         const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
         const matches = getPredictions(word);
+
         const [firstMatch] = matches;
         const prediction = firstMatch || "";
 
         storage.set("__prediction__", prediction);
         storage.set("__word__", word);
 
-        select(".suggestion")
-          .show()
-          .html(`${prediction.slice(word.length)}`);
+        const inlineSuggestion = div({
+          content: `${prediction.slice(word.length)}`,
+        });
+        inlineSuggestion.setAttribute("id", "inlineSuggestion");
+        select(".suggestion").show().html(inlineSuggestion);
+
+        createAutocompletionList(matches, select(".suggestion").el);
       }
     })
     .listen("keydown", (e) => {
