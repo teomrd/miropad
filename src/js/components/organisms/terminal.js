@@ -36,12 +36,8 @@ const acceptCompletion = () => {
   const prediction = storage.get("__prediction__");
   const word = storage.get("__word__");
   const completion = prediction.replace(word.toLowerCase(), "");
-  const autoComplete = completion && completion !== "";
-  if (autoComplete) {
-    const where = select(".terminal").el.selectionEnd;
-    const theEndCharIndex = select(".terminal").getValue().trim().length;
-    const isItTheEnd = where === theEndCharIndex;
-    select(".terminal").insertAtCaret(`${completion}${isItTheEnd ? " " : ""}`);
+  if (completion) {
+    select(".terminal").insertAtCaret(`${completion} `);
   } else {
     select(".terminal").insertAtCaret("  ");
   }
