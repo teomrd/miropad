@@ -63,67 +63,91 @@ const acceptCompletion = () => {
   storage.set("__prediction__", "");
 };
 
-export const initTerminal = () => {
-  select(".suggestion").listen("click", acceptCompletion);
-  select(".terminal")
-    .listen("focus", () => {
-      commander.hide();
-      select(".note-info").hide();
-    })
-    .listen("input", (e) => {
-      const cursorIndexPosition = e.target.selectionEnd;
-      const fullText = select(".terminal").getValue();
+export const terminal = (() => ({
+  el: select(".terminal"),
+  onFocus: () => {
+    commander.hide();
+    select(".note-info").hide();
+  },
+  onInput: (e) => {
+    const cursorIndexPosition = e.target.selectionEnd;
+    const fullText = terminal.el.getValue();
 
-      const charTyped = fullText[cursorIndexPosition - 1];
-      if (e.inputType === "deleteContentBackward" || charTyped === " ") {
-        storage.set("__prediction__", "");
-        select(".suggestion").hide();
+    const charTyped = fullText[cursorIndexPosition - 1];
+    if (e.inputType === "deleteContentBackward" || charTyped === " ") {
+      storage.set("__prediction__", "");
+      select(".suggestion").hide();
+    }
+
+    if (
+      e.inputType === "insertText" &&
+      isLastCharacterInTheWord(fullText, cursorIndexPosition)
+    ) {
+      placeSuggestion(e.target);
+      const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
+      const matches = getPredictions(word);
+
+      const [firstMatch] = matches;
+      const prediction = firstMatch || "";
+
+      storage.set("__prediction__", prediction);
+      storage.set("__word__", word);
+
+      const inlineSuggestion = div({
+        content: `${prediction.slice(word.length)}`,
+      });
+      inlineSuggestion.setAttribute("id", "inlineSuggestion");
+      select(".suggestion").show().html(inlineSuggestion);
+
+      createAutocompletionList(matches, select(".suggestion").el);
+    }
+  },
+  onArrowDown: () => {
+    console.log("arrow down");
+  },
+  onArrowUp: () => {
+    console.log("arrow up");
+  },
+  onKeyDown: (e) => {
+    // console.log({ code: e.keyCode });
+    // arrow down
+    if (e.keyCode === 40) {
+      terminal.onArrowDown();
+    }
+
+    // arrow up
+    if (e.keyCode === 38) {
+      terminal.onArrowUp();
+    }
+
+    if (e.keyCode === 32) {
+      storage.set("__prediction__", "");
+    }
+    // tab feature
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      acceptCompletion();
+    }
+  },
+  onKeyUp: () => {
+    const currentNote = getNote();
+    const { text = "" } = currentNote || {};
+    const isNoteUnSaved = terminal.el.getValue() !== text;
+    // unsaved state UI indication
+    if (currentNote) {
+      if (isNoteUnSaved) {
+        select("#save").addClass("unsaved");
+      } else {
+        select("#save").removeClass("unsaved");
       }
-
-      if (
-        e.inputType === "insertText" &&
-        isLastCharacterInTheWord(fullText, cursorIndexPosition)
-      ) {
-        placeSuggestion(e.target);
-        const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
-        const matches = getPredictions(word);
-
-        const [firstMatch] = matches;
-        const prediction = firstMatch || "";
-
-        storage.set("__prediction__", prediction);
-        storage.set("__word__", word);
-
-        const inlineSuggestion = div({
-          content: `${prediction.slice(word.length)}`,
-        });
-        inlineSuggestion.setAttribute("id", "inlineSuggestion");
-        select(".suggestion").show().html(inlineSuggestion);
-
-        createAutocompletionList(matches, select(".suggestion").el);
-      }
-    })
-    .listen("keydown", (e) => {
-      if (e.keyCode === 32) {
-        storage.set("__prediction__", "");
-      }
-      // tab feature
-      if (e.keyCode === 9) {
-        e.preventDefault();
-        acceptCompletion();
-      }
-    })
-    .listen("keyup", () => {
-      const currentNote = getNote();
-      const { text = "" } = currentNote || {};
-      const isNoteUnSaved = select(".terminal").getValue() !== text;
-      // unsaved state UI indication
-      if (currentNote) {
-        if (isNoteUnSaved) {
-          select("#save").addClass("unsaved");
-        } else {
-          select("#save").removeClass("unsaved");
-        }
-      }
-    });
-};
+    }
+  },
+  init: function () {
+    select(".suggestion").listen("click", acceptCompletion);
+    this.el
+      .listen("focus", this.onFocus)
+      .listen("input", this.onInput)
+      .listen("keydown", this.onKeyDown)
+      .listen("keyup", this.onKeyUp);
+  },
+}))();

@@ -20,7 +20,7 @@ import {
   setAuthTokenFromCallback,
 } from "./utils/github/actions";
 import { registerServiceWorker } from "./registerServiceWorker";
-import { initTerminal } from "./components/organisms/terminal";
+import { terminal } from "./components/organisms/terminal";
 import { isSyncEnabled } from "./isSyncEnabled";
 import "../js/components/web-components/editable-list";
 import notify from "./components/molecules/notify";
@@ -149,7 +149,7 @@ const main = async () => {
 
   initInfoPanel();
 
-  initTerminal();
+  terminal.init();
   resetPageTitle();
   setNoteFromHash(url.getPageId());
   select(".logo").listen("click", () => {
