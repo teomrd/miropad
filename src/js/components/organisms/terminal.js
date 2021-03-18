@@ -37,6 +37,8 @@ const getPredictions = (word) => {
 export const terminal = (() => {
   const initState = {
     matches: [],
+    currentWord: null,
+    prediction: null,
     options: {
       selected: 0,
       length: 0,
@@ -67,8 +69,8 @@ export const terminal = (() => {
           ? 0
           : currentlySelected + 1
         : isFirstOption
-        ? lastOption
-        : currentlySelected - 1;
+          ? lastOption
+          : currentlySelected - 1;
 
       state.options = {
         ...state.options,
@@ -83,15 +85,16 @@ export const terminal = (() => {
     },
     acceptCompletion: () => {
       const { prediction, currentWord } = state;
-
-      const completion = prediction.replace(currentWord.toLowerCase(), "");
-      if (completion) {
-        select(".terminal").insertAtCaret(`${completion} `);
-      } else {
-        select(".terminal").insertAtCaret("  ");
+      if (prediction) {
+        const completion = prediction.replace(currentWord.toLowerCase(), "");
+        if (completion) {
+          select(".terminal").insertAtCaret(`${completion} `);
+        } else {
+          select(".terminal").insertAtCaret("  ");
+        }
+        select(".suggestion").hide();
+        terminal.resetState();
       }
-      select(".suggestion").hide();
-      terminal.resetState();
     },
     renderInlineSuggestion: () => {
       const { prediction, currentWord } = state;
@@ -159,9 +162,12 @@ export const terminal = (() => {
             length: matches.length,
           },
         });
-
-        terminal.renderInlineSuggestion();
-        terminal.renderOptions();
+        if (state.currentWord.length > 2 && state.prediction) {
+          terminal.renderInlineSuggestion();
+          terminal.renderOptions();
+        } else {
+          select(".suggestion").hide();
+        }
       }
     },
     onArrowDown: (e) => {
