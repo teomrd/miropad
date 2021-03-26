@@ -10,10 +10,8 @@ import ipfs, { retrieveFromIPFS } from "../../../utils/ipfs";
 import { deleteFileOnGist } from "../../../utils/github/api";
 import commander from "../commander/commander";
 
-const normalizeTitle = (title) => {
-  const encodedTitle = encodeURIComponent(title)
-    .replace(/[^a-zA-Zα-ωΑ-Ω]/g, "")
-    .trim();
+const encodeTitle = (title) => {
+  const encodedTitle = encodeURIComponent(title);
   if (encodedTitle.length === 0) {
     throw new Error("You need to start with a valid title for your note!");
   }
@@ -121,7 +119,7 @@ export const getTitle = (note) => {
 
 export const getTitleId = (note) => {
   const title = getTitle(note);
-  return normalizeTitle(title);
+  return encodeTitle(title);
 };
 
 export const updateNote = async (what) => {
@@ -169,7 +167,7 @@ export const saveNote = async (what = select(".terminal").getValue(), cid) => {
 
       setPageTitle(title);
 
-      const titleID = normalizeTitle(title);
+      const titleID = encodeTitle(title);
       const currentNote = storage.get(titleID);
       const note = JSON.parse(currentNote);
       storage.set(
