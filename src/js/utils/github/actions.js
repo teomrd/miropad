@@ -8,10 +8,7 @@ import storage from "../localstorage";
 import { url } from "../urlManager";
 import select from "../dom";
 import { configuration } from "../../../configuration";
-import {
-  updateNote,
-  updateNoteDebug,
-} from "../../components/organisms/noteManager/noteManager";
+import { updateNote } from "../../components/organisms/noteManager/noteManager";
 import notify from "../../components/molecules/notify";
 import { commands } from "../../components/molecules/commands/commands";
 import commander from "../../components/organisms/commander/commander";
@@ -75,9 +72,7 @@ export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
     select("#logo").addClass("loading");
     const { files } = await getGist(gistId);
     Object.values(files).forEach(({ content }) => {
-      storage.get("__debugging__")
-        ? updateNoteDebug(content)
-        : updateNote(content);
+      updateNote(content);
     });
     storage.set("lastSync", new Date());
     notify.success("⬇ MiroPad synced ✅");

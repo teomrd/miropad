@@ -10,14 +10,6 @@ import ipfs, { retrieveFromIPFS } from "../../../utils/ipfs";
 import { deleteFileOnGist } from "../../../utils/github/api";
 import commander from "../commander/commander";
 
-function uuid() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
-
 const normalizeTitle = (title) => {
   const encodedTitle = encodeURIComponent(title)
     .replace(/[^a-zA-Zα-ωΑ-Ω]/g, "")
@@ -130,68 +122,6 @@ export const getTitle = (note) => {
 export const getTitleId = (note) => {
   const title = getTitle(note);
   return normalizeTitle(title);
-};
-
-export const updateNoteDebug = async (what) => {
-  const runId = uuid();
-  let debugInfo = {
-    runId,
-    what,
-  };
-  storage.set(`_debug-sync${runId}_`, JSON.stringify(debugInfo));
-  if (what.length) {
-    const titleID = getTitleId(what);
-    const title = getTitle(what);
-    const existingNote = getNote(titleID);
-    debugInfo = {
-      ...debugInfo,
-      titleID,
-      title,
-      existingNote,
-    };
-    storage.set(`_debug-sync${runId}_`, JSON.stringify(debugInfo));
-    if (existingNote) {
-      const { text } = existingNote;
-      const hashOfIncomingNote = await hashBrowser(what);
-      const hashOfCurrentNote = await hashBrowser(text);
-      debugInfo = {
-        ...debugInfo,
-        titleID,
-        title,
-        existingNote,
-        hashOfIncomingNote,
-        hashOfCurrentNote,
-      };
-      if (hashOfIncomingNote === hashOfCurrentNote) {
-        return;
-      }
-
-      const currentNote = storage.get(titleID);
-      const note = JSON.parse(currentNote);
-      debugInfo = {
-        ...debugInfo,
-        currentNote,
-        note,
-      };
-      storage.set(`_debug-sync${runId}_`, JSON.stringify(debugInfo));
-      storage.set(
-        titleID,
-        JSON.stringify({
-          ...note,
-          title,
-          revisions: {
-            ...((note && note.revisions) || {}),
-            [hashOfIncomingNote]: {
-              dateCreated: Date.now(),
-              text: what,
-            },
-          },
-        })
-      );
-    }
-
-    return saveNote(what);
-  }
 };
 
 export const updateNote = async (what) => {
