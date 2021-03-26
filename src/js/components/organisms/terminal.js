@@ -69,8 +69,8 @@ export const terminal = (() => {
           ? 0
           : currentlySelected + 1
         : isFirstOption
-          ? lastOption
-          : currentlySelected - 1;
+        ? lastOption
+        : currentlySelected - 1;
 
       state.options = {
         ...state.options,
@@ -225,8 +225,10 @@ export const terminal = (() => {
       if (currentNote) {
         if (isNoteUnSaved) {
           select("#save").addClass("unsaved");
+          select("#logo").addClass("unsaved");
         } else {
           select("#save").removeClass("unsaved");
+          select("#logo").removeClass("unsaved");
         }
       }
     },
