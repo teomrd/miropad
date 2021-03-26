@@ -21,7 +21,7 @@ const encodeTitle = (title) => {
 export const getDateCreatedFromTitle = (title) => {
   const titleID = getTitleId(title);
   const note = getNote(titleID);
-  const { dateCreated } = note;
+  const { dateCreated } = note || {};
   return dateCreated;
 };
 
@@ -112,7 +112,7 @@ export const resetNoteManager = () => {
   select("#save").removeClass("unsaved");
 };
 
-export const getTitle = (note) =>
+export const getTitle = (note = "") =>
   note.split("\n")[0].trim().replace("#", "").trim();
 
 export const getTitleId = (note) => {
