@@ -2,7 +2,7 @@ import getCaretCoordinates from "textarea-caret";
 import storage from "../../utils/localstorage";
 import select from "../../utils/dom";
 import commander from "./commander/commander";
-import { getNote } from "./noteManager/noteManager";
+import { getNote, getTitle } from "./noteManager/noteManager";
 import { div } from "../atoms/div/div";
 import { command } from "../molecules/commands/command";
 
@@ -69,8 +69,8 @@ export const terminal = (() => {
           ? 0
           : currentlySelected + 1
         : isFirstOption
-        ? lastOption
-        : currentlySelected - 1;
+          ? lastOption
+          : currentlySelected - 1;
 
       state.options = {
         ...state.options,
@@ -217,12 +217,15 @@ export const terminal = (() => {
         });
       }
     },
-    onKeyUp: () => {
-      const currentNote = getNote();
-      const { text = "" } = currentNote || {};
+    onKeyUp: (e) => {
+      const currentlySavedNote = getNote();
+      const title = getTitle(e.target.value);
+      select(".title h3").html(title);
+
+      const { text = "" } = currentlySavedNote || {};
       const isNoteUnSaved = terminal.el.getValue() !== text;
       // unsaved state UI indication
-      if (currentNote) {
+      if (currentlySavedNote) {
         if (isNoteUnSaved) {
           select("#save").addClass("unsaved");
           select("#logo").addClass("unsaved");

@@ -112,10 +112,8 @@ export const resetNoteManager = () => {
   select("#save").removeClass("unsaved");
 };
 
-export const getTitle = (note) => {
-  const title = note.split("\n")[0].trim().replace("#", "").trim();
-  return title;
-};
+export const getTitle = (note) =>
+  note.split("\n")[0].trim().replace("#", "").trim();
 
 export const getTitleId = (note) => {
   const title = getTitle(note);
