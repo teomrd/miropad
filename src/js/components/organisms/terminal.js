@@ -5,6 +5,8 @@ import commander from "./commander/commander";
 import { getNote, getTitle } from "./noteManager/noteManager";
 import { div } from "../atoms/div/div";
 import { command } from "../molecules/commands/command";
+import { icon } from "../atoms/icon/icon";
+import TrashSVG from "../../../assets/svg/trash.svg";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -68,9 +70,8 @@ export const terminal = (() => {
         ? isLastOption
           ? 0
           : currentlySelected + 1
-        : isFirstOption
-          ? lastOption
-          : currentlySelected - 1;
+        : // eslint-disable-next-line prettier/prettier
+        isFirstOption ? lastOption : currentlySelected - 1;
 
       state.options = {
         ...state.options,
@@ -83,10 +84,9 @@ export const terminal = (() => {
       terminal.renderInlineSuggestion();
       terminal.renderOptions();
     },
-    acceptCompletion: () => {
-      const { prediction, currentWord } = state;
-      if (prediction) {
-        const completion = prediction.replace(currentWord.toLowerCase(), "");
+    acceptCompletion: (word) => {
+      const complete = (word, currentWord) => {
+        const completion = word.replace(currentWord.toLowerCase(), "");
         if (completion) {
           select(".terminal").insertAtCaret(`${completion} `);
         } else {
@@ -94,6 +94,15 @@ export const terminal = (() => {
         }
         select(".suggestion").hide();
         terminal.resetState();
+      };
+
+      const { prediction, currentWord } = state;
+      if (word) {
+        return complete(word, currentWord);
+      }
+
+      if (prediction) {
+        complete(prediction, currentWord);
       }
     },
     renderInlineSuggestion: () => {
@@ -114,6 +123,17 @@ export const terminal = (() => {
         command(
           {
             title: div({ content: word }),
+            secondary: icon(TrashSVG, "delete word"),
+            onSecondaryClick: () => {
+              storage.removeFromDictionary(word);
+              terminal.setState({
+                matches: state.matches.filter((m) => m !== word),
+              });
+              terminal.renderOptions();
+            },
+            onclick: () => {
+              terminal.acceptCompletion(word);
+            },
           },
           i === selectedIndex
         )
@@ -188,6 +208,10 @@ export const terminal = (() => {
         terminal.acceptCompletion();
       }
     },
+    onEscape: () => {
+      terminal.resetState();
+      select(".suggestion").hide();
+    },
     onTab: (e) => {
       e.preventDefault();
       terminal.acceptCompletion();
@@ -216,6 +240,11 @@ export const terminal = (() => {
           prediction: "",
         });
       }
+
+      // escape
+      if (e.keyCode === 27) {
+        terminal.onEscape(e);
+      }
     },
     onKeyUp: (e) => {
       const currentlySavedNote = getNote();
@@ -236,7 +265,7 @@ export const terminal = (() => {
       }
     },
     init: function () {
-      select(".suggestion").listen("click", terminal.acceptCompletion);
+      // select(".suggestion").listen("click", terminal.acceptCompletion);
       this.el
         .listen("focus", this.onFocus)
         .listen("input", this.onInput)

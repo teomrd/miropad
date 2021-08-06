@@ -38,6 +38,14 @@ const storage = (() => {
       const savedTxt = localStorage.getItem("__dictionary__");
       return savedTxt ? JSON.parse(savedTxt) : [];
     },
+    removeFromDictionary: function (word) {
+      const currentDictionary = this.getDictionary();
+      const newDictionary = currentDictionary.filter((w) => {
+        return w !== word;
+      });
+
+      localStorage.setItem("__dictionary__", JSON.stringify(newDictionary));
+    },
     saveToDictionary: async function (what) {
       if (what.length) {
         try {

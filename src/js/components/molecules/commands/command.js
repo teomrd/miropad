@@ -1,21 +1,27 @@
 import { isElement } from "../../../utils/dom";
 
 export const command = (
-  { title, secondary, onclick, icon },
+  { title, secondary, onclick, onSecondaryClick, icon },
   selected = false
 ) => {
   const li = document.createElement("LI");
   li.className = selected ? "selected" : "";
-  li.onclick = onclick;
   if (icon) {
     const iconClone = icon.cloneNode(true);
     li.appendChild(iconClone);
   }
-  li.appendChild(isElement(title) ? title : document.createTextNode(title));
+  const liContent = isElement(title) ? title : document.createTextNode(title);
+  liContent.onclick = onclick;
+  li.appendChild(liContent);
+
   const span = document.createElement("span");
   if (secondary) {
     span.className = "secondary";
-    span.appendChild(document.createTextNode(`${secondary}`));
+    const secondaryElement = isElement(secondary)
+      ? secondary
+      : document.createTextNode(secondary);
+    secondaryElement.onclick = onSecondaryClick;
+    span.appendChild(secondaryElement);
   }
   li.appendChild(span);
 
