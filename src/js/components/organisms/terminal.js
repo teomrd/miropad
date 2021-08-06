@@ -68,9 +68,8 @@ export const terminal = (() => {
         ? isLastOption
           ? 0
           : currentlySelected + 1
-        : isFirstOption
-          ? lastOption
-          : currentlySelected - 1;
+        : // eslint-disable-next-line prettier/prettier
+        isFirstOption ? lastOption : currentlySelected - 1;
 
       state.options = {
         ...state.options,
@@ -188,6 +187,10 @@ export const terminal = (() => {
         terminal.acceptCompletion();
       }
     },
+    onEscape: () => {
+      terminal.resetState();
+      select(".suggestion").hide();
+    },
     onTab: (e) => {
       e.preventDefault();
       terminal.acceptCompletion();
@@ -215,6 +218,11 @@ export const terminal = (() => {
         terminal.setState({
           prediction: "",
         });
+      }
+
+      // escape
+      if (e.keyCode === 27) {
+        terminal.onEscape(e);
       }
     },
     onKeyUp: (e) => {
