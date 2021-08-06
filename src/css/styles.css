@@ -755,10 +755,22 @@ ul.options li {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  opacity: .25;
   padding: 0 8px;
   cursor: pointer;
   font-size: smaller;
+}
+
+ul.options li div {
+  opacity: .25;
+}
+
+ul.options li.selected div,
+ul.options li div:hover {
+  opacity: 1;
+}
+
+ul.options li .secondary:hover {
+  opacity: 1;
 }
 
 ul.options li.selected {
