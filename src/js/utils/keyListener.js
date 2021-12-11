@@ -1,8 +1,13 @@
 const keyListener = {
   events: [],
   on(key, fn) {
-    if (typeof key === "object" && typeof fn === "undefined") {
-      key.map((k) => this.on(k.key, k.call));
+    if (Array.isArray(key)) {
+      key.forEach((k) => {
+        const finalKey = k.key || k;
+        const functionToCall = k.call || fn;
+        this.on(finalKey, functionToCall);
+      });
+
       return this;
     }
 
@@ -18,7 +23,6 @@ const keyListener = {
         },
       ];
     }
-
     return this;
   },
   listen() {

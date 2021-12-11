@@ -73,7 +73,7 @@ export const commands = () => {
       icon: icon(PencilSVG, "new note"),
       sortTitle: "New",
       key: "n",
-      call: () => resetNoteManager(),
+      call: resetNoteManager,
     },
     {
       title: "Save",
@@ -124,7 +124,7 @@ export const commands = () => {
       key: "shift d",
       icon: icon(TrashSVG, "delete note"),
       sortTitle: "Delete",
-      call: () => deleteNote(),
+      call: deleteNote,
     },
     {
       title: getSyncTitle(),
@@ -242,7 +242,7 @@ export const commands = () => {
     {
       title: "Toggle command palette",
       icon: icon(RocketSVG, "toggle command palette"),
-      key: "shift p",
+      key: ["shift p", "k"],
       call: () => commander.toggle(commander.getModes().commands),
     },
     {

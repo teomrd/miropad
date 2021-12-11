@@ -17,6 +17,14 @@ import { button } from "../../atoms/button/button";
 import { requestNotificationPermission } from "../../../registerServiceWorker";
 import storage from "../../../utils/localstorage";
 
+const getShortcut = (key) => {
+  if (Array.isArray(key)) {
+    return key.map((k) => getShortcut(k)).join(", ");
+  }
+
+  return key ? `⌘+${key.toUpperCase()}` : "";
+};
+
 const commander = (() => {
   const commanderModes = {
     off: "off",
@@ -284,12 +292,11 @@ const commander = (() => {
           return storage.get("__experimental__") ? true : !experimental;
         })
         .map(({ title, key, call, icon }, i) => {
-          const keyCompo = key ? `⌘+${key.toUpperCase()}` : "";
           const commandComponent = command(
             {
               title: div({ content: title, highlight: value }),
               icon: icon,
-              secondary: keyCompo,
+              secondary: getShortcut(key),
               onclick: call,
             },
             i === indexToSelect
