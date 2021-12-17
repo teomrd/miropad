@@ -207,6 +207,7 @@ header .logo:active {
   padding: 10px;
   height: 100%;
   overflow-y: auto;
+  margin: auto;
 }
 .preview .cover {
   background-position: center;
