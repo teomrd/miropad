@@ -341,7 +341,7 @@ header .logo:active {
 /****** commander *********/
 
 .commander {
-  top: 1px;
+  top: 0;
   position: absolute;
   z-index: 10;
   display: flex;
@@ -354,16 +354,21 @@ header .logo:active {
   right: 0;
 }
 
+@media only screen and (min-width: 600px) {
+  .commander {
+    top: 20%;
+  }
+}
+
 .commander .palette {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 8px 8px 0 8px;
+  padding: 12px 12px;
   display: flex;
   flex-direction: column;
   max-height: 100vh;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 }
 
 .commander .palette>div {
