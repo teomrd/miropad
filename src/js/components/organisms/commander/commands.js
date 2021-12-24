@@ -270,7 +270,7 @@ export const commands = () => {
           );
         const valueToFind = prompt("What do you wanna find?", selectedValue);
         if (!valueToFind) {
-          return this;
+          return notify.info("Value not found");
         }
         const positionOfFirstChar = select(".terminal")
           .getValue()
