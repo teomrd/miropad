@@ -357,6 +357,7 @@ header .logo:active {
 @media only screen and (min-width: 600px) {
   .commander {
     top: 20%;
+    max-height: 60vh;
   }
 }
 
