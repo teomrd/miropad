@@ -162,7 +162,7 @@ const commander = (() => {
           // enter
           if (e.keyCode === 13) {
             if (state.mode === commanderModes.commands) {
-              select("#commands li.selected").click();
+              select("#commands li.selected div").click();
             } else {
               select("#commands li.selected a").click();
             }
