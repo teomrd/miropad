@@ -45,6 +45,7 @@ import RocketSVG from "../../../../assets/svg/rocket.svg";
 import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
 import PencilSVG from "../../../../assets/svg/pencil.svg";
 import ShareSVG from "../../../../assets/svg/exit-up.svg";
+import LeafSVG from "../../../../assets/svg/leaf.svg";
 import { share } from "../../../utils/webShare";
 
 const getSyncTitle = () => {
@@ -109,6 +110,16 @@ export const commands = () => {
       key: "shift m",
       call: () => {
         markDownViewer.toggle("full");
+        commander.hide();
+      },
+    },
+    {
+      title: "Zen mode",
+      icon: icon(LeafSVG, "zen mode"),
+      sortTitle: "Zen mode",
+      key: "shift z",
+      call: () => {
+        select("header").toggle();
         commander.hide();
       },
     },
