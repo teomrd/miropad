@@ -238,6 +238,7 @@ header .logo:active {
   padding: 45px;
 }
 .preview.markdown-body {
+  margin: auto;
   padding-bottom: 50px;
 }
 
