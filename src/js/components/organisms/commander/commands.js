@@ -25,7 +25,7 @@ import notify from "../../molecules/notify";
 import ipfs from "../../../utils/ipfs";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { sleep } from "../../../utils/sleep";
-import { updateGist } from "../../../utils/github/api";
+import { updateGist, publishGist } from "../../../utils/github/api";
 import { icon } from "../../atoms/icon/icon";
 import ListSVG from "../../../../assets/svg/list.svg";
 import TrashSVG from "../../../../assets/svg/trash.svg";
@@ -90,6 +90,32 @@ export const commands = () => {
           updateGist([note]);
         }
         select("#save").removeClass("unsaved");
+      },
+    },
+    {
+      title: "Share public link",
+      key: null,
+      icon: icon(ShareSVG, "share"),
+      sortTitle: "Share",
+      call: async () => {
+        commander.hide();
+        await saveNote(select(".terminal").getValue());
+        select("#save").removeClass("unsaved");
+        const note = getNote();
+        const response = await publishGist({
+          note,
+        });
+        const rawLink = response.history[0].url;
+        const gitResponse = await fetch(rawLink).then((response) =>
+          response.json()
+        );
+        const { files } = gitResponse;
+        const fileContents = Object.values(files);
+        const [gistFile] = fileContents;
+        const { raw_url: rawUrl } = gistFile;
+        const linkToShare = `${url.baseUrl}?raw=${rawUrl}`;
+        const successMessage = "MiroPad public link copied to clipboard 📋!";
+        copyToClipboard(linkToShare, successMessage);
       },
     },
     ...(navigator.share ? [shareNoteCommand] : []),

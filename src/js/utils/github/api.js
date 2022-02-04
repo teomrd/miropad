@@ -148,3 +148,35 @@ export const getAuthToken = (code, state) =>
     .then((responseAsJson) => {
       return responseAsJson;
     });
+
+export const publishGist = ({
+  note,
+  token = storage.get("authToken"),
+} = {}) => {
+  return fetch("https://api.github.com/gists", {
+    method: "POST",
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      files: {
+        [note.id]: {
+          content: note.text,
+        },
+      },
+      description: "MiroPad Gist",
+      public: true,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    })
+    .then((responseAsJson) => {
+      return responseAsJson;
+    });
+};

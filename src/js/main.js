@@ -15,6 +15,7 @@ import { url } from "./utils/urlManager";
 import { copyToClipboard } from "./utils/copyToClipboard";
 import markDownViewer from "./components/organisms/markdown/markDownViewer";
 import commander from "./components/organisms/commander/commander";
+import { getGist } from "./utils/github/api";
 import {
   syncNotesWithGitHub,
   setAuthTokenFromCallback,
@@ -27,7 +28,34 @@ import notify from "./components/molecules/notify";
 import { resetPageTitle } from "./utils/pageTitle";
 import { relativeDate } from "./utils/dates";
 
-const actOnURLStateChange = (e = {}) => {
+const setNoteFromRawUrl = async (rawUrl) => {
+  if (rawUrl) {
+    const response = await fetch(rawUrl).then((response) => {
+      if (response.ok) return response.text();
+      throw new Error(
+        `Remote note could not be retrieved! code: ${response.status}`
+      );
+    });
+    select(".terminal").setValue(response);
+  }
+};
+
+const setNoteFromGist = async (gistId) => {
+  if (gistId) {
+    try {
+      const gist = await getGist(gistId);
+      const { files } = gist;
+      const fileContents = Object.values(files);
+      const [gistFile] = fileContents;
+      const { content } = gistFile;
+      select(".terminal").setValue(content);
+    } catch (error) {
+      notify.error("MiroPad note not found! 🤷‍♂️");
+    }
+  }
+};
+
+const actOnURLStateChange = async (e = {}) => {
   try {
     const { oldURL, newURL } = e;
     const oldPageId = url.getPageId(oldURL);
@@ -37,9 +65,13 @@ const actOnURLStateChange = (e = {}) => {
     const { v: newV } = url.getParamsObject(newURL);
     const hasPageVersionChanged = oldV !== newV;
     const shouldChangeNote = [hasPageIdChanged, hasPageVersionChanged].some(
-      (r) => r === true
+      (r) => r
     );
     if (shouldChangeNote) setNoteFromHash();
+
+    const { gistId, raw } = url.getParamsObject(newURL);
+    await setNoteFromGist(gistId);
+    await setNoteFromRawUrl(raw);
   } catch (e) {
     notify.error(e.message);
   }
