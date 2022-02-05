@@ -7,6 +7,7 @@ import {
 } from "../noteManager/noteManager";
 import select from "../../../utils/dom";
 import storage from "../../../utils/localstorage";
+import { isUserLoggedIn } from "../../../utils/isUserLoggedIn";
 import {
   goAuthenticate,
   setGistToSyncWith,
@@ -67,6 +68,33 @@ const shareNoteCommand = {
   call: share,
 };
 
+const sharePublicLinkCommand = {
+  title: "Share public link",
+  key: null,
+  icon: icon(ShareSVG, "share"),
+  sortTitle: "Share",
+  call: async () => {
+    commander.hide();
+    await saveNote(select(".terminal").getValue());
+    select("#save").removeClass("unsaved");
+    const note = getNote();
+    const response = await publishGist({
+      note,
+    });
+    const rawLink = response.history[0].url;
+    const gitResponse = await fetch(rawLink).then((response) =>
+      response.json()
+    );
+    const { files } = gitResponse;
+    const fileContents = Object.values(files);
+    const [gistFile] = fileContents;
+    const { raw_url: rawUrl } = gistFile;
+    const linkToShare = `${url.baseUrl}?raw=${rawUrl}`;
+    const successMessage = "MiroPad public link copied to clipboard 📋!";
+    copyToClipboard(linkToShare, successMessage);
+  },
+};
+
 export const commands = () => {
   return [
     {
@@ -92,32 +120,7 @@ export const commands = () => {
         select("#save").removeClass("unsaved");
       },
     },
-    {
-      title: "Share public link",
-      key: null,
-      icon: icon(ShareSVG, "share"),
-      sortTitle: "Share",
-      call: async () => {
-        commander.hide();
-        await saveNote(select(".terminal").getValue());
-        select("#save").removeClass("unsaved");
-        const note = getNote();
-        const response = await publishGist({
-          note,
-        });
-        const rawLink = response.history[0].url;
-        const gitResponse = await fetch(rawLink).then((response) =>
-          response.json()
-        );
-        const { files } = gitResponse;
-        const fileContents = Object.values(files);
-        const [gistFile] = fileContents;
-        const { raw_url: rawUrl } = gistFile;
-        const linkToShare = `${url.baseUrl}?raw=${rawUrl}`;
-        const successMessage = "MiroPad public link copied to clipboard 📋!";
-        copyToClipboard(linkToShare, successMessage);
-      },
-    },
+    ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
     ...(navigator.share ? [shareNoteCommand] : []),
     {
       title: "Toggle MarkDown Viewer",
