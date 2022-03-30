@@ -69,5 +69,25 @@ describe("trie data structure", () => {
 
       expect(t.getMatchingWords("a")).toEqual(["awake", "awe"]);
     });
+
+    it("should return an empty set of results, when no matching words", () => {
+      const t = Trie();
+      t.insert("awe");
+      t.insert("words");
+      t.insert("watch");
+      t.insert("watcher");
+      t.insert("awake");
+      t.insert("watching");
+      t.insert("watching");
+      t.insert("watching");
+      t.insert("words");
+      t.insert("where");
+      t.insert("where");
+      t.insert("was");
+
+      expect(t.search("o")).toEqual({});
+
+      expect(t.getMatchingWords("o")).toEqual([]);
+    });
   });
 });

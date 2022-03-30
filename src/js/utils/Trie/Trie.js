@@ -78,10 +78,10 @@ const Trie = () => {
     search: function (prefix = "") {
       let node = rootNode;
       prefix.split("").forEach((character) => {
-        node = node.children[character];
+        if (node) node = node.children[character];
       });
 
-      return node.getWords(prefix);
+      return node ? node.getWords(prefix) : {};
     },
     // get sorted matching words
     // first by frequency

@@ -27,6 +27,11 @@ import "../js/components/web-components/editable-list";
 import notify from "./components/molecules/notify";
 import { resetPageTitle } from "./utils/pageTitle";
 import { relativeDate } from "./utils/dates";
+import { Trie } from "./utils/Trie/Trie";
+import storage from "./utils/localstorage";
+
+// Initialize a Trie tree to be used for the predictions
+export const trieDictionary = Trie();
 
 const setNoteFromRawUrl = async (rawUrl) => {
   if (rawUrl) {
@@ -175,6 +180,12 @@ const initInfoPanel = () => {
 };
 
 const main = async () => {
+  // Insert all the saved data from dictionary to the Trie tree
+  const words = storage.getDictionary();
+  for (const word of words) {
+    trieDictionary.insert(word);
+  }
+
   window.addEventListener("error", errorHandler);
   welcomeUser();
   commander.init();

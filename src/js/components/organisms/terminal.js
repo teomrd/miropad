@@ -7,6 +7,7 @@ import { div } from "../atoms/div/div";
 import { command } from "../molecules/commands/command";
 import { icon } from "../atoms/icon/icon";
 import TrashSVG from "../../../assets/svg/trash.svg";
+import { trieDictionary } from "../../main";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -31,9 +32,8 @@ const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
 
 const getPredictions = (word) => {
   const sanitizedWord = word.replace(/[\r\n\t]+/g, "").toLowerCase();
-  const dictionary = storage.getDictionary();
 
-  return dictionary.filter((word) => word.startsWith(sanitizedWord));
+  return trieDictionary.getMatchingWords(sanitizedWord);
 };
 
 export const terminal = (() => {
@@ -97,12 +97,15 @@ export const terminal = (() => {
       };
 
       const { prediction, currentWord } = state;
+
       if (word) {
         return complete(word, currentWord);
       }
 
       if (prediction) {
         complete(prediction, currentWord);
+        // +1 to the score of the word autocompleted
+        trieDictionary.insert(prediction);
       }
     },
     renderInlineSuggestion: () => {
