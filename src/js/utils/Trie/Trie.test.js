@@ -13,15 +13,17 @@ describe("trie data structure", () => {
   describe("search with prefix", () => {
     it("should return all the words matching the given prefix", () => {
       const t = Trie();
-      t.insert("watch");
-      t.insert("watcher");
-      t.insert("watching");
-      t.insert("watching");
-      t.insert("where");
-      t.insert("where");
-      t.insert("was");
+      const lexicon = [
+        "watch",
+        "watcher",
+        "watching",
+        "watching",
+        "where",
+        "where",
+        "was",
+      ];
 
-      expect(t.search("wa")).toEqual({
+      expect(t.insert(lexicon).search("wa")).toEqual({
         watching: 2,
         watcher: 1,
         watch: 1,
@@ -31,18 +33,18 @@ describe("trie data structure", () => {
 
     it("should return all the words matching the given prefix", () => {
       const t = Trie();
-      t.insert("awe");
-      t.insert("words");
-      t.insert("watch");
-      t.insert("watcher");
-      t.insert("awake");
-      t.insert("watching");
-      t.insert("watching");
-      t.insert("watching");
-      t.insert("words");
-      t.insert("where");
-      t.insert("where");
-      t.insert("was");
+      t.insert("awe")
+        .insert("words")
+        .insert("watch")
+        .insert("watcher")
+        .insert("awake")
+        .insert("watching")
+        .insert("watching")
+        .insert("watching")
+        .insert("words")
+        .insert("where")
+        .insert("where")
+        .insert("was");
 
       expect(t.search("w")).toEqual({
         watching: 3,
@@ -72,18 +74,18 @@ describe("trie data structure", () => {
 
     it("should return an empty set of results, when no matching words", () => {
       const t = Trie();
-      t.insert("awe");
-      t.insert("words");
-      t.insert("watch");
-      t.insert("watcher");
-      t.insert("awake");
-      t.insert("watching");
-      t.insert("watching");
-      t.insert("watching");
-      t.insert("words");
-      t.insert("where");
-      t.insert("where");
-      t.insert("was");
+      t.insert("awe")
+        .insert("words")
+        .insert("watch")
+        .insert("watcher")
+        .insert("awake")
+        .insert("watching")
+        .insert("watching")
+        .insert("watching")
+        .insert("words")
+        .insert("where")
+        .insert("where")
+        .insert("was");
 
       expect(t.search("o")).toEqual({});
 

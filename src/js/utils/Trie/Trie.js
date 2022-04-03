@@ -71,9 +71,10 @@ const Trie = () => {
   const rootNode = Node();
 
   return {
-    insert: function (word = "") {
-      rootNode.insert(word);
-      return rootNode;
+    insert: function (word = []) {
+      const words = Array.isArray(word) ? word : [word];
+      words.forEach((word) => rootNode.insert(word));
+      return this;
     },
     search: function (prefix = "") {
       let node = rootNode;
