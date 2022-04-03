@@ -182,9 +182,7 @@ const initInfoPanel = () => {
 const main = async () => {
   // Insert all the saved data from dictionary to the Trie tree
   const words = storage.getDictionary();
-  for (const word of words) {
-    trieDictionary.insert(word);
-  }
+  trieDictionary.insert(words);
 
   window.addEventListener("error", errorHandler);
   welcomeUser();
