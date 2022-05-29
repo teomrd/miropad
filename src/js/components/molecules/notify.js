@@ -31,7 +31,7 @@ const Notification = (autohideDuration = 5) => ({
       cleanNotificationClasses();
     }, this.autohideDuration * 1000);
   },
-  showNotification(message, type) {
+  showNotification(message, type = notificationTypes.info) {
     cleanNotificationClasses();
     notification.innerHTML(message).addClass(type);
     clearTimeout(this.timer);

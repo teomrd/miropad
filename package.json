@@ -21,7 +21,7 @@
     "jest": "^27.5.1",
     "prettier": "^2.6.2",
     "serve": "^13.0.2",
-    "workbox-cli": "^6.5.2"
+    "workbox-cli": "^6.5.3"
   },
   "dependencies": {
     "cids": "^1.1.9",

@@ -37,6 +37,7 @@ import CloudUploadSVG from "../../../../assets/svg/cloud-upload.svg";
 import EnterDownSVG from "../../../../assets/svg/enter-down.svg";
 import DownloadSVG from "../../../../assets/svg/download.svg";
 import EnvelopeSVG from "../../../../assets/svg/envelope.svg";
+import BugSVG from "../../../../assets/svg/bug.svg";
 import PictureSVG from "../../../../assets/svg/picture.svg";
 import PrinterSVG from "../../../../assets/svg/printer.svg";
 import PageBreakSVG from "../../../../assets/svg/page-break.svg";
@@ -71,8 +72,8 @@ const shareNoteCommand = {
 const sharePublicLinkCommand = {
   title: "Share public link",
   key: null,
-  icon: icon(ShareSVG, "share"),
-  sortTitle: "Share",
+  icon: icon(ShareSVG, "share public link"),
+  sortTitle: "Share public link",
   call: async () => {
     commander.hide();
     await saveNote(select(".terminal").getValue());
@@ -120,7 +121,6 @@ export const commands = () => {
         select("#save").removeClass("unsaved");
       },
     },
-    ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
     ...(navigator.share ? [shareNoteCommand] : []),
     {
       title: "Toggle MarkDown Viewer",
@@ -142,6 +142,7 @@ export const commands = () => {
         commander.hide();
       },
     },
+    ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
     {
       title: "Zen mode",
       icon: icon(LeafSVG, "zen mode"),
@@ -236,6 +237,25 @@ export const commands = () => {
           document.querySelector(".terminal").value
         } \n ${url.get()}`;
         mailTo(note);
+        commander.hide();
+      },
+    },
+    {
+      title: "Toggle experimental features",
+      experimental: false,
+      icon: icon(BugSVG, "lab"),
+      key: null,
+      call: () => {
+        const previousStatus = Boolean(storage.get("__experimental__"));
+
+        if (previousStatus) {
+          storage.remove("__experimental__");
+        } else {
+          storage.set("__experimental__", true);
+        }
+        notify.showNotification(
+          `Experimental features turned ${previousStatus ? "off" : "on"}`
+        );
         commander.hide();
       },
     },
