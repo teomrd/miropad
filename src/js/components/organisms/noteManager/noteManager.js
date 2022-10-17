@@ -1,13 +1,12 @@
 /* eslint-disable indent */
-import storage from "../../../utils/localstorage";
 import select from "../../../utils/dom";
-import { setPageTitle, resetPageTitle } from "../../../utils/pageTitle";
-import hashBrowser from "../../../utils/hashBrowser";
-import notify from "../../molecules/notify";
-import { url } from "../../../utils/urlManager";
-import isJSON from "../../../utils/isJSON";
-import ipfs, { retrieveFromIPFS } from "../../../utils/ipfs";
 import { deleteFileOnGist } from "../../../utils/github/api";
+import hashBrowser from "../../../utils/hashBrowser";
+import isJSON from "../../../utils/isJSON";
+import storage from "../../../utils/localstorage";
+import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle";
+import { url } from "../../../utils/urlManager";
+import notify from "../../molecules/notify";
 import commander from "../commander/commander";
 
 const encodeTitle = (title) => {
@@ -79,27 +78,21 @@ export const disableSyncOnCurrentNote = (value) => {
 
 export const setNoteFromHash = async (hash = url.getPageId()) => {
   if (hash) {
-    if (ipfs.isValidCid(hash)) {
-      retrieveFromIPFS(hash);
-    } else {
-      const version = url.getSearchParam("v");
-      const note = getNote(undefined, version);
-      if (note) {
-        select("#revisions").html(
-          `${note.numberOfRevisions} revision${
-            note.numberOfRevisions > 1 ? "s" : ""
-          }`
-        );
-        setPageTitle(note.title);
-        select(".terminal").setValue(note.text);
-      }
-      const cid = url.getSearchParam("cid");
-      if (cid && ipfs.isValidCid(cid)) {
-        retrieveFromIPFS(cid);
-      }
-      if (!note && !cid) {
-        notify.error("404 Note not found 🤷‍♂️");
-      }
+    const version = url.getSearchParam("v");
+    const note = getNote(undefined, version);
+    if (note) {
+      select("#revisions").html(
+        `${note.numberOfRevisions} revision${
+          note.numberOfRevisions > 1 ? "s" : ""
+        }`
+      );
+      setPageTitle(note.title);
+      select(".terminal").setValue(note.text);
+    }
+    const cid = url.getSearchParam("cid");
+
+    if (!note && !cid) {
+      notify.error("404 Note not found 🤷‍♂️");
     }
   }
 };

@@ -23,7 +23,6 @@ import {
 import { registerServiceWorker } from "./registerServiceWorker";
 import { terminal } from "./components/organisms/terminal";
 import { isSyncEnabled } from "./isSyncEnabled";
-import "../js/components/web-components/editable-list";
 import notify from "./components/molecules/notify";
 import { resetPageTitle } from "./utils/pageTitle";
 import { relativeDate } from "./utils/dates";

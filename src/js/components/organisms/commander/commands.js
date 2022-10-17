@@ -23,7 +23,6 @@ import { mailTo } from "../../../utils/mail";
 import markDownViewer from "../markdown/markDownViewer";
 import prettifyJSON from "../../../utils/prettifyJSON";
 import notify from "../../molecules/notify";
-import ipfs from "../../../utils/ipfs";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { sleep } from "../../../utils/sleep";
 import { updateGist, publishGist } from "../../../utils/github/api";
@@ -33,7 +32,6 @@ import TrashSVG from "../../../../assets/svg/trash.svg";
 import CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
 import CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
 import LighterSVG from "../../../../assets/svg/lighter.svg";
-import CloudUploadSVG from "../../../../assets/svg/cloud-upload.svg";
 import EnterDownSVG from "../../../../assets/svg/enter-down.svg";
 import DownloadSVG from "../../../../assets/svg/download.svg";
 import EnvelopeSVG from "../../../../assets/svg/envelope.svg";
@@ -214,16 +212,6 @@ export const commands = () => {
         const { text, title } = getNote();
         await navigator.clipboard.writeText(title);
         saveFileAs(text);
-        commander.hide();
-      },
-    },
-    {
-      title: "Save to IPFS",
-      key: "i",
-      experimental: true,
-      icon: icon(CloudUploadSVG, "save to ipfs"),
-      call: () => {
-        ipfs.save(select(".terminal").getValue());
         commander.hide();
       },
     },
