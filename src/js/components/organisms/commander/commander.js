@@ -198,7 +198,7 @@ const commander = (() => {
           return bDateCreated - aDateCreated;
         })
         .map((id, i) => ({
-          title: `...${id.slice(-10)}`,
+          title: div({ content: `...${id.slice(-10)}` }),
           secondary: `${relativeDate(revisions[id].dateCreated)}`,
           onclick: () => {
             url.set(undefined, {

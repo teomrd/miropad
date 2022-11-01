@@ -12,6 +12,7 @@ import { updateNote } from "../../components/organisms/noteManager/noteManager";
 import notify from "../../components/molecules/notify";
 import { commands } from "../../components/molecules/commands/commands";
 import commander from "../../components/organisms/commander/commander";
+import { div } from "../../components/atoms/div/div";
 
 export const goAuthenticate = async () => {
   notify.info("You need to be authenticated!");
@@ -35,7 +36,7 @@ export const setGistToSyncWith = async (token) => {
         new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
     )
     .map(({ description, updated_at, id }) => ({
-      title: `${description}(${id})`,
+      title: div({ content: `${description}(${id})` }),
       secondary: updated_at,
       onclick: async () => {
         await storage.set("gistId", id);
