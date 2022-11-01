@@ -23,14 +23,15 @@ const Node = () => ({
   },
   getWords: function (prefix, dictionary = {}) {
     if (this.isWord()) {
-      // Super weirdly this DOES NOT work by adding the word
-      // in the object with the spread operator.
-      dictionary[prefix] = this.frequency;
+      dictionary = {
+        ...dictionary,
+        [prefix]: this.frequency,
+      };
     }
 
     if (this.hasChildren()) {
       for (const node of Object.values(this.children)) {
-        node.getWords(`${prefix}${node.char}`, dictionary);
+        dictionary = node.getWords(`${prefix}${node.char}`, dictionary);
       }
     }
 
