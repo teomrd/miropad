@@ -1,22 +1,19 @@
 import * as Automerge from "@automerge/automerge";
+import { setPageTitle } from "../../utils/pageTitle";
+import { encodeTitle } from "../../components/organisms/noteManager/noteManager";
 import storage from "../localforage";
 
 export const networkHandler = (() => {
   let doc = Automerge.init();
   return {
-    hello: function () {
-      console.log("Hello from Automerge", doc);
-    },
-    logActor: function () {
+    getActor: function () {
       let actorId = Automerge.getActorId(doc);
-      console.log(actorId);
+      return actorId;
     },
-    updateDoc: async function (newDoc) {
+    update: async function (id, newDoc) {
       doc = newDoc;
       let binary = Automerge.save(newDoc);
-      storage.set("some", binary);
-
-      this.render(doc);
+      storage.set(id, binary);
     },
     getDocById: async function (id) {
       let binary = await storage.get(id);
@@ -26,17 +23,18 @@ export const networkHandler = (() => {
         return doc;
       }
     },
-    addItem: function (text) {
+    updateDoc: function (text) {
       let newDoc = Automerge.change(doc, (doc) => {
-        if (!doc.items) doc.items = [];
-        doc.items.push({ text, done: false });
+        if (!doc.text) doc.text = "";
+        doc.text = text;
       });
-      console.log("newDoc", newDoc);
-      this.updateDoc(newDoc);
+
+      const title = text.split("\n")[0].trim().replace("#", "").trim();
+      setPageTitle(title);
+      const id = encodeTitle(title);
+
+      this.update(id, newDoc);
       return this;
-    },
-    render: function (doc) {
-      console.log("doc", doc);
     },
   };
 })();

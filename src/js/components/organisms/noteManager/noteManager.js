@@ -8,8 +8,9 @@ import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle";
 import { url } from "../../../utils/urlManager";
 import notify from "../../molecules/notify";
 import commander from "../commander/commander";
+import { networkHandler } from "../../../utils/network/automerge";
 
-const encodeTitle = (title) => {
+export const encodeTitle = (title) => {
   const encodedTitle = encodeURIComponent(title);
   if (encodedTitle.length === 0) {
     throw new Error("You need to start with a valid title for your note!");
@@ -77,24 +78,28 @@ export const disableSyncOnCurrentNote = (value) => {
 };
 
 export const setNoteFromHash = async (hash = url.getPageId()) => {
-  if (hash) {
-    const version = url.getSearchParam("v");
-    const note = getNote(undefined, version);
-    if (note) {
-      select("#revisions").html(
-        `${note.numberOfRevisions} revision${
-          note.numberOfRevisions > 1 ? "s" : ""
-        }`
-      );
-      setPageTitle(note.title);
-      select(".terminal").setValue(note.text);
-    }
-    const cid = url.getSearchParam("cid");
+  console.log("hash 👉", hash);
+  const myDoc = await networkHandler.getDocById(hash);
+  console.log("myDoc 👉", myDoc);
+  select(".terminal").setValue(myDoc.text);
 
-    if (!note && !cid) {
-      notify.error("404 Note not found 🤷‍♂️");
-    }
-  }
+  // if (hash) {
+  //   const version = url.getSearchParam("v");
+  //   const note = getNote(undefined, version);
+  //   if (note) {
+  //     select("#revisions").html(
+  //       `${note.numberOfRevisions} revision${
+  //         note.numberOfRevisions > 1 ? "s" : ""
+  //       }`
+  //     );
+  //     setPageTitle(note.title);
+  //     select(".terminal").setValue(note.text);
+  //   }
+  //   const cid = url.getSearchParam("cid");
+  //   if (!note && !cid) {
+  //     notify.error("404 Note not found 🤷‍♂️");
+  //   }
+  // }
 };
 
 export const resetNoteManager = () => {

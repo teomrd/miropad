@@ -14,6 +14,8 @@ import {
   syncNotesWithGitHub,
 } from "../../../utils/github/actions";
 import commander from "./commander";
+import { networkHandler } from "../../../utils/network/automerge";
+
 import {
   saveFileAs,
   saveDataToFile,
@@ -117,6 +119,8 @@ export const commands = () => {
           updateGist([note]);
         }
         select("#save").removeClass("unsaved");
+
+        await networkHandler.updateDoc(select(".terminal").getValue());
       },
     },
     ...(navigator.share ? [shareNoteCommand] : []),
