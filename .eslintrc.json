@@ -19,7 +19,7 @@
   },
   "plugins": ["prettier", "import", "jest"],
   "rules": {
-    "no-console": "error",
+    "no-console": "warn",
     "prettier/prettier": "error",
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],

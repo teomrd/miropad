@@ -78,9 +78,7 @@ export const disableSyncOnCurrentNote = (value) => {
 };
 
 export const setNoteFromHash = async (hash = url.getPageId()) => {
-  console.log("hash 👉", hash);
   const myDoc = await networkHandler.getDocById(hash);
-  console.log("myDoc 👉", myDoc);
   select(".terminal").setValue(myDoc.text);
 
   // if (hash) {
