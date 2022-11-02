@@ -30,6 +30,7 @@
     "workbox-cli": "^6.5.4"
   },
   "dependencies": {
+    "@automerge/automerge": "^2.0.0-beta.4",
     "automerge": "^2.0.0-alpha.3",
     "cids": "^1.1.9",
     "esbuild": "^0.14.42",
@@ -38,6 +39,7 @@
     "html-webpack-plugin": "^5.5.0",
     "ipfs": "^0.63.1",
     "ipfs-core": "^0.15.0",
+    "localforage": "^1.10.0",
     "multihashing-async": "^2.1.4",
     "rehype-document": "^6.0.1",
     "rehype-format": "^4.0.1",
