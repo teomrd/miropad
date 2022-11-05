@@ -39,6 +39,6 @@
   },
   "settings": {
     "import/resolver": "node",
-    "import/extensions": [".js"]
+    "import/extensions": [".js", ".ts"]
   }
 }
