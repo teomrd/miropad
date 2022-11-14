@@ -133,12 +133,15 @@ export const createNewGist = (token = storage.get("authToken")) => {
 };
 
 export const getAuthToken = (code, state) =>
-  fetch(`https://miropad.herokuapp.com/auth?state=${state}&code=${code}`, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
+  fetch(
+    `https://miropad-oauth-service.vercel.app/auth?state=${state}&code=${code}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  )
     .then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
