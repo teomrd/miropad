@@ -1,17 +1,34 @@
 import storage from "./localstorage";
 import notify from "../components/molecules/notify";
 
-const sendMail = (body, email, subject = "MiroPad note") => {
+const sendMail = async (body, email, subject = "MiroPad note") => {
   if (!body) {
     notify.error("👻No message to send, type something and try again! 🤓");
     return undefined;
   }
-  const mailLink = document.createElement("a");
-  mailLink.target = "_blank";
-  mailLink.href = `mailto:${email}?&subject=${subject}&body=${body}`;
-  document.body.appendChild(mailLink);
-  mailLink.click();
-  document.body.removeChild(mailLink);
+  try {
+    const response = fetch("https://miropad-oauth-service.vercel.app/mail", {
+      method: "POST",
+      headers: {
+        "x-secret-token": storage.get("MIROPAD_SECRET_TOKEN"),
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        to: email,
+        subject,
+        html: `${body}`,
+      }),
+    }).then((response) => response.json());
+
+    // eslint-disable-next-line no-console
+    console.log("email response 👉", response);
+    notify.info("Email sent 🚀");
+  } catch (error) {
+    notify.error(
+      "Error not went through 💥! Check your credentials and try again!"
+    );
+  }
 };
 
 const getUserMailingPreferences = () => {
