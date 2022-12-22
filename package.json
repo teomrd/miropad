@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "cids": "^1.1.9",
-    "esbuild": "^0.14.42",
+    "esbuild": "^0.16.10",
     "github-markdown-css": "^5.1.0",
     "global": "^4.4.0",
     "ipfs": "^0.63.1",
