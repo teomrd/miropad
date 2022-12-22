@@ -7,7 +7,7 @@ require("esbuild")
       entryPoints: ["src/index.js"],
       bundle: true,
       outdir: "dev",
-      target: ["es2020", "chrome87", "firefox85"],
+      target: ["es2020", "chrome100", "firefox100"],
       minify: true,
       sourcemap: true,
       loader: {
