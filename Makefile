@@ -10,7 +10,10 @@ install:
 dev: install build
 	yarn run dev
 
-audits: install build 
+checks: install
+	yarn run lint && yarn run test
+
+audits: install build
 	lhci autorun
 
 clean:
