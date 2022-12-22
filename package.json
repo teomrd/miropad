@@ -6,6 +6,7 @@
   "author": "teomrd <mironidis.gr@gmail.com>",
   "license": "GPL-3.0-only",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "start": "serve out",
     "dev": "scripts/dev.sh",
     "build": "scripts/build.sh",

@@ -5,13 +5,13 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 .PHONY : install dev audits deploy serve version build deploy clean
 
 install:
-	yarn install
+	pnpm install
 
 dev: install build
-	yarn run dev
+	pnpm run dev
 
 checks: install
-	yarn run lint && yarn run test
+	pnpm run lint && pnpm run test
 
 audits: install build
 	lhci autorun
