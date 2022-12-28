@@ -4,7 +4,6 @@ export const configuration = {
     request_state: "miro-pad",
   },
   mail_service: {
-    // api: "https://miropad-oauth-service.vercel.app/mail",
-    api: "http://localhost:5000/mail",
+    api: "https://miropad-oauth-service.vercel.app/mail",
   },
 };
