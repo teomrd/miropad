@@ -1,6 +1,7 @@
 import storage from "../localstorage";
 import { getNotes } from "../../components/organisms/noteManager/noteManager";
 import notify from "../../components/molecules/notify";
+import { configuration } from "../../../configuration";
 
 export const getGist = (id, token = storage.get("authToken")) =>
   fetch(`https://api.github.com/gists/${id}`, {
@@ -133,15 +134,12 @@ export const createNewGist = (token = storage.get("authToken")) => {
 };
 
 export const getAuthToken = (code, state) =>
-  fetch(
-    `https://miropad-oauth-service.vercel.app/auth?state=${state}&code=${code}`,
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  )
+  fetch(`${configuration.auth_service}?state=${state}&code=${code}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
     .then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
