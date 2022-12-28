@@ -9,7 +9,7 @@
     "preinstall": "npx only-allow pnpm",
     "start": "serve out",
     "dev": "scripts/dev.sh",
-    "build": "scripts/build.sh",
+    "build": "node ./scripts/esbuild.js",
     "test": "jest",
     "lint": "eslint --ext .js src"
   },
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "cids": "^1.1.9",
-    "esbuild": "^0.16.10",
+    "esbuild": "^0.16.11",
     "github-markdown-css": "^5.1.0",
     "global": "^4.4.0",
     "ipfs": "^0.65.0",

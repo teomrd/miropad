@@ -1,12 +1,16 @@
 /* eslint-disable quotes */
+/* globals process */
+/* eslint-disable no-console */
 
 require("esbuild")
   .serve(
-    {},
+    {
+      servedir: "dev",
+    },
     {
       entryPoints: ["src/index.js"],
       bundle: true,
-      outdir: "dev",
+      outfile: "dev/index.js",
       target: ["es2020", "chrome100", "firefox100"],
       minify: true,
       sourcemap: true,
@@ -23,8 +27,7 @@ require("esbuild")
       },
     }
   )
-  // eslint-disable-next-line no-unused-vars
-  .then((server) => {
-    // Call "stop" on the web server when you're done
-    // server.stop();
+  .catch((e) => {
+    console.log(e.message);
+    process.exit(1);
   });

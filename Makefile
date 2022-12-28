@@ -8,7 +8,7 @@ install:
 	pnpm install
 
 dev: install build
-	pnpm run dev
+	open http://localhost:8000 && pnpm run dev
 
 checks: install
 	pnpm run lint && pnpm run test
