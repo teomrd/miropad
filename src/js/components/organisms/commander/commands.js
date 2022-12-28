@@ -221,9 +221,7 @@ export const commands = () => {
       icon: icon(EnvelopeSVG, "email"),
       key: "e",
       call: () => {
-        const note = `${
-          document.querySelector(".terminal").value
-        } \n ${url.get()}`;
+        const note = document.querySelector(".terminal").value;
         mailTo(note);
         commander.hide();
       },
