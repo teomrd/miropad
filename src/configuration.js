@@ -5,5 +5,8 @@ export const configuration = {
   },
   mail_service: {
     api: "https://miropad-oauth-service.vercel.app/mail",
+    signature: `Theo Mironidis <br/>
+    Software Engineer <br/>
+    https://teomrd.github.io`,
   },
 };
