@@ -9,15 +9,13 @@
   "extends": [
     "eslint:recommended",
     "prettier",
-    "plugin:prettier/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:prettier/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["prettier", "import", "jest"],
+  "plugins": ["prettier", "jest"],
   "rules": {
     "no-console": "error",
     "prettier/prettier": "error",
@@ -25,7 +23,6 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
-    "import/prefer-default-export": "off",
     "no-cond-assign": "error",
     "no-constant-condition": "error",
     "no-unreachable": "error",
@@ -36,9 +33,5 @@
   "globals": {
     "TITLE_NAME": "readonly",
     "VERSION": "readonly"
-  },
-  "settings": {
-    "import/resolver": "node",
-    "import/extensions": [".js"]
   }
 }

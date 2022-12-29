@@ -10,4 +10,4 @@ export const configuration = {
     Software Engineer <br/>
     https://teomrd.github.io`,
   },
-};
+} as const;
