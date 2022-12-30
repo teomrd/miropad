@@ -20,6 +20,7 @@ require("esbuild")
       "process.env.NODE_ENV": '"development"',
       TITLE_NAME: JSON.stringify("✍️ MiroPad"),
       VERSION: JSON.stringify(require("../package.json").version),
+      global: "globalThis",
     },
   })
   .catch((e) => {
