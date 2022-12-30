@@ -47,7 +47,7 @@ import PencilSVG from "../../../../assets/svg/pencil.svg";
 import ShareSVG from "../../../../assets/svg/exit-up.svg";
 import LeafSVG from "../../../../assets/svg/leaf.svg";
 import { share } from "../../../utils/webShare";
-import { ipfs } from "../../../repositories/ipfs";
+import { ipfs } from "../../../Repositories/ipfs";
 
 const getSyncTitle = () => {
   const gistId = storage.get("gistId");
@@ -118,10 +118,26 @@ export const commands = () => {
           updateGist([note]);
         }
         select("#save").removeClass("unsaved");
+      },
+    },
+    {
+      title: "Save to IPFS",
+      key: "i",
+      icon: icon(CheckmarkCircleSVG, "save"),
+      sortTitle: "save->ipfs",
+      call: async () => {
+        commander.hide();
+        await saveNote(select(".terminal").getValue());
+        const note = getNote();
+        const { disableSync = false } = note;
+        if (!disableSync) {
+          updateGist([note]);
+        }
+        select("#save").removeClass("unsaved");
 
         if (note) {
           const cid = await ipfs.store(note.title, note.text);
-          console.log("cid string 👉", cid);
+          copyToClipboard(`${url.baseUrl}/?cid=${cid}`);
         }
       },
     },

@@ -1,18 +1,16 @@
 import { create } from "ipfs-core";
-import { Note } from "../components/organisms/noteManager/noteManager";
-import { base64 } from "multiformats/bases/base64";
+import { CID } from "../Entities/CID";
+import type { IPFS } from "ipfs-core-types";
 
 export const ipfs = (() => {
-  let ipfs;
+  let ipfs: IPFS;
 
   return {
     init: async () => {
       if (!ipfs) {
-        console.log("Initializing IPFS");
         ipfs = await create({
           repo: String(Math.random() + Date.now()),
         });
-        console.log("IPFS initialized ✅");
       }
     },
     store: async function (filename: string, content: any): Promise<string> {
@@ -25,10 +23,10 @@ export const ipfs = (() => {
 
       const file = await ipfs.add(fileToAdd);
       const { cid } = file;
-      console.log("cid 👉", cid);
-      return cid.toV1().toString(base64.encoder);
+
+      return CID.toString(cid);
     },
-    retrieve: async function (cid: string) {
+    retrieve: async function (cid: any) {
       await this.init();
       const decoder = new TextDecoder();
       let content = "";
@@ -38,7 +36,6 @@ export const ipfs = (() => {
           stream: true,
         });
       }
-      console.log("content 👉", content);
       return content;
     },
   };
