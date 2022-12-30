@@ -1,45 +1,45 @@
-import { create } from 'ipfs-core';
+import { create } from "ipfs-core";
+import { Note } from "../components/organisms/noteManager/noteManager";
+import { base64 } from "multiformats/bases/base64";
 
 export const ipfs = (() => {
   let ipfs;
 
   return {
     init: async () => {
-      if(!ipfs) {
+      if (!ipfs) {
         console.log("Initializing IPFS");
         ipfs = await create({
           repo: String(Math.random() + Date.now()),
-        })
+        });
         console.log("IPFS initialized ✅");
       }
     },
-    store: async function (data =  'Hello, Theo') {
+    store: async function (filename: string, content: any): Promise<string> {
       await this.init();
 
       const fileToAdd = {
-        path: `1.txt`,
-        content: data
+        path: filename,
+        content,
       };
 
       const file = await ipfs.add(fileToAdd);
-      console.log('file 👉', file);
-
       const { cid } = file;
-      console.log('cid 👉', cid);
-      return cid;
+      console.log("cid 👉", cid);
+      return cid.toV1().toString(base64.encoder);
     },
-    retrieve: async function (cid: string = 'QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A') {
+    retrieve: async function (cid: string) {
       await this.init();
       const decoder = new TextDecoder();
-      let content = ''
+      let content = "";
 
       for await (const chunk of ipfs.cat(cid)) {
         content += decoder.decode(chunk, {
-          stream: true
+          stream: true,
         });
       }
-      console.log('content 👉', content);
-      return content
-    }
-  }
+      console.log("content 👉", content);
+      return content;
+    },
+  };
 })();

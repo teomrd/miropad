@@ -47,7 +47,7 @@ import PencilSVG from "../../../../assets/svg/pencil.svg";
 import ShareSVG from "../../../../assets/svg/exit-up.svg";
 import LeafSVG from "../../../../assets/svg/leaf.svg";
 import { share } from "../../../utils/webShare";
-import { ipfs } from "../../ipfs";
+import { ipfs } from "../../../repositories/ipfs";
 
 const getSyncTitle = () => {
   const gistId = storage.get("gistId");
@@ -119,8 +119,10 @@ export const commands = () => {
         }
         select("#save").removeClass("unsaved");
 
-        // ipfs.store();
-        ipfs.retrieve();
+        if (note) {
+          const cid = await ipfs.store(note.title, note.text);
+          console.log("cid string 👉", cid);
+        }
       },
     },
     ...(navigator.share ? [shareNoteCommand] : []),

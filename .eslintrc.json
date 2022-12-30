@@ -9,13 +9,15 @@
   "extends": [
     "eslint:recommended",
     "prettier",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["prettier", "jest"],
+  "plugins": ["prettier", "jest", "@typescript-eslint"],
   "rules": {
     "no-console": "error",
     "prettier/prettier": "error",

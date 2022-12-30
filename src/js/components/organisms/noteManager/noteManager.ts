@@ -36,7 +36,23 @@ export const markNoteForDeletion = (id) => {
   );
 };
 
-export const getNote = (titleID = url.getPageId(), revision) => {
+export type Note = {
+  id: string;
+  title: string;
+  text: string;
+  dateCreated: number;
+  deleted: boolean;
+  lines: Array<string>;
+  numberOfRevisions: number;
+  revisions: {
+    [key: string]: {
+      text: string;
+      dateCreated: number;
+    };
+  };
+};
+
+export const getNote = (titleID = url.getPageId(), revision): Note | null => {
   let doc;
   try {
     doc = JSON.parse(storage.get(titleID));
@@ -49,7 +65,8 @@ export const getNote = (titleID = url.getPageId(), revision) => {
 
   const newerNote = doc
     ? Object.values(doc.revisions).reduce(
-        (acc, note) => (note.dateCreated > acc.dateCreated ? note : acc),
+        (acc: any, note: any) =>
+          note.dateCreated > acc.dateCreated ? note : acc,
         { dateCreated: 0 }
       )
     : {};
