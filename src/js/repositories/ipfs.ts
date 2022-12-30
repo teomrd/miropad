@@ -13,7 +13,7 @@ export const ipfs = (() => {
         });
       }
     },
-    store: async function (filename: string, content: any): Promise<string> {
+    store: async function (filename: string, content): Promise<string> {
       await this.init();
 
       const fileToAdd = {
@@ -26,7 +26,7 @@ export const ipfs = (() => {
 
       return CID.toString(cid);
     },
-    retrieve: async function (cid: any) {
+    retrieve: async function (cid) {
       await this.init();
       const decoder = new TextDecoder();
       let content = "";

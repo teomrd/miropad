@@ -106,9 +106,8 @@ export const setNoteFromHash = async (hash = url.getPageId()) => {
       setPageTitle(note.title);
       select(".terminal").setValue(note.text);
     }
-    const cid = url.getSearchParam("cid");
 
-    if (!note && !cid) {
+    if (!note) {
       notify.error("404 Note not found 🤷‍♂️");
     }
   }
@@ -166,7 +165,10 @@ export const updateNote = async (what) => {
   }
 };
 
-export const saveNote = async (what = select(".terminal").getValue(), cid) => {
+export const saveNote = async (
+  what = select(".terminal").getValue(),
+  cid?: string
+) => {
   await storage.saveToDictionary(what);
   if (what.length) {
     const hash = await hashBrowser(what);

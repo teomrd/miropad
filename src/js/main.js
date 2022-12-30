@@ -1,33 +1,34 @@
-import "../css/styles.css";
-import "../css/print.css";
 import "github-markdown-css";
-import welcomeUser from "./components/molecules/welcome";
-import errorHandler from "./utils/errorHandler";
-import select from "./utils/dom";
-import {
-  setNoteFromHash,
-  search,
-  getNote,
-  disableSyncOnCurrentNote,
-  deleteNote,
-} from "./components/organisms/noteManager/noteManager";
-import { url } from "./utils/urlManager";
-import { copyToClipboard } from "./utils/copyToClipboard";
-import markDownViewer from "./components/organisms/markdown/markDownViewer";
-import commander from "./components/organisms/commander/commander";
-import { getGist } from "./utils/github/api";
-import {
-  syncNotesWithGitHub,
-  setAuthTokenFromCallback,
-} from "./utils/github/actions";
-import { registerServiceWorker } from "./registerServiceWorker";
-import { terminal } from "./components/organisms/terminal";
-import { isSyncEnabled } from "./isSyncEnabled";
+import "../css/print.css";
+import "../css/styles.css";
 import notify from "./components/molecules/notify";
-import { resetPageTitle } from "./utils/pageTitle";
+import welcomeUser from "./components/molecules/welcome";
+import commander from "./components/organisms/commander/commander";
+import markDownViewer from "./components/organisms/markdown/markDownViewer";
+import {
+  deleteNote,
+  disableSyncOnCurrentNote,
+  getNote,
+  search,
+  setNoteFromHash,
+} from "./components/organisms/noteManager/noteManager";
+import { terminal } from "./components/organisms/terminal";
+import { retrieveNoteFromIPFS } from "./Functions/retrieveNoteFromIPFS";
+import { isSyncEnabled } from "./isSyncEnabled";
+import { registerServiceWorker } from "./registerServiceWorker";
+import { copyToClipboard } from "./utils/copyToClipboard";
 import { relativeDate } from "./utils/dates";
-import { Trie } from "./utils/Trie/Trie";
+import select from "./utils/dom";
+import errorHandler from "./utils/errorHandler";
+import {
+  setAuthTokenFromCallback,
+  syncNotesWithGitHub,
+} from "./utils/github/actions";
+import { getGist } from "./utils/github/api";
 import storage from "./utils/localstorage";
+import { resetPageTitle } from "./utils/pageTitle";
+import { Trie } from "./utils/Trie/Trie";
+import { url } from "./utils/urlManager";
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
@@ -91,7 +92,7 @@ const actOnURLStateChange = async (e = {}) => {
   }
 
   if (url.getSearchParam("cid")) {
-    select(".anchor").show();
+    await retrieveNoteFromIPFS(url.getSearchParam("cid"));
   } else {
     select(".anchor").hide();
   }

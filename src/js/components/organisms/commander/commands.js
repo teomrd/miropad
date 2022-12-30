@@ -42,6 +42,7 @@ import PageBreakSVG from "../../../../assets/svg/page-break.svg";
 import FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
 import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
 import RocketSVG from "../../../../assets/svg/rocket.svg";
+import EarthSVG from "../../../../assets/svg/earth.svg";
 import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
 import PencilSVG from "../../../../assets/svg/pencil.svg";
 import ShareSVG from "../../../../assets/svg/exit-up.svg";
@@ -123,7 +124,7 @@ export const commands = () => {
     {
       title: "Save to IPFS",
       key: "i",
-      icon: icon(CheckmarkCircleSVG, "save"),
+      icon: icon(EarthSVG, "save"),
       sortTitle: "save->ipfs",
       call: async () => {
         commander.hide();
@@ -137,7 +138,7 @@ export const commands = () => {
 
         if (note) {
           const cid = await ipfs.store(note.title, note.text);
-          copyToClipboard(`${url.baseUrl}/?cid=${cid}`);
+          copyToClipboard(`${url.baseUrl}#?cid=${cid}`);
         }
       },
     },
