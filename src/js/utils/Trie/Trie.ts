@@ -14,13 +14,20 @@ type Node = {
     [key: string]: Node;
   };
   frequency: number;
-  hasChildren: Function;
-  isWord: Function;
-  contains: Function;
-  getWords: Function;
-  increaseFrequency: Function;
-  insert: Function;
-  insertNode: Function;
+  hasChildren: () => boolean;
+  isWord: () => boolean;
+  contains: (char: string) => boolean;
+  getWords: (
+    char: string,
+    dictionary?: {
+      [key: string]: string;
+    }
+  ) => {
+    [key: string]: string;
+  };
+  increaseFrequency: () => void;
+  insert: (word: string) => void;
+  insertNode: (char: string, isLast?: boolean) => Node;
 };
 
 const Node = (): Node => ({
@@ -33,7 +40,7 @@ const Node = (): Node => ({
   isWord: function () {
     return this.frequency > 0;
   },
-  contains: function (char) {
+  contains: function (char: string) {
     return Object.keys(this.children).includes(char);
   },
   getWords: function (prefix, dictionary = {}) {
