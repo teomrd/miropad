@@ -1,4 +1,4 @@
-const wordParts = require("./wordParts");
+import { wordParts } from "./wordParts";
 
 describe("wordParts", () => {
   it("should split the word into parts when match is in the middle of the word", () => {

@@ -1,4 +1,4 @@
-const isArraySorted = require("./isArraySorted");
+import { isArraySorted } from "./isArraySorted";
 
 describe("isArraySorted", () => {
   it("should return true when array is sorted", () => {

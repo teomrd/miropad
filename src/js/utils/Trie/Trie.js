@@ -68,7 +68,7 @@ const Node = () => ({
   },
 });
 
-const Trie = () => {
+export const Trie = () => {
   const rootNode = Node();
 
   return {
@@ -97,6 +97,4 @@ const Trie = () => {
   };
 };
 
-module.exports = {
-  Trie,
-};
+

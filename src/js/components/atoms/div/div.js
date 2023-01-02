@@ -1,4 +1,4 @@
-import wordParts from "./wordParts";
+import { wordParts } from "./wordParts";
 
 const mark = (word) => {
   const markEl = document.createElement("mark");

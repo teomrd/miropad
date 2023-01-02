@@ -1,4 +1,4 @@
-const { Trie } = require("./Trie");
+import { Trie } from "./Trie";
 
 describe("trie data structure", () => {
   describe("insertion of a word", () => {

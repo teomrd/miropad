@@ -1,10 +1,10 @@
-const unified = require("unified");
-const parse = require("remark-parse");
-const gfm = require("remark-gfm");
-const remark2rehype = require("remark-rehype");
-const doc = require("rehype-document");
-const format = require("rehype-format");
-const html = require("rehype-stringify");
+import unified from "unified";
+import parse from "remark-parse";
+import gfm from "remark-gfm";
+import remark2rehype from "remark-rehype";
+import doc from "rehype-document";
+import format from "rehype-format";
+import html from "rehype-stringify";
 
 export const convertMarkDownToHtml = (md) =>
   new Promise((resolve, reject) => {

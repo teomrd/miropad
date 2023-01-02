@@ -1,4 +1,4 @@
-const wordParts = (word, match) => {
+export const wordParts = (word, match) => {
   const parts = word.toLowerCase().split(match);
 
   let indexInWord = 0;
@@ -15,5 +15,3 @@ const wordParts = (word, match) => {
       return originalSyllable;
     });
 };
-
-module.exports = wordParts;

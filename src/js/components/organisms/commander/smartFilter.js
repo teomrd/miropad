@@ -1,6 +1,6 @@
-const isArraySorted = require("../../../utils/isArraySorted");
+import { isArraySorted } from "../../../utils/isArraySorted";
 
-const smartFilter = (phrase, filter) => {
+export const smartFilter = (phrase, filter) => {
   const wordParts = phrase.split(" ").map((w) => w.toLowerCase());
   const filterParts = filter.split(" ").map((f) => f.toLowerCase());
   const indexes = filterParts.map((f) => {
@@ -19,6 +19,4 @@ const smartFilter = (phrase, filter) => {
   return isArraySorted(indexes);
 };
 
-module.exports = {
-  smartFilter,
-};
+

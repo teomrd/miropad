@@ -1,4 +1,4 @@
-const { smartFilter } = require("./smartFilter");
+import { smartFilter } from "./smartFilter";
 
 describe("smartFilter", () => {
   it("should return true when pattern matches", () => {

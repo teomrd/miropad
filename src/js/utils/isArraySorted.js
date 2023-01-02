@@ -1,4 +1,4 @@
-const isArraySorted = (arr) => {
+export const isArraySorted = (arr) => {
   const someArray = arr.reduce((currentValue, item) => {
     if (currentValue.length === 0) {
       return [item];
@@ -9,4 +9,3 @@ const isArraySorted = (arr) => {
   return someArray.length === arr.length;
 };
 
-module.exports = isArraySorted;
