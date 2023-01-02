@@ -18,5 +18,3 @@ export const smartFilter = (phrase, filter) => {
   }
   return isArraySorted(indexes);
 };
-
-

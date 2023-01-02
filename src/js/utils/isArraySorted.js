@@ -8,4 +8,3 @@ export const isArraySorted = (arr) => {
   }, []);
   return someArray.length === arr.length;
 };
-
