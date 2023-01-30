@@ -233,8 +233,8 @@ export const commands = () => {
       key: "shift s",
       call: async () => {
         const { text, title } = getNote();
-        await navigator.clipboard.writeText(title);
-        saveFileAs(text);
+
+        saveFileAs(text, title);
         commander.hide();
       },
     },
