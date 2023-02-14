@@ -121,27 +121,6 @@ export const commands = () => {
         select("#save").removeClass("unsaved");
       },
     },
-    {
-      title: "Save to IPFS",
-      key: "i",
-      icon: icon(EarthSVG, "save"),
-      sortTitle: "save->ipfs",
-      call: async () => {
-        commander.hide();
-        await saveNote(select(".terminal").getValue());
-        const note = getNote();
-        const { disableSync = false } = note;
-        if (!disableSync) {
-          updateGist([note]);
-        }
-        select("#save").removeClass("unsaved");
-
-        if (note) {
-          const cid = await ipfs.store(note.title, note.text);
-          copyToClipboard(`${url.baseUrl}#?cid=${cid}`);
-        }
-      },
-    },
     ...(navigator.share ? [shareNoteCommand] : []),
     {
       title: "Toggle MarkDown Viewer",
@@ -161,6 +140,27 @@ export const commands = () => {
       call: () => {
         markDownViewer.toggle("full");
         commander.hide();
+      },
+    },
+    {
+      title: "Save to IPFS",
+      key: "i",
+      icon: icon(EarthSVG, "save"),
+      sortTitle: "save->ipfs",
+      call: async () => {
+        commander.hide();
+        await saveNote(select(".terminal").getValue());
+        const note = getNote();
+        const { disableSync = false } = note;
+        if (!disableSync) {
+          updateGist([note]);
+        }
+        select("#save").removeClass("unsaved");
+
+        if (note) {
+          const cid = await ipfs.store(note.title, note.text);
+          copyToClipboard(`${url.baseUrl}#?cid=${cid}`);
+        }
       },
     },
     ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
