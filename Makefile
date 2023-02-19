@@ -25,6 +25,9 @@ clean:
 serve: build
 	serve $(MAKE_DIR)/out
 
+update:
+	pnpm up --latest
+
 version:
 	$(MAKE_DIR)/scripts/version.sh
 
