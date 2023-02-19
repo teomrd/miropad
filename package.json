@@ -32,7 +32,6 @@
     "workbox-cli": "^6.5.4"
   },
   "dependencies": {
-    "cids": "^1.1.9",
     "esbuild": "^0.16.12",
     "github-markdown-css": "^5.1.0",
     "global": "^4.4.0",
@@ -40,7 +39,6 @@
     "ipfs-core": "^0.17.0",
     "ipfs-core-types": "^0.13.0",
     "multiformats": "^10.0.3",
-    "multihashing-async": "^2.1.4",
     "rehype-document": "^6.1.0",
     "rehype-format": "^4.0.1",
     "rehype-stringify": "^9.0.3",
