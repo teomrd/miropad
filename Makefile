@@ -26,6 +26,9 @@ serve: build
 	serve $(MAKE_DIR)/out
 
 update:
+	pnpm up
+
+force-update:
 	pnpm up --latest
 
 version:

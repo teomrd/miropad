@@ -11,7 +11,7 @@ cp ./static/favicon.ico ./out
 
 cp -r ./src/assets/images ./out/images
 
-node ./scripts/esbuild.js
+node ./scripts/esbuild.mjs
 
 cp ./static/index.html ./out
 
