@@ -185,7 +185,7 @@ export const terminal = (() => {
             length: matches.length,
           },
         });
-        if (state.currentWord.length > 2 && state.prediction) {
+        if (state.currentWord.length > 1 && state.prediction) {
           terminal.renderInlineSuggestion();
           terminal.renderOptions();
         } else {

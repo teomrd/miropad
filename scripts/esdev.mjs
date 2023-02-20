@@ -3,7 +3,7 @@
 import * as esbuild from "esbuild";
 import miropad from "../package.json" assert { type: "json" };
 
-let ctx = await esbuild.context({
+const context = await esbuild.context({
   entryPoints: ["src/index.js"],
   bundle: true,
   outfile: "dev/index.js",
@@ -24,7 +24,9 @@ let ctx = await esbuild.context({
   },
 });
 
-let { host, port } = await ctx.serve({
+await context.watch();
+
+const { host, port } = await context.serve({
   servedir: "dev",
 });
 

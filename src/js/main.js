@@ -26,6 +26,7 @@ import storage from "./utils/localstorage";
 import { resetPageTitle } from "./utils/pageTitle";
 import { url } from "./utils/urlManager";
 import { actOnURLStateChange } from "./listeners/urlChange";
+import { enableDevelopment } from "./utils/enableDevelopmentTasks";
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
@@ -135,6 +136,8 @@ const main = async () => {
 
   await syncNotesWithGitHub();
   await setAuthTokenFromCallback();
+
+  enableDevelopment();
 };
 
 export default main;
