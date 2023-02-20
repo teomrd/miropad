@@ -236,9 +236,11 @@ header .logo:active {
   margin: 0 auto;
   padding: 45px;
 }
+
 .preview.markdown-body {
   margin: auto;
-  padding-bottom: 50px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 @media (max-width: 767px) {
