@@ -1,7 +1,6 @@
 import "github-markdown-css";
 import "../css/print.css";
 import "../css/styles.css";
-import notify from "./components/molecules/notify";
 import welcomeUser from "./components/molecules/welcome";
 import commander from "./components/organisms/commander/commander";
 import markDownViewer from "./components/organisms/markdown/markDownViewer";
@@ -9,13 +8,12 @@ import {
   deleteNote,
   disableSyncOnCurrentNote,
   getNote,
-  search,
   setNoteFromHash,
 } from "./components/organisms/noteManager/noteManager";
 import { terminal } from "./components/organisms/terminal";
-import { retrieveNoteFromIPFS } from "./Functions/retrieveNoteFromIPFS";
 import { isSyncEnabled } from "./isSyncEnabled";
 import { registerServiceWorker } from "./registerServiceWorker";
+import { Trie } from "./utils/Trie/Trie";
 import { copyToClipboard } from "./utils/copyToClipboard";
 import { relativeDate } from "./utils/dates";
 import select from "./utils/dom";
@@ -24,91 +22,13 @@ import {
   setAuthTokenFromCallback,
   syncNotesWithGitHub,
 } from "./utils/github/actions";
-import { getGist } from "./utils/github/api";
 import storage from "./utils/localstorage";
 import { resetPageTitle } from "./utils/pageTitle";
-import { Trie } from "./utils/Trie/Trie";
 import { url } from "./utils/urlManager";
+import { actOnURLStateChange } from "./listeners/urlChange";
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
-
-const setNoteFromRawUrl = async (rawUrl) => {
-  if (rawUrl) {
-    const response = await fetch(rawUrl).then((response) => {
-      if (response.ok) return response.text();
-      throw new Error(
-        `Remote note could not be retrieved! code: ${response.status}`
-      );
-    });
-    select(".terminal").setValue(response);
-  }
-};
-
-const setNoteFromGist = async (gistId) => {
-  if (gistId) {
-    try {
-      const gist = await getGist(gistId);
-      const { files } = gist;
-      const fileContents = Object.values(files);
-      const [gistFile] = fileContents;
-      const { content } = gistFile;
-      select(".terminal").setValue(content);
-    } catch (error) {
-      notify.error("MiroPad note not found! 🤷‍♂️");
-    }
-  }
-};
-
-const actOnURLStateChange = async (e = {}) => {
-  try {
-    const { oldURL, newURL } = e;
-    const oldPageId = url.getPageId(oldURL);
-    const newPageId = url.getPageId(newURL);
-    const hasPageIdChanged = oldPageId !== newPageId;
-    const { v: oldV } = url.getParamsObject(oldURL);
-    const { v: newV } = url.getParamsObject(newURL);
-    const hasPageVersionChanged = oldV !== newV;
-    const shouldChangeNote = [hasPageIdChanged, hasPageVersionChanged].some(
-      (r) => r
-    );
-    if (shouldChangeNote) setNoteFromHash();
-
-    const { gistId, raw } = url.getParamsObject(newURL);
-    await setNoteFromGist(gistId);
-    await setNoteFromRawUrl(raw);
-  } catch (e) {
-    notify.error(e.message);
-  }
-
-  const isANewNote = !url.getPageId();
-  select("#note-info-button").show(!isANewNote);
-  select("#new-note").disable(isANewNote);
-
-  if (url.getSearchParam("md") === "full") {
-    select(".terminal").hide();
-  } else {
-    select(".terminal").show();
-  }
-
-  if (url.getSearchParam("zen") === "true") {
-    select(".header").hide();
-  } else {
-    select(".header").show();
-  }
-
-  if (url.getSearchParam("cid")) {
-    await retrieveNoteFromIPFS(url.getSearchParam("cid"));
-  } else {
-    select(".anchor").hide();
-  }
-
-  select(".note-info").hide();
-
-  const q = url.getSearchParam("q");
-  const queryResult = search(q);
-  if (queryResult) select(".terminal").setValue(queryResult.text);
-};
 
 const initInfoPanel = () => {
   select("#note-info-close").listen("click", () => {
