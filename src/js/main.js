@@ -91,6 +91,12 @@ const actOnURLStateChange = async (e = {}) => {
     select(".terminal").show();
   }
 
+  if (url.getSearchParam("zen") === "true") {
+    select(".header").hide();
+  } else {
+    select(".header").show();
+  }
+
   if (url.getSearchParam("cid")) {
     await retrieveNoteFromIPFS(url.getSearchParam("cid"));
   } else {

@@ -170,7 +170,14 @@ export const commands = () => {
       sortTitle: "Zen mode",
       key: "shift z",
       call: () => {
-        select("header").toggle();
+        const isZen = Boolean(url.getSearchParam("zen"));
+        if (isZen) {
+          url.deleteParam("zen");
+        } else {
+          url.set(undefined, {
+            zen: true,
+          });
+        }
         commander.hide();
       },
     },
