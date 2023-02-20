@@ -34,21 +34,12 @@
   "dependencies": {
     "esbuild": "^0.17.9",
     "github-markdown-css": "^5.2.0",
-    "global": "^4.4.0",
     "ipfs": "^0.66.0",
     "ipfs-core": "^0.18.0",
     "ipfs-core-types": "^0.14.0",
     "multiformats": "^11.0.1",
-    "rehype-document": "^6.1.0",
-    "rehype-format": "^4.0.1",
-    "rehype-stringify": "^9.0.3",
-    "remark-gfm": "^3.0.1",
-    "remark-parse": "^10.0.1",
-    "remark-rehype": "^10.1.0",
     "showdown": "^2.1.0",
     "textarea-caret": "^3.1.0",
-    "unified": "^10.1.2",
-    "vfile-reporter": "^7.0.5",
     "workbox": "^0.0.0"
   }
 }

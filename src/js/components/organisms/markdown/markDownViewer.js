@@ -20,8 +20,6 @@ const markDownViewer = (() => {
     },
     update: async function () {
       const md = select(".terminal").getValue();
-      // const html = await convertMarkDownToHtml(md);
-      // this.view.innerHTML(html);
 
       this.view.innerHTML(convertMarkDownToHtml(md));
 
