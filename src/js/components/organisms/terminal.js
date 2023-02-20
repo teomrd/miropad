@@ -15,6 +15,15 @@ const isLastCharacterInTheWord = (text, characterIndex) =>
 const placeSuggestion = (textEl) => {
   const coords = getCaretCoordinates(textEl, textEl.selectionEnd);
   const { top, left } = coords;
+
+  // This does the trick! `main` is getting the same
+  // height as the textarea so the suggestion will be placed
+  // right!
+  // TODO: change that on terminal size change!
+  const actualTerminalHeight = select(".terminal").el.scrollHeight;
+  const main = select("main").el;
+  main.style.height = `${actualTerminalHeight}px`;
+
   select(".suggestion").el.style.top = `${top}px`;
   select(".suggestion").el.style.left = `${left}px`;
 };
