@@ -8,6 +8,7 @@ import { command } from "../molecules/commands/command";
 import { icon } from "../atoms/icon/icon";
 import TrashSVG from "../../../assets/svg/trash.svg";
 import { trieDictionary } from "../../main";
+import { setSavedState } from "../../ui/functions/savedState";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -264,20 +265,10 @@ export const terminal = (() => {
       select(".title h3").html(title);
 
       const { text = "" } = currentlySavedNote || {};
-      const isNoteUnSaved = terminal.el.getValue() !== text;
-      // unsaved state UI indication
-      if (currentlySavedNote) {
-        if (isNoteUnSaved) {
-          select("#save").addClass("unsaved");
-          select("#logo").addClass("unsaved");
-        } else {
-          select("#save").removeClass("unsaved");
-          select("#logo").removeClass("unsaved");
-        }
-      }
+      const isNoteSaved = currentlySavedNote && terminal.el.getValue() === text;
+      setSavedState(isNoteSaved);
     },
     init: function () {
-      // select(".suggestion").listen("click", terminal.acceptCompletion);
       this.el
         .listen("focus", this.onFocus)
         .listen("input", this.onInput)

@@ -8,6 +8,7 @@ import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle";
 import { url } from "../../../utils/urlManager";
 import notify from "../../molecules/notify";
 import commander from "../commander/commander";
+import { setSavedState } from "../../../ui/functions/savedState";
 
 const encodeTitle = (title) => {
   const encodedTitle = encodeURIComponent(title);
@@ -118,7 +119,7 @@ export const resetNoteManager = () => {
   resetPageTitle();
   select("#revisions").html("");
   select(".terminal").setValue("").focus();
-  select("#save").removeClass("unsaved");
+  setSavedState();
 };
 
 export const getTitle = (note = "") =>
@@ -205,6 +206,7 @@ export const saveNote = async (
       }
       storage.set("lastLocalUpdate", new Date());
       notify.success("👌 Note saved!");
+      setSavedState();
     } catch (e) {
       notify.error(
         `😱 Something went wrong while trying to save to local storage ${e}`

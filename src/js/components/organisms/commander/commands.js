@@ -49,6 +49,7 @@ import ShareSVG from "../../../../assets/svg/exit-up.svg";
 import LeafSVG from "../../../../assets/svg/leaf.svg";
 import { share } from "../../../utils/webShare";
 import { ipfs } from "../../../repositories/ipfs";
+import { setSavedState } from "../../../ui/functions/savedState";
 
 const getSyncTitle = () => {
   const gistId = storage.get("gistId");
@@ -77,7 +78,6 @@ const sharePublicLinkCommand = {
   call: async () => {
     commander.hide();
     await saveNote(select(".terminal").getValue());
-    select("#save").removeClass("unsaved");
     const note = getNote();
     const response = await publishGist({
       note,
@@ -118,7 +118,7 @@ export const commands = () => {
         if (!disableSync) {
           updateGist([note]);
         }
-        select("#save").removeClass("unsaved");
+        setSavedState();
       },
     },
     ...(navigator.share ? [shareNoteCommand] : []),
@@ -155,7 +155,6 @@ export const commands = () => {
         if (!disableSync) {
           updateGist([note]);
         }
-        select("#save").removeClass("unsaved");
 
         if (note) {
           const cid = await ipfs.store(note.title, note.text);
