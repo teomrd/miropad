@@ -14,3 +14,5 @@ jobs:
       - run: pnpm install
       - run: pnpm run build
       - run: pnpm run lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
