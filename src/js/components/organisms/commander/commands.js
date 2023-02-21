@@ -48,7 +48,7 @@ import PencilSVG from "../../../../assets/svg/pencil.svg";
 import ShareSVG from "../../../../assets/svg/exit-up.svg";
 import LeafSVG from "../../../../assets/svg/leaf.svg";
 import { share } from "../../../utils/webShare";
-import { ipfs } from "../../../Repositories/ipfs";
+import { ipfs } from "../../../repositories/ipfs";
 
 const getSyncTitle = () => {
   const gistId = storage.get("gistId");
