@@ -11,6 +11,7 @@
     "dev": "scripts/dev.sh",
     "build": "node ./scripts/esbuild.mjs",
     "test": "jest",
+    "lighthouse": "lhci autorun",
     "lint": "eslint --ext .js --ext .ts src"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
   },
   "dependencies": {
     "@automerge/automerge": "^2.0.2",
+    "@lhci/cli": "0.6.x",
     "esbuild": "^0.17.10",
     "github-markdown-css": "^5.2.0",
     "ipfs": "^0.66.0",

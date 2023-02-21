@@ -14,7 +14,7 @@ checks: install
 	pnpm run lint && pnpm run test
 
 audits: install build
-	lhci autorun
+	pnpm run lighthouse
 
 clean:
 	rm -rf ./node_modules
