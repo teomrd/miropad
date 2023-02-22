@@ -193,7 +193,7 @@ export const terminal = (() => {
         terminal.setState({
           prediction,
           currentWord: word,
-          matches,
+          matches: matches.slice(0, 10),
           options: {
             selected: 0,
             length: matches.length,
