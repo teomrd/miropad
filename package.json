@@ -33,7 +33,6 @@
     "workbox-cli": "^6.5.4"
   },
   "dependencies": {
-    "@automerge/automerge": "^2.0.2",
     "@lhci/cli": "0.10.0",
     "esbuild": "^0.17.10",
     "github-markdown-css": "^5.2.0",
