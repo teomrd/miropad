@@ -175,7 +175,7 @@ export const terminal = (() => {
           prediction: initState.prediction,
           currentWord: initState.currentWord,
         });
-        select(".suggestion").hide();
+        return select(".suggestion").hide();
       }
 
       const shouldDisplaySuggestion =
