@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@automerge/automerge': ^2.0.2
   '@lhci/cli': 0.10.0
   '@types/jest': ^29.4.0
   '@types/node': 18.14.0
@@ -30,7 +29,6 @@ specifiers:
   workbox-cli: ^6.5.4
 
 dependencies:
-  '@automerge/automerge': 2.0.2
   '@lhci/cli': 0.10.0
   esbuild: 0.17.10
   github-markdown-css: 5.2.0
@@ -119,17 +117,6 @@ packages:
 
   /@assemblyscript/loader/0.9.4:
     resolution: {integrity: sha512-HazVq9zwTVwGmqdwYzu7WyQ6FQVZ7SwET0KKQuKm55jD0IfUpZgN0OPIiZG3zV1iSrVYcN0bdwLRXI/VNCYsUA==}
-    dev: false
-
-  /@automerge/automerge-wasm/0.1.25:
-    resolution: {integrity: sha512-bTpSCkUS2/3cy2xVtpJzaf6wZla9tQhRvzq29LkNrJQ/Lp8dxLVAOZC7t1Nio4uzawTp8pIuhNlbYRM1Gh3VPA==}
-    dev: false
-
-  /@automerge/automerge/2.0.2:
-    resolution: {integrity: sha512-UnKOB4L/0qJ91aiVQDiN9Qf9IuigWpRs9yKC+5Z9qmCHH8AcETvv/B82FqWjkNn4bDPAJoDMhy/DG78pP+bfew==}
-    dependencies:
-      '@automerge/automerge-wasm': 0.1.25
-      uuid: 9.0.0
     dev: false
 
   /@babel/code-frame/7.18.6:
@@ -1340,7 +1327,7 @@ packages:
       '@libp2p/logger': 2.0.5
       '@libp2p/peer-id': 2.0.1
       '@libp2p/peer-record': 5.0.0
-      '@libp2p/pubsub': 6.0.1
+      '@libp2p/pubsub': 6.0.4
       '@libp2p/topology': 4.0.1
       '@multiformats/multiaddr': 11.4.0
       abortable-iterator: 4.0.2
@@ -1583,8 +1570,8 @@ packages:
       - supports-color
     dev: true
 
-  /@grpc/grpc-js/1.8.9:
-    resolution: {integrity: sha512-xzsl2HamhovnZddS/2pMF4Q+FgwINaBvxoFGQ+G54Lo7Xsge36VvfDO/TDkL7FofmrRK/X5weRvwlJh7rKwN4w==}
+  /@grpc/grpc-js/1.8.10:
+    resolution: {integrity: sha512-x7QS+gJq8WaS1OJYFJkmeoX2PHhi3b5TR5TqR9a8NJv6VyedFecp3LgAUmuJSQZlwoAODpCKRtu4HzG1srNjiA==}
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.5
@@ -2282,7 +2269,7 @@ packages:
       '@libp2p/interface-peer-id': 2.0.1
       '@libp2p/interface-pubsub': 3.0.6
       '@libp2p/logger': 2.0.5
-      '@libp2p/pubsub': 6.0.1
+      '@libp2p/pubsub': 6.0.4
       protons-runtime: 4.0.2
       uint8arraylist: 2.4.3
       uint8arrays: 4.0.3
@@ -2761,8 +2748,8 @@ packages:
       - supports-color
     dev: false
 
-  /@libp2p/pubsub/6.0.1:
-    resolution: {integrity: sha512-lBZtEpxTjWIAJ43wkEGOhNeFc1iEasLd9TFmpt9we7tTFAOiNTr59AdC+Ps/uBPp1zDE8ci3ccqqNj3OaJFjCQ==}
+  /@libp2p/pubsub/6.0.4:
+    resolution: {integrity: sha512-dUcohrCSqAMh7RMjHS0VrwALd5WYAOf5hG6COGGb05rl1lQzxlg0wfrnDoERK8nHduddqSfr/4xc/e5sy99Cjw==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       '@libp2p/crypto': 1.0.12
@@ -2775,7 +2762,6 @@ packages:
       '@libp2p/peer-collections': 3.0.0
       '@libp2p/peer-id': 2.0.1
       '@libp2p/topology': 4.0.1
-      '@multiformats/multiaddr': 11.4.0
       abortable-iterator: 4.0.2
       it-length-prefixed: 8.0.4
       it-pipe: 2.0.5
@@ -7164,7 +7150,7 @@ packages:
     resolution: {integrity: sha512-fF9hjg/JK26oIGrqVQ2IBzZZ8ll3AptrMNg3UBDbKX4UTVeJMVGpE6xrfVTzYSUsnUOttFgtdHw/6D093YbqvA==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      '@grpc/grpc-js': 1.8.9
+      '@grpc/grpc-js': 1.8.10
       '@libp2p/logger': 2.0.5
       '@libp2p/peer-id': 2.0.1
       '@multiformats/multiaddr': 11.4.0
@@ -9286,8 +9272,8 @@ packages:
       yallist: 4.0.0
     dev: false
 
-  /minipass/4.0.3:
-    resolution: {integrity: sha512-OW2r4sQ0sI+z5ckEt5c1Tri4xTgZwYDxpE54eqWlQloQRoWtXjqt9udJ5Z4dSv7wK+nfFI7FRXyCpBSft+gpFw==}
+  /minipass/4.2.0:
+    resolution: {integrity: sha512-ExlilAIS7zJ2EWUMaVXi14H+FnZ18kr17kFkGemMqBx6jW0m8P6XfqwYVPEG53ENlgsED+alVP9ZxC3JzkK23Q==}
     engines: {node: '>=8'}
     dev: false
 
@@ -11306,7 +11292,7 @@ packages:
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
-      minipass: 4.0.3
+      minipass: 4.2.0
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
@@ -11888,11 +11874,6 @@ packages:
 
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
-    hasBin: true
-    dev: false
-
-  /uuid/9.0.0:
-    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
     hasBin: true
     dev: false
 
