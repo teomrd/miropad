@@ -10,7 +10,7 @@ import select from "../dom";
 import { configuration } from "../../../configuration";
 import { updateNote } from "../../components/organisms/noteManager/noteManager";
 import notify from "../../components/molecules/notify";
-import { commands } from "../../components/molecules/commands/commands";
+import { commands } from "../../components/molecules/commands";
 import commander from "../../components/organisms/commander/commander";
 import { div } from "../../components/atoms/div/div";
 
