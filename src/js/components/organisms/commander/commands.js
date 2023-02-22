@@ -292,6 +292,7 @@ export const commands = () => {
           `Autocomplete feature turned ${previousStatus ? "off" : "on"}`
         );
         commander.hide();
+        select(".terminal").focus();
       },
     },
     {
