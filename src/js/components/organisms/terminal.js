@@ -163,6 +163,9 @@ export const terminal = (() => {
       select(".note-info").hide();
     },
     onInput: (e) => {
+      const isAutocompleteEnabled = !!storage.get("__autocomplete__");
+      if (!isAutocompleteEnabled) return;
+
       const cursorIndexPosition = e.target.selectionEnd;
       const fullText = terminal.el.getValue();
 
@@ -175,10 +178,11 @@ export const terminal = (() => {
         select(".suggestion").hide();
       }
 
-      if (
+      const shouldDisplaySuggestion =
         e.inputType === "insertText" &&
-        isLastCharacterInTheWord(fullText, cursorIndexPosition)
-      ) {
+        isLastCharacterInTheWord(fullText, cursorIndexPosition);
+
+      if (shouldDisplaySuggestion) {
         placeSuggestion(e.target);
         const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
         const matches = getPredictions(word);

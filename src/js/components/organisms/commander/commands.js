@@ -40,6 +40,7 @@ import PictureSVG from "../../../../assets/svg/picture.svg";
 import PrinterSVG from "../../../../assets/svg/printer.svg";
 import PageBreakSVG from "../../../../assets/svg/page-break.svg";
 import FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
+import ArrowRightCircleSVG from "../../../../assets/svg/arrow-right-circle.svg";
 import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
 import RocketSVG from "../../../../assets/svg/rocket.svg";
 import EarthSVG from "../../../../assets/svg/earth.svg";
@@ -270,6 +271,25 @@ export const commands = () => {
         }
         notify.showNotification(
           `Experimental features turned ${previousStatus ? "off" : "on"}`
+        );
+        commander.hide();
+      },
+    },
+    {
+      title: "Toggle Autocompletion",
+      experimental: false,
+      icon: icon(ArrowRightCircleSVG, "autocompletion"),
+      key: null,
+      call: () => {
+        const previousStatus = Boolean(storage.get("__autocomplete__"));
+
+        if (previousStatus) {
+          storage.remove("__autocomplete__");
+        } else {
+          storage.set("__autocomplete__", true);
+        }
+        notify.showNotification(
+          `Autocomplete feature turned ${previousStatus ? "off" : "on"}`
         );
         commander.hide();
       },
