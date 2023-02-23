@@ -9,6 +9,8 @@ import { icon } from "../atoms/icon/icon";
 import TrashSVG from "../../../assets/svg/trash.svg";
 import { trieDictionary } from "../../main";
 import { setSavedState } from "../../ui/functions/savedState";
+import { findCurrentLine } from "../../utils/text";
+import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -219,11 +221,17 @@ export const terminal = (() => {
         terminal.selectOption(e, "up");
       }
     },
+    setValue: () => {
+      // terminal.el.value = "mpampis";
+    },
     onEnter: (e) => {
       if (state.matches.length > 0) {
         e.preventDefault();
         terminal.acceptCompletion();
       }
+
+      // auto-magically handle checkboxes
+      autoCompleteCheckboxes(e);
     },
     onEscape: () => {
       terminal.resetState();
