@@ -27,6 +27,7 @@ import { resetPageTitle } from "./utils/pageTitle";
 import { url } from "./utils/urlManager";
 import { actOnURLStateChange } from "./listeners/urlChange";
 import { enableDevelopment } from "./utils/enableDevelopmentTasks";
+import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes";
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
@@ -133,6 +134,8 @@ const main = async () => {
   actOnURLStateChange();
 
   registerServiceWorker();
+
+  autoMagicallyCheckBoxes();
 
   await syncNotesWithGitHub();
   await setAuthTokenFromCallback();

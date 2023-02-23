@@ -2,6 +2,7 @@ import showdown from "showdown";
 
 const converter = new showdown.Converter({
   tasklists: true,
+  underline: true,
   emoji: true,
   simplifiedAutoLink: true,
   tables: true,
