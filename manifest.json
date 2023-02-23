@@ -4,6 +4,7 @@
   "theme_color": "#111518",
   "background_color": "#000",
   "display": "fullscreen",
+  "display_override": ["window-controls-overlay"],
   "orientation": "portrait",
   "Scope": "https://teomrd.github.io/miropad/",
   "start_url": "https://teomrd.github.io/miropad/",
