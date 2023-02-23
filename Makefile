@@ -37,8 +37,5 @@ version:
 build: install
 	$(MAKE_DIR)/scripts/build.sh
 
-deploy: build
-  # you can run `make deploy version=minor`
-	@echo "Deploying version: $(version)"
-	$(MAKE_DIR)/scripts/version.sh $(version)
+deploy: version build
 	$(MAKE_DIR)/scripts/deploy.sh
