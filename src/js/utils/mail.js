@@ -15,6 +15,13 @@ const wrapTemplate = (body = "") => {
   <html lang="en">
     <head>
       <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+      <style>
+      img {
+        border-style: none;
+        max-width: 100%;
+        box-sizing: content-box;
+      }
+      </style>
     </head>
     <table style="width:100%;background-color:#ffffff" align="center" border="0" cellPadding="0" cellSpacing="0" role="presentation">
       <tbody>
@@ -24,7 +31,7 @@ const wrapTemplate = (body = "") => {
               <table role="presentation" width="100%" align="center" style="max-width:37.5em;margin:0 auto;padding:20px 0 48px;width:560px;"><tr><td></td><td style="width:37.5em;background:#ffffff">
             <![endif]--></div>
 
-            <div style="max-width:37.5em;margin:0 auto;padding:20px 0 48px;width:560px"><img alt="Theo Mironidis Logo" src="https://teomrd.github.io/miroFavicon.f0c5b85b.png" width="42" height="42" style="display:block;outline:none;border:none;text-decoration:none;wwwwidth:42px;height:42px" />
+            <div style="max-width:37.5em;margin:0 auto;padding:20px 0 48px;width:560px"><img alt="Theo Mironidis Logo" src="https://teomrd.github.io/miroFavicon.f0c5b85b.png" width="42" height="42" style="display:block;outline:none;border:none;text-decoration:none;width:42px;height:42px" />
               ${body}
               <hr style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#dfe1e4;margin:42px 0 26px" />
               <a target="_blank" style="color:#b4becc;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Oxygen-Sans,Ubuntu,Cantarell,&quot;Helvetica Neue&quot;,sans-serif;font-size:14px" href="https://teomrd.github.io">
