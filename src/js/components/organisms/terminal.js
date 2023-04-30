@@ -11,6 +11,7 @@ import { trieDictionary } from "../../main";
 import { setSavedState } from "../../ui/functions/savedState";
 import { findCurrentLine } from "../../utils/text";
 import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes";
+import markDownViewer from "./markdown/markDownViewer";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -280,12 +281,27 @@ export const terminal = (() => {
       const isNoteSaved = currentlySavedNote && terminal.el.getValue() === text;
       setSavedState(isNoteSaved);
     },
+    onPaste: async () => {
+      const clipboardItems = await navigator.clipboard.read();
+      for (const clipboardItem of clipboardItems) {
+        const imageTypes = clipboardItem.types?.filter((type) =>
+          type.startsWith("image/")
+        );
+        for (const imageType of imageTypes) {
+          const blob = await clipboardItem.getType(imageType);
+          const imageURI = URL.createObjectURL(blob);
+          select(".terminal").insertAtCaret(`![image](${imageURI})`);
+          markDownViewer.update();
+        }
+      }
+    },
     init: function () {
       this.el
         .listen("focus", this.onFocus)
         .listen("input", this.onInput)
         .listen("keydown", this.onKeyDown)
-        .listen("keyup", this.onKeyUp);
+        .listen("keyup", this.onKeyUp)
+        .listen("paste", this.onPaste);
     },
   };
 })();
