@@ -9,9 +9,10 @@ import { icon } from "../atoms/icon/icon";
 import TrashSVG from "../../../assets/svg/trash.svg";
 import { trieDictionary } from "../../main";
 import { setSavedState } from "../../ui/functions/savedState";
-import { findCurrentLine } from "../../utils/text";
 import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes";
 import markDownViewer from "./markdown/markDownViewer";
+import { copyToClipboard } from "../../utils/copyToClipboard";
+import { configuration } from "../../../configuration";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -289,6 +290,29 @@ export const terminal = (() => {
         );
         for (const imageType of imageTypes) {
           const blob = await clipboardItem.getType(imageType);
+
+          const token = storage.get("MIROPAD_SECRET_TOKEN");
+          if(token) {
+            const [image, fileExtension] = imageType.split("/");
+            const fileName = '1111';
+            const file = new File([blob], `${fileName}.${fileExtension}`, { type: 'imageType' });
+            const formData = new FormData();
+            formData.append('myFile', file);
+            await fetch(`${configuration.file_service.api}`, {
+              method: "POST",
+              headers: {
+                "x-secret-token": token,
+                accept: "application/json",
+                "content-type": "application/json",
+              },
+              body: formData,
+            })
+              .then((res) => {
+                console.log("Upload response 👉", res);
+                return res;
+              })
+              .then((response) => response.json());
+          }
           const imageURI = URL.createObjectURL(blob);
           select(".terminal").insertAtCaret(`![image](${imageURI})`);
           markDownViewer.update();

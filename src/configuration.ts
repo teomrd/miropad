@@ -10,4 +10,7 @@ export const configuration = {
     Software Engineer <br/>
     https://teomrd.github.io`,
   },
+  file_service: {
+    api: "https://vercel-api-phi.vercel.app/api/upload",
+  },
 } as const;
