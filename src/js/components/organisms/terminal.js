@@ -293,11 +293,11 @@ export const terminal = (() => {
 
           const token = storage.get("MIROPAD_SECRET_TOKEN");
           if(token) {
-            const [image, fileExtension] = imageType.split("/");
-            const fileName = '1111';
-            const file = new File([blob], `${fileName}.${fileExtension}`, { type: 'imageType' });
-            const formData = new FormData();
-            formData.append('myFile', file);
+            // const [image, fileExtension] = imageType.split("/");
+            // const fileName = '1111';
+            // const file = new File([blob], `${fileName}.${fileExtension}`, { type: 'imageType' });
+            // const formData = new FormData();
+            // formData.append('myFile', file);
             await fetch(`${configuration.file_service.api}`, {
               method: "POST",
               headers: {
@@ -305,7 +305,7 @@ export const terminal = (() => {
                 accept: "application/json",
                 "content-type": "application/octet-stream",
               },
-              body: formData,
+              body: blob,
             })
               .then((res) => {
                 console.log("Upload response 👉", res);
