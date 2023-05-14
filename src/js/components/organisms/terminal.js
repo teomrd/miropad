@@ -293,12 +293,7 @@ export const terminal = (() => {
 
           const token = storage.get("MIROPAD_SECRET_TOKEN");
           if(token) {
-            // const [image, fileExtension] = imageType.split("/");
-            // const fileName = '1111';
-            // const file = new File([blob], `${fileName}.${fileExtension}`, { type: 'imageType' });
-            // const formData = new FormData();
-            // formData.append('myFile', file);
-            await fetch(`${configuration.file_service.api}`, {
+            const { url } = await fetch(`${configuration.file_service.api}`, {
               method: "POST",
               headers: {
                 "x-secret-token": token,
@@ -312,9 +307,11 @@ export const terminal = (() => {
                 return res;
               })
               .then((response) => response.json());
+              select(".terminal").insertAtCaret(`![image](${url})`);
+          } else {
+            const imageURI = URL.createObjectURL(blob);
+            select(".terminal").insertAtCaret(`![image](${imageURI})`);
           }
-          const imageURI = URL.createObjectURL(blob);
-          select(".terminal").insertAtCaret(`![image](${imageURI})`);
           markDownViewer.update();
         }
       }
