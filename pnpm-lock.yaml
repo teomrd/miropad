@@ -22,6 +22,9 @@ dependencies:
   multiformats:
     specifier: ^11.0.1
     version: 11.0.1
+  nanoid:
+    specifier: ^4.0.2
+    version: 4.0.2
   showdown:
     specifier: ^2.1.0
     version: 2.1.0
@@ -6814,7 +6817,7 @@ packages:
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       interface-store: 3.0.4
-      nanoid: 4.0.1
+      nanoid: 4.0.2
       uint8arrays: 4.0.3
     dev: false
 
@@ -7004,7 +7007,7 @@ packages:
       it-to-stream: 1.0.0
       merge-options: 3.0.4
       multiformats: 11.0.1
-      nanoid: 4.0.1
+      nanoid: 4.0.2
       parse-duration: 1.0.2
       timeout-abort-controller: 3.0.0
       uint8arrays: 4.0.3
@@ -7146,7 +7149,7 @@ packages:
       it-peekable: 2.0.0
       it-pipe: 2.0.5
       it-pushable: 3.1.2
-      nanoid: 4.0.1
+      nanoid: 4.0.2
       protobufjs: 7.2.2
       uint8arrays: 4.0.3
       ws: 8.12.1
@@ -9272,7 +9275,7 @@ packages:
     resolution: {integrity: sha512-eyDUsl1nCR9+JtNksKnaESLP9MgAXCA4w1LTtsmOSQNsThnv++f36rrBu5fC/fdGIwTJZmbiaR/QewptH93pYA==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      nanoid: 4.0.1
+      nanoid: 4.0.2
       observable-webworkers: 2.0.1
       p-queue: 7.3.4
       p-timeout: 6.1.1
@@ -9324,8 +9327,8 @@ packages:
     hasBin: true
     dev: false
 
-  /nanoid@4.0.1:
-    resolution: {integrity: sha512-udKGtCCUafD3nQtJg9wBhRP3KMbPglUsgV5JVsXhvyBs/oefqb4sqMEhKBBgqZncYowu58p1prsZQBYvAj/Gww==}
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
     dev: false

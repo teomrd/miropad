@@ -13,6 +13,7 @@ import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes"
 import markDownViewer from "./markdown/markDownViewer";
 import { copyToClipboard } from "../../utils/copyToClipboard";
 import { configuration } from "../../../configuration";
+import { nanoid } from 'nanoid';
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -290,10 +291,12 @@ export const terminal = (() => {
         );
         for (const imageType of imageTypes) {
           const blob = await clipboardItem.getType(imageType);
-
           const token = storage.get("MIROPAD_SECRET_TOKEN");
           if(token) {
-            const { url } = await fetch(`${configuration.file_service.api}`, {
+            const [image, fileExtension] = imageType.split("/");
+            const fileName = `${nanoid()}.${fileExtension}`;
+            console.log('Upload 👉', fileName);
+            const { url } = await fetch(`${configuration.file_service.api}?fileName=${fileName}`, {
               method: "POST",
               headers: {
                 "x-secret-token": token,
