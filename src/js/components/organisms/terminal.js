@@ -302,7 +302,8 @@ export const terminal = (() => {
               method: "POST",
               headers: {
                 "x-secret-token": token,
-                accept: "application/json"
+                accept: "application/json",
+                "content-type": "application/octet-stream",
               },
               body: formData,
             })
