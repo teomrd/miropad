@@ -1,20 +1,20 @@
+import { nanoid } from "nanoid";
 import getCaretCoordinates from "textarea-caret";
-import storage from "../../utils/localstorage";
-import select from "../../utils/dom";
-import commander from "./commander/commander";
-import { getNote, getTitle } from "./noteManager/noteManager";
-import { div } from "../atoms/div/div";
-import { command } from "../molecules/commands/command";
-import { icon } from "../atoms/icon/icon";
 import TrashSVG from "../../../assets/svg/trash.svg";
+import { configuration } from "../../../configuration";
 import { trieDictionary } from "../../main";
 import { setSavedState } from "../../ui/functions/savedState";
-import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes";
-import markDownViewer from "./markdown/markDownViewer";
-import { copyToClipboard } from "../../utils/copyToClipboard";
-import { configuration } from "../../../configuration";
-import { nanoid } from 'nanoid';
+import select from "../../utils/dom";
+import storage from "../../utils/localstorage";
 import { handleErrorResponse } from "../../utils/mail";
+import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes";
+import { div } from "../atoms/div/div";
+import { icon } from "../atoms/icon/icon";
+import { command } from "../molecules/commands/command";
+import notify from "../molecules/notify";
+import commander from "./commander/commander";
+import markDownViewer from "./markdown/markDownViewer";
+import { getNote, getTitle } from "./noteManager/noteManager";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -293,29 +293,29 @@ export const terminal = (() => {
         for (const imageType of imageTypes) {
           const blob = await clipboardItem.getType(imageType);
           const token = storage.get("MIROPAD_SECRET_TOKEN");
-          if(token) {
+          if (token) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const [image, fileExtension] = imageType.split("/");
             const fileName = `${nanoid()}.${fileExtension}`;
             try {
-              const { url } = await fetch(`${configuration.file_service.api}?fileName=${fileName}`, {
-                method: "POST",
-                headers: {
-                  "x-secret-token": token,
-                  accept: "application/json",
-                  "content-type": "application/octet-stream",
-                },
-                body: blob,
-              })
+              const { url } = await fetch(
+                `${configuration.file_service.api}?fileName=${fileName}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "x-secret-token": token,
+                    accept: "application/json",
+                    "content-type": "application/octet-stream",
+                  },
+                  body: blob,
+                }
+              )
                 .then(handleErrorResponse)
                 .then((response) => response.json());
-            } catch (error) {
-              console.error('error', error);
-              notify.error(
-                `Uploading file failed 💥! Error$ ${error.message}`
-              );
-            }
-
               select(".terminal").insertAtCaret(`![image](${url})`);
+            } catch (error) {
+              notify.error(`Uploading file failed 💥! Error$ ${error.message}`);
+            }
           } else {
             const imageURI = URL.createObjectURL(blob);
             select(".terminal").insertAtCaret(`![image](${imageURI})`);
