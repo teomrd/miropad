@@ -4,7 +4,7 @@ import { configuration } from "../../configuration";
 import { getTitle } from "../components/organisms/noteManager/noteManager";
 import { convertMarkDownToHtml } from "../components/organisms/markdown/mdToHtml";
 
-const handleErrorResponse = (response) => {
+export const handleErrorResponse = (response) => {
   const isSuccessfulRequest = response.status.toString().slice(0, 1) === "2";
   if (isSuccessfulRequest) return response;
   else throw new Error(response);

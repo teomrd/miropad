@@ -14,6 +14,7 @@ import markDownViewer from "./markdown/markDownViewer";
 import { copyToClipboard } from "../../utils/copyToClipboard";
 import { configuration } from "../../../configuration";
 import { nanoid } from 'nanoid';
+import { handleErrorResponse } from "../../utils/mail";
 
 const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
@@ -295,21 +296,25 @@ export const terminal = (() => {
           if(token) {
             const [image, fileExtension] = imageType.split("/");
             const fileName = `${nanoid()}.${fileExtension}`;
-            console.log('Upload 👉', fileName);
-            const { url } = await fetch(`${configuration.file_service.api}?fileName=${fileName}`, {
-              method: "POST",
-              headers: {
-                "x-secret-token": token,
-                accept: "application/json",
-                "content-type": "application/octet-stream",
-              },
-              body: blob,
-            })
-              .then((res) => {
-                console.log("Upload response 👉", res);
-                return res;
+            try {
+              const { url } = await fetch(`${configuration.file_service.api}?fileName=${fileName}`, {
+                method: "POST",
+                headers: {
+                  "x-secret-token": token,
+                  accept: "application/json",
+                  "content-type": "application/octet-stream",
+                },
+                body: blob,
               })
-              .then((response) => response.json());
+                .then(handleErrorResponse)
+                .then((response) => response.json());
+            } catch (error) {
+              console.error('error', error);
+              notify.error(
+                `Uploading file failed 💥! Error$ ${error.message}`
+              );
+            }
+
               select(".terminal").insertAtCaret(`![image](${url})`);
           } else {
             const imageURI = URL.createObjectURL(blob);
