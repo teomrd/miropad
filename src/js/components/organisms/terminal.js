@@ -297,6 +297,8 @@ export const terminal = (() => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const [image, fileExtension] = imageType.split("/");
             const fileName = `${nanoid()}.${fileExtension}`;
+
+            select("#logo").addClass("loading");
             try {
               const { url } = await fetch(
                 `${configuration.file_service.api}?fileName=${fileName}`,
@@ -316,6 +318,7 @@ export const terminal = (() => {
             } catch (error) {
               notify.error(`Uploading file failed 💥! Error$ ${error.message}`);
             }
+            select("#logo").removeClass("loading");
           } else {
             const imageURI = URL.createObjectURL(blob);
             select(".terminal").insertAtCaret(`![image](${imageURI})`);
