@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@lhci/cli':
     specifier: 0.11.0
@@ -1597,8 +1601,8 @@ packages:
       - supports-color
     dev: true
 
-  /@grpc/grpc-js@1.8.10:
-    resolution: {integrity: sha512-x7QS+gJq8WaS1OJYFJkmeoX2PHhi3b5TR5TqR9a8NJv6VyedFecp3LgAUmuJSQZlwoAODpCKRtu4HzG1srNjiA==}
+  /@grpc/grpc-js@1.8.17:
+    resolution: {integrity: sha512-DGuSbtMFbaRsyffMf+VEkVu8HkSXEUfO3UyGJNtqxW9ABdtTIA+2UXAJpwbJS+xfQxuwqLUeELmL6FuZkOqPxw==}
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.5
@@ -7136,7 +7140,7 @@ packages:
     resolution: {integrity: sha512-fF9hjg/JK26oIGrqVQ2IBzZZ8ll3AptrMNg3UBDbKX4UTVeJMVGpE6xrfVTzYSUsnUOttFgtdHw/6D093YbqvA==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      '@grpc/grpc-js': 1.8.10
+      '@grpc/grpc-js': 1.8.17
       '@libp2p/logger': 2.0.5
       '@libp2p/peer-id': 2.0.2
       '@multiformats/multiaddr': 11.4.0
