@@ -2,12 +2,15 @@
 /* eslint-disable no-console */
 import * as esbuild from "esbuild";
 import miropad from "../package.json" assert { type: "json" };
+import { wasmLoader } from 'esbuild-plugin-wasm'
 
 const context = await esbuild.context({
   entryPoints: ["src/index.js"],
   bundle: true,
   outfile: "dev/index.js",
-  target: ["es2020", "chrome100", "firefox100"],
+  plugins: [wasmLoader()],
+  format: "esm",
+  target: ["esnext", "chrome120"],
   minify: true,
   sourcemap: true,
   loader: {

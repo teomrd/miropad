@@ -33,10 +33,6 @@ const markDownViewer = (() => {
         el.appendChild(copyBtn);
       });
 
-      select("code").listenAll("click", async ({ innerHTML }) => {
-        const result = eval(innerHTML);
-        select(".console").show().innerHTML(result);
-      });
       select(".console").listen("click", async (e) => {
         e.srcElement.classList.add("hidden");
         const codeToCopy = e.srcElement.innerHTML;
