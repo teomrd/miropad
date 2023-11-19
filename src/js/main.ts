@@ -28,21 +28,9 @@ import { url } from "./utils/urlManager";
 import { actOnURLStateChange } from "./listeners/urlChange";
 import { enableDevelopment } from "./utils/enableDevelopmentTasks";
 import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes";
+import { automerge } from "./repositories/automerge";
 
-import { isValidAutomergeUrl, Repo } from '@automerge/automerge-repo'
-import { BroadcastChannelNetworkAdapter } from '@automerge/automerge-repo-network-broadcastchannel'
-import { IndexedDBStorageAdapter } from "@automerge/automerge-repo-storage-indexeddb"
-import {next as A} from "@automerge/automerge"
-
-let handle;
-const repo = new Repo({
-  network: [new BroadcastChannelNetworkAdapter()],
-  storage: new IndexedDBStorageAdapter(),
-})
-handle = repo.create<{counter?: A.Counter}>()
-
-console.log('helllo from main 👉');
-
+automerge.init();
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
