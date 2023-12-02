@@ -9,6 +9,7 @@ import { url } from "../../../utils/urlManager";
 import notify from "../../molecules/notify";
 import commander from "../commander/commander";
 import { setSavedState } from "../../../ui/functions/savedState";
+import { automerger } from "../../../repositories/automerge";
 
 const encodeTitle = (title) => {
   const encodedTitle = encodeURIComponent(title);
@@ -111,6 +112,23 @@ export const setNoteFromHash = async (hash = url.getPageId()) => {
     if (!note) {
       notify.error("404 Note not found 🤷‍♂️");
     }
+  }
+};
+
+export const setNoteFromAutomergeUrl = async (pageId = url.getPageId()) => {
+  if (pageId) {
+    console.log("pageId 👉", pageId);
+    const note = automerger.findDocument(pageId);
+
+    if (note) {
+      const noteDoc = await note.doc();
+      // setPageTitle(note.title);
+      select(".terminal").setValue(noteDoc.content);
+    }
+
+    // if (!note) {
+    //   notify.error("404 Note not found 🤷‍♂️");
+    // }
   }
 };
 

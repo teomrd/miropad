@@ -8,7 +8,7 @@ import {
   deleteNote,
   disableSyncOnCurrentNote,
   getNote,
-  setNoteFromHash,
+  setNoteFromAutomergeUrl,
 } from "./components/organisms/noteManager/noteManager";
 import { terminal } from "./components/organisms/terminal";
 import { isSyncEnabled } from "./isSyncEnabled";
@@ -28,9 +28,9 @@ import { url } from "./utils/urlManager";
 import { actOnURLStateChange } from "./listeners/urlChange";
 import { enableDevelopment } from "./utils/enableDevelopmentTasks";
 import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes";
-import { automerge } from "./repositories/automerge";
+import { automerger } from "./repositories/automerge";
 
-automerge.init();
+automerger.init();
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
@@ -123,7 +123,8 @@ const main = async () => {
 
   terminal.init();
   resetPageTitle();
-  setNoteFromHash(url.getPageId());
+  // setNoteFromHash(url.getPageId());
+  setNoteFromAutomergeUrl();
   select(".logo").listen("click", () => {
     commander.toggle(commander.getModes().notes);
   });

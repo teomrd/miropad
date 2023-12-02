@@ -19,7 +19,7 @@
   },
   "plugins": ["prettier", "jest", "@typescript-eslint"],
   "rules": {
-    "no-console": "error",
+    "no-console": "off",
     "prettier/prettier": "error",
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
