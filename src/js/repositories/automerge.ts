@@ -8,7 +8,7 @@ import {
 import { BroadcastChannelNetworkAdapter } from "@automerge/automerge-repo-network-broadcastchannel";
 import { IndexedDBStorageAdapter } from "@automerge/automerge-repo-storage-indexeddb";
 import { url } from "../utils/urlManager";
-import { next as Automerge } from "@automerge/automerge";
+import * as Automerge from "@automerge/automerge";
 
 import type { MarkdownDoc } from "./schema";
 import notify from "../components/molecules/notify";
@@ -53,12 +53,34 @@ export const automerger = (() => {
         });
         if (isValidAutomergeUrl(documentId)) {
           console.log("isValidAutomergeUrl 👉");
-          const handle = this.findHandleByDocUrl(documentId);
+          const handle = automerger.findHandleByDocUrl(documentId);
           console.log("handle 👉", handle);
-          this.updateNoteDocument(handle, text);
+          automerger.updateNoteDocument(handle, text);
         }
       } catch (error) {
         console.log("saveNote error 👉", error);
+      }
+    },
+    getVersions: async function (
+      documentId = url.getPageId()
+    ): Promise<Automerge.next.Doc<MarkdownDoc>> {
+      try {
+        if (isValidAutomergeUrl(documentId)) {
+          console.log("automerge getVersions  👉", {
+            documentId,
+          });
+          const handle = automerger.findHandleByDocUrl(documentId);
+          const doc = (await handle.doc()) as Automerge.Doc<MarkdownDoc>;
+          const heads = Automerge.getHeads(doc);
+          console.log("heads 👉", heads);
+
+          const documentInTime = Automerge.view(doc, heads);
+          return documentInTime;
+        }
+        throw new Error("Invalid Automerge URL");
+      } catch (error) {
+        console.log("getVersions error 👉", error);
+        throw error;
       }
     },
     createNoteDocument: function (): AutomergeUrl {

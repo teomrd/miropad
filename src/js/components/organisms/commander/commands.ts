@@ -116,6 +116,14 @@ export const commands = () => {
       call: createNewAutomergeDocument,
     },
     {
+      title: "get versions",
+      icon: icon(PencilSVG, "new note"),
+      sortTitle: "New",
+      call: () => {
+        automerger.getVersions();
+      },
+    },
+    {
       title: "Save",
       key: "s",
       icon: icon(CheckmarkCircleSVG, "save"),
