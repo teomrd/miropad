@@ -75,6 +75,7 @@ export const automerger = (() => {
           console.log("heads 👉", heads);
 
           const documentInTime = Automerge.view(doc, heads);
+          console.log("documentInTime 👉", documentInTime);
           return documentInTime;
         }
         throw new Error("Invalid Automerge URL");
@@ -82,6 +83,86 @@ export const automerger = (() => {
         console.log("getVersions error 👉", error);
         throw error;
       }
+    },
+    getCurrentHeads: async function (
+      documentId = url.getPageId()
+    ): Promise<Automerge.next.Heads> {
+      try {
+        if (isValidAutomergeUrl(documentId)) {
+          const handle = automerger.findHandleByDocUrl(documentId);
+          const doc = (await handle.doc()) as Automerge.Doc<MarkdownDoc>;
+          const heads = Automerge.getHeads(doc);
+          return heads;
+        }
+        throw new Error("Invalid Automerge URL");
+      } catch (error) {
+        console.log("getVersions error 👉", error);
+        throw error;
+      }
+    },
+    getRemoteHeads: async function (
+      documentId = url.getPageId()
+    ): Promise<Automerge.next.Heads> {
+      try {
+        if (isValidAutomergeUrl(documentId)) {
+          const handle = automerger.findHandleByDocUrl(documentId);
+          handle.getRemoteHeads();
+          const heads = Automerge.getHeads(doc);
+          return heads;
+        }
+        throw new Error("Invalid Automerge URL");
+      } catch (error) {
+        console.log("getVersions error 👉", error);
+        throw error;
+      }
+    },
+    getCurrentHandle: async function (
+      documentId = url.getPageId()
+    ): Promise<DocHandle<MarkdownDoc>> {
+      try {
+        if (isValidAutomergeUrl(documentId)) {
+          const handle = automerger.findHandleByDocUrl(documentId);
+          return handle;
+        }
+        throw new Error("Invalid Automerge URL");
+      } catch (error) {
+        console.log("getVersions error 👉", error);
+        throw error;
+      }
+    },
+    getCurrentDoc: async function (): Promise<Automerge.next.Doc<MarkdownDoc>> {
+      const handle = await automerger.getCurrentHandle();
+      const doc = (await handle.doc()) as Automerge.Doc<MarkdownDoc>;
+      return doc;
+    },
+    commit: async function (documentId = url.getPageId()) {
+      console.log("documentId 👉", documentId);
+      try {
+        if (isValidAutomergeUrl(documentId)) {
+          const handle = automerger.findHandleByDocUrl(documentId);
+
+          return handle.change(
+            (doc: MarkdownDoc) => {
+              doc.content = "some new content 2";
+            },
+            {
+              message: `some message to commit ${new Date()}}`,
+            }
+          );
+        }
+        throw new Error("Invalid Automerge URL");
+      } catch (error) {
+        console.log("commit error 👉", error);
+        throw error;
+      }
+    },
+    view: async function () {
+      const doc = await automerger.getCurrentDoc();
+
+      const heads = await automerger.getCurrentHeads();
+      console.log("heads 👉", heads);
+      const views = Automerge.view(doc, heads);
+      console.log("views 👉", views);
     },
     createNoteDocument: function (): AutomergeUrl {
       const handle = repo.create<MarkdownDoc>();

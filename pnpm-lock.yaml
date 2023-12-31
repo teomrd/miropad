@@ -6,20 +6,23 @@ settings:
 
 dependencies:
   '@automerge/automerge':
-    specifier: ^2.1.10
+    specifier: ^2.1.9
     version: 2.1.10
   '@automerge/automerge-repo':
-    specifier: ^1.0.19
-    version: 1.0.19(@types/node@18.14.0)(typescript@4.9.5)
+    specifier: ^1.1.0-alpha.7
+    version: 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
   '@automerge/automerge-repo-network-broadcastchannel':
-    specifier: ^1.0.19
-    version: 1.0.19(@types/node@18.14.0)(typescript@4.9.5)
+    specifier: ^1.1.0-alpha.7
+    version: 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
+  '@automerge/automerge-repo-network-websocket':
+    specifier: ^1.1.0-alpha.7
+    version: 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
   '@automerge/automerge-repo-react-hooks':
-    specifier: ^1.0.19
-    version: 1.0.19(@types/node@18.14.0)(typescript@4.9.5)
+    specifier: ^1.1.0-alpha.7
+    version: 1.1.0-alpha.7(@types/node@18.14.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)
   '@automerge/automerge-repo-storage-indexeddb':
-    specifier: ^1.0.19
-    version: 1.0.19(@types/node@18.14.0)(typescript@4.9.5)
+    specifier: ^1.1.0-alpha.7
+    version: 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
   '@lhci/cli':
     specifier: 0.11.0
     version: 0.11.0
@@ -171,10 +174,10 @@ packages:
     resolution: {integrity: sha512-HazVq9zwTVwGmqdwYzu7WyQ6FQVZ7SwET0KKQuKm55jD0IfUpZgN0OPIiZG3zV1iSrVYcN0bdwLRXI/VNCYsUA==}
     dev: false
 
-  /@automerge/automerge-repo-network-broadcastchannel@1.0.19(@types/node@18.14.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-Qb5+i+huCnOuriyVwuusHUXzUWdgOqslhSa/wAQEvJ+nOPkwhDDhDTgdvjnQjK5/grJCQzcmlwh+oQ55/3IPcg==}
+  /@automerge/automerge-repo-network-broadcastchannel@1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-HxWDXKJr5JrE37yBkUJMtgQSZk/mccQXloKkHnU9rVNbaVJOIE4Px6YgeMlJ6BPM/XvNRBiPbTJxFc8i87UBfQ==}
     dependencies:
-      '@automerge/automerge-repo': 1.0.19(@types/node@18.14.0)(typescript@4.9.5)
+      '@automerge/automerge-repo': 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -183,11 +186,32 @@ packages:
       - typescript
     dev: false
 
-  /@automerge/automerge-repo-react-hooks@1.0.19(@types/node@18.14.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-bEy7YvIHOwrBPl+4HPmhLedUJ7e1LF+pXLjqexykcNU+1oCEk/JEc98rx9GxQKt4TFCEhouGErDMFwJD8NpVTw==}
+  /@automerge/automerge-repo-network-websocket@1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-BXn4C/ypaHLv5t1et80VB0Md4+Ss5xAAsR1f5S8gQlH0d0O6p9KvEUc+Fy1FUXgo3KGlHZvM4WiBW+e310c6qw==}
+    dependencies:
+      '@automerge/automerge-repo': 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
+      cbor-x: 1.5.6
+      eventemitter3: 5.0.1
+      isomorphic-ws: 5.0.0(ws@8.12.1)
+      ws: 8.12.1
+    transitivePeerDependencies:
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - bufferutil
+      - supports-color
+      - typescript
+      - utf-8-validate
+    dev: false
+
+  /@automerge/automerge-repo-react-hooks@1.1.0-alpha.7(@types/node@18.14.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-A3ph8VFxo2l/EEBDCb09CmKzU1W3cZxWeRquM13BOwhIZyllEd3p5pRBJgWNqow6a0ffG+/xZeATpIk+TMnD8g==}
+    peerDependencies:
+      react: '>16.8.0'
+      react-dom: '>16.8.0'
     dependencies:
       '@automerge/automerge': 2.1.10
-      '@automerge/automerge-repo': 1.0.19(@types/node@18.14.0)(typescript@4.9.5)
+      '@automerge/automerge-repo': 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
       eventemitter3: 5.0.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -200,10 +224,10 @@ packages:
       - typescript
     dev: false
 
-  /@automerge/automerge-repo-storage-indexeddb@1.0.19(@types/node@18.14.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-mp2P37tVtd2CIYMOfuYQd6iiXYSSw0ooJnuugDhR53KC1Q1gIFUiNBF/m3XE/Gp+ZOZm03HHPIfHjqxqk9mSag==}
+  /@automerge/automerge-repo-storage-indexeddb@1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-xAxEswAkirAtDdpBGpm1+LkbbS+/t41FMRQIKVWOkqdnbkKHhcNAKN0D20ik0NlQ20fyO8RaWGjWAIUfxoR1Iw==}
     dependencies:
-      '@automerge/automerge-repo': 1.0.19(@types/node@18.14.0)(typescript@4.9.5)
+      '@automerge/automerge-repo': 1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -212,8 +236,8 @@ packages:
       - typescript
     dev: false
 
-  /@automerge/automerge-repo@1.0.19(@types/node@18.14.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-IcfX9xkbk+YY7IhG+ZCoUVccou2MmHGXvu/XGOICFmUIaG1mkQAPzZU2u5r2JUX0cpr/2PcIPOeCletJMssnWw==}
+  /@automerge/automerge-repo@1.1.0-alpha.7(@types/node@18.14.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-Vl99onCax3HmCfGVVFupAzK6cPA4tits+q1UtF0yIvDBWn4TI2bytHad0Yu2kNTu+yqEneP5J+splJ8i/o5eIA==}
     dependencies:
       '@automerge/automerge': 2.1.10
       bs58check: 3.0.1
@@ -8051,6 +8075,14 @@ packages:
       whatwg-fetch: 3.6.2
     transitivePeerDependencies:
       - encoding
+    dev: false
+
+  /isomorphic-ws@5.0.0(ws@8.12.1):
+    resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
+    peerDependencies:
+      ws: '*'
+    dependencies:
+      ws: 8.12.1
     dev: false
 
   /isstream@0.1.2:

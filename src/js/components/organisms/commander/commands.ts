@@ -116,11 +116,32 @@ export const commands = () => {
       call: createNewAutomergeDocument,
     },
     {
-      title: "get versions",
+      title: "Get versions",
       icon: icon(PencilSVG, "new note"),
       sortTitle: "New",
       call: () => {
         automerger.getVersions();
+      },
+    },
+    {
+      title: "Commit changes",
+      icon: icon(CheckmarkCircleSVG, "commit"),
+      sortTitle: "commit",
+      call: async () => {
+        try {
+          await automerger.commit();
+        } catch (error) {
+          console.error("error 👉", error);
+          notify.error(error.message);
+        }
+      },
+    },
+    {
+      title: "View changes",
+      icon: icon(CheckmarkCircleSVG, "commit"),
+      sortTitle: "view",
+      call: () => {
+        automerger.view();
       },
     },
     {

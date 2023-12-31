@@ -33,11 +33,12 @@
     "workbox-cli": "^7.0.0"
   },
   "dependencies": {
-    "@automerge/automerge": "^2.1.10",
-    "@automerge/automerge-repo": "^1.0.19",
-    "@automerge/automerge-repo-network-broadcastchannel": "^1.0.19",
-    "@automerge/automerge-repo-react-hooks": "^1.0.19",
-    "@automerge/automerge-repo-storage-indexeddb": "^1.0.19",
+    "@automerge/automerge": "^2.1.9",
+    "@automerge/automerge-repo": "^1.1.0-alpha.7",
+    "@automerge/automerge-repo-network-broadcastchannel": "^1.1.0-alpha.7",
+    "@automerge/automerge-repo-network-websocket": "^1.1.0-alpha.7",
+    "@automerge/automerge-repo-react-hooks": "^1.1.0-alpha.7",
+    "@automerge/automerge-repo-storage-indexeddb": "^1.1.0-alpha.7",
     "@lhci/cli": "0.11.0",
     "esbuild": "^0.19.6",
     "esbuild-plugin-wasm": "^1.1.0",
