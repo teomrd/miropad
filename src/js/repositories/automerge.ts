@@ -8,8 +8,7 @@ import {
 import { BroadcastChannelNetworkAdapter } from "@automerge/automerge-repo-network-broadcastchannel";
 import { IndexedDBStorageAdapter } from "@automerge/automerge-repo-storage-indexeddb";
 import { url } from "../utils/urlManager";
-import * as Automerge from "@automerge/automerge";
-
+import { next as Automerge } from "@automerge/automerge";
 import type { MarkdownDoc } from "./schema";
 import notify from "../components/molecules/notify";
 
@@ -63,7 +62,7 @@ export const automerger = (() => {
     },
     getVersions: async function (
       documentId = url.getPageId()
-    ): Promise<Automerge.next.Doc<MarkdownDoc>> {
+    ): Promise<Automerge.Doc<MarkdownDoc>> {
       try {
         if (isValidAutomergeUrl(documentId)) {
           console.log("automerge getVersions  👉", {
@@ -71,6 +70,7 @@ export const automerger = (() => {
           });
           const handle = automerger.findHandleByDocUrl(documentId);
           const doc = (await handle.doc()) as Automerge.Doc<MarkdownDoc>;
+          console.log("doc 👉", doc);
           const heads = Automerge.getHeads(doc);
           console.log("heads 👉", heads);
 
@@ -86,27 +86,10 @@ export const automerger = (() => {
     },
     getCurrentHeads: async function (
       documentId = url.getPageId()
-    ): Promise<Automerge.next.Heads> {
+    ): Promise<Automerge.Heads> {
       try {
         if (isValidAutomergeUrl(documentId)) {
-          const handle = automerger.findHandleByDocUrl(documentId);
-          const doc = (await handle.doc()) as Automerge.Doc<MarkdownDoc>;
-          const heads = Automerge.getHeads(doc);
-          return heads;
-        }
-        throw new Error("Invalid Automerge URL");
-      } catch (error) {
-        console.log("getVersions error 👉", error);
-        throw error;
-      }
-    },
-    getRemoteHeads: async function (
-      documentId = url.getPageId()
-    ): Promise<Automerge.next.Heads> {
-      try {
-        if (isValidAutomergeUrl(documentId)) {
-          const handle = automerger.findHandleByDocUrl(documentId);
-          handle.getRemoteHeads();
+          const doc = await automerger.getCurrentDoc();
           const heads = Automerge.getHeads(doc);
           return heads;
         }
@@ -130,7 +113,7 @@ export const automerger = (() => {
         throw error;
       }
     },
-    getCurrentDoc: async function (): Promise<Automerge.next.Doc<MarkdownDoc>> {
+    getCurrentDoc: async function (): Promise<Automerge.Doc<MarkdownDoc>> {
       const handle = await automerger.getCurrentHandle();
       const doc = (await handle.doc()) as Automerge.Doc<MarkdownDoc>;
       return doc;
@@ -140,10 +123,9 @@ export const automerger = (() => {
       try {
         if (isValidAutomergeUrl(documentId)) {
           const handle = automerger.findHandleByDocUrl(documentId);
-
           return handle.change(
             (doc: MarkdownDoc) => {
-              doc.content = "some new content 2";
+              doc.content = `some new content 2 ${new Date()}`;
             },
             {
               message: `some message to commit ${new Date()}}`,
@@ -158,11 +140,20 @@ export const automerger = (() => {
     },
     view: async function () {
       const doc = await automerger.getCurrentDoc();
-
       const heads = await automerger.getCurrentHeads();
       console.log("heads 👉", heads);
       const views = Automerge.view(doc, heads);
       console.log("views 👉", views);
+
+      const changes = Automerge.getChanges(Automerge.init(), doc);
+      console.log("changes 👉", changes);
+      // this is a Uint8Array
+      return changes;
+    },
+    getCurrentActor: async function (): Promise<Automerge.ActorId> {
+      const doc = await automerger.getCurrentDoc();
+      const actorId = Automerge.getActorId(doc);
+      return actorId;
     },
     createNoteDocument: function (): AutomergeUrl {
       const handle = repo.create<MarkdownDoc>();
