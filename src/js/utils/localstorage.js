@@ -34,6 +34,10 @@ const storage = (() => {
 
       return localStorage.getItem(key);
     },
+    parse: function (key) {
+      const value = this.get(key);
+      return JSON.parse(value);
+    },
     getDictionary: function () {
       const savedTxt = localStorage.getItem("__dictionary__");
       return savedTxt ? JSON.parse(savedTxt) : [];

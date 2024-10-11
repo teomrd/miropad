@@ -3,6 +3,7 @@ import { url } from "../../../utils/urlManager";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { button } from "../../atoms/button/button";
 import { convertMarkDownToHtml } from "./mdToHtml";
+import storage from "../../../utils/localstorage";
 
 const markDownViewer = (() => {
   return {
@@ -18,10 +19,27 @@ const markDownViewer = (() => {
       }
       return this;
     },
+    autoLink: function () {
+      const autoLinks = storage.parse("__auto-links__");
+      const replacingPatterns = Object.keys(autoLinks).join("|");
+      // Regular expression to match text starting with the given patterns
+      const regex = new RegExp(`\\b(${replacingPatterns})\\d+\\b(?=\\s)`, "g");
+      const updatedHTML = this.view.el.innerHTML.replace(regex, (match) => {
+        const matchingKey = Object.keys(autoLinks).find((link) =>
+          match.startsWith(link)
+        );
+        const link = autoLinks[matchingKey];
+        return `<a href="${link}${match}" target="_blank">${match}</a>`;
+      });
+      // Replace each matching text with a link
+      this.view.innerHTML(updatedHTML);
+    },
     update: async function () {
       const md = select(".terminal").getValue();
 
       this.view.innerHTML(convertMarkDownToHtml(md));
+
+      this.autoLink();
 
       const { elements } = select("pre");
       Array.prototype.slice.call(elements).forEach((el) => {
