@@ -71,7 +71,8 @@ const sendMail = async (body, email, subject = "MiroPad note") => {
       .then((response) => response.json());
 
     notify.success("Email sent 🚀");
-  } catch (error) {
+  } catch (e) {
+    console.error('sendMail 👉', e);
     notify.error(
       "Error not went through 💥! Check your credentials and try again!"
     );

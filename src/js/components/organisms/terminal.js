@@ -86,7 +86,7 @@ export const terminal = (() => {
         ? isLastOption
           ? 0
           : currentlySelected + 1
-        : // eslint-disable-next-line prettier/prettier
+        :
         isFirstOption ? lastOption : currentlySelected - 1;
 
       state.options = {

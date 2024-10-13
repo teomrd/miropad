@@ -64,10 +64,10 @@ const storage = (() => {
         } catch (e) {
           notify.error(
             `😱 Something went wrong while trying to save to local storage ${e}`
-          ); // eslint-disable-line
+          );  
         }
       } else {
-        notify.warning("😕 Nothing to save!"); // eslint-disable-line
+        notify.warning("😕 Nothing to save!");  
       }
       return this;
     },

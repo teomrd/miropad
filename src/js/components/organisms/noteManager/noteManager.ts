@@ -1,4 +1,4 @@
-/* eslint-disable indent */
+ 
 import select from "../../../utils/dom";
 import { deleteFileOnGist } from "../../../utils/github/api";
 import hashBrowser from "../../../utils/hashBrowser";
@@ -53,20 +53,11 @@ export type Note = {
   };
 };
 
-export const getNote = (titleID = url.getPageId(), revision): Note | null => {
-  let doc;
-  try {
-    doc = JSON.parse(storage.get(titleID));
-    if (!doc.revisions) {
-      throw new Error("This is not a note!");
-    }
-  } catch (error) {
-    return null;
-  }
-
+export const getNote = (titleID = url.getPageId(), revision?): Note | null => {
+  const doc = JSON.parse(storage.get(titleID));
   const newerNote = doc
     ? Object.values(doc.revisions).reduce(
-        (acc: any, note: any) =>
+        (acc: unknown, note: unknown) =>
           note.dateCreated > acc.dateCreated ? note : acc,
         { dateCreated: 0 }
       )
@@ -210,10 +201,10 @@ export const saveNote = async (
     } catch (e) {
       notify.error(
         `😱 Something went wrong while trying to save to local storage ${e}`
-        ); // eslint-disable-line
+        );  
     }
   } else {
-      notify.warning("😕 Nothing to save!"); // eslint-disable-line
+      notify.warning("😕 Nothing to save!");  
   }
 };
 

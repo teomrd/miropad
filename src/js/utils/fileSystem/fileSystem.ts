@@ -33,7 +33,8 @@ export const saveFileAs = async (contents: string, title?: string) => {
   try {
     const fileHandle = await getNewFileHandle(title);
     await writeFile(fileHandle, contents);
-  } catch (ex) {
+  } catch (e) {
+    console.error('saveFileAs', e);
     const msg = "An error occurred trying to save the file.";
     notify.error(msg);
     return;

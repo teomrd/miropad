@@ -34,7 +34,8 @@ const setNoteFromGist = async (gistId) => {
       // @ts-ignore
       const { content } = gistFile;
       select(".terminal").setValue(content);
-    } catch (error) {
+    } catch (e) {
+      console.error('setNoteFromGist', e)
       notify.error("MiroPad note not found! 🤷‍♂️");
     }
   }
@@ -58,6 +59,7 @@ export const actOnURLStateChange = async (e = {}) => {
     await setNoteFromGist(gistId);
     await setNoteFromRawUrl(raw);
   } catch (e) {
+    console.error('actOnURLStateChange', e)
     notify.error(e.message);
   }
 

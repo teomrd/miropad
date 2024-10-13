@@ -1,4 +1,4 @@
-/* eslint-disable indent */
+ 
 import {
   getNote,
   getNotes,
