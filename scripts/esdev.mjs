@@ -1,5 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable no-console */
 import * as esbuild from "esbuild";
 import miropad from "../package.json" assert { type: "json" };
 
