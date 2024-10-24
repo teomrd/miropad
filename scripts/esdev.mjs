@@ -4,6 +4,7 @@ import miropad from "../package.json" assert { type: "json" };
 const context = await esbuild.context({
   entryPoints: ["src/index.js"],
   bundle: true,
+  platform: "node",
   outfile: "dev/index.js",
   target: ["es2020", "chrome100", "firefox100"],
   minify: true,

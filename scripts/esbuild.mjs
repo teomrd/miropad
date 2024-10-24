@@ -8,6 +8,7 @@ esbuild
   .build({
     entryPoints: ["src/index.js"],
     bundle: true,
+    platform: "node",
     outdir: "out",
     target: ["es2020", "chrome87", "firefox85"],
     minify: true,
