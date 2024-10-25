@@ -14,7 +14,7 @@ const storage = (() => {
         JSON.stringify({
           ...current,
           ...attr,
-        })
+        }),
       );
       return this;
     },
@@ -63,11 +63,11 @@ const storage = (() => {
           localStorage.setItem("__dictionary__", JSON.stringify(distinctWords));
         } catch (e) {
           notify.error(
-            `😱 Something went wrong while trying to save to local storage ${e}`
-          ); // eslint-disable-line
+            `😱 Something went wrong while trying to save to local storage ${e}`,
+          );
         }
       } else {
-        notify.warning("😕 Nothing to save!"); // eslint-disable-line
+        notify.warning("😕 Nothing to save!");
       }
       return this;
     },

@@ -10,7 +10,7 @@ const welcomeUser = () => {
        <p>Use  Ctrl+S:  to save your note<p/>
        <p>& Ctrl+P: to format a JSON doc<p/>
       `,
-      100
+      100,
     );
   }
   localStorage.setItem("miropad.user", new Date().toLocaleDateString());

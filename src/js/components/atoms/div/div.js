@@ -39,7 +39,7 @@ export const div = ({ content = "", highlight = "" }) => {
           const wordElements = parts.map((syllable) =>
             syllable.toLowerCase() === match
               ? mark(syllable)
-              : document.createTextNode(syllable)
+              : document.createTextNode(syllable),
           );
           div.appendChild(document.createTextNode(" "));
           wordElements.forEach((w) => {

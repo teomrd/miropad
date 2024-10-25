@@ -47,7 +47,7 @@ export const url = {
     return window.location.assign(
       `${hash ? `#${hash}` : pathname}${
         searchParams.toString() ? `?${searchParams.toString()}` : ""
-      }`
+      }`,
     );
   },
   set: function (pageId = this.getPageId(), params = this.getParamsObject()) {

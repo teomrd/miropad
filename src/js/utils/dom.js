@@ -15,7 +15,7 @@ const select = (selector) => ({
       text,
       this.el.selectionStart,
       this.el.selectionEnd,
-      "end"
+      "end",
     );
     return this;
   },

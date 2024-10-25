@@ -21,7 +21,7 @@ type Node = {
     char: string,
     dictionary?: {
       [key: string]: string;
-    }
+    },
   ) => {
     [key: string]: string;
   };

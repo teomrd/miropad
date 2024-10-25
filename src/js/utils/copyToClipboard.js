@@ -2,7 +2,7 @@ import notify from "../components/molecules/notify";
 
 export const copyToClipboard = async (
   what,
-  message = "📋 Copied to clipboard"
+  message = "📋 Copied to clipboard",
 ) => {
   try {
     await navigator.clipboard.writeText(what);

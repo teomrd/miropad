@@ -18,7 +18,7 @@ export const goAuthenticate = async () => {
   notify.info("You need to be authenticated!");
   commander.hide();
   return window.location.replace(
-    `https://github.com/login/oauth/authorize?client_id=${configuration.github.client_id}&scope=gist&state=${configuration.github.request_state}`
+    `https://github.com/login/oauth/authorize?client_id=${configuration.github.client_id}&scope=gist&state=${configuration.github.request_state}`,
   );
 };
 
@@ -33,7 +33,7 @@ export const setGistToSyncWith = async (token) => {
   const gistOptions = gists
     .sort(
       (a, b) =>
-        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
     )
     .map(({ description, updated_at, id }) => ({
       title: div({ content: `${description}(${id})` }),

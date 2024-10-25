@@ -30,7 +30,7 @@ export const getAuthenticatedUsersGists = (token = storage.get("authToken")) =>
 export const deleteFileOnGist = async (
   fileName,
   gistId = storage.get("gistId"),
-  token = storage.get("authToken")
+  token = storage.get("authToken"),
 ) => {
   return fetch(`https://api.github.com/gists/${gistId}`, {
     method: "PATCH",
@@ -62,7 +62,7 @@ export const deleteFileOnGist = async (
 export const updateGist = async (
   notes = getNotes(),
   gistId = storage.get("gistId"),
-  token = storage.get("authToken")
+  token = storage.get("authToken"),
 ) => {
   if (gistId && token) {
     const noteToFiles = notes.reduce((acc, { id, text, deleted }) => {

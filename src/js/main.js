@@ -59,7 +59,7 @@ const initInfoPanel = () => {
         </label>
         ${note.numberOfRevisions}
       </p>
-      `
+      `,
     );
 
     const isSyncOn = isSyncEnabled();
