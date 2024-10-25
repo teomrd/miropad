@@ -1,8 +1,7 @@
 import { nanoid } from "nanoid";
-import getCaretCoordinates from "textarea-caret";
 import TrashSVG from "../../../assets/svg/trash.svg";
 import { configuration } from "../../../configuration";
-import { trieDictionary } from "../../main";
+import { autoComplete } from "../../features/autocomplete";
 import { setSavedState } from "../../ui/functions/savedState";
 import select from "../../utils/dom";
 import storage from "../../utils/localstorage";
@@ -15,41 +14,16 @@ import notify from "../molecules/notify";
 import commander from "./commander/commander";
 import markDownViewer from "./markdown/markDownViewer";
 import { getNote, getTitle } from "./noteManager/noteManager";
+import { trieDictionary } from "../../main";
 
-const isLastCharacterInTheWord = (text, characterIndex) =>
-  text[characterIndex] === undefined || text[characterIndex].trim() === "";
-
-const placeSuggestion = (textEl) => {
-  const coords = getCaretCoordinates(textEl, textEl.selectionEnd);
-  const { top, left } = coords;
-
-  // This does the trick! `main` is getting the same
-  // height as the textarea so the suggestion will be placed
-  // right!
-  // TODO: change that on terminal size change!
-  const actualTerminalHeight = select(".terminal").el.scrollHeight;
-  const main = select("main").el;
-  main.style.height = `${actualTerminalHeight}px`;
-
-  select(".suggestion").el.style.top = `${top}px`;
-  select(".suggestion").el.style.left = `${left}px`;
-};
-
-const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
-  let word = "";
-  let currentIndex = cursorIndexPosition - 1;
-  do {
-    const character = text[currentIndex] || "";
-    currentIndex = character.trim() === "" ? -1 : currentIndex - 1;
-    word = character.trim() !== "" ? `${character}${word}` : word;
-  } while (currentIndex >= 0);
-  return word;
-};
-
-const getPredictions = (word) => {
-  const sanitizedWord = word.replace(/[\r\n\t]+/g, "").toLowerCase();
-
-  return trieDictionary.getMatchingWords(sanitizedWord);
+type TerminalState = {
+  matches: Array<string>;
+  currentWord: null | string;
+  prediction: null | string;
+  options: {
+    selected: number;
+    length: number;
+  };
 };
 
 export const terminal = (() => {
@@ -61,11 +35,14 @@ export const terminal = (() => {
       selected: 0,
       length: 0,
     },
-  };
+  } as TerminalState;
   let state = initState;
   return {
     el: select(".terminal"),
-    setState: function (newState) {
+    getState: function (): TerminalState {
+      return state;
+    },
+    setState: function (newState: Partial<TerminalState>) {
       state = {
         ...state,
         ...newState,
@@ -126,12 +103,13 @@ export const terminal = (() => {
     },
     renderInlineSuggestion: () => {
       const { prediction, currentWord } = state;
-
-      const inlineSuggestion = div({
-        content: `${prediction.slice(currentWord.length)}`,
-      });
-      inlineSuggestion.setAttribute("id", "inlineSuggestion");
-      select(".suggestion").show().html(inlineSuggestion);
+      if (prediction && currentWord) {
+        const inlineSuggestion = div({
+          content: `${prediction.slice(currentWord.length)}`,
+        });
+        inlineSuggestion.setAttribute("id", "inlineSuggestion");
+        select(".suggestion").show().html(inlineSuggestion);
+      }
     },
     renderOptions: () => {
       const optionsUl = select(".suggestion .options");
@@ -170,47 +148,8 @@ export const terminal = (() => {
     },
     onInput: (e) => {
       const isAutocompleteEnabled = !!storage.get("__autocomplete__");
-      if (!isAutocompleteEnabled) return;
-
-      const cursorIndexPosition = e.target.selectionEnd;
-      const fullText = terminal.el.getValue();
-
-      const charTyped = fullText[cursorIndexPosition - 1];
-      if (e.inputType === "deleteContentBackward" || charTyped === " ") {
-        terminal.setState({
-          prediction: initState.prediction,
-          currentWord: initState.currentWord,
-        });
-        return select(".suggestion").hide();
-      }
-
-      const shouldDisplaySuggestion =
-        e.inputType === "insertText" &&
-        isLastCharacterInTheWord(fullText, cursorIndexPosition);
-
-      if (shouldDisplaySuggestion) {
-        placeSuggestion(e.target);
-        const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
-        const matches = getPredictions(word);
-
-        const [firstMatch] = matches;
-        const prediction = firstMatch || "";
-
-        terminal.setState({
-          prediction,
-          currentWord: word,
-          matches: matches.slice(0, 10),
-          options: {
-            selected: 0,
-            length: matches.length,
-          },
-        });
-        if (state.currentWord.length > 1 && state.prediction) {
-          terminal.renderInlineSuggestion();
-          terminal.renderOptions();
-        } else {
-          select(".suggestion").hide();
-        }
+      if (isAutocompleteEnabled) {
+        autoComplete(e);
       }
     },
     onArrowDown: (e) => {
