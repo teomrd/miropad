@@ -84,7 +84,7 @@ const sharePublicLinkCommand = {
     });
     const rawLink = response.history[0].url;
     const gitResponse = await fetch(rawLink).then((response) =>
-      response.json()
+      response.json(),
     );
     const { files } = gitResponse;
     const fileContents = Object.values(files);
@@ -249,7 +249,7 @@ export const commands = () => {
           storage.set("__experimental__", true);
         }
         notify.showNotification(
-          `Experimental features turned ${previousStatus ? "off" : "on"}`
+          `Experimental features turned ${previousStatus ? "off" : "on"}`,
         );
         commander.hide();
       },
@@ -268,7 +268,7 @@ export const commands = () => {
           storage.set("__autocomplete__", true);
         }
         notify.showNotification(
-          `Autocomplete feature turned ${previousStatus ? "off" : "on"}`
+          `Autocomplete feature turned ${previousStatus ? "off" : "on"}`,
         );
         commander.hide();
         select(".terminal").focus();
@@ -285,11 +285,11 @@ export const commands = () => {
         await sleep(200); // need to wait after prompt for some reason before copy
         copyToClipboard(
           `<div class="cover" style="background-image: url('${bgImage}')"></div>`,
-          "👌Copied! Paste the code on the MiroPad editor"
+          "👌Copied! Paste the code on the MiroPad editor",
         );
         select(".terminal").focus();
         notify.info(
-          "Paste the cover picture wherever you prefer on the MirPad editor"
+          "Paste the cover picture wherever you prefer on the MirPad editor",
         );
       },
     },
@@ -330,7 +330,7 @@ export const commands = () => {
           .getValue()
           .slice(
             select(".terminal").el.selectionStart,
-            select(".terminal").el.selectionEnd
+            select(".terminal").el.selectionEnd,
           );
         const valueToFind = prompt("What do you wanna find?", selectedValue);
         if (!valueToFind) {
@@ -342,7 +342,7 @@ export const commands = () => {
 
         select(".terminal").el.setSelectionRange(
           positionOfFirstChar,
-          positionOfFirstChar + valueToFind.length
+          positionOfFirstChar + valueToFind.length,
         );
         const replacementValue = prompt(`Replace ${valueToFind} with...`);
         if (replacementValue) {
@@ -366,7 +366,7 @@ export const commands = () => {
       icon: icon(TrashSVG, "delete note"),
       call: () => {
         const confirmation = confirm(
-          "Are you sure you want do delete ALL your notes?"
+          "Are you sure you want do delete ALL your notes?",
         );
         if (confirmation) {
           const notes = getNotes({

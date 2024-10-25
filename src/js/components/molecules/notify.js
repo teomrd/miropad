@@ -20,7 +20,7 @@ const notificationFactory = () =>
         this.showNotification(message, notificationType);
       },
     }),
-    {}
+    {},
   );
 
 const Notification = (autohideDuration = 5) => ({

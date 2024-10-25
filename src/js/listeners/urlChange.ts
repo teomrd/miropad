@@ -15,7 +15,7 @@ const setNoteFromRawUrl = async (rawUrl) => {
     const response = await fetch(rawUrl).then((response) => {
       if (response.ok) return response.text();
       throw new Error(
-        `Remote note could not be retrieved! code: ${response.status}`
+        `Remote note could not be retrieved! code: ${response.status}`,
       );
     });
     select(".terminal").setValue(response);
@@ -29,7 +29,7 @@ const setNoteFromGist = async (gistId) => {
       const { files } = gist;
       const fileContents = Object.values(files);
       const [gistFile] = fileContents;
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
       // @ts-ignore
       const { content } = gistFile;
       select(".terminal").setValue(content);
@@ -49,7 +49,7 @@ export const actOnURLStateChange = async (e = {}) => {
     const { v: newV } = url.getParamsObject(newURL);
     const hasPageVersionChanged = oldV !== newV;
     const shouldChangeNote = [hasPageIdChanged, hasPageVersionChanged].some(
-      (r) => r
+      (r) => r,
     );
     if (shouldChangeNote) setNoteFromHash();
 

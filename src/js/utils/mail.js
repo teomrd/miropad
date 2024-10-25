@@ -73,7 +73,7 @@ const sendMail = async (body, email, subject = "MiroPad note") => {
     notify.success("Email sent 🚀");
   } catch (error) {
     notify.error(
-      "Error not went through 💥! Check your credentials and try again!"
+      "Error not went through 💥! Check your credentials and try again!",
     );
   }
 };
@@ -83,7 +83,7 @@ const getUserMailingPreferences = () => {
   if (savedMail) {
     const mailSameAgainQuestion = window.prompt(
       `Mail ${savedMail} again? (y)es/(no)`,
-      "yeap"
+      "yeap",
     );
     if (mailSameAgainQuestion === null) {
       return mailSameAgainQuestion;
@@ -95,7 +95,7 @@ const getUserMailingPreferences = () => {
   const whoMailing = window.prompt("Where do you wanna send the mail to?");
   const wannaSaveDat = window.prompt(
     "Do you wanna save that to your preferences for later on? (y)es/(no)",
-    "yeap"
+    "yeap",
   );
   if (wannaSaveDat && wannaSaveDat.slice(0, 1).toLowerCase() === "y") {
     storage.set("mail", whoMailing);

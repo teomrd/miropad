@@ -17,7 +17,7 @@ const resetPageTitle = () => {
   document.title = baseTitle;
   select("title").innerHTML(`${TITLE_NAME} v${VERSION}`);
   select(".title h3").innerHTML(
-    `${TITLE_NAME} <span class="version">v${VERSION}</span>`
+    `${TITLE_NAME} <span class="version">v${VERSION}</span>`,
   );
 };
 

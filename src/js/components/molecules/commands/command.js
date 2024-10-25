@@ -2,7 +2,7 @@ import { isElement } from "../../../utils/dom";
 
 export const command = (
   { title, secondary, onclick, onSecondaryClick, icon },
-  selected = false
+  selected = false,
 ) => {
   const li = document.createElement("LI");
   li.className = selected ? "selected" : "";

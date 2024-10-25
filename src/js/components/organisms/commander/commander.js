@@ -115,8 +115,8 @@ const commander = (() => {
           ? 0
           : currentlySelected + 1
         : isFirstOption
-        ? lastOption
-        : currentlySelected - 1;
+          ? lastOption
+          : currentlySelected - 1;
 
       state.options = {
         ...state.options,
@@ -132,8 +132,8 @@ const commander = (() => {
             button(
               [command.icon, document.createTextNode(command.sortTitle)],
               command.call,
-              command.title.toLowerCase().replace(/\s/g, "-")
-            )
+              command.title.toLowerCase().replace(/\s/g, "-"),
+            ),
           );
         });
 
@@ -258,7 +258,7 @@ const commander = (() => {
 
           const noteLink = link(
             div({ content: title, highlight: value }),
-            href
+            href,
           );
 
           const noteCommand = command(
@@ -270,13 +270,13 @@ const commander = (() => {
                 select(".terminal").focus();
               },
             },
-            i === indexToSelect
+            i === indexToSelect,
           );
           return noteCommand;
         });
       select("#commands").html(notes);
       select("#commander input").placeholder(
-        `Search from ${notes.length} saved notes...`
+        `Search from ${notes.length} saved notes...`,
       );
       state.options = {
         ...state.options,
@@ -299,7 +299,7 @@ const commander = (() => {
               secondary: getShortcut(key),
               onclick: call,
             },
-            i === indexToSelect
+            i === indexToSelect,
           );
           return commandComponent;
         });

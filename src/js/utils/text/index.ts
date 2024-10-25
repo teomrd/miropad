@@ -26,7 +26,7 @@ export const findCurrentLine = (text: string, caretIndex: number): string => {
     {
       text: "",
       isFound: false,
-    }
+    },
   );
 
   return line.text;

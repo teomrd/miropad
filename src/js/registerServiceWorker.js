@@ -10,7 +10,7 @@ export const requestNotificationPermission = async () => {
 export const registerServiceWorker = async () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register(
-      `${window.location.pathname}service-worker.js?v=${VERSION}`
+      `${window.location.pathname}service-worker.js?v=${VERSION}`,
     );
   }
 };

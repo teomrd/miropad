@@ -154,8 +154,8 @@ export const terminal = (() => {
               terminal.acceptCompletion(word);
             },
           },
-          i === selectedIndex
-        )
+          i === selectedIndex,
+        ),
       );
       const optionList = document.createElement("ul");
       optionList.classList.add("options");
@@ -288,13 +288,12 @@ export const terminal = (() => {
       const clipboardItems = await navigator.clipboard.read();
       for (const clipboardItem of clipboardItems) {
         const imageTypes = clipboardItem.types?.filter((type) =>
-          type.startsWith("image/")
+          type.startsWith("image/"),
         );
         for (const imageType of imageTypes) {
           const blob = await clipboardItem.getType(imageType);
           const token = storage.get("MIROPAD_SECRET_TOKEN");
           if (token) {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const [image, fileExtension] = imageType.split("/");
             const fileName = `${nanoid()}.${fileExtension}`;
 
@@ -310,7 +309,7 @@ export const terminal = (() => {
                     "content-type": "application/octet-stream",
                   },
                   body: blob,
-                }
+                },
               )
                 .then(handleErrorResponse)
                 .then((response) => response.json());

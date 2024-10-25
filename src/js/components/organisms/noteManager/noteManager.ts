@@ -33,7 +33,7 @@ export const markNoteForDeletion = (id) => {
       title: note.title,
       deleted: true,
       revisions: note.revisions,
-    })
+    }),
   );
 };
 
@@ -68,7 +68,7 @@ export const getNote = (titleID = url.getPageId(), revision): Note | null => {
     ? Object.values(doc.revisions).reduce(
         (acc: any, note: any) =>
           note.dateCreated > acc.dateCreated ? note : acc,
-        { dateCreated: 0 }
+        { dateCreated: 0 },
       )
     : {};
 
@@ -102,7 +102,7 @@ export const setNoteFromHash = async (hash = url.getPageId()) => {
       select("#revisions").html(
         `${note.numberOfRevisions} revision${
           note.numberOfRevisions > 1 ? "s" : ""
-        }`
+        }`,
       );
       setPageTitle(note.title);
       select(".terminal").setValue(note.text);
@@ -161,14 +161,14 @@ export const updateNote = async (what) => {
             text: what,
           },
         },
-      })
+      }),
     );
   }
 };
 
 export const saveNote = async (
   what = select(".terminal").getValue(),
-  cid?: string
+  cid?: string,
 ) => {
   await storage.saveToDictionary(what);
   if (what.length) {
@@ -195,7 +195,7 @@ export const saveNote = async (
               ...(cid ? { cid: cid } : {}),
             },
           },
-        })
+        }),
       );
       url.set(titleID, {
         v: hash,
@@ -209,7 +209,7 @@ export const saveNote = async (
       setSavedState();
     } catch (e) {
       notify.error(
-        `😱 Something went wrong while trying to save to local storage ${e}`
+        `😱 Something went wrong while trying to save to local storage ${e}`,
         ); // eslint-disable-line
     }
   } else {
