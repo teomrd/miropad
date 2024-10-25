@@ -1,7 +1,6 @@
 import "github-markdown-css";
 import "../../css/print.css";
 import "../../css/styles.css";
-import { retrieveNoteFromIPFS } from "../Functions/retrieveNoteFromIPFS";
 import notify from "../components/molecules/notify";
 import {
   search,
@@ -75,12 +74,6 @@ export const actOnURLStateChange = async (e = {}) => {
     select(".header").hide();
   } else {
     select(".header").show();
-  }
-
-  if (url.getSearchParam("cid")) {
-    await retrieveNoteFromIPFS(url.getSearchParam("cid"));
-  } else {
-    select(".anchor").hide();
   }
 
   select(".note-info").hide();

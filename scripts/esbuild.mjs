@@ -4,10 +4,11 @@
 import * as esbuild from "esbuild";
 import miropad from "../package.json" assert { type: "json" };
 
-esbuild
+await esbuild
   .build({
     entryPoints: ["src/index.js"],
     bundle: true,
+    platform: "browser",
     outdir: "out",
     target: ["es2020", "chrome87", "firefox85"],
     minify: true,

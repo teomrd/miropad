@@ -49,7 +49,6 @@ import PencilSVG from "../../../../assets/svg/pencil.svg";
 import ShareSVG from "../../../../assets/svg/exit-up.svg";
 import LeafSVG from "../../../../assets/svg/leaf.svg";
 import { share } from "../../../utils/webShare";
-import { ipfs } from "../../../repositories/ipfs";
 import { setSavedState } from "../../../ui/functions/savedState";
 
 const getSyncTitle = () => {
@@ -141,26 +140,6 @@ export const commands = () => {
       call: () => {
         markDownViewer.toggle("full");
         commander.hide();
-      },
-    },
-    {
-      title: "Save to IPFS",
-      key: "i",
-      icon: icon(EarthSVG, "save"),
-      sortTitle: "save->ipfs",
-      call: async () => {
-        commander.hide();
-        await saveNote(select(".terminal").getValue());
-        const note = getNote();
-        const { disableSync = false } = note;
-        if (!disableSync) {
-          updateGist([note]);
-        }
-
-        if (note) {
-          const cid = await ipfs.store(note.title, note.text);
-          copyToClipboard(`${url.baseUrl}#?cid=${cid}`);
-        }
       },
     },
     ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
