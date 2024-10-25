@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import TrashSVG from "../../../assets/svg/trash.svg";
 import { configuration } from "../../../configuration";
-import { autoComplete } from "../../features/autocomplete";
+import { autoComplete } from "../../features/autoComplete";
 import { setSavedState } from "../../ui/functions/savedState";
 import select from "../../utils/dom";
 import storage from "../../utils/localstorage";

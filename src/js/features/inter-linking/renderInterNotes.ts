@@ -6,7 +6,7 @@ import {
   getCurrentlyTypingWord,
   isLastCharacterInTheWord,
   placeSuggestion,
-} from "../autocomplete";
+} from "../autoComplete";
 import { getNotes } from "../../components/organisms/noteManager/noteManager";
 
 export const renderInterNotes = (e: any) => {
