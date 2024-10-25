@@ -217,7 +217,11 @@ export const saveNote = async (
   }
 };
 
-export const getNotes = ({ includeDeleted } = {}) =>
+export const getNotes = ({
+  includeDeleted = false,
+}: {
+  includeDeleted?: boolean;
+} = {}): Array<Note> =>
   Object.entries(localStorage)
     .filter(([, body]) => typeof body === "string")
     .filter(([id, body]) => !id.startsWith("__") && isJSON(body))

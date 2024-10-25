@@ -15,6 +15,7 @@ import commander from "./commander/commander";
 import markDownViewer from "./markdown/markDownViewer";
 import { getNote, getTitle } from "./noteManager/noteManager";
 import { trieDictionary } from "../../main";
+import { renderInterNotes } from "../../features/inter-linking/renderInterNotes";
 
 type TerminalState = {
   matches: Array<string>;
@@ -77,9 +78,11 @@ export const terminal = (() => {
       terminal.renderInlineSuggestion();
       terminal.renderOptions();
     },
-    acceptCompletion: (word) => {
-      const complete = (word, currentWord) => {
-        const completion = word.replace(currentWord.toLowerCase(), "");
+    acceptCompletion: (word?: string) => {
+      const complete = (word: string, currentWord: string) => {
+        const completion = word
+          .toLowerCase()
+          .replace(currentWord.toLowerCase(), "");
         if (completion) {
           select(".terminal").insertAtCaret(`${completion} `);
         } else {
@@ -151,6 +154,7 @@ export const terminal = (() => {
       if (isAutocompleteEnabled) {
         autoComplete(e);
       }
+      renderInterNotes(e);
     },
     onArrowDown: (e) => {
       if (state.matches.length > 0) {

@@ -9,7 +9,7 @@ const getPredictions = (word) => {
   return trieDictionary.getMatchingWords(sanitizedWord);
 };
 
-const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
+export const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
   let word = "";
   let currentIndex = cursorIndexPosition - 1;
   do {
@@ -20,7 +20,7 @@ const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
   return word;
 };
 
-const placeSuggestion = (textEl) => {
+export const placeSuggestion = (textEl) => {
   const coords = getCaretCoordinates(textEl, textEl.selectionEnd);
   const { top, left } = coords;
 
@@ -36,7 +36,7 @@ const placeSuggestion = (textEl) => {
   select(".suggestion").el.style.left = `${left}px`;
 };
 
-const isLastCharacterInTheWord = (text, characterIndex) =>
+export const isLastCharacterInTheWord = (text, characterIndex) =>
   text[characterIndex] === undefined || text[characterIndex].trim() === "";
 
 export const autoComplete = (e: any) => {
@@ -51,14 +51,15 @@ export const autoComplete = (e: any) => {
     });
     return select(".suggestion").hide();
   }
+  const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
 
   const shouldDisplaySuggestion =
     e.inputType === "insertText" &&
-    isLastCharacterInTheWord(fullText, cursorIndexPosition);
+    isLastCharacterInTheWord(fullText, cursorIndexPosition) &&
+    !word.startsWith("#");
 
   if (shouldDisplaySuggestion) {
     placeSuggestion(e.target);
-    const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
     const matches = getPredictions(word);
 
     const [firstMatch] = matches;
