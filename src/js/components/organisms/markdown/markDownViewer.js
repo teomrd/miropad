@@ -21,15 +21,20 @@ const markDownViewer = (() => {
     },
     autoLink: function () {
       const autoLinks = storage.parse("__auto-links__");
-      const replacingPatterns = Object.keys(autoLinks).join("|");
-      // Regular expression to match text starting with the given patterns
-      const regex = new RegExp(`\\b(${replacingPatterns})\\d+\\b(?=\\s)`, "g");
+      // Regular expression to match any words starting with the given patterns
+      const replacingPatterns = Object.keys(autoLinks)
+        .map((pattern) => `${pattern}\\w+`)
+        .join("|");
+      const regex = new RegExp(`(${replacingPatterns})`, 'g');
+
       const updatedHTML = this.view.el.innerHTML.replace(regex, (match) => {
         const matchingKey = Object.keys(autoLinks).find((link) =>
           match.startsWith(link)
         );
         const link = autoLinks[matchingKey];
-        return `<a href="${link}${match}" target="_blank">${match}</a>`;
+        return link.startsWith("http") ? 
+         `<a href="${link}${match}" target="_blank">${match}</a>` :
+         `<a href="${link}${match}">${match}</a>`;
       });
       // Replace each matching text with a link
       this.view.innerHTML(updatedHTML);
