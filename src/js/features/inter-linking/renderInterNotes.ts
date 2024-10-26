@@ -1,29 +1,28 @@
-import getCaretCoordinates from "textarea-caret";
-import { terminal } from "../../components/organisms/terminal";
-import select from "../../utils/dom";
-import { trieDictionary } from "../../main";
+import getCaretCoordinates from 'textarea-caret';
+import { terminal } from '../../components/organisms/terminal';
+import select from '../../utils/dom';
+import { trieDictionary } from '../../main';
 import {
   getCurrentlyTypingWord,
   isLastCharacterInTheWord,
   placeSuggestion,
-} from "../autoComplete";
-import { getNotes } from "../../components/organisms/noteManager/noteManager";
+} from '../autoComplete';
+import { getNotes } from '../../components/organisms/noteManager/noteManager';
 
 export const renderInterNotes = (e: any) => {
   const cursorIndexPosition = e.target.selectionEnd;
   const fullText = terminal.el.getValue();
   const charTyped = fullText[cursorIndexPosition - 1];
-  if (e.inputType === "deleteContentBackward" || charTyped === " ") {
+  if (e.inputType === 'deleteContentBackward' || charTyped === ' ') {
     terminal.setState({
       prediction: null,
       currentWord: null,
     });
-    return select(".suggestion").hide();
+    return select('.suggestion').hide();
   }
   const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
-  if (word.startsWith("#")) {
-    const shouldDisplaySuggestion =
-      e.inputType === "insertText" &&
+  if (word.startsWith('#')) {
+    const shouldDisplaySuggestion = e.inputType === 'insertText' &&
       isLastCharacterInTheWord(fullText, cursorIndexPosition);
 
     if (shouldDisplaySuggestion) {
@@ -55,7 +54,7 @@ export const renderInterNotes = (e: any) => {
         terminal.renderInlineSuggestion();
         terminal.renderOptions();
       } else {
-        select(".suggestion").hide();
+        select('.suggestion').hide();
       }
     }
   }

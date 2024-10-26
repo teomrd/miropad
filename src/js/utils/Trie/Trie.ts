@@ -100,9 +100,9 @@ export const Trie = () => {
       words.forEach((word) => rootNode.insert(word));
       return this;
     },
-    search: function (prefix = "") {
+    search: function (prefix = '') {
       let node = rootNode;
-      prefix.split("").forEach((character) => {
+      prefix.split('').forEach((character) => {
         if (node) node = node.children[character];
       });
 
@@ -111,7 +111,7 @@ export const Trie = () => {
     // get sorted matching words
     // first by frequency
     // and then alphabetically
-    getMatchingWords: function (prefix = "") {
+    getMatchingWords: function (prefix = '') {
       const frequencyGroups = groupByFrequency(this.search(prefix));
       return Object.keys(frequencyGroups)
         .sort((a, b) => parseInt(b, 10) - parseInt(a, 10))

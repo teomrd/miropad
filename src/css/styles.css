@@ -1,5 +1,14 @@
 html, * {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Droid Sans',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
 }
@@ -9,7 +18,7 @@ input {
 }
 
 body {
-  background: black;  
+  background: black;
   width: 100%;
   height: 100vh;
   margin: 0;
@@ -31,7 +40,6 @@ main {
   max-width: 100%;
   position: relative;
 }
-
 
 aside {
   display: flex;
@@ -61,7 +69,7 @@ footer {
   width: 100%;
   height: 60px;
   max-width: calc(100% - 20px);
-  position: fixed; 
+  position: fixed;
   background-color: rgb(17, 21, 24);
   display: flex;
   align-items: center;
@@ -95,7 +103,7 @@ footer {
   overflow: hidden;
 }
 
-.header>div {
+.header > div {
   display: flex;
   align-items: center;
 }
@@ -112,7 +120,7 @@ footer {
   justify-content: center;
   display: block;
   position: relative;
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   cursor: pointer;
 }
 
@@ -125,7 +133,7 @@ footer {
   width: 20px;
   height: 20px;
 }
-.header .logo.loading{
+.header .logo.loading {
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -149,25 +157,25 @@ footer {
 @-webkit-keyframes spin2 {
   from {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
     -webkit-transform: rotate(359deg);
-            transform: rotate(359deg);
+    transform: rotate(359deg);
   }
 }
 @keyframes spin2 {
   from {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
     -webkit-transform: rotate(359deg);
-            transform: rotate(359deg);
+    transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
-            transform: rotate(359deg);
+    transform: rotate(359deg);
   }
 }
 /** END of loader */
@@ -192,7 +200,7 @@ header .logo.unsaved::after {
   height: 7px;
   background-color: red;
   border-radius: 50%;
-  content: "";
+  content: '';
   top: -2px;
   right: -2px;
   position: absolute;
@@ -205,7 +213,6 @@ header .logo:hover {
 header .logo:active {
   transform: scale(0.9);
 }
-
 
 .preview {
   flex: 1;
@@ -221,7 +228,6 @@ header .logo:active {
   width: 100%;
   margin-bottom: 16px;
 }
-
 
 .clickable {
   cursor: pointer;
@@ -373,10 +379,10 @@ header .logo:active {
   border-radius: 5px;
 }
 
-.commander .palette>div {
-  display: flex; 
+.commander .palette > div {
+  display: flex;
   min-height: 40px;
-} 
+}
 
 .commander .palette ul {
   color: white;
@@ -430,14 +436,14 @@ header .logo:active {
 .commander .palette button {
   border: none;
   background: transparent;
-  color: rgba(255, 255,255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
   font-size: medium;
   padding: 0 1em;
   cursor: pointer;
 }
 .commander .palette button:focus,
 .commander .palette button:hover {
-  color: rgba(255, 255,255, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 .commander .palette ul li a {
@@ -447,7 +453,7 @@ header .logo:active {
   padding: 10px 0;
 }
 
-.commander .palette ul li>div {
+.commander .palette ul li > div {
   padding: 10px 0;
   cursor: pointer;
   flex-grow: 1;
@@ -513,7 +519,7 @@ pre button {
   width: 100%;
   height: 20vh;
   padding: 20px;
-  box-shadow: 2px -4px 10px rgba(0,0,0,.2);
+  box-shadow: 2px -4px 10px rgba(0, 0, 0, 0.2);
   bottom: 0px;
   transition: all 0.5s linear;
   z-index: 1;
@@ -543,7 +549,7 @@ pre button {
   opacity: 1;
 }
 .mobile-dock button:disabled,
-.mobile-dock button[disabled]{
+.mobile-dock button[disabled] {
   opacity: 0.3;
   cursor: auto;
 }
@@ -552,14 +558,14 @@ pre button {
   height: 7px;
   background-color: red;
   border-radius: 50%;
-  content: "";
+  content: '';
   top: 0px;
   right: 0px;
   position: absolute;
 }
 
 .frost {
-  background: rgba(17, 21, 24, .85);
+  background: rgba(17, 21, 24, 0.85);
   -webkit-backdrop-filter: blur(2.5px);
   backdrop-filter: blur(2.5px);
 }
@@ -589,17 +595,17 @@ pre button {
   transform: rotate(90deg);
 }
 
-.suggestion {	
-  position: absolute;	
-  color: #00ec00;	
-  font-style: italic;	
+.suggestion {
+  position: absolute;
+  color: #00ec00;
+  font-style: italic;
   z-index: 10;
-  font-family: monospace;	
-  font-size: 20px;	
+  font-family: monospace;
+  font-size: 20px;
   cursor: pointer;
 }
 #inlineSuggestion {
-  opacity: 0.4;	
+  opacity: 0.4;
 }
 /**** switch ****/
 /* Thanks to w3schools awesome example https://www.w3schools.com/howto/howto_css_switch.asp */
@@ -627,20 +633,20 @@ pre button {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 18px;
   width: 18px;
   left: 4px;
   bottom: 3.5px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -682,7 +688,7 @@ input:checked + .slider:before {
 }
 .icon-button:hover {
   opacity: 1;
-} 
+}
 .icon-button svg {
   fill: currentColor;
 }
@@ -695,7 +701,9 @@ input:checked + .slider:before {
   width: 20%;
   min-width: 200px;
   height: 100%;
-  box-shadow: 0 10px 20px rgba(255,255,255,0.19), 0 6px 6px rgba(255,255,255,0.23);
+  box-shadow:
+    0 10px 20px rgba(255, 255, 255, 0.19),
+    0 6px 6px rgba(255, 255, 255, 0.23);
   color: #fff;
   right: 0px;
   padding: 0 25px;
@@ -706,7 +714,7 @@ input:checked + .slider:before {
   flex-direction: row;
   align-items: center;
   height: 50px;
-  width: 100%;  
+  width: 100%;
   justify-content: space-between;
 }
 .note-info .details label {
@@ -721,7 +729,7 @@ input:checked + .slider:before {
   padding: 7.5px 0;
   margin: 0;
 }
-.note-info .details p button { 
+.note-info .details p button {
   width: 100%;
   display: flex;
   background: crimson;
@@ -749,8 +757,6 @@ editable-list {
   padding: 0 1.5em;
 }
 
-
-
 ul.options {
   line-height: 1.5;
   color: #fff;
@@ -777,7 +783,7 @@ ul.options li {
 }
 
 ul.options li div {
-  opacity: .25;
+  opacity: 0.25;
 }
 
 ul.options li.selected div,

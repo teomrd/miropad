@@ -28,18 +28,18 @@ const isSameDate = (aDate, bDate = new Date()) => {
 };
 
 const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 const shortMonthNames = monthNames.map((name) => name.slice(0, 3));
@@ -58,11 +58,11 @@ export const relativeDate = (dateCreated) => {
   const date = new Date(dateCreated);
   const month = !isYesterday(dateCreated)
     ? shortMonthNames[date.getMonth()]
-    : "";
-  const year = isSameYear(date) ? "" : date.getFullYear();
-  const day = isYesterday(date) ? "Yesterday" : date.getDate();
+    : '';
+  const year = isSameYear(date) ? '' : date.getFullYear();
+  const day = isYesterday(date) ? 'Yesterday' : date.getDate();
 
-  return `${isSameDate(date) ? "" : `${day} ${month} ${year}`} ${
-    isSameDate(date) ? date.toLocaleTimeString() : ""
+  return `${isSameDate(date) ? '' : `${day} ${month} ${year}`} ${
+    isSameDate(date) ? date.toLocaleTimeString() : ''
   }`;
 };

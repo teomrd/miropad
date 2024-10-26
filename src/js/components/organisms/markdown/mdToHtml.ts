@@ -1,4 +1,4 @@
-import showdown from "showdown";
+import showdown from 'showdown';
 
 const converter = new showdown.Converter({
   tasklists: true,
@@ -9,6 +9,6 @@ const converter = new showdown.Converter({
   openLinksInNewWindow: true,
 });
 
-converter.setFlavor("github");
+converter.setFlavor('github');
 
 export const convertMarkDownToHtml = (md) => converter.makeHtml(md);

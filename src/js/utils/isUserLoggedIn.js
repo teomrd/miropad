@@ -1,5 +1,5 @@
-import storage from "./localstorage";
+import storage from './localstorage';
 
 export const isUserLoggedIn = () => {
-  return !!storage.get("authToken");
+  return !!storage.get('authToken');
 };

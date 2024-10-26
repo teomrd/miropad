@@ -1,4 +1,4 @@
-import { CID as CoreCID } from "multiformats/cid";
+import { CID as CoreCID } from 'multiformats/cid';
 
 export const CID = (() => {
   return {

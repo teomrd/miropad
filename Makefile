@@ -5,13 +5,16 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 .PHONY : install dev audits deploy serve version build deploy clean
 
 install:
-	pnpm install
+	deno install
+
+# dev: install build
+# 	open http://localhost:8000 && pnpm run dev
 
 dev: install build
-	open http://localhost:8000 && pnpm run dev
+	open http://localhost:8000 && deno task dev
 
 checks: install
-	pnpm run lint && pnpm run test
+	deno lint
 
 audits: install build
 	pnpm run lighthouse

@@ -1,9 +1,9 @@
-import storage from "../localstorage";
-import { getNotes } from "../../components/organisms/noteManager/noteManager";
-import notify from "../../components/molecules/notify";
-import { configuration } from "../../../configuration";
+import storage from '../localstorage';
+import { getNotes } from '../../components/organisms/noteManager/noteManager';
+import notify from '../../components/molecules/notify';
+import { configuration } from '../../../configuration';
 
-export const getGist = (id, token = storage.get("authToken")) =>
+export const getGist = (id, token = storage.get('authToken')) =>
   fetch(`https://api.github.com/gists/${id}`, {
     headers: {
       Authorization: `token ${token}`,
@@ -15,8 +15,8 @@ export const getGist = (id, token = storage.get("authToken")) =>
     return response.json();
   });
 
-export const getAuthenticatedUsersGists = (token = storage.get("authToken")) =>
-  fetch("https://api.github.com/gists", {
+export const getAuthenticatedUsersGists = (token = storage.get('authToken')) =>
+  fetch('https://api.github.com/gists', {
     headers: {
       Authorization: `token ${token}`,
     },
@@ -29,21 +29,21 @@ export const getAuthenticatedUsersGists = (token = storage.get("authToken")) =>
 
 export const deleteFileOnGist = async (
   fileName,
-  gistId = storage.get("gistId"),
-  token = storage.get("authToken"),
+  gistId = storage.get('gistId'),
+  token = storage.get('authToken'),
 ) => {
   return fetch(`https://api.github.com/gists/${gistId}`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
       Authorization: `token ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       files: {
         [fileName]: null,
       },
-      description: "MiroPad Gist",
+      description: 'MiroPad Gist',
       public: false,
     }),
   })
@@ -61,8 +61,8 @@ export const deleteFileOnGist = async (
 
 export const updateGist = async (
   notes = getNotes(),
-  gistId = storage.get("gistId"),
-  token = storage.get("authToken"),
+  gistId = storage.get('gistId'),
+  token = storage.get('authToken'),
 ) => {
   if (gistId && token) {
     const noteToFiles = notes.reduce((acc, { id, text, deleted }) => {
@@ -72,15 +72,15 @@ export const updateGist = async (
       };
     }, {});
     return fetch(`https://api.github.com/gists/${gistId}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
         Authorization: `token ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         files: noteToFiles,
-        description: "MiroPad Gist",
+        description: 'MiroPad Gist',
         public: false,
       }),
     })
@@ -99,7 +99,7 @@ export const updateGist = async (
   }
 };
 
-export const createNewGist = (token = storage.get("authToken")) => {
+export const createNewGist = (token = storage.get('authToken')) => {
   const notes = getNotes();
   const noteToFiles = notes.reduce((acc, note) => {
     return {
@@ -109,16 +109,16 @@ export const createNewGist = (token = storage.get("authToken")) => {
       },
     };
   }, {});
-  return fetch("https://api.github.com/gists", {
-    method: "POST",
+  return fetch('https://api.github.com/gists', {
+    method: 'POST',
     headers: {
       Authorization: `token ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       files: noteToFiles,
-      description: "MiroPad Gist",
+      description: 'MiroPad Gist',
       public: false,
     }),
   })
@@ -136,8 +136,8 @@ export const createNewGist = (token = storage.get("authToken")) => {
 export const getAuthToken = (code, state) =>
   fetch(`${configuration.auth_service}?state=${state}&code=${code}`, {
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   })
     .then((response) => {
@@ -152,14 +152,14 @@ export const getAuthToken = (code, state) =>
 
 export const publishGist = ({
   note,
-  token = storage.get("authToken"),
+  token = storage.get('authToken'),
 } = {}) => {
-  return fetch("https://api.github.com/gists", {
-    method: "POST",
+  return fetch('https://api.github.com/gists', {
+    method: 'POST',
     headers: {
       Authorization: `token ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       files: {
@@ -167,7 +167,7 @@ export const publishGist = ({
           content: note.text,
         },
       },
-      description: "MiroPad Gist",
+      description: 'MiroPad Gist',
       public: true,
     }),
   })

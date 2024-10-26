@@ -6,7 +6,7 @@ export const wordParts = (word, match) => {
     .reduce((acc, part, i) => {
       return [...acc, ...(i === 0 ? [part] : [match, part])];
     }, [])
-    .filter((p) => p !== "")
+    .filter((p) => p !== '')
     .map((syllable) => {
       indexInWord = indexInWord + syllable.length;
       const start = indexInWord - syllable.length;

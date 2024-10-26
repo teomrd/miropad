@@ -1,6 +1,6 @@
-import { CID } from "multiformats/cid";
-import * as json from "multiformats/codecs/json";
-import { sha256 } from "multiformats/hashes/sha2";
+import { CID } from 'multiformats/cid';
+import * as json from 'multiformats/codecs/json';
+import { sha256 } from 'multiformats/hashes/sha2';
 
 const hashBrowser = async (val) => {
   const bytes = json.encode(val);

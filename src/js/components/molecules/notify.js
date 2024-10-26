@@ -1,13 +1,13 @@
-import select from "../../utils/dom";
+import select from '../../utils/dom';
 
 const notificationTypes = {
-  info: "info",
-  success: "success",
-  error: "error",
-  warning: "warning",
+  info: 'info',
+  success: 'success',
+  error: 'error',
+  warning: 'warning',
 };
 
-const notification = select("#notification");
+const notification = select('#notification');
 const cleanNotificationClasses = () =>
   notification.removeClasses(Object.values(notificationTypes));
 notification.el.onclick = () => cleanNotificationClasses();

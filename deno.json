@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "dev": "deno run --watch src/index.ts",
+    "compile": "deno check src",
+    "start": "deno run --allow-net --watch=static/,routes/,data/ dev.ts",
+    "test": "deno test --allow-net",
+    "lint": "deno lint"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  },
+  "lint": {
+    "include": ["src/"],
+    "exclude": ["src/assets/", "src/css/"],
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "include": ["src/"],
+    "exclude": ["src/assets/"]
+  },
+  "exclude": [
+    "out/"
+  ]
+}
