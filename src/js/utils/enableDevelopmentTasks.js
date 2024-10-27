@@ -1,3 +1,4 @@
+import process from "node:process";
 export const isDevelopmentMode = () => {
   const env = process.env.NODE_ENV;
   return env === 'development';

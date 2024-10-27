@@ -112,7 +112,7 @@ const main = async () => {
   const words = storage.getDictionary();
   trieDictionary.insert(words);
 
-  window.addEventListener('error', errorHandler);
+  globalThis.addEventListener('error', errorHandler);
   welcomeUser();
   commander.init();
 
@@ -130,7 +130,7 @@ const main = async () => {
 
   markDownViewer.init();
 
-  window.addEventListener('hashchange', actOnURLStateChange);
+  globalThis.addEventListener('hashchange', actOnURLStateChange);
   actOnURLStateChange();
 
   registerServiceWorker();

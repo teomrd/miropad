@@ -13,7 +13,7 @@ const getNewFileHandle = async (title = 'no-titled') => {
     ],
   };
 
-  const handle = await window.showSaveFilePicker(options);
+  const handle = await globalThis.showSaveFilePicker(options);
   return handle;
 };
 
@@ -47,10 +47,10 @@ export const saveDataToFile = (() => {
   return (data, fileName = `MiroPad-${new Date().toISOString()}.json`) => {
     const json = JSON.stringify(data),
       blob = new Blob([json], { type: 'octet/stream' }),
-      url = window.URL.createObjectURL(blob);
+      url = globalThis.URL.createObjectURL(blob);
     a.href = url;
     a.download = fileName;
     a.click();
-    window.URL.revokeObjectURL(url);
+    globalThis.URL.revokeObjectURL(url);
   };
 })();

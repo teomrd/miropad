@@ -17,7 +17,7 @@ import { div } from '../../components/atoms/div/div';
 export const goAuthenticate = async () => {
   notify.info('You need to be authenticated!');
   commander.hide();
-  return window.location.replace(
+  return globalThis.location.replace(
     `https://github.com/login/oauth/authorize?client_id=${configuration.github.client_id}&scope=gist&state=${configuration.github.request_state}`,
   );
 };

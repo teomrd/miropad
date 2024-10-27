@@ -1,23 +1,23 @@
 export const url = {
-  baseUrl: `${window.location.origin}${window.location.pathname}`,
+  baseUrl: `${globalThis.location.origin}${globalThis.location.pathname}`,
   get: function () {
-    return window.location.href;
+    return globalThis.location.href;
   },
-  getPageId: function (url = window.location.href) {
+  getPageId: function (url = globalThis.location.href) {
     const URLObject = new URL(url);
     const hash = URLObject.hash.substr(1);
     const hashWithVersion = hash.split('?');
     const pageId = hashWithVersion[0] || null;
     return pageId;
   },
-  getSearchParams: function (url = window.location.href) {
+  getSearchParams: function (url = globalThis.location.href) {
     const URLObject = new URL(url);
     const urlParts = URLObject.href.split('?');
     const currentParams = urlParts[1] || '';
     const searchParams = new URLSearchParams(currentParams);
     return searchParams;
   },
-  getParamsObject: function (url = window.location.href) {
+  getParamsObject: function (url = globalThis.location.href) {
     const params = this.getSearchParams(url);
     let parametersObject = {};
     for (const key of params.keys()) {
@@ -28,7 +28,7 @@ export const url = {
     }
     return parametersObject;
   },
-  getSearchParam(param, url = window.location.href) {
+  getSearchParam(param, url = globalThis.location.href) {
     const params = this.getSearchParams(url);
     const paramValue = params.get(param);
     return paramValue;
@@ -42,9 +42,9 @@ export const url = {
     } else {
       searchParams.delete(param);
     }
-    const { pathname } = window.location;
+    const { pathname } = globalThis.location;
     const hash = this.getPageId();
-    return window.location.assign(
+    return globalThis.location.assign(
       `${hash ? `#${hash}` : pathname}${
         searchParams.toString() ? `?${searchParams.toString()}` : ''
       }`,
@@ -56,6 +56,6 @@ export const url = {
       ...params,
     };
     const newParams = new URLSearchParams(allParams);
-    return window.location.assign(`#${pageId}?${newParams.toString()}`);
+    return globalThis.location.assign(`#${pageId}?${newParams.toString()}`);
   },
 };

@@ -81,7 +81,7 @@ const sendMail = async (body, email, subject = 'MiroPad note') => {
 const getUserMailingPreferences = () => {
   const savedMail = storage.get('mail');
   if (savedMail) {
-    const mailSameAgainQuestion = window.prompt(
+    const mailSameAgainQuestion = globalThis.prompt(
       `Mail ${savedMail} again? (y)es/(no)`,
       'yeap',
     );
@@ -92,8 +92,8 @@ const getUserMailingPreferences = () => {
       return savedMail;
     }
   }
-  const whoMailing = window.prompt('Where do you wanna send the mail to?');
-  const wannaSaveDat = window.prompt(
+  const whoMailing = globalThis.prompt('Where do you wanna send the mail to?');
+  const wannaSaveDat = globalThis.prompt(
     'Do you wanna save that to your preferences for later on? (y)es/(no)',
     'yeap',
   );

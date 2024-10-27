@@ -11,8 +11,7 @@
     "dev": "scripts/dev.sh",
     "build": "node ./scripts/esbuild.mjs",
     "test": "jest",
-    "lighthouse": "lhci autorun",
-    "lint": "npx eslint src/js/**"
+    "lighthouse": "lhci autorun"
   },
   "devDependencies": {
     "workbox-cli": "^7.1.0"

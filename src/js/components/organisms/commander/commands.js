@@ -301,7 +301,7 @@ export const commands = () => {
       call: () => {
         select('.preview').show();
         markDownViewer.init();
-        window.print();
+        globalThis.print();
         commander.hide();
       },
     },

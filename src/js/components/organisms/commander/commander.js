@@ -253,7 +253,7 @@ const commander = (() => {
           const dateCreated = getDateCreatedFromTitle(title);
           const linkParams = cid ? `?cid=${cid}` : '';
           const href =
-            `${window.location.origin}${window.location.pathname}#${id}${linkParams}`;
+            `${globalThis.location.origin}${globalThis.location.pathname}#${id}${linkParams}`;
 
           const noteLink = link(
             div({ content: title, highlight: value }),
