@@ -1,4 +1,4 @@
-import { command } from './command';
+import { command } from "./command.js";
 
 export const commands = (commandsToGen, selectedIndex) =>
   commandsToGen.map((props, i) => {

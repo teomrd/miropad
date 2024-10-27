@@ -1,21 +1,21 @@
-import getCaretCoordinates from 'textarea-caret';
-import { terminal } from '../components/organisms/terminal';
-import select from '../utils/dom';
-import { trieDictionary } from '../main';
+import getCaretCoordinates from "textarea-caret";
+import { terminal } from "../components/organisms/terminal.ts";
+import select from "../utils/dom.js";
+import { trieDictionary } from "../main.js";
 
 const getPredictions = (word) => {
-  const sanitizedWord = word.replace(/[\r\n\t]+/g, '').toLowerCase();
+  const sanitizedWord = word.replace(/[\r\n\t]+/g, "").toLowerCase();
 
   return trieDictionary.getMatchingWords(sanitizedWord);
 };
 
 export const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
-  let word = '';
+  let word = "";
   let currentIndex = cursorIndexPosition - 1;
   do {
-    const character = text[currentIndex] || '';
-    currentIndex = character.trim() === '' ? -1 : currentIndex - 1;
-    word = character.trim() !== '' ? `${character}${word}` : word;
+    const character = text[currentIndex] || "";
+    currentIndex = character.trim() === "" ? -1 : currentIndex - 1;
+    word = character.trim() !== "" ? `${character}${word}` : word;
   } while (currentIndex >= 0);
   return word;
 };
@@ -28,41 +28,42 @@ export const placeSuggestion = (textEl) => {
   // height as the textarea so the suggestion will be placed
   // right!
   // TODO: change that on terminal size change!
-  const actualTerminalHeight = select('.terminal').el.scrollHeight;
-  const main = select('main').el;
+  const actualTerminalHeight = select(".terminal").el.scrollHeight;
+  const main = select("main").el;
   main.style.height = `${actualTerminalHeight}px`;
 
-  select('.suggestion').el.style.top = `${top}px`;
-  select('.suggestion').el.style.left = `${left}px`;
+  select(".suggestion").el.style.top = `${top}px`;
+  select(".suggestion").el.style.left = `${left}px`;
 };
 
 export const isLastCharacterInTheWord = (text, characterIndex) =>
-  text[characterIndex] === undefined || text[characterIndex].trim() === '';
+  text[characterIndex] === undefined || text[characterIndex].trim() === "";
 
 export const autoComplete = (e: any) => {
   const cursorIndexPosition = e.target.selectionEnd;
   const fullText = terminal.el.getValue();
 
   const charTyped = fullText[cursorIndexPosition - 1];
-  if (e.inputType === 'deleteContentBackward' || charTyped === ' ') {
+  if (e.inputType === "deleteContentBackward" || charTyped === " ") {
     terminal.setState({
       prediction: null,
       currentWord: null,
     });
-    return select('.suggestion').hide();
+    return select(".suggestion").hide();
   }
   const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
 
-  const shouldDisplaySuggestion = e.inputType === 'insertText' &&
+  const shouldDisplaySuggestion =
+    e.inputType === "insertText" &&
     isLastCharacterInTheWord(fullText, cursorIndexPosition) &&
-    !word.startsWith('#');
+    !word.startsWith("#");
 
   if (shouldDisplaySuggestion) {
     placeSuggestion(e.target);
     const matches = getPredictions(word);
 
     const [firstMatch] = matches;
-    const prediction = firstMatch || '';
+    const prediction = firstMatch || "";
 
     terminal.setState({
       prediction,
@@ -78,7 +79,7 @@ export const autoComplete = (e: any) => {
       terminal.renderInlineSuggestion();
       terminal.renderOptions();
     } else {
-      select('.suggestion').hide();
+      select(".suggestion").hide();
     }
   }
 };

@@ -1,4 +1,4 @@
-export const wordParts = (word, match) => {
+export const wordParts = (word: string, match: string) => {
   const parts = word.toLowerCase().split(match);
 
   let indexInWord = 0;
@@ -6,7 +6,7 @@ export const wordParts = (word, match) => {
     .reduce((acc, part, i) => {
       return [...acc, ...(i === 0 ? [part] : [match, part])];
     }, [])
-    .filter((p) => p !== '')
+    .filter((p) => p !== "")
     .map((syllable) => {
       indexInWord = indexInWord + syllable.length;
       const start = indexInWord - syllable.length;

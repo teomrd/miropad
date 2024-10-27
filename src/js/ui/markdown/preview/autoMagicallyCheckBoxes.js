@@ -1,4 +1,4 @@
-import select from '../../../utils/dom';
+import select from "../../../utils/dom.js";
 
 // This is a feature where you can easily tick on/off
 // checkboxes ✅ on the Markdown preview.
@@ -10,7 +10,7 @@ import select from '../../../utils/dom';
 // which are by default disabled, but couldn't figure that out. ¯\_(ツ)_/¯
 
 export const autoMagicallyCheckBoxes = () => {
-  select('.task-list-item').listenAll('click', (el) => {
+  select(".task-list-item").listenAll("click", (el) => {
     el.firstChild.checked = !el.firstChild.checked;
   });
 };

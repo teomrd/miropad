@@ -1,14 +1,14 @@
 import process from "node:process";
+
 export const isDevelopmentMode = () => {
   const env = process.env.NODE_ENV;
-  return env === 'development';
+  return env === "development";
 };
 
 export const enableDevelopment = () => {
   if (isDevelopmentMode()) {
-    new EventSource('/esbuild').addEventListener(
-      'change',
-      () => location.reload(),
+    new EventSource("/esbuild").addEventListener("change", () =>
+      location.reload(),
     );
   }
 };

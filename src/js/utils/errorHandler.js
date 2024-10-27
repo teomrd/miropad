@@ -1,7 +1,7 @@
-import notify from '../components/molecules/notify';
+import notify from "../components/molecules/notify.js";
 
 const errorHandler = (error) => {
-  const { message = 'Unexpected error occurred!' } = error;
+  const { message = "Unexpected error occurred!" } = error;
   notify.error(message);
 };
 

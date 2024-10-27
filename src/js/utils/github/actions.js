@@ -3,19 +3,19 @@ import {
   getAuthenticatedUsersGists,
   getAuthToken,
   getGist,
-} from './api';
-import storage from '../localstorage';
-import { url } from '../urlManager';
-import select from '../dom';
-import { configuration } from '../../../configuration';
-import { updateNote } from '../../components/organisms/noteManager/noteManager';
-import notify from '../../components/molecules/notify';
-import { commands } from '../../components/molecules/commands';
-import commander from '../../components/organisms/commander/commander';
-import { div } from '../../components/atoms/div/div';
+} from "./api.js";
+import storage from "../localstorage.js";
+import { url } from "../urlManager.js";
+import select from "../dom.js";
+import { configuration } from "../../../configuration.ts";
+import { updateNote } from "../../components/organisms/noteManager/noteManager.ts";
+import notify from "../../components/molecules/notify.js";
+import { commands } from "../../components/molecules/commands/command.js";
+import commander from "../../components/organisms/commander/commander.js";
+import { div } from "../../components/atoms/div/div.js";
 
-export const goAuthenticate = async () => {
-  notify.info('You need to be authenticated!');
+export const goAuthenticate = () => {
+  notify.info("You need to be authenticated!");
   commander.hide();
   return globalThis.location.replace(
     `https://github.com/login/oauth/authorize?client_id=${configuration.github.client_id}&scope=gist&state=${configuration.github.request_state}`,
@@ -23,13 +23,13 @@ export const goAuthenticate = async () => {
 };
 
 export const setGistToSyncWith = async (token) => {
-  notify.info('Downloading my Gists!');
+  notify.info("Downloading my Gists!");
   const gists = await getAuthenticatedUsersGists(token);
   commander.setState({
     mode: commander.getModes().gists,
   });
 
-  notify.info('Select Gist to sync with');
+  notify.info("Select Gist to sync with");
   const gistOptions = gists
     .sort(
       (a, b) =>
@@ -39,7 +39,7 @@ export const setGistToSyncWith = async (token) => {
       title: div({ content: `${description}(${id})` }),
       secondary: updated_at,
       onclick: async () => {
-        await storage.set('gistId', id);
+        await storage.set("gistId", id);
         notify.success(`${description}(${id}) selected for synchronization!`);
         syncNotesWithGitHub();
         commander.hide();
@@ -48,13 +48,13 @@ export const setGistToSyncWith = async (token) => {
 
   const gistOptionComponents = commands([
     {
-      title: 'Create a new Gist',
+      title: "Create a new Gist",
       onclick: async () => {
-        notify.info('Syncing your MiroPads to a new Gist');
+        notify.info("Syncing your MiroPads to a new Gist");
         try {
           const { id } = await createNewGist();
-          storage.set('gistId', id);
-          notify.success('MiroPads synced to a new Gist 🎉');
+          storage.set("gistId", id);
+          notify.success("MiroPads synced to a new Gist 🎉");
         } catch (error) {
           notify.error(error.message);
         }
@@ -63,38 +63,38 @@ export const setGistToSyncWith = async (token) => {
     },
     ...gistOptions,
   ]);
-  select('#commands').html('');
-  select('#commands').append(gistOptionComponents);
+  select("#commands").html("");
+  select("#commands").append(gistOptionComponents);
 };
 
-export const syncNotesWithGitHub = async (gistId = storage.get('gistId')) => {
-  const authToken = storage.get('authToken');
+export const syncNotesWithGitHub = async (gistId = storage.get("gistId")) => {
+  const authToken = storage.get("authToken");
   if (authToken && gistId) {
-    select('#logo').addClass('loading');
+    select("#logo").addClass("loading");
     const { files } = await getGist(gistId);
     Object.values(files).forEach(({ content }) => {
       updateNote(content);
     });
-    storage.set('lastSync', new Date());
-    notify.success('⬇ MiroPad synced ✅');
-    select('#logo').removeClass('loading');
+    storage.set("lastSync", new Date());
+    notify.success("⬇ MiroPad synced ✅");
+    select("#logo").removeClass("loading");
   }
 };
 
 export const setAuthTokenFromCallback = async () => {
-  const code = url.getSearchParam('code');
-  const state = url.getSearchParam('state');
+  const code = url.getSearchParam("code");
+  const state = url.getSearchParam("state");
   if (code && state) {
-    select('#logo').addClass('loading');
-    notify.info('🔐 Authenticating...');
+    select("#logo").addClass("loading");
+    notify.info("🔐 Authenticating...");
     try {
       const { token } = await getAuthToken(code, state);
-      storage.set('authToken', token);
-      notify.info('⛳ You have been authenticated!');
-      url.deleteParam(['code', 'state']);
+      storage.set("authToken", token);
+      notify.info("⛳ You have been authenticated!");
+      url.deleteParam(["code", "state"]);
     } catch (error) {
       notify.error(error.message);
     }
-    select('#logo').removeClass('loading');
+    select("#logo").removeClass("loading");
   }
 };

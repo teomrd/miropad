@@ -1,46 +1,46 @@
-import 'github-markdown-css';
-import '../css/print.css';
-import '../css/styles.css';
-import welcomeUser from './components/molecules/welcome';
-import commander from './components/organisms/commander/commander';
-import markDownViewer from './components/organisms/markdown/markDownViewer';
+import "github-markdown-css";
+import "../css/print.css";
+import "../css/styles.css";
+import welcomeUser from "./components/molecules/welcome.js";
+import commander from "./components/organisms/commander/commander.js";
+import markDownViewer from "./components/organisms/markdown/markDownViewer.js";
 import {
   deleteNote,
   disableSyncOnCurrentNote,
   getNote,
   setNoteFromHash,
-} from './components/organisms/noteManager/noteManager';
-import { terminal } from './components/organisms/terminal';
-import { isSyncEnabled } from './isSyncEnabled';
-import { registerServiceWorker } from './registerServiceWorker';
-import { Trie } from './utils/Trie/Trie';
-import { copyToClipboard } from './utils/copyToClipboard';
-import { relativeDate } from './utils/dates';
-import select from './utils/dom';
-import errorHandler from './utils/errorHandler';
+} from "./components/organisms/noteManager/noteManager.ts";
+import { terminal } from "./components/organisms/terminal.ts";
+import { isSyncEnabled } from "./isSyncEnabled.js";
+import { registerServiceWorker } from "./registerServiceWorker.js";
+import { Trie } from "./utils/Trie/Trie.ts";
+import { copyToClipboard } from "./utils/copyToClipboard.js";
+import { relativeDate } from "./utils/dates.js";
+import select from "./utils/dom.js";
+import errorHandler from "./utils/errorHandler.js";
 import {
   setAuthTokenFromCallback,
   syncNotesWithGitHub,
-} from './utils/github/actions';
-import storage from './utils/localstorage';
-import { resetPageTitle } from './utils/pageTitle';
-import { url } from './utils/urlManager';
-import { actOnURLStateChange } from './listeners/urlChange';
-import { enableDevelopment } from './utils/enableDevelopmentTasks';
-import { autoMagicallyCheckBoxes } from './ui/markdown/preview/autoMagicallyCheckBoxes';
+} from "./utils/github/actions.js";
+import storage from "./utils/localstorage.js";
+import { resetPageTitle } from "./utils/pageTitle.js";
+import { url } from "./utils/urlManager.js";
+import { actOnURLStateChange } from "./listeners/urlChange.ts";
+import { enableDevelopment } from "./utils/enableDevelopmentTasks.js";
+import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes.js";
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
 
 const initInfoPanel = () => {
-  select('#note-info-close').listen('click', () => {
-    select('.note-info').hide();
+  select("#note-info-close").listen("click", () => {
+    select(".note-info").hide();
   });
-  select('#note-info-button').listen('click', () => {
+  select("#note-info-button").listen("click", () => {
     const note = getNote();
-    select('.note-info').show();
+    select(".note-info").show();
 
-    select('.note-info .details').innerHTML(
+    select(".note-info .details").innerHTML(
       `<p>
       <label>
       Title
@@ -66,23 +66,23 @@ const initInfoPanel = () => {
     if (isSyncOn && note) {
       const syncEl = (() => {
         const { disableSync } = note;
-        const p = document.createElement('P');
+        const p = document.createElement("P");
         p.innerHTML = `
           <label>Sync</label>
             <label class="switch" title="Cloud Sync">
-              <input id="sync" type="checkbox" ${!disableSync && 'checked'}>
+              <input id="sync" type="checkbox" ${!disableSync && "checked"}>
             <span class="slider round"></span>
           </label>
         `;
         return p;
       })();
-      select('.note-info .details').append(syncEl);
-      select('#sync').listen('click', (e) => {
+      select(".note-info .details").append(syncEl);
+      select("#sync").listen("click", (e) => {
         disableSyncOnCurrentNote(!e.target.checked);
       });
     }
     const deleteButton = (() => {
-      const p = document.createElement('P');
+      const p = document.createElement("P");
       p.innerHTML = `
           <button
             class="icon-button"
@@ -100,8 +100,8 @@ const initInfoPanel = () => {
         `;
       return p;
     })();
-    select('.note-info .details').append(deleteButton);
-    select('#delete-note').listen('click', () => {
+    select(".note-info .details").append(deleteButton);
+    select("#delete-note").listen("click", () => {
       deleteNote();
     });
   });
@@ -112,7 +112,7 @@ const main = async () => {
   const words = storage.getDictionary();
   trieDictionary.insert(words);
 
-  globalThis.addEventListener('error', errorHandler);
+  globalThis.addEventListener("error", errorHandler);
   welcomeUser();
   commander.init();
 
@@ -121,16 +121,16 @@ const main = async () => {
   terminal.init();
   resetPageTitle();
   setNoteFromHash(url.getPageId());
-  select('.logo').listen('click', () => {
+  select(".logo").listen("click", () => {
     commander.toggle(commander.getModes().notes);
   });
-  select('#permalink').listen('click', async () => {
+  select("#permalink").listen("click", async () => {
     await copyToClipboard(url.get());
   });
 
   markDownViewer.init();
 
-  globalThis.addEventListener('hashchange', actOnURLStateChange);
+  globalThis.addEventListener("hashchange", actOnURLStateChange);
   actOnURLStateChange();
 
   registerServiceWorker();

@@ -1,7 +1,7 @@
-import notify from './notify';
+import notify from "./notify.js";
 
 const welcomeUser = () => {
-  const lastVisit = localStorage.getItem('miropad.user');
+  const lastVisit = localStorage.getItem("miropad.user");
   if (lastVisit) {
     notify.info(`🤗 Happy to see you again from ${lastVisit}`);
   } else {
@@ -13,7 +13,7 @@ const welcomeUser = () => {
       100,
     );
   }
-  localStorage.setItem('miropad.user', new Date().toLocaleDateString());
+  localStorage.setItem("miropad.user", new Date().toLocaleDateString());
 };
 
 export default welcomeUser;
