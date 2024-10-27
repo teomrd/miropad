@@ -1,3 +1,4 @@
+import type _Showdown from "npm:@types/showdown";
 import showdown from "showdown";
 
 const converter = new showdown.Converter({

@@ -4,6 +4,8 @@
     "jsr:@std/assert@1": "1.0.6",
     "jsr:@std/internal@^1.0.4": "1.0.4",
     "npm:@lhci/cli@0.14.0": "0.14.0",
+    "npm:@types/showdown@^2.0.6": "2.0.6",
+    "npm:@types/textarea-caret@^3.0.3": "3.0.3",
     "npm:github-markdown-css@^5.7.0": "5.7.0",
     "npm:multiformats@^13.3.0": "13.3.0",
     "npm:nanoid@^5.0.7": "5.0.7",
@@ -1061,6 +1063,12 @@
     },
     "@types/resolve@1.20.2": {
       "integrity": "sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q=="
+    },
+    "@types/showdown@2.0.6": {
+      "integrity": "sha512-pTvD/0CIeqe4x23+YJWlX2gArHa8G0J0Oh6GKaVXV7TAeickpkkZiNOgFcFcmLQ5lB/K0qBJL1FtRYltBfbGCQ=="
+    },
+    "@types/textarea-caret@3.0.3": {
+      "integrity": "sha512-bsA9GdXV1wQsXyDjS5+A+czz8IAR3haH5DU+KctIoXbzobRL2NOiwF/+EbB7pofAyudMytLj4ihPtbmbJT8FWw=="
     },
     "@types/trusted-types@2.0.7": {
       "integrity": "sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw=="
@@ -4211,6 +4219,8 @@
     "packageJson": {
       "dependencies": [
         "npm:@lhci/cli@0.14.0",
+        "npm:@types/showdown@^2.0.6",
+        "npm:@types/textarea-caret@^3.0.3",
         "npm:github-markdown-css@^5.7.0",
         "npm:multiformats@^13.3.0",
         "npm:nanoid@^5.0.7",

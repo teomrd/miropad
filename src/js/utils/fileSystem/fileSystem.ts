@@ -1,13 +1,13 @@
-import notify from '../../components/molecules/notify';
+import notify from "../../components/molecules/notify.js";
 
-const getNewFileHandle = async (title = 'no-titled') => {
+const getNewFileHandle = async (title = "no-titled") => {
   const options = {
     suggestedName: `${title}`,
     types: [
       {
-        description: 'MiroPad text notes',
+        description: "MiroPad text notes",
         accept: {
-          'text/plain': ['.miropad'],
+          "text/plain": [".miropad"],
         },
       },
     ],
@@ -34,19 +34,19 @@ export const saveFileAs = async (contents: string, title?: string) => {
     const fileHandle = await getNewFileHandle(title);
     await writeFile(fileHandle, contents);
   } catch (ex) {
-    const msg = 'An error occurred trying to save the file.';
+    const msg = "An error occurred trying to save the file.";
     notify.error(msg);
     return;
   }
 };
 
 export const saveDataToFile = (() => {
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   document.body.appendChild(a);
-  a.style = 'display: none';
+  a.style = "display: none";
   return (data, fileName = `MiroPad-${new Date().toISOString()}.json`) => {
     const json = JSON.stringify(data),
-      blob = new Blob([json], { type: 'octet/stream' }),
+      blob = new Blob([json], { type: "octet/stream" }),
       url = globalThis.URL.createObjectURL(blob);
     a.href = url;
     a.download = fileName;

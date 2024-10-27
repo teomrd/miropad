@@ -1,6 +1,6 @@
-import notify from '../components/molecules/notify';
-import { getNote } from '../components/organisms/noteManager/noteManager';
-import { url } from './urlManager';
+import notify from "../components/molecules/notify.js";
+import { getNote } from "../components/organisms/noteManager/noteManager.ts";
+import { url } from "./urlManager.js";
 
 export const share = async () => {
   try {
@@ -8,7 +8,7 @@ export const share = async () => {
     const currentUrl = url.get();
     await navigator.share({
       title: note ? note.title : TITLE_NAME,
-      text: note ? note.text : 'Temporary note keeping app for the browser',
+      text: note ? note.text : "Temporary note keeping app for the browser",
       url: currentUrl,
     });
   } catch (error) {

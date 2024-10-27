@@ -1,21 +1,21 @@
 import { nanoid } from "nanoid";
 import TrashSVG from "../../../assets/svg/trash.svg";
 import { configuration } from "../../../configuration.ts";
-import { autoComplete } from "../../features/autoComplete";
+import { autoComplete } from "../../features/autoComplete.ts";
 import { setSavedState } from "../../ui/functions/savedState.ts";
 import select from "../../utils/dom.js";
 import storage from "../../utils/localstorage.js";
-import { handleErrorResponse } from "../../utils/mail";
-import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes";
-import { div } from "../atoms/div/div";
-import { icon } from "../atoms/icon/icon";
-import { command } from "../molecules/commands/command.js"
+import { handleErrorResponse } from "../../utils/mail.js";
+import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes.js";
+import { div } from "../atoms/div/div.js";
+import { icon } from "../atoms/icon/icon.js";
+import { command } from "../molecules/commands/command.js";
 import notify from "../molecules/notify.js";
-import commander from "./commander/commander";
-import markDownViewer from "./markdown/markDownViewer";
-import { getNote, getTitle } from "./noteManager/noteManager";
-import { trieDictionary } from "../../main";
-import { renderInterNotes } from "../../features/inter-linking/renderInterNotes";
+import commander from "./commander/commander.js";
+import markDownViewer from "./markdown/markDownViewer.js";
+import { getNote, getTitle } from "./noteManager/noteManager.ts";
+import { trieDictionary } from "../../main.js";
+import { renderInterNotes } from "../../features/inter-linking/renderInterNotes.ts";
 
 type TerminalState = {
   matches: Array<string>;
@@ -64,7 +64,6 @@ export const terminal = (() => {
         ? isLastOption
           ? 0
           : currentlySelected + 1
-        : // eslint-disable-next-line prettier/prettier
         : isFirstOption
           ? lastOption
           : currentlySelected - 1;
@@ -233,7 +232,7 @@ export const terminal = (() => {
       const clipboardItems = await navigator.clipboard.read();
       for (const clipboardItem of clipboardItems) {
         const imageTypes = clipboardItem.types?.filter((type) =>
-          type.startsWith("image/")
+          type.startsWith("image/"),
         );
         for (const imageType of imageTypes) {
           const blob = await clipboardItem.getType(imageType);

@@ -1,16 +1,16 @@
-import storage from './localstorage';
-import notify from '../components/molecules/notify';
-import { configuration } from '../../configuration';
-import { getTitle } from '../components/organisms/noteManager/noteManager';
-import { convertMarkDownToHtml } from '../components/organisms/markdown/mdToHtml';
+import storage from "./localstorage.js";
+import notify from "../components/molecules/notify.js";
+import { configuration } from "../../configuration.ts";
+import { getTitle } from "../components/organisms/noteManager/noteManager.ts";
+import { convertMarkDownToHtml } from "../components/organisms/markdown/mdToHtml.ts";
 
 export const handleErrorResponse = (response) => {
-  const isSuccessfulRequest = response.status.toString().slice(0, 1) === '2';
+  const isSuccessfulRequest = response.status.toString().slice(0, 1) === "2";
   if (isSuccessfulRequest) return response;
   else throw new Error(response);
 };
 
-const wrapTemplate = (body = '') => {
+const wrapTemplate = (body = "") => {
   return `<!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html lang="en">
     <head>
@@ -48,18 +48,18 @@ const wrapTemplate = (body = '') => {
   </html>`;
 };
 
-const sendMail = async (body, email, subject = 'MiroPad note') => {
+const sendMail = async (body, email, subject = "MiroPad note") => {
   if (!body) {
-    notify.error('👻 No message to send, type something and try again! 🤓');
+    notify.error("👻 No message to send, type something and try again! 🤓");
     return undefined;
   }
   try {
     await fetch(`${configuration.mail_service.api}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'x-secret-token': storage.get('MIROPAD_SECRET_TOKEN'),
-        accept: 'application/json',
-        'content-type': 'application/json',
+        "x-secret-token": storage.get("MIROPAD_SECRET_TOKEN"),
+        accept: "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify({
         to: email,
@@ -70,35 +70,35 @@ const sendMail = async (body, email, subject = 'MiroPad note') => {
       .then(handleErrorResponse)
       .then((response) => response.json());
 
-    notify.success('Email sent 🚀');
+    notify.success("Email sent 🚀");
   } catch (error) {
     notify.error(
-      'Error not went through 💥! Check your credentials and try again!',
+      "Error not went through 💥! Check your credentials and try again!",
     );
   }
 };
 
 const getUserMailingPreferences = () => {
-  const savedMail = storage.get('mail');
+  const savedMail = storage.get("mail");
   if (savedMail) {
     const mailSameAgainQuestion = globalThis.prompt(
       `Mail ${savedMail} again? (y)es/(no)`,
-      'yeap',
+      "yeap",
     );
     if (mailSameAgainQuestion === null) {
       return mailSameAgainQuestion;
     }
-    if (mailSameAgainQuestion.slice(0, 1).toLowerCase() === 'y') {
+    if (mailSameAgainQuestion.slice(0, 1).toLowerCase() === "y") {
       return savedMail;
     }
   }
-  const whoMailing = globalThis.prompt('Where do you wanna send the mail to?');
+  const whoMailing = globalThis.prompt("Where do you wanna send the mail to?");
   const wannaSaveDat = globalThis.prompt(
-    'Do you wanna save that to your preferences for later on? (y)es/(no)',
-    'yeap',
+    "Do you wanna save that to your preferences for later on? (y)es/(no)",
+    "yeap",
   );
-  if (wannaSaveDat && wannaSaveDat.slice(0, 1).toLowerCase() === 'y') {
-    storage.set('mail', whoMailing);
+  if (wannaSaveDat && wannaSaveDat.slice(0, 1).toLowerCase() === "y") {
+    storage.set("mail", whoMailing);
   }
   return whoMailing;
 };
@@ -106,11 +106,11 @@ const getUserMailingPreferences = () => {
 const mailTo = (what) => {
   const email = getUserMailingPreferences();
   if (email === null) {
-    notify.info('Sending mail cancelled 😶');
+    notify.info("Sending mail cancelled 😶");
     return undefined;
   }
 
-  notify.info('Sending mail... 🚀');
+  notify.info("Sending mail... 🚀");
   const title = getTitle(what);
   const htmlBody = convertMarkDownToHtml(what);
 

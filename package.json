@@ -14,6 +14,8 @@
     "lighthouse": "lhci autorun"
   },
   "devDependencies": {
+    "@types/showdown": "^2.0.6",
+    "@types/textarea-caret": "^3.0.3",
     "workbox-cli": "^7.1.0"
   },
   "dependencies": {
