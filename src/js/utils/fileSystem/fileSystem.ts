@@ -1,13 +1,13 @@
-import notify from '../../components/molecules/notify.ts';
+import notify from "../../components/molecules/notify.ts";
 
-const getNewFileHandle = async (title = 'no-titled') => {
+const getNewFileHandle = async (title = "no-titled") => {
   const options = {
     suggestedName: `${title}`,
     types: [
       {
-        description: 'MiroPad text notes',
+        description: "MiroPad text notes",
         accept: {
-          'text/plain': ['.miropad'],
+          "text/plain": [".miropad"],
         },
       },
     ],
@@ -37,22 +37,22 @@ export const saveFileAs = async (contents: string, title?: string) => {
     const fileHandle = await getNewFileHandle(title);
     await writeFile(fileHandle, contents);
   } catch (_e) {
-    const msg = 'An error occurred trying to save the file.';
+    const msg = "An error occurred trying to save the file.";
     notify.error(msg);
     return;
   }
 };
 
 export const saveDataToFile = (() => {
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   document.body.appendChild(a);
-  a.setAttribute('style', 'display: none');
+  a.setAttribute("style", "display: none");
   return (
     data: unknown,
     fileName = `MiroPad-${new Date().toISOString()}.json`,
   ) => {
     const json = JSON.stringify(data),
-      blob = new Blob([json], { type: 'octet/stream' }),
+      blob = new Blob([json], { type: "octet/stream" }),
       url = globalThis.URL.createObjectURL(blob);
     a.href = url;
     a.download = fileName;
