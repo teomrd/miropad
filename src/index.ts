@@ -1,4 +1,4 @@
-import main from "./js/main.js";
+import main from './js/main.js';
 
 (() => {
   main();

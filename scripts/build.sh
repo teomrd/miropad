@@ -4,16 +4,16 @@ NEW_VERSION=$(jq -r .version ./package.json)
 
 echo -e "🛠️  Building ${COLOR_GREEN}MiroPad${NO_COLOR} v${COLOR_RED}${NEW_VERSION}${NO_COLOR} \n"
 
-mkdir -p ./out
+mkdir -p ./dist
 
-cp ./src/manifest.json ./out
-cp ./static/favicon.ico ./out
+cp ./src/manifest.json ./dist
+cp ./static/favicon.ico ./dist
 
-cp -r ./src/assets/images ./out/images
+cp -r ./src/assets/images ./dist/images
 
-node ./scripts/esbuild.mjs
+deno ./scripts/build.js
 
-cp ./static/index.html ./out
+cp ./static/index.html ./dist
 
 ./node_modules/.bin/workbox injectManifest ./workbox-config.js
 

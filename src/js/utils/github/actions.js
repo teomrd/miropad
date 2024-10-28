@@ -10,7 +10,7 @@ import select from '../dom.js';
 import { configuration } from '../../../configuration.ts';
 import { updateNote } from '../../components/organisms/noteManager/noteManager.ts';
 import notify from '../../components/molecules/notify.ts';
-import { commands } from '../../components/molecules/commands/command.js';
+import { command } from '../../components/molecules/commands/command.js';
 import commander from '../../components/organisms/commander/commander.js';
 import { div } from '../../components/atoms/div/div.js';
 
@@ -46,7 +46,7 @@ export const setGistToSyncWith = async (token) => {
       },
     }));
 
-  const gistOptionComponents = commands([
+  const gistOptionComponents = command([
     {
       title: 'Create a new Gist',
       onclick: async () => {

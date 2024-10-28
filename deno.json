@@ -27,9 +27,11 @@
     "exclude": ["src/assets/"]
   },
   "exclude": [
-    "out/"
+    "out/",
+    "dist/"
   ],
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
   }
 }
+
