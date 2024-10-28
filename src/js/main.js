@@ -26,7 +26,6 @@ import storage from './utils/localstorage.js';
 import { resetPageTitle } from './utils/pageTitle.js';
 import { url } from './utils/urlManager.js';
 import { actOnURLStateChange } from './listeners/urlChange.ts';
-import { enableDevelopment } from './utils/enableDevelopmentTasks.js';
 import { autoMagicallyCheckBoxes } from './ui/markdown/preview/autoMagicallyCheckBoxes.js';
 
 // Initialize a Trie tree to be used for the predictions
@@ -139,8 +138,6 @@ const main = async () => {
 
   await syncNotesWithGitHub();
   await setAuthTokenFromCallback();
-
-  enableDevelopment();
 };
 
 export default main;

@@ -1,6 +1,5 @@
 {
   "tasks": {
-    "dev": "deno run --watch src/index.ts",
     "compile": "deno check src",
     "start": "deno run --allow-net --watch=static/,routes/,data/ dev.ts",
     "test": "deno test --allow-net",

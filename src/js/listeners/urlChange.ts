@@ -10,7 +10,7 @@ import select from '../utils/dom.js';
 import { url } from '../utils/urlManager.js';
 import { getGist } from '../utils/github/api.js';
 
-const setNoteFromRawUrl = async (rawUrl) => {
+const setNoteFromRawUrl = async (rawUrl: string) => {
   if (rawUrl) {
     const response = await fetch(rawUrl).then((response) => {
       if (response.ok) return response.text();
@@ -22,7 +22,7 @@ const setNoteFromRawUrl = async (rawUrl) => {
   }
 };
 
-const setNoteFromGist = async (gistId) => {
+const setNoteFromGist = async (gistId: string) => {
   if (gistId) {
     try {
       const gist = await getGist(gistId);
@@ -56,8 +56,12 @@ export const actOnURLStateChange = async (e = {}) => {
     const { gistId, raw } = url.getParamsObject(newURL);
     await setNoteFromGist(gistId);
     await setNoteFromRawUrl(raw);
-  } catch (e) {
-    notify.error(e.message);
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      notify.error(e.message);
+    } else {
+      notify.error('An unknown error occurred');
+    }
   }
 
   const isANewNote = !url.getPageId();

@@ -7,17 +7,14 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 install:
 	deno install
 
-# dev: install build
-# 	open http://localhost:8000 && pnpm run dev
-
-dev: install build
+dev: install
 	open http://localhost:8000 && deno task dev
 
 checks: install
 	deno lint
 
 audits: install build
-	pnpm run lighthouse
+	deno task lighthouse
 
 clean:
 	rm -rf ./node_modules
@@ -27,12 +24,6 @@ clean:
 
 serve: build
 	serve $(MAKE_DIR)/out
-
-update:
-	pnpm up
-
-force-update:
-	pnpm up --latest
 
 version:
 	$(MAKE_DIR)/scripts/version.sh
