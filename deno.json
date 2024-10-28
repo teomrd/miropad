@@ -28,5 +28,8 @@
   },
   "exclude": [
     "out/"
-  ]
+  ],
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
+  }
 }

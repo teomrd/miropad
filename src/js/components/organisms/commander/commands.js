@@ -4,93 +4,93 @@ import {
   getNotes,
   resetNoteManager,
   saveNote,
-} from "../noteManager/noteManager.ts";
-import select from "../../../utils/dom.js";
-import storage from "../../../utils/localstorage.js";
-import { isUserLoggedIn } from "../../../utils/isUserLoggedIn.js";
+} from '../noteManager/noteManager.ts';
+import select from '../../../utils/dom.js';
+import storage from '../../../utils/localstorage.js';
+import { isUserLoggedIn } from '../../../utils/isUserLoggedIn.js';
 import {
   goAuthenticate,
   setGistToSyncWith,
   syncNotesWithGitHub,
-} from "../../../utils/github/actions.js";
-import commander from "./commander.js";
+} from '../../../utils/github/actions.js';
+import commander from './commander.js';
 import {
   saveDataToFile,
   saveFileAs,
-} from "../../../utils/fileSystem/fileSystem.ts";
-import { url } from "../../../utils/urlManager.js";
-import { mailTo } from "../../../utils/mail.js";
-import markDownViewer from "../markdown/markDownViewer.js";
-import prettifyJSON from "../../../utils/prettifyJSON.js";
-import notify from "../../molecules/notify.js";
-import { copyToClipboard } from "../../../utils/copyToClipboard.js";
-import { sleep } from "../../../utils/sleep.js";
-import { publishGist, updateGist } from "../../../utils/github/api.js";
-import { icon } from "../../atoms/icon/icon.js";
-import ListSVG from "../../../../assets/svg/list.svg";
-import TrashSVG from "../../../../assets/svg/trash.svg";
-import CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
-import CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
-import LighterSVG from "../../../../assets/svg/lighter.svg";
-import EnterDownSVG from "../../../../assets/svg/enter-down.svg";
-import DownloadSVG from "../../../../assets/svg/download.svg";
-import EnvelopeSVG from "../../../../assets/svg/envelope.svg";
-import BugSVG from "../../../../assets/svg/bug.svg";
-import PictureSVG from "../../../../assets/svg/picture.svg";
-import PrinterSVG from "../../../../assets/svg/printer.svg";
-import PageBreakSVG from "../../../../assets/svg/page-break.svg";
-import FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
-import ArrowRightCircleSVG from "../../../../assets/svg/arrow-right-circle.svg";
-import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
-import RocketSVG from "../../../../assets/svg/rocket.svg";
-import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
-import PencilSVG from "../../../../assets/svg/pencil.svg";
-import ShareSVG from "../../../../assets/svg/exit-up.svg";
-import LeafSVG from "../../../../assets/svg/leaf.svg";
-import { share } from "../../../utils/webShare.js";
-import { setSavedState } from "../../../ui/functions/savedState.ts";
+} from '../../../utils/fileSystem/fileSystem.ts';
+import { url } from '../../../utils/urlManager.js';
+import { mailTo } from '../../../utils/mail.js';
+import markDownViewer from '../markdown/markDownViewer.js';
+import prettifyJSON from '../../../utils/prettifyJSON.js';
+import notify from '../../molecules/notify.ts';
+import { copyToClipboard } from '../../../utils/copyToClipboard.js';
+import { sleep } from '../../../utils/sleep.js';
+import { publishGist, updateGist } from '../../../utils/github/api.js';
+import { icon } from '../../atoms/icon/icon.js';
+import ListSVG from '../../../../assets/svg/list.svg';
+import TrashSVG from '../../../../assets/svg/trash.svg';
+import CheckmarkCircleSVG from '../../../../assets/svg/checkmark-circle.svg';
+import CloudSyncSVG from '../../../../assets/svg/cloud-sync.svg';
+import LighterSVG from '../../../../assets/svg/lighter.svg';
+import EnterDownSVG from '../../../../assets/svg/enter-down.svg';
+import DownloadSVG from '../../../../assets/svg/download.svg';
+import EnvelopeSVG from '../../../../assets/svg/envelope.svg';
+import BugSVG from '../../../../assets/svg/bug.svg';
+import PictureSVG from '../../../../assets/svg/picture.svg';
+import PrinterSVG from '../../../../assets/svg/printer.svg';
+import PageBreakSVG from '../../../../assets/svg/page-break.svg';
+import FrameExpandSVG from '../../../../assets/svg/frame-expand.svg';
+import ArrowRightCircleSVG from '../../../../assets/svg/arrow-right-circle.svg';
+import MagicWandSVG from '../../../../assets/svg/magic-wand.svg';
+import RocketSVG from '../../../../assets/svg/rocket.svg';
+import SpellCheckSVG from '../../../../assets/svg/spell-check.svg';
+import PencilSVG from '../../../../assets/svg/pencil.svg';
+import ShareSVG from '../../../../assets/svg/exit-up.svg';
+import LeafSVG from '../../../../assets/svg/leaf.svg';
+import { share } from '../../../utils/webShare.js';
+import { setSavedState } from '../../../ui/functions/savedState.ts';
 
 const getSyncTitle = () => {
-  const gistId = storage.get("gistId");
-  const authToken = storage.get("authToken");
+  const gistId = storage.get('gistId');
+  const authToken = storage.get('authToken');
   if (!authToken) {
-    return "Sync: Authorize your GitHub account for synchronisation";
+    return 'Sync: Authorize your GitHub account for synchronisation';
   }
   if (!gistId) {
-    return "Sync: Pick your Gist to sync with";
+    return 'Sync: Pick your Gist to sync with';
   }
-  return "Sync: Notes with my GitHub Gist";
+  return 'Sync: Notes with my GitHub Gist';
 };
 
 const shareNoteCommand = {
-  title: "Share note",
-  icon: icon(ShareSVG, "share note"),
-  sortTitle: "Share",
+  title: 'Share note',
+  icon: icon(ShareSVG, 'share note'),
+  sortTitle: 'Share',
   call: share,
 };
 
 const sharePublicLinkCommand = {
-  title: "Share public link",
+  title: 'Share public link',
   key: null,
-  icon: icon(ShareSVG, "share public link"),
-  sortTitle: "Share public link",
+  icon: icon(ShareSVG, 'share public link'),
+  sortTitle: 'Share public link',
   call: async () => {
     commander.hide();
-    await saveNote(select(".terminal").getValue());
+    await saveNote(select('.terminal').getValue());
     const note = getNote();
     const response = await publishGist({
       note,
     });
     const rawLink = response.history[0].url;
     const gitResponse = await fetch(rawLink).then((response) =>
-      response.json(),
+      response.json()
     );
     const { files } = gitResponse;
     const fileContents = Object.values(files);
     const [gistFile] = fileContents;
     const { raw_url: rawUrl } = gistFile;
     const linkToShare = `${url.baseUrl}?raw=${rawUrl}`;
-    const successMessage = "MiroPad public link copied to clipboard 📋!";
+    const successMessage = 'MiroPad public link copied to clipboard 📋!';
     copyToClipboard(linkToShare, successMessage);
   },
 };
@@ -98,20 +98,20 @@ const sharePublicLinkCommand = {
 export const commands = () => {
   return [
     {
-      title: "New note",
-      icon: icon(PencilSVG, "new note"),
-      sortTitle: "New",
-      key: "n",
+      title: 'New note',
+      icon: icon(PencilSVG, 'new note'),
+      sortTitle: 'New',
+      key: 'n',
       call: resetNoteManager,
     },
     {
-      title: "Save",
-      key: "s",
-      icon: icon(CheckmarkCircleSVG, "save"),
-      sortTitle: "Save",
+      title: 'Save',
+      key: 's',
+      icon: icon(CheckmarkCircleSVG, 'save'),
+      sortTitle: 'Save',
       call: async () => {
         commander.hide();
-        await saveNote(select(".terminal").getValue());
+        await saveNote(select('.terminal').getValue());
         const note = getNote();
         const { disableSync = false } = note;
         if (!disableSync) {
@@ -122,35 +122,35 @@ export const commands = () => {
     },
     ...(navigator.share ? [shareNoteCommand] : []),
     {
-      title: "Toggle MarkDown Viewer",
-      icon: icon(PageBreakSVG, "toggle markdown viewer", "rotate90"),
-      sortTitle: "Split",
-      key: "m",
+      title: 'Toggle MarkDown Viewer',
+      icon: icon(PageBreakSVG, 'toggle markdown viewer', 'rotate90'),
+      sortTitle: 'Split',
+      key: 'm',
       call: () => {
         markDownViewer.toggle();
         commander.hide();
       },
     },
     {
-      title: "Full MarkDown view",
-      icon: icon(FrameExpandSVG, "full view"),
-      sortTitle: "Full view",
-      key: "shift m",
+      title: 'Full MarkDown view',
+      icon: icon(FrameExpandSVG, 'full view'),
+      sortTitle: 'Full view',
+      key: 'shift m',
       call: () => {
-        markDownViewer.toggle("full");
+        markDownViewer.toggle('full');
         commander.hide();
       },
     },
     ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
     {
-      title: "Zen mode",
-      icon: icon(LeafSVG, "zen mode"),
-      sortTitle: "Zen mode",
-      key: "shift z",
+      title: 'Zen mode',
+      icon: icon(LeafSVG, 'zen mode'),
+      sortTitle: 'Zen mode',
+      key: 'shift z',
       call: () => {
-        const isZen = Boolean(url.getSearchParam("zen"));
+        const isZen = Boolean(url.getSearchParam('zen'));
         if (isZen) {
-          url.deleteParam("zen");
+          url.deleteParam('zen');
         } else {
           url.set(undefined, {
             zen: true,
@@ -160,29 +160,29 @@ export const commands = () => {
       },
     },
     {
-      title: "List saved notes",
-      icon: icon(ListSVG, "list notes"),
-      sortTitle: "Notes",
-      key: "p",
+      title: 'List saved notes',
+      icon: icon(ListSVG, 'list notes'),
+      sortTitle: 'Notes',
+      key: 'p',
       call: () => commander.toggle(commander.getModes().notes),
     },
     {
-      title: "Delete note",
-      key: "shift d",
-      icon: icon(TrashSVG, "delete note"),
-      sortTitle: "Delete",
+      title: 'Delete note',
+      key: 'shift d',
+      icon: icon(TrashSVG, 'delete note'),
+      sortTitle: 'Delete',
       call: deleteNote,
     },
     {
       title: getSyncTitle(),
-      icon: icon(CloudSyncSVG, "sync with github"),
+      icon: icon(CloudSyncSVG, 'sync with github'),
       key: null,
       call: async () => {
-        const token = storage.get("authToken");
+        const token = storage.get('authToken');
         if (!token) {
           return await goAuthenticate();
         }
-        const gistId = storage.get("gistId");
+        const gistId = storage.get('gistId');
         if (!gistId) {
           return await setGistToSyncWith(token);
         }
@@ -191,31 +191,31 @@ export const commands = () => {
       },
     },
     {
-      title: "Sync: Reset Gist settings",
-      icon: icon(LighterSVG, "reset github settings"),
+      title: 'Sync: Reset Gist settings',
+      icon: icon(LighterSVG, 'reset github settings'),
       key: null,
       call: async () => {
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("gistId");
-        localStorage.removeItem("lastLocalUpdate");
-        localStorage.removeItem("lastSync");
-        notify.info("Gist setting have been reset!");
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('gistId');
+        localStorage.removeItem('lastLocalUpdate');
+        localStorage.removeItem('lastSync');
+        notify.info('Gist setting have been reset!');
         commander.hide();
       },
     },
     {
-      title: "Toggle sidebar",
+      title: 'Toggle sidebar',
       experimental: true,
-      key: "shift l",
+      key: 'shift l',
       call: () => {
-        select("aside").toggle();
+        select('aside').toggle();
       },
     },
     {
-      title: "Save to File System...",
+      title: 'Save to File System...',
       experimental: true,
-      icon: icon(EnterDownSVG, "save file"),
-      key: "shift s",
+      icon: icon(EnterDownSVG, 'save file'),
+      key: 'shift s',
       call: async () => {
         const { text, title } = getNote();
 
@@ -224,134 +224,134 @@ export const commands = () => {
       },
     },
     {
-      title: "Email note to...",
+      title: 'Email note to...',
       experimental: true,
-      icon: icon(EnvelopeSVG, "email"),
-      key: "e",
+      icon: icon(EnvelopeSVG, 'email'),
+      key: 'e',
       call: () => {
-        const note = document.querySelector(".terminal").value;
+        const note = document.querySelector('.terminal').value;
         mailTo(note);
         commander.hide();
       },
     },
     {
-      title: "Toggle experimental features",
+      title: 'Toggle experimental features',
       experimental: false,
-      icon: icon(BugSVG, "lab"),
+      icon: icon(BugSVG, 'lab'),
       key: null,
       call: () => {
-        const previousStatus = Boolean(storage.get("__experimental__"));
+        const previousStatus = Boolean(storage.get('__experimental__'));
 
         if (previousStatus) {
-          storage.remove("__experimental__");
+          storage.remove('__experimental__');
         } else {
-          storage.set("__experimental__", true);
+          storage.set('__experimental__', true);
         }
         notify.showNotification(
-          `Experimental features turned ${previousStatus ? "off" : "on"}`,
+          `Experimental features turned ${previousStatus ? 'off' : 'on'}`,
         );
         commander.hide();
       },
     },
     {
-      title: "Toggle Autocompletion",
+      title: 'Toggle Autocompletion',
       experimental: false,
-      icon: icon(ArrowRightCircleSVG, "autocompletion"),
+      icon: icon(ArrowRightCircleSVG, 'autocompletion'),
       key: null,
       call: () => {
-        const previousStatus = Boolean(storage.get("__autocomplete__"));
+        const previousStatus = Boolean(storage.get('__autocomplete__'));
 
         if (previousStatus) {
-          storage.remove("__autocomplete__");
+          storage.remove('__autocomplete__');
         } else {
-          storage.set("__autocomplete__", true);
+          storage.set('__autocomplete__', true);
         }
         notify.showNotification(
-          `Autocomplete feature turned ${previousStatus ? "off" : "on"}`,
+          `Autocomplete feature turned ${previousStatus ? 'off' : 'on'}`,
         );
         commander.hide();
-        select(".terminal").focus();
+        select('.terminal').focus();
       },
     },
     {
-      title: "Add a cover picture",
+      title: 'Add a cover picture',
       experimental: true,
-      icon: icon(PictureSVG, "cover picture"),
+      icon: icon(PictureSVG, 'cover picture'),
       key: null,
       call: async () => {
-        const bgImage = prompt("Paste the image URL in here...");
+        const bgImage = prompt('Paste the image URL in here...');
         commander.hide();
         await sleep(200); // need to wait after prompt for some reason before copy
         copyToClipboard(
           `<div class="cover" style="background-image: url('${bgImage}')"></div>`,
-          "👌Copied! Paste the code on the MiroPad editor",
+          '👌Copied! Paste the code on the MiroPad editor',
         );
-        select(".terminal").focus();
+        select('.terminal').focus();
         notify.info(
-          "Paste the cover picture wherever you prefer on the MirPad editor",
+          'Paste the cover picture wherever you prefer on the MirPad editor',
         );
       },
     },
     {
-      title: "Print MarkDown output",
+      title: 'Print MarkDown output',
       experimental: true,
-      icon: icon(PrinterSVG, "print"),
+      icon: icon(PrinterSVG, 'print'),
       key: null,
       call: () => {
-        select(".preview").show();
+        select('.preview').show();
         markDownViewer.init();
         globalThis.print();
         commander.hide();
       },
     },
     {
-      key: "j",
-      title: "Prettify JSON document",
-      icon: icon(MagicWandSVG, "prettify json"),
+      key: 'j',
+      title: 'Prettify JSON document',
+      icon: icon(MagicWandSVG, 'prettify json'),
       call: () => {
-        prettifyJSON(".terminal");
+        prettifyJSON('.terminal');
         commander.hide();
       },
     },
     {
-      title: "Toggle command palette",
-      icon: icon(RocketSVG, "toggle command palette"),
-      key: ["shift p", "k"],
+      title: 'Toggle command palette',
+      icon: icon(RocketSVG, 'toggle command palette'),
+      key: ['shift p', 'k'],
       call: () => commander.toggle(commander.getModes().commands),
     },
     {
-      title: "Find and Replace...",
+      title: 'Find and Replace...',
       experimental: true,
-      icon: icon(SpellCheckSVG, "find and replace"),
-      key: "shift f",
+      icon: icon(SpellCheckSVG, 'find and replace'),
+      key: 'shift f',
       call: () => {
-        const selectedValue = select(".terminal")
+        const selectedValue = select('.terminal')
           .getValue()
           .slice(
-            select(".terminal").el.selectionStart,
-            select(".terminal").el.selectionEnd,
+            select('.terminal').el.selectionStart,
+            select('.terminal').el.selectionEnd,
           );
-        const valueToFind = prompt("What do you wanna find?", selectedValue);
+        const valueToFind = prompt('What do you wanna find?', selectedValue);
         if (!valueToFind) {
-          return notify.info("Value not found");
+          return notify.info('Value not found');
         }
-        const positionOfFirstChar = select(".terminal")
+        const positionOfFirstChar = select('.terminal')
           .getValue()
           .indexOf(valueToFind);
 
-        select(".terminal").el.setSelectionRange(
+        select('.terminal').el.setSelectionRange(
           positionOfFirstChar,
           positionOfFirstChar + valueToFind.length,
         );
         const replacementValue = prompt(`Replace ${valueToFind} with...`);
         if (replacementValue) {
-          select(".terminal").el.setRangeText(replacementValue);
+          select('.terminal').el.setRangeText(replacementValue);
         }
       },
     },
     {
-      title: "Download all notes!",
-      icon: icon(DownloadSVG, "Download all notes on your local file system"),
+      title: 'Download all notes!',
+      icon: icon(DownloadSVG, 'Download all notes on your local file system'),
       call: () => {
         const notes = getNotes({
           includeDeleted: true,
@@ -361,11 +361,11 @@ export const commands = () => {
       },
     },
     {
-      title: "Permanently delete ALL notes ❗",
-      icon: icon(TrashSVG, "delete note"),
+      title: 'Permanently delete ALL notes ❗',
+      icon: icon(TrashSVG, 'delete note'),
       call: () => {
         const confirmation = confirm(
-          "Are you sure you want do delete ALL your notes?",
+          'Are you sure you want do delete ALL your notes?',
         );
         if (confirmation) {
           const notes = getNotes({

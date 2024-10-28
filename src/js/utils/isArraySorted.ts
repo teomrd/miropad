@@ -1,4 +1,4 @@
-export const isArraySorted = (arr) => {
+export const isArraySorted = (arr: Array<any>) => {
   const someArray = arr.reduce((currentValue, item) => {
     if (currentValue.length === 0) {
       return [item];

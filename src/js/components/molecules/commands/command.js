@@ -1,11 +1,11 @@
-import { isElement } from "../../../utils/dom.js";
+import { isElement } from '../../../utils/dom.js';
 
 export const command = (
   { title, secondary, onclick, onSecondaryClick, icon },
   selected = false,
 ) => {
-  const li = document.createElement("LI");
-  li.className = selected ? "selected" : "";
+  const li = document.createElement('LI');
+  li.className = selected ? 'selected' : '';
   if (icon) {
     const iconClone = icon.cloneNode(true);
     li.appendChild(iconClone);
@@ -14,9 +14,9 @@ export const command = (
   liContent.onclick = onclick;
   li.appendChild(liContent);
 
-  const span = document.createElement("span");
+  const span = document.createElement('span');
   if (secondary) {
-    span.className = "secondary";
+    span.className = 'secondary';
     const secondaryElement = isElement(secondary)
       ? secondary
       : document.createTextNode(secondary);

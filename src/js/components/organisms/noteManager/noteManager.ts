@@ -1,18 +1,18 @@
-import select from "../../../utils/dom.js";
-import { deleteFileOnGist } from "../../../utils/github/api.js";
-import hashBrowser from "../../../utils/hashBrowser.ts";
-import isJSON from "../../../utils/isJSON.ts";
-import storage from "../../../utils/localstorage.js";
-import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle.js";
-import { url } from "../../../utils/urlManager.js";
-import notify from "../../molecules/notify.js";
-import commander from "../commander/commander.js";
-import { setSavedState } from "../../../ui/functions/savedState.ts";
+import select from '../../../utils/dom.js';
+import { deleteFileOnGist } from '../../../utils/github/api.js';
+import hashBrowser from '../../../utils/hashBrowser.ts';
+import isJSON from '../../../utils/isJSON.ts';
+import storage from '../../../utils/localstorage.js';
+import { resetPageTitle, setPageTitle } from '../../../utils/pageTitle.js';
+import { url } from '../../../utils/urlManager.js';
+import notify from '../../molecules/notify.ts';
+import commander from '../commander/commander.js';
+import { setSavedState } from '../../../ui/functions/savedState.ts';
 
 const encodeTitle = (title) => {
   const encodedTitle = encodeURIComponent(title);
   if (encodedTitle.length === 0) {
-    throw new Error("You need to start with a valid title for your note!");
+    throw new Error('You need to start with a valid title for your note!');
   }
   return encodedTitle;
 };
@@ -57,7 +57,7 @@ export const getNote = (titleID = url.getPageId(), revision): Note | null => {
   try {
     doc = JSON.parse(storage.get(titleID));
     if (!doc.revisions) {
-      throw new Error("This is not a note!");
+      throw new Error('This is not a note!');
     }
   } catch (error) {
     return null;
@@ -65,8 +65,7 @@ export const getNote = (titleID = url.getPageId(), revision): Note | null => {
 
   const newerNote = doc
     ? Object.values(doc.revisions).reduce(
-      (acc: any, note: any) =>
-        note.dateCreated > acc.dateCreated ? note : acc,
+      (acc: any, note: any) => note.dateCreated > acc.dateCreated ? note : acc,
       { dateCreated: 0 },
     )
     : {};
@@ -78,8 +77,9 @@ export const getNote = (titleID = url.getPageId(), revision): Note | null => {
       ...doc,
       id: titleID,
       ...(noteToReturn ? noteToReturn : {}),
-      numberOfRevisions:
-          doc && doc.revisions ? Object.keys(doc.revisions).length : undefined,
+      numberOfRevisions: doc && doc.revisions
+        ? Object.keys(doc.revisions).length
+        : undefined,
       title: doc.title,
     }
     : null;
@@ -90,39 +90,39 @@ export const disableSyncOnCurrentNote = (value) => {
   storage.update(id, {
     disableSync: value,
   });
-  notify.info(`"${title}" cloud sync ${value ? "disabled 😶" : "enabled ⚡️"}`);
+  notify.info(`"${title}" cloud sync ${value ? 'disabled 😶' : 'enabled ⚡️'}`);
 };
 
 export const setNoteFromHash = async (hash = url.getPageId()) => {
   if (hash) {
-    const version = url.getSearchParam("v");
+    const version = url.getSearchParam('v');
     const note = getNote(undefined, version);
     if (note) {
-      select("#revisions").html(
+      select('#revisions').html(
         `${note.numberOfRevisions} revision${
-          note.numberOfRevisions > 1 ? "s" : ""
+          note.numberOfRevisions > 1 ? 's' : ''
         }`,
       );
       setPageTitle(note.title);
-      select(".terminal").setValue(note.text);
+      select('.terminal').setValue(note.text);
     }
 
     if (!note) {
-      notify.error("404 Note not found 🤷‍♂️");
+      notify.error('404 Note not found 🤷‍♂️');
     }
   }
 };
 
 export const resetNoteManager = () => {
-  location.hash = "";
+  location.hash = '';
   resetPageTitle();
-  select("#revisions").html("");
-  select(".terminal").setValue("").focus();
+  select('#revisions').html('');
+  select('.terminal').setValue('').focus();
   setSavedState();
 };
 
-export const getTitle = (note = "") =>
-  note.split("\n")[0].trim().replace("#", "").trim();
+export const getTitle = (note = '') =>
+  note.split('\n')[0].trim().replace('#', '').trim();
 
 export const getTitleId = (note) => {
   const title = getTitle(note);
@@ -166,14 +166,14 @@ export const updateNote = async (what) => {
 };
 
 export const saveNote = async (
-  what = select(".terminal").getValue(),
+  what = select('.terminal').getValue(),
   cid?: string,
 ) => {
   await storage.saveToDictionary(what);
   if (what.length) {
     const hash = await hashBrowser(what);
     try {
-      const title = what.split("\n")[0].trim().replace("#", "").trim();
+      const title = what.split('\n')[0].trim().replace('#', '').trim();
 
       setPageTitle(title);
 
@@ -185,7 +185,7 @@ export const saveNote = async (
         JSON.stringify({
           ...note,
           title,
-          lines: what.split("\n"),
+          lines: what.split('\n'),
           revisions: {
             ...((note && note.revisions) || {}),
             [hash]: {
@@ -201,10 +201,10 @@ export const saveNote = async (
         ...(cid ? { cid: cid } : {}),
       });
       if (!cid) {
-        url.deleteParam("cid");
+        url.deleteParam('cid');
       }
-      storage.set("lastLocalUpdate", new Date());
-      notify.success("👌 Note saved!");
+      storage.set('lastLocalUpdate', new Date());
+      notify.success('👌 Note saved!');
       setSavedState();
     } catch (e) {
       notify.error(
@@ -222,8 +222,8 @@ export const getNotes = ({
   includeDeleted?: boolean;
 } = {}): Array<Note> =>
   Object.entries(localStorage)
-    .filter(([, body]) => typeof body === "string")
-    .filter(([id, body]) => !id.startsWith("__") && isJSON(body))
+    .filter(([, body]) => typeof body === 'string')
+    .filter(([id, body]) => !id.startsWith('__') && isJSON(body))
     .map(([id, body]) => [id, JSON.parse(body)])
     .filter(([, body]) => !!body.title) // check if title exists and therefore is a note
     .reduce((acc, [noteId]) => [...acc, getNote(noteId)], [])
@@ -242,7 +242,7 @@ export const search = (q) => {
 };
 
 export const deleteNote = () => {
-  const confirmation = confirm("Are you sure you want do that?");
+  const confirmation = confirm('Are you sure you want do that?');
   if (confirmation) {
     const note = getNote();
     resetNoteManager();
