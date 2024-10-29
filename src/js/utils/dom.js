@@ -1,4 +1,4 @@
-import { isArray } from './isArray.ts';
+import { isArray } from "./isArray.ts";
 
 const select = (selector) => ({
   el: document.querySelector(selector),
@@ -15,13 +15,13 @@ const select = (selector) => ({
       text,
       this.el.selectionStart,
       this.el.selectionEnd,
-      'end',
+      "end",
     );
     return this;
   },
   setValue(value) {
     this.el.value = value;
-    const event = new Event('input', {
+    const event = new Event("input", {
       bubbles: true,
       cancelable: true,
     });
@@ -33,7 +33,7 @@ const select = (selector) => ({
     return this;
   },
   html(content) {
-    this.el.innerHTML = '';
+    this.el.innerHTML = "";
     this.append(content);
     return this;
   },
@@ -46,7 +46,7 @@ const select = (selector) => ({
     return this;
   },
   appendListElement(text) {
-    const li = document.createElement('LI');
+    const li = document.createElement("LI");
     li.appendChild(document.createTextNode(text));
     this.el.appendChild(li);
     return this;
@@ -64,21 +64,21 @@ const select = (selector) => ({
     return this;
   },
   hasClass(cls) {
-    return (' ' + this.el.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    return (" " + this.el.className + " ").indexOf(" " + cls + " ") > -1;
   },
   show(shouldShow = true) {
     if (shouldShow) {
-      this.removeClass('hidden');
+      this.removeClass("hidden");
     } else {
       this.hide();
     }
     return this;
   },
   hide() {
-    this.addClass('hidden');
+    this.addClass("hidden");
     return this;
   },
-  toggle(className = 'hidden') {
+  toggle(className = "hidden") {
     if (this.hasClass(className)) this.removeClass(className);
     else this.addClass(className);
     return this;
@@ -121,10 +121,10 @@ export const isElement = (obj) => {
     //an exception is thrown and we end up here. Testing some
     //properties that all elements have (works on IE7)
     return (
-      typeof obj === 'object' &&
+      typeof obj === "object" &&
       obj.nodeType === 1 &&
-      typeof obj.style === 'object' &&
-      typeof obj.ownerDocument === 'object'
+      typeof obj.style === "object" &&
+      typeof obj.ownerDocument === "object"
     );
   }
 };

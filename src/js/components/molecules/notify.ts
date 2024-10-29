@@ -1,15 +1,15 @@
-import select from '../../utils/dom.js';
+import select from "../../utils/dom.js";
 
-type NotificationType = 'info' | 'success' | 'error' | 'warning';
+type NotificationType = "info" | "success" | "error" | "warning";
 
 const notificationTypes: Record<NotificationType, NotificationType> = {
-  info: 'info',
-  success: 'success',
-  error: 'error',
-  warning: 'warning',
+  info: "info",
+  success: "success",
+  error: "error",
+  warning: "warning",
 };
 
-const notification = select('#notification');
+const notification = select("#notification");
 
 const cleanNotificationClasses = (): void => {
   notification.removeClasses(Object.values(notificationTypes));

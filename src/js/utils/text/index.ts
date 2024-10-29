@@ -1,5 +1,5 @@
 export const findCurrentLine = (text: string, caretIndex: number): string => {
-  const lines = text.split('\n');
+  const lines = text.split("\n");
   type MyAcc = {
     text: string;
     isFound: boolean;
@@ -24,7 +24,7 @@ export const findCurrentLine = (text: string, caretIndex: number): string => {
       };
     },
     {
-      text: '',
+      text: "",
       isFound: false,
     },
   );

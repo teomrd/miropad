@@ -6,14 +6,14 @@ export const url = {
   getPageId: function (url = globalThis.location.href) {
     const URLObject = new URL(url);
     const hash = URLObject.hash.substr(1);
-    const hashWithVersion = hash.split('?');
+    const hashWithVersion = hash.split("?");
     const pageId = hashWithVersion[0] || null;
     return pageId;
   },
   getSearchParams: function (url = globalThis.location.href) {
     const URLObject = new URL(url);
-    const urlParts = URLObject.href.split('?');
-    const currentParams = urlParts[1] || '';
+    const urlParts = URLObject.href.split("?");
+    const currentParams = urlParts[1] || "";
     const searchParams = new URLSearchParams(currentParams);
     return searchParams;
   },
@@ -35,7 +35,7 @@ export const url = {
   },
   deleteParam: function (param) {
     const searchParams = this.getSearchParams();
-    if (typeof param === 'object' && param.length > 0) {
+    if (typeof param === "object" && param.length > 0) {
       param.forEach((p) => {
         searchParams.delete(p);
       });
@@ -46,7 +46,7 @@ export const url = {
     const hash = this.getPageId();
     return globalThis.location.assign(
       `${hash ? `#${hash}` : pathname}${
-        searchParams.toString() ? `?${searchParams.toString()}` : ''
+        searchParams.toString() ? `?${searchParams.toString()}` : ""
       }`,
     );
   },

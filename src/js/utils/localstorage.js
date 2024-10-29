@@ -1,5 +1,5 @@
-import notify from '../components/molecules/notify.ts';
-import { isArray } from './isArray.ts';
+import notify from "../components/molecules/notify.ts";
+import { isArray } from "./isArray.ts";
 
 const storage = (() => {
   return {
@@ -39,7 +39,7 @@ const storage = (() => {
       return JSON.parse(value);
     },
     getDictionary: function () {
-      const savedTxt = localStorage.getItem('__dictionary__');
+      const savedTxt = localStorage.getItem("__dictionary__");
       return savedTxt ? JSON.parse(savedTxt) : [];
     },
     removeFromDictionary: function (word) {
@@ -48,26 +48,26 @@ const storage = (() => {
         return w !== word;
       });
 
-      localStorage.setItem('__dictionary__', JSON.stringify(newDictionary));
+      localStorage.setItem("__dictionary__", JSON.stringify(newDictionary));
     },
     saveToDictionary: async function (what) {
       if (what.length) {
         try {
-          const cleanText = what.toLowerCase().replace(/[^a-zA-Zά-ώΑ-Ω]/g, ' ');
+          const cleanText = what.toLowerCase().replace(/[^a-zA-Zά-ώΑ-Ω]/g, " ");
           const current = await this.getDictionary();
           const words = [
-            ...cleanText.split(' ').filter((w) => w.length > 3),
+            ...cleanText.split(" ").filter((w) => w.length > 3),
             ...current,
           ];
           const distinctWords = [...new Set(words)];
-          localStorage.setItem('__dictionary__', JSON.stringify(distinctWords));
+          localStorage.setItem("__dictionary__", JSON.stringify(distinctWords));
         } catch (e) {
           notify.error(
             `😱 Something went wrong while trying to save to local storage ${e}`,
           );
         }
       } else {
-        notify.warning('😕 Nothing to save!');
+        notify.warning("😕 Nothing to save!");
       }
       return this;
     },

@@ -1,14 +1,14 @@
-import 'github-markdown-css';
-import '../../css/print.css';
-import '../../css/styles.css';
-import notify from '../components/molecules/notify.ts';
+import "github-markdown-css";
+import "../../css/print.css";
+import "../../css/styles.css";
+import notify from "../components/molecules/notify.ts";
 import {
   search,
   setNoteFromHash,
-} from '../components/organisms/noteManager/noteManager.ts';
-import select from '../utils/dom.js';
-import { url } from '../utils/urlManager.js';
-import { getGist } from '../utils/github/api.js';
+} from "../components/organisms/noteManager/noteManager.ts";
+import select from "../utils/dom.js";
+import { url } from "../utils/urlManager.js";
+import { getGist } from "../utils/github/api.js";
 
 const setNoteFromRawUrl = async (rawUrl: string) => {
   if (rawUrl) {
@@ -18,7 +18,7 @@ const setNoteFromRawUrl = async (rawUrl: string) => {
         `Remote note could not be retrieved! code: ${response.status}`,
       );
     });
-    select('.terminal').setValue(response);
+    select(".terminal").setValue(response);
   }
 };
 
@@ -32,9 +32,9 @@ const setNoteFromGist = async (gistId: string) => {
 
       // @ts-ignore
       const { content } = gistFile;
-      select('.terminal').setValue(content);
+      select(".terminal").setValue(content);
     } catch (error) {
-      notify.error('MiroPad note not found! 🤷‍♂️');
+      notify.error("MiroPad note not found! 🤷‍♂️");
     }
   }
 };
@@ -60,29 +60,29 @@ export const actOnURLStateChange = async (e = {}) => {
     if (e instanceof Error) {
       notify.error(e.message);
     } else {
-      notify.error('An unknown error occurred');
+      notify.error("An unknown error occurred");
     }
   }
 
   const isANewNote = !url.getPageId();
-  select('#note-info-button').show(!isANewNote);
-  select('#new-note').disable(isANewNote);
+  select("#note-info-button").show(!isANewNote);
+  select("#new-note").disable(isANewNote);
 
-  if (url.getSearchParam('md') === 'full') {
-    select('.terminal').hide();
+  if (url.getSearchParam("md") === "full") {
+    select(".terminal").hide();
   } else {
-    select('.terminal').show();
+    select(".terminal").show();
   }
 
-  if (url.getSearchParam('zen') === 'true') {
-    select('.header').hide();
+  if (url.getSearchParam("zen") === "true") {
+    select(".header").hide();
   } else {
-    select('.header').show();
+    select(".header").show();
   }
 
-  select('.note-info').hide();
+  select(".note-info").hide();
 
-  const q = url.getSearchParam('q');
+  const q = url.getSearchParam("q");
   const queryResult = search(q);
-  if (queryResult) select('.terminal').setValue(queryResult.text);
+  if (queryResult) select(".terminal").setValue(queryResult.text);
 };

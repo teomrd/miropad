@@ -2,38 +2,38 @@ import {
   getDateCreatedFromTitle,
   getNote,
   getNotes,
-} from '../noteManager/noteManager.ts';
-import { commands } from './commands.js';
-import keyListener from '../../../utils/keyListener.js';
-import select from '../../../utils/dom.js';
-import { url } from '../../../utils/urlManager.js';
-import { command } from '../../molecules/commands/command.js';
-import { link } from '../../atoms/link/link.js';
-import { div } from '../../atoms/div/div.js';
-import { relativeDate } from '../../../utils/dates.js';
-import { smartFilter } from './smartFilter.ts';
-import { button } from '../../atoms/button/button.js';
-import { requestNotificationPermission } from '../../../registerServiceWorker.js';
-import storage from '../../../utils/localstorage.js';
+} from "../noteManager/noteManager.ts";
+import { commands } from "./commands.js";
+import keyListener from "../../../utils/keyListener.js";
+import select from "../../../utils/dom.js";
+import { url } from "../../../utils/urlManager.js";
+import { command } from "../../molecules/commands/command.js";
+import { link } from "../../atoms/link/link.js";
+import { div } from "../../atoms/div/div.js";
+import { relativeDate } from "../../../utils/dates.js";
+import { smartFilter } from "./smartFilter.ts";
+import { button } from "../../atoms/button/button.js";
+import { requestNotificationPermission } from "../../../registerServiceWorker.js";
+import storage from "../../../utils/localstorage.js";
 
 const getShortcut = (key) => {
   if (Array.isArray(key)) {
-    return key.map((k) => getShortcut(k)).join(', ');
+    return key.map((k) => getShortcut(k)).join(", ");
   }
 
-  return key ? `⌘+${key.toUpperCase()}` : '';
+  return key ? `⌘+${key.toUpperCase()}` : "";
 };
 
 const commander = (() => {
   const commanderModes = {
-    off: 'off',
-    notes: 'notes',
-    revisions: 'revisions',
-    commands: 'commands',
-    gists: 'gists',
+    off: "off",
+    notes: "notes",
+    revisions: "revisions",
+    commands: "commands",
+    gists: "gists",
   };
   let state = {
-    input: '',
+    input: "",
     mode: commanderModes.off,
     options: {
       selected: 0,
@@ -55,26 +55,26 @@ const commander = (() => {
       return state;
     },
     show: function (what = commanderModes.commands) {
-      select('#commander').show();
-      select('#commander input').focus();
+      select("#commander").show();
+      select("#commander input").focus();
       switch (what) {
         case commanderModes.commands:
           this.generateCommands();
-          select('#commander input').setValue('> ');
+          select("#commander input").setValue("> ");
           this.setState({
             mode: commanderModes.commands,
           });
           break;
         case commanderModes.notes:
           this.generateNotes();
-          select('#commander input').setValue('');
+          select("#commander input").setValue("");
           this.setState({
             mode: commanderModes.notes,
           });
           break;
         case commanderModes.revisions:
           this.generateRevisions();
-          select('#commander input').setValue('');
+          select("#commander input").setValue("");
           this.setState({
             mode: commanderModes.revisions,
           });
@@ -86,7 +86,7 @@ const commander = (() => {
       return this;
     },
     hide: function () {
-      select('#commander').hide();
+      select("#commander").hide();
       state.mode = commanderModes.off;
       return this;
     },
@@ -107,7 +107,7 @@ const commander = (() => {
       const lastOption = state.options.length - 1;
       const isLastOption = currentlySelected === lastOption;
       const isFirstOption = currentlySelected === 0;
-      const isDown = direction === 'down';
+      const isDown = direction === "down";
 
       const indexToSelect = isDown
         ? isLastOption ? 0 : currentlySelected + 1
@@ -125,48 +125,48 @@ const commander = (() => {
       commands()
         .slice(0, 5)
         .map((command) => {
-          select('.mobile-dock').append(
+          select(".mobile-dock").append(
             button(
               [command.icon, document.createTextNode(command.sortTitle)],
               command.call,
-              command.title.toLowerCase().replace(/\s/g, '-'),
+              command.title.toLowerCase().replace(/\s/g, "-"),
             ),
           );
         });
 
-      select('#commander button').listen('click', () => {
+      select("#commander button").listen("click", () => {
         this.hide();
       });
 
-      select('#commander input')
-        .listen('keydown', (e) => {
+      select("#commander input")
+        .listen("keydown", (e) => {
           // arrow down 40
           if (e.keyCode === 40) {
             if (state.mode === commanderModes.revisions) {
-              select('#commands li.selected').click();
+              select("#commands li.selected").click();
             }
-            this.selectOption(e, 'down');
+            this.selectOption(e, "down");
           }
           // arrow up 38
           if (e.keyCode === 38) {
             if (state.mode === commanderModes.revisions) {
-              select('#commands li.selected').click();
+              select("#commands li.selected").click();
             }
-            this.selectOption(e, 'up');
+            this.selectOption(e, "up");
           }
         })
-        .listen('keyup', (e) => {
+        .listen("keyup", (e) => {
           // enter
           if (e.keyCode === 13) {
             if (state.mode === commanderModes.commands) {
-              select('#commands li.selected div').click();
+              select("#commands li.selected div").click();
             } else {
-              select('#commands li.selected a').click();
+              select("#commands li.selected a").click();
             }
           }
           // escape
           if (e.keyCode === 27) {
-            select('.terminal').focus();
+            select(".terminal").focus();
           }
           if (state.input !== e.target.value) {
             state.options.selected = 0;
@@ -179,8 +179,8 @@ const commander = (() => {
     init: function () {
       this.initCommander();
       keyListener.listen().on(this.commands());
-      select('.menu').listen('click', () => this.toggle());
-      select('#revisions').listen('click', () => this.generateRevisions());
+      select(".menu").listen("click", () => this.toggle());
+      select("#revisions").listen("click", () => this.generateRevisions());
       return this;
     },
     generateRevisions: function () {
@@ -207,7 +207,7 @@ const commander = (() => {
         }))
         .map((r, i) => command(r, i === indexToSelect));
 
-      select('#commands').html(revisionsOptions);
+      select("#commands").html(revisionsOptions);
 
       state.options = {
         ...state.options,
@@ -219,10 +219,10 @@ const commander = (() => {
       switch (state.mode) {
         case commanderModes.commands:
         case commanderModes.notes:
-          if (value.slice(0, 1) === '>') {
+          if (value.slice(0, 1) === ">") {
             state.mode = commanderModes.commands;
             this.generateCommands(value.slice(1).trim());
-            select('#commander input').placeholder('Search for commands...');
+            select("#commander input").placeholder("Search for commands...");
           } else {
             state.mode = commanderModes.notes;
             this.generateNotes(value);
@@ -236,7 +236,7 @@ const commander = (() => {
           break;
       }
     },
-    generateNotes: function (value = '') {
+    generateNotes: function (value = "") {
       const indexToSelect = state.options.selected;
       const notes = getNotes()
         .filter(({ title }) => {
@@ -250,7 +250,7 @@ const commander = (() => {
         })
         .map(({ id, title, cid }, i) => {
           const dateCreated = getDateCreatedFromTitle(title);
-          const linkParams = cid ? `?cid=${cid}` : '';
+          const linkParams = cid ? `?cid=${cid}` : "";
           const href =
             `${globalThis.location.origin}${globalThis.location.pathname}#${id}${linkParams}`;
 
@@ -265,15 +265,15 @@ const commander = (() => {
               secondary: relativeDate(dateCreated),
               onclick: () => {
                 this.hide();
-                select('.terminal').focus();
+                select(".terminal").focus();
               },
             },
             i === indexToSelect,
           );
           return noteCommand;
         });
-      select('#commands').html(notes);
-      select('#commander input').placeholder(
+      select("#commands").html(notes);
+      select("#commander input").placeholder(
         `Search from ${notes.length} saved notes...`,
       );
       state.options = {
@@ -282,12 +282,12 @@ const commander = (() => {
       };
       return this;
     },
-    generateCommands: function (value = '') {
+    generateCommands: function (value = "") {
       const indexToSelect = state.options.selected;
       const commandComponents = this.commands()
         .filter(({ title }) => smartFilter(title, value))
         .filter(({ experimental = false }) => {
-          return storage.get('__experimental__') ? true : !experimental;
+          return storage.get("__experimental__") ? true : !experimental;
         })
         .map(({ title, key, call, icon }, i) => {
           const commandComponent = command(
@@ -301,7 +301,7 @@ const commander = (() => {
           );
           return commandComponent;
         });
-      select('#commands').html(commandComponents);
+      select("#commands").html(commandComponents);
       state.options = {
         ...state.options,
         length: commandComponents.length,

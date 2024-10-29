@@ -2,10 +2,10 @@ html, * {
   font-family:
     -apple-system,
     BlinkMacSystemFont,
-    'Segoe UI',
-    'Roboto',
-    'Droid Sans',
-    'Helvetica Neue',
+    "Segoe UI",
+    "Roboto",
+    "Droid Sans",
+    "Helvetica Neue",
     Helvetica,
     Arial,
     sans-serif;
@@ -200,7 +200,7 @@ header .logo.unsaved::after {
   height: 7px;
   background-color: red;
   border-radius: 50%;
-  content: '';
+  content: "";
   top: -2px;
   right: -2px;
   position: absolute;
@@ -484,7 +484,7 @@ header .logo:active {
 }
 
 .menu:after {
-  content: '\22EE';
+  content: "\22EE";
   font-size: 30px;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1;
@@ -558,7 +558,7 @@ pre button {
   height: 7px;
   background-color: red;
   border-radius: 50%;
-  content: '';
+  content: "";
   top: 0px;
   right: 0px;
   position: absolute;
@@ -639,7 +639,7 @@ pre button {
 
 .slider:before {
   position: absolute;
-  content: '';
+  content: "";
   height: 18px;
   width: 18px;
   left: 4px;
