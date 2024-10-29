@@ -19,11 +19,12 @@ audits: install build
 clean:
 	rm -rf ./node_modules
 	rm -rf ./out
+	rm -rf ./dist
 	rm -rf ./dev
 	rm -rf ./*lock*
 
 serve: build
-	serve $(MAKE_DIR)/out
+	serve $(MAKE_DIR)/dist
 
 version:
 	$(MAKE_DIR)/scripts/version.sh

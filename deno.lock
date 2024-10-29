@@ -16,7 +16,7 @@
     "npm:nanoid@^5.0.7": "5.0.7",
     "npm:showdown@^2.1.0": "2.1.0",
     "npm:textarea-caret@^3.1.0": "3.1.0",
-    "npm:workbox-cli@^7.1.0": "7.1.0",
+    "npm:workbox-cli@^7.3.0": "7.3.0",
     "npm:workbox@^0.0.0": "0.0.0"
   },
   "jsr": {
@@ -1180,8 +1180,8 @@
         "negotiator"
       ]
     },
-    "acorn@8.13.0": {
-      "integrity": "sha512-8zSiw54Oxrdym50NlZ9sUusyO1Z1ZchgRLWRaK6c86XJFClyCgFKetdowBg5bKxyp/u+CDBJG4Mpp0m3HLZl9w=="
+    "acorn@8.14.0": {
+      "integrity": "sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA=="
     },
     "agent-base@6.0.2": {
       "integrity": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==",
@@ -1493,8 +1493,8 @@
     "camelcase@5.3.1": {
       "integrity": "sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg=="
     },
-    "caniuse-lite@1.0.30001671": {
-      "integrity": "sha512-jocyVaSSfXg2faluE6hrWkMgDOiULBMca4QLtDT39hw1YxaIPHWc1CcTCKkPmHgGH6tKji6ZNbMSmUAvENf2/A=="
+    "caniuse-lite@1.0.30001674": {
+      "integrity": "sha512-jOsKlZVRnzfhLojb+Ykb+gyUSp9Xb57So+fAiFlLzzTKpqg8xxSav0e40c8/4F/v9N8QSvrRRaLeVzQbLqomYw=="
     },
     "chalk@2.4.2": {
       "integrity": "sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==",
@@ -1834,8 +1834,8 @@
         "jake"
       ]
     },
-    "electron-to-chromium@1.5.47": {
-      "integrity": "sha512-zS5Yer0MOYw4rtK2iq43cJagHZ8sXN0jDHDKzB+86gSBSAI4v07S97mcq+Gs2vclAxSh1j7vOAHxSVgduiiuVQ=="
+    "electron-to-chromium@1.5.49": {
+      "integrity": "sha512-ZXfs1Of8fDb6z7WEYZjXpgIRF6MEu8JdeGA0A40aZq6OQbS+eJpnnV49epZRna2DU/YsEjSQuGtQPPtvt6J65A=="
     },
     "emoji-regex@8.0.0": {
       "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="
@@ -3332,8 +3332,8 @@
     "regjsgen@0.8.0": {
       "integrity": "sha512-RvwtGe3d7LvWiDQXeQw8p5asZUmfU1G/l6WbUXeHta7Y2PEIvBTwH6E2EfmYUK8pxcxEdEmaomqyp0vZZ7C+3Q=="
     },
-    "regjsparser@0.11.1": {
-      "integrity": "sha512-1DHODs4B8p/mQHU9kr+jv8+wIC9mtG4eBHxWxIq5mhjE3D5oORhCc6deRKzTjs9DcfRFmj9BHSDguZklqCGFWQ==",
+    "regjsparser@0.11.2": {
+      "integrity": "sha512-3OGZZ4HoLJkkAZx/48mTXJNlmqTGOzc0o9OWQPuWpkOlXXPbyN6OafCcoXUnBqE2D3f/T5L+pWc1kdEmnfnRsA==",
       "dependencies": [
         "jsesc"
       ]
@@ -4063,21 +4063,21 @@
         "string-width@4.2.3"
       ]
     },
-    "workbox-background-sync@7.1.0": {
-      "integrity": "sha512-rMbgrzueVWDFcEq1610YyDW71z0oAXLfdRHRQcKw4SGihkfOK0JUEvqWHFwA6rJ+6TClnMIn7KQI5PNN1XQXwQ==",
+    "workbox-background-sync@7.3.0": {
+      "integrity": "sha512-PCSk3eK7Mxeuyatb22pcSx9dlgWNv3+M8PqPaYDokks8Y5/FX4soaOqj3yhAZr5k6Q5JWTOMYgaJBpbw11G9Eg==",
       "dependencies": [
         "idb",
         "workbox-core"
       ]
     },
-    "workbox-broadcast-update@7.1.0": {
-      "integrity": "sha512-O36hIfhjej/c5ar95pO67k1GQw0/bw5tKP7CERNgK+JdxBANQhDmIuOXZTNvwb2IHBx9hj2kxvcDyRIh5nzOgQ==",
+    "workbox-broadcast-update@7.3.0": {
+      "integrity": "sha512-T9/F5VEdJVhwmrIAE+E/kq5at2OY6+OXXgOWQevnubal6sO92Gjo24v6dCVwQiclAF5NS3hlmsifRrpQzZCdUA==",
       "dependencies": [
         "workbox-core"
       ]
     },
-    "workbox-build@7.1.0_ajv@8.17.1_@babel+core@7.26.0_rollup@2.79.2": {
-      "integrity": "sha512-F6R94XAxjB2j4ETMkP1EXKfjECOtDmyvt0vz3BzgWJMI68TNSXIVNkgatwUKBlPGOfy9n2F/4voYRNAhEvPJNg==",
+    "workbox-build@7.3.0_ajv@8.17.1_@babel+core@7.26.0_rollup@2.79.2": {
+      "integrity": "sha512-JGL6vZTPlxnlqZRhR/K/msqg3wKP+m0wfEUVosK7gsYzSgeIxvZLi1ViJJzVL7CEeI8r7rGFV973RiEqkP3lWQ==",
       "dependencies": [
         "@apideck/better-ajv-errors",
         "@babel/core",
@@ -4118,14 +4118,14 @@
         "workbox-window"
       ]
     },
-    "workbox-cacheable-response@7.1.0": {
-      "integrity": "sha512-iwsLBll8Hvua3xCuBB9h92+/e0wdsmSVgR2ZlvcfjepZWwhd3osumQB3x9o7flj+FehtWM2VHbZn8UJeBXXo6Q==",
+    "workbox-cacheable-response@7.3.0": {
+      "integrity": "sha512-eAFERIg6J2LuyELhLlmeRcJFa5e16Mj8kL2yCDbhWE+HUun9skRQrGIFVUagqWj4DMaaPSMWfAolM7XZZxNmxA==",
       "dependencies": [
         "workbox-core"
       ]
     },
-    "workbox-cli@7.1.0": {
-      "integrity": "sha512-/2PUBPOrXjuyo7AqnFem+WW+cMF3EQ4Tt0tUkJL4eZlnsePUkc6QQ7d4U3v4Hn65DsMrAT++YxM2BPIxPuJGkA==",
+    "workbox-cli@7.3.0": {
+      "integrity": "sha512-dB2Yz4s3PWcb2daHLUQC3Q0P+WGeoOKR6+LQqZ7ciWOHMhaWj7sWmomELa4IMVlNat53EF8MXOpXx2Ggd1o7+w==",
       "dependencies": [
         "chalk@4.1.2",
         "chokidar",
@@ -4142,18 +4142,18 @@
         "workbox-build"
       ]
     },
-    "workbox-core@7.1.0": {
-      "integrity": "sha512-5KB4KOY8rtL31nEF7BfvU7FMzKT4B5TkbYa2tzkS+Peqj0gayMT9SytSFtNzlrvMaWgv6y/yvP9C0IbpFjV30Q=="
+    "workbox-core@7.3.0": {
+      "integrity": "sha512-Z+mYrErfh4t3zi7NVTvOuACB0A/jA3bgxUN3PwtAVHvfEsZxV9Iju580VEETug3zYJRc0Dmii/aixI/Uxj8fmw=="
     },
-    "workbox-expiration@7.1.0": {
-      "integrity": "sha512-m5DcMY+A63rJlPTbbBNtpJ20i3enkyOtSgYfv/l8h+D6YbbNiA0zKEkCUaMsdDlxggla1oOfRkyqTvl5Ni5KQQ==",
+    "workbox-expiration@7.3.0": {
+      "integrity": "sha512-lpnSSLp2BM+K6bgFCWc5bS1LR5pAwDWbcKt1iL87/eTSJRdLdAwGQznZE+1czLgn/X05YChsrEegTNxjM067vQ==",
       "dependencies": [
         "idb",
         "workbox-core"
       ]
     },
-    "workbox-google-analytics@7.1.0": {
-      "integrity": "sha512-FvE53kBQHfVTcZyczeBVRexhh7JTkyQ8HAvbVY6mXd2n2A7Oyz/9fIwnY406ZcDhvE4NFfKGjW56N4gBiqkrew==",
+    "workbox-google-analytics@7.3.0": {
+      "integrity": "sha512-ii/tSfFdhjLHZ2BrYgFNTrb/yk04pw2hasgbM70jpZfLk0vdJAXgaiMAWsoE+wfJDNWoZmBYY0hMVI0v5wWDbg==",
       "dependencies": [
         "workbox-background-sync",
         "workbox-core",
@@ -4161,28 +4161,28 @@
         "workbox-strategies"
       ]
     },
-    "workbox-navigation-preload@7.1.0": {
-      "integrity": "sha512-4wyAbo0vNI/X0uWNJhCMKxnPanNyhybsReMGN9QUpaePLTiDpKxPqFxl4oUmBNddPwIXug01eTSLVIFXimRG/A==",
+    "workbox-navigation-preload@7.3.0": {
+      "integrity": "sha512-fTJzogmFaTv4bShZ6aA7Bfj4Cewaq5rp30qcxl2iYM45YD79rKIhvzNHiFj1P+u5ZZldroqhASXwwoyusnr2cg==",
       "dependencies": [
         "workbox-core"
       ]
     },
-    "workbox-precaching@7.1.0": {
-      "integrity": "sha512-LyxzQts+UEpgtmfnolo0hHdNjoB7EoRWcF7EDslt+lQGd0lW4iTvvSe3v5JiIckQSB5KTW5xiCqjFviRKPj1zA==",
+    "workbox-precaching@7.3.0": {
+      "integrity": "sha512-ckp/3t0msgXclVAYaNndAGeAoWQUv7Rwc4fdhWL69CCAb2UHo3Cef0KIUctqfQj1p8h6aGyz3w8Cy3Ihq9OmIw==",
       "dependencies": [
         "workbox-core",
         "workbox-routing",
         "workbox-strategies"
       ]
     },
-    "workbox-range-requests@7.1.0": {
-      "integrity": "sha512-m7+O4EHolNs5yb/79CrnwPR/g/PRzMFYEdo01LqwixVnc/sbzNSvKz0d04OE3aMRel1CwAAZQheRsqGDwATgPQ==",
+    "workbox-range-requests@7.3.0": {
+      "integrity": "sha512-EyFmM1KpDzzAouNF3+EWa15yDEenwxoeXu9bgxOEYnFfCxns7eAxA9WSSaVd8kujFFt3eIbShNqa4hLQNFvmVQ==",
       "dependencies": [
         "workbox-core"
       ]
     },
-    "workbox-recipes@7.1.0": {
-      "integrity": "sha512-NRrk4ycFN9BHXJB6WrKiRX3W3w75YNrNrzSX9cEZgFB5ubeGoO8s/SDmOYVrFYp9HMw6sh1Pm3eAY/1gVS8YLg==",
+    "workbox-recipes@7.3.0": {
+      "integrity": "sha512-BJro/MpuW35I/zjZQBcoxsctgeB+kyb2JAP5EB3EYzePg8wDGoQuUdyYQS+CheTb+GhqJeWmVs3QxLI8EBP1sg==",
       "dependencies": [
         "workbox-cacheable-response",
         "workbox-core",
@@ -4192,30 +4192,30 @@
         "workbox-strategies"
       ]
     },
-    "workbox-routing@7.1.0": {
-      "integrity": "sha512-oOYk+kLriUY2QyHkIilxUlVcFqwduLJB7oRZIENbqPGeBP/3TWHYNNdmGNhz1dvKuw7aqvJ7CQxn27/jprlTdg==",
+    "workbox-routing@7.3.0": {
+      "integrity": "sha512-ZUlysUVn5ZUzMOmQN3bqu+gK98vNfgX/gSTZ127izJg/pMMy4LryAthnYtjuqcjkN4HEAx1mdgxNiKJMZQM76A==",
       "dependencies": [
         "workbox-core"
       ]
     },
-    "workbox-strategies@7.1.0": {
-      "integrity": "sha512-/UracPiGhUNehGjRm/tLUQ+9PtWmCbRufWtV0tNrALuf+HZ4F7cmObSEK+E4/Bx1p8Syx2tM+pkIrvtyetdlew==",
+    "workbox-strategies@7.3.0": {
+      "integrity": "sha512-tmZydug+qzDFATwX7QiEL5Hdf7FrkhjaF9db1CbB39sDmEZJg3l9ayDvPxy8Y18C3Y66Nrr9kkN1f/RlkDgllg==",
       "dependencies": [
         "workbox-core"
       ]
     },
-    "workbox-streams@7.1.0": {
-      "integrity": "sha512-WyHAVxRXBMfysM8ORwiZnI98wvGWTVAq/lOyBjf00pXFvG0mNaVz4Ji+u+fKa/mf1i2SnTfikoYKto4ihHeS6w==",
+    "workbox-streams@7.3.0": {
+      "integrity": "sha512-SZnXucyg8x2Y61VGtDjKPO5EgPUG5NDn/v86WYHX+9ZqvAsGOytP0Jxp1bl663YUuMoXSAtsGLL+byHzEuMRpw==",
       "dependencies": [
         "workbox-core",
         "workbox-routing"
       ]
     },
-    "workbox-sw@7.1.0": {
-      "integrity": "sha512-Hml/9+/njUXBglv3dtZ9WBKHI235AQJyLBV1G7EFmh4/mUdSQuXui80RtjDeVRrXnm/6QWgRUEHG3/YBVbxtsA=="
+    "workbox-sw@7.3.0": {
+      "integrity": "sha512-aCUyoAZU9IZtH05mn0ACUpyHzPs0lMeJimAYkQkBsOWiqaJLgusfDCR+yllkPkFRxWpZKF8vSvgHYeG7LwhlmA=="
     },
-    "workbox-window@7.1.0": {
-      "integrity": "sha512-ZHeROyqR+AS5UPzholQRDttLFqGMwP0Np8MKWAdyxsDETxq3qOAyXvqessc3GniohG6e0mAqSQyKOHmT8zPF7g==",
+    "workbox-window@7.3.0": {
+      "integrity": "sha512-qW8PDy16OV1UBaUNGlTVcepzrlzyzNW/ZJvFQQs2j2TzGsg6IKjcpZC1RSquqQnTOafl5pCj5bGfAHlCjOOjdA==",
       "dependencies": [
         "@types/trusted-types",
         "workbox-core"
@@ -4344,7 +4344,7 @@
         "npm:nanoid@^5.0.7",
         "npm:showdown@^2.1.0",
         "npm:textarea-caret@^3.1.0",
-        "npm:workbox-cli@^7.1.0",
+        "npm:workbox-cli@^7.3.0",
         "npm:workbox@^0.0.0"
       ]
     }

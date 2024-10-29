@@ -6,7 +6,7 @@
   "author": "teomrd <mironidis.gr@gmail.com>",
   "license": "GPL-3.0-only",
   "scripts": {
-    "start": "serve out",
+    "start": "serve dist",
     "dev": "scripts/dev.sh",
     "build": "node ./scripts/esbuild.mjs",
     "test": "jest",
@@ -15,8 +15,7 @@
   "devDependencies": {
     "@types/showdown": "^2.0.6",
     "@types/textarea-caret": "^3.0.3",
-    "esbuild": "^0.24.0",
-    "workbox-cli": "^7.1.0"
+    "esbuild": "^0.24.0"
   },
   "dependencies": {
     "@lhci/cli": "0.14.0",
@@ -25,6 +24,7 @@
     "nanoid": "^5.0.7",
     "showdown": "^2.1.0",
     "textarea-caret": "^3.1.0",
-    "workbox": "^0.0.0"
+    "workbox": "^0.0.0",
+    "workbox-cli": "^7.3.0"
   }
 }
