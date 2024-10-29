@@ -20,7 +20,7 @@
     "npm:esbuild@0.24": "0.24.0",
     "npm:github-markdown-css@^5.7.0": "5.7.0",
     "npm:multiformats@^13.3.0": "13.3.0",
-    "npm:nanoid@^5.0.7": "5.0.7",
+    "npm:nanoid@^5.0.7": "5.0.8",
     "npm:showdown@^2.1.0": "2.1.0",
     "npm:textarea-caret@^3.1.0": "3.1.0",
     "npm:workbox-cli@^7.3.0": "7.3.0",
@@ -2979,8 +2979,8 @@
     "mute-stream@0.0.8": {
       "integrity": "sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA=="
     },
-    "nanoid@5.0.7": {
-      "integrity": "sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ=="
+    "nanoid@5.0.8": {
+      "integrity": "sha512-TcJPw+9RV9dibz1hHUzlLVy8N4X9TnwirAjrU08Juo6BNKggzVfP2ZJ/3ZUSq15Xl5i85i+Z89XBO90pB2PghQ=="
     },
     "negotiator@0.6.3": {
       "integrity": "sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg=="
@@ -3812,11 +3812,11 @@
     "through@2.3.8": {
       "integrity": "sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg=="
     },
-    "tldts-core@6.1.56": {
-      "integrity": "sha512-Ihxv/Bwiyj73icTYVgBUkQ3wstlCglLoegSgl64oSrGUBX1hc7Qmf/CnrnJLaQdZrCnTaLqMYOwKMKlkfkFrxQ=="
+    "tldts-core@6.1.57": {
+      "integrity": "sha512-lXnRhuQpx3zU9EONF9F7HfcRLvN1uRYUBIiKL+C/gehC/77XTU+Jye6ui86GA3rU6FjlJ0triD1Tkjt2F/2lEg=="
     },
-    "tldts-icann@6.1.56": {
-      "integrity": "sha512-tMUGvrLs6tgQtW8QjDFQCj2jzUMAyuxykw4mcHe0B7hbtjroooxAdz4Dd8ZL4ZEsRW+DYeto3Y3liyb8d3hPFA==",
+    "tldts-icann@6.1.57": {
+      "integrity": "sha512-WBeNHx3Vd+xmpvl35cPBc7FMg5R3k8YrY5WOjBIPDkzcIaSahqyDYXt8jqYaxHXlAjmskwMPKDSKVbwLHATp8g==",
       "dependencies": [
         "tldts-core"
       ]
@@ -4452,21 +4452,21 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/assert@1"
+      "jsr:@std/assert@1",
+      "npm:@lhci/cli@0.14.0",
+      "npm:@types/showdown@^2.0.6",
+      "npm:@types/textarea-caret@^3.0.3",
+      "npm:esbuild@0.24",
+      "npm:workbox-cli@^7.3.0",
+      "npm:workbox@^0.0.0"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@lhci/cli@0.14.0",
-        "npm:@types/showdown@^2.0.6",
-        "npm:@types/textarea-caret@^3.0.3",
-        "npm:esbuild@0.24",
         "npm:github-markdown-css@^5.7.0",
         "npm:multiformats@^13.3.0",
         "npm:nanoid@^5.0.7",
         "npm:showdown@^2.1.0",
-        "npm:textarea-caret@^3.1.0",
-        "npm:workbox-cli@^7.3.0",
-        "npm:workbox@^0.0.0"
+        "npm:textarea-caret@^3.1.0"
       ]
     }
   }
