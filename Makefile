@@ -11,7 +11,7 @@ dev: install
 	open http://localhost:8000 && sh scripts/dev.sh
 
 checks: install
-	deno lint
+	deno task lint && deno task compile
 
 audits: install build
 	deno task lighthouse
