@@ -8,7 +8,7 @@ install:
 	deno install
 
 dev: install
-	open http://localhost:8000 && deno task dev
+	open http://localhost:8000 && sh scripts/dev.sh
 
 checks: install
 	deno lint
