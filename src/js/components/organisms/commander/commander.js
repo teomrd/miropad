@@ -102,7 +102,7 @@ const commander = (() => {
     commands: function () {
       return commands();
     },
-    selectOption: function (e, direction) {
+    selectOption: function (_e, direction) {
       const currentlySelected = state.options.selected;
       const lastOption = state.options.length - 1;
       const isLastOption = currentlySelected === lastOption;
@@ -282,7 +282,7 @@ const commander = (() => {
       };
       return this;
     },
-    generateCommands: async function (value = '') {
+    generateCommands: function (value = '') {
       const indexToSelect = state.options.selected;
       const commandComponents = this.commands()
         .filter(({ title }) => smartFilter(title, value))

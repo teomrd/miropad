@@ -52,14 +52,17 @@ export type Note = {
   };
 };
 
-export const getNote = (titleID = url.getPageId(), revision): Note | null => {
+export const getNote = (
+  titleID = url.getPageId(),
+  revision?: string,
+): Note | null => {
   let doc;
   try {
     doc = JSON.parse(storage.get(titleID));
     if (!doc.revisions) {
       throw new Error('This is not a note!');
     }
-  } catch (error) {
+  } catch (_e) {
     return null;
   }
 
@@ -85,17 +88,21 @@ export const getNote = (titleID = url.getPageId(), revision): Note | null => {
     : null;
 };
 
-export const disableSyncOnCurrentNote = (value) => {
-  const { id, title } = getNote();
-  storage.update(id, {
-    disableSync: value,
-  });
-  notify.info(`"${title}" cloud sync ${value ? 'disabled 😶' : 'enabled ⚡️'}`);
+export const disableSyncOnCurrentNote = (value: boolean) => {
+  const note = getNote();
+  if (note) {
+    storage.update(note.id, {
+      disableSync: value,
+    });
+    notify.info(
+      `"${note.title}" cloud sync ${value ? 'disabled 😶' : 'enabled ⚡️'}`,
+    );
+  }
 };
 
-export const setNoteFromHash = async (hash = url.getPageId()) => {
+export const setNoteFromHash = (hash = url.getPageId()) => {
   if (hash) {
-    const version = url.getSearchParam('v');
+    const version = url.getSearchParam('v') || undefined;
     const note = getNote(undefined, version);
     if (note) {
       select('#revisions').html(
