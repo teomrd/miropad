@@ -12,8 +12,8 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - run: make build
       - run: make version
+      - run: make build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
