@@ -12,4 +12,4 @@ const converter = new showdown.Converter({
 
 converter.setFlavor("github");
 
-export const convertMarkDownToHtml = (md) => converter.makeHtml(md);
+export const convertMarkDownToHtml = (md: string) => converter.makeHtml(md);

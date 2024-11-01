@@ -4471,7 +4471,6 @@
     "dependencies": [
       "jsr:@std/assert@1",
       "npm:@lhci/cli@0.14.0",
-      "npm:@types/showdown@^2.0.6",
       "npm:@types/textarea-caret@^3.0.3",
       "npm:esbuild@0.24",
       "npm:workbox-cli@^7.3.0",
@@ -4479,6 +4478,7 @@
     ],
     "packageJson": {
       "dependencies": [
+        "npm:@types/showdown@^2.0.6",
         "npm:github-markdown-css@^5.7.0",
         "npm:multiformats@^13.3.1",
         "npm:nanoid@^5.0.8",
