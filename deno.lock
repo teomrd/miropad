@@ -22,8 +22,8 @@
     "npm:@types/textarea-caret@^3.0.3": "3.0.3",
     "npm:esbuild@0.24": "0.24.0",
     "npm:github-markdown-css@^5.7.0": "5.7.0",
-    "npm:multiformats@^13.3.0": "13.3.0",
-    "npm:nanoid@^5.0.7": "5.0.8",
+    "npm:multiformats@^13.3.1": "13.3.1",
+    "npm:nanoid@^5.0.8": "5.0.8",
     "npm:showdown@^2.1.0": "2.1.0",
     "npm:textarea-caret@^3.1.0": "3.1.0",
     "npm:workbox-cli@^7.3.0": "7.3.0",
@@ -2987,8 +2987,8 @@
     "ms@2.1.3": {
       "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
     },
-    "multiformats@13.3.0": {
-      "integrity": "sha512-CBiqvsufgmpo01VT5ze94O+uc+Pbf6f/sThlvWss0sBZmAOu6GQn5usrYV2sf2mr17FWYc0rO8c/CNe2T90QAA=="
+    "multiformats@13.3.1": {
+      "integrity": "sha512-QxowxTNwJ3r5RMctoGA5p13w5RbRT2QDkoM+yFlqfLiioBp78nhDjnRLvmSBI9+KAqN4VdgOVWM9c0CHd86m3g=="
     },
     "mute-stream@0.0.7": {
       "integrity": "sha512-r65nCZhrbXXb6dXOACihYApHw2Q6pV0M3V0PSxd74N0+D8nzAdEAITq2oAjA1jVnKI+tGvEBUpqiMh0+rW6zDQ=="
@@ -4480,8 +4480,8 @@
     "packageJson": {
       "dependencies": [
         "npm:github-markdown-css@^5.7.0",
-        "npm:multiformats@^13.3.0",
-        "npm:nanoid@^5.0.7",
+        "npm:multiformats@^13.3.1",
+        "npm:nanoid@^5.0.8",
         "npm:showdown@^2.1.0",
         "npm:textarea-caret@^3.1.0"
       ]

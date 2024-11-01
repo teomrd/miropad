@@ -11,7 +11,7 @@ cp ./static/favicon.ico ./dist
 
 cp -r ./src/assets/images ./dist/images
 
-deno ./scripts/build.js
+deno --allow-env --allow-read ./scripts/build.js
 
 cp ./static/index.html ./dist
 
