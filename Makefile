@@ -13,8 +13,17 @@ dev: install
 verify-formatting: 
 	deno fmt --check
 
-checks: install verify-formatting
-	deno task lint && deno task compile
+lint:
+	deno lint
+
+test:
+	deno test
+
+compile:
+	deno task compile
+
+checks: install verify-formatting lint test
+	make compile
 
 audits: install build
 	deno task lighthouse

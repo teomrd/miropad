@@ -1,6 +1,6 @@
 import select from "../../../utils/dom.js";
 import { url } from "../../../utils/urlManager.js";
-import { copyToClipboard } from "../../../utils/copyToClipboard.js";
+import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import { button } from "../../atoms/button/button.js";
 import { convertMarkDownToHtml } from "./mdToHtml.ts";
 import storage from "../../../utils/localstorage.js";

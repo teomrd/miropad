@@ -23,7 +23,7 @@ import { mailTo } from "../../../utils/mail.js";
 import markDownViewer from "../markdown/markDownViewer.js";
 import prettifyJSON from "../../../utils/prettifyJSON.js";
 import notify from "../../molecules/notify.ts";
-import { copyToClipboard } from "../../../utils/copyToClipboard.js";
+import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import { sleep } from "../../../utils/sleep.js";
 import { publishGist, updateGist } from "../../../utils/github/api.ts";
 import { icon } from "../../atoms/icon/icon.js";

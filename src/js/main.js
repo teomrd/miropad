@@ -14,7 +14,7 @@ import { terminal } from "./components/organisms/terminal.ts";
 import { isSyncEnabled } from "./isSyncEnabled.js";
 import { registerServiceWorker } from "./registerServiceWorker.js";
 import { Trie } from "./utils/Trie/Trie.ts";
-import { copyToClipboard } from "./utils/copyToClipboard.js";
+import { copyToClipboard } from "./utils/copyToClipboard.ts";
 import { relativeDate } from "./utils/dates.js";
 import select from "./utils/dom.js";
 import errorHandler from "./utils/errorHandler.js";

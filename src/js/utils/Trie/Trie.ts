@@ -1,13 +1,20 @@
-const groupByFrequency = (entries: []) => {
+type FrequencyGroups = {
+  [key: string]: Array<string>;
+};
+
+const groupByFrequency = (entries: Dictionary): FrequencyGroups => {
   return Object.entries(entries).reduce((acc, [word, frequency]) => {
     const cc = acc[frequency] || [];
     return {
       ...acc,
-      [frequency]: [word, ...cc],
+      [`${frequency}`]: [word, ...cc],
     };
-  }, {});
+  }, {} as FrequencyGroups);
 };
 
+type Dictionary = {
+  [key: string]: number;
+};
 type Node = {
   char: string | null;
   children: {
@@ -19,12 +26,8 @@ type Node = {
   contains: (char: string) => boolean;
   getWords: (
     char: string,
-    dictionary?: {
-      [key: string]: string;
-    },
-  ) => {
-    [key: string]: string;
-  };
+    dictionary?: Dictionary,
+  ) => Dictionary;
   increaseFrequency: () => void;
   insert: (word: string) => void;
   insertNode: (char: string, isLast?: boolean) => Node;
@@ -63,7 +66,7 @@ const Node = (): Node => ({
   increaseFrequency: function () {
     this.frequency = this.frequency + 1;
   },
-  insert: function (word) {
+  insert: function (word: Array<string> | string) {
     const [firstChar, ...rest] = word;
     if (firstChar) {
       const isLast = rest.length === 0;
@@ -72,10 +75,10 @@ const Node = (): Node => ({
         node.char = firstChar;
         if (isLast) node.increaseFrequency();
 
-        return node.insert(rest);
+        return node.insert(rest.join(""));
       } else {
         const node = this.insertNode(firstChar, isLast);
-        return node.insert(rest);
+        return node.insert(rest.join(""));
       }
     }
   },

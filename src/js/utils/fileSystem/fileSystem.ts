@@ -13,6 +13,8 @@ const getNewFileHandle = async (title = "no-titled") => {
     ],
   };
 
+  // @ts-ignore as this is an experimental browser feature
+  // and may need to change https://developer.mozilla.org/en-US/docs/Web/API/Window/showSaveFilePicker
   const handle = await globalThis.showSaveFilePicker(options);
   return handle;
 };

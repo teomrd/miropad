@@ -1,5 +1,8 @@
 import storage from "../localstorage.js";
-import { getNotes } from "../../components/organisms/noteManager/noteManager.ts";
+import {
+  getNotes,
+  Note,
+} from "../../components/organisms/noteManager/noteManager.ts";
 import notify from "../../components/molecules/notify.ts";
 import { configuration } from "../../../configuration.ts";
 
@@ -95,7 +98,7 @@ export const updateGist = (
   }
 };
 
-export const createNewGist = (token = storage.get("authToken")) => {
+export const createNewGist = async (token = storage.get("authToken")) => {
   const notes = getNotes();
   const noteToFiles = notes.reduce((acc, note) => {
     return {
@@ -105,7 +108,7 @@ export const createNewGist = (token = storage.get("authToken")) => {
       },
     };
   }, {});
-  return fetch("https://api.github.com/gists", {
+  const response = await fetch("https://api.github.com/gists", {
     method: "POST",
     headers: {
       Authorization: `token ${token}`,
@@ -117,19 +120,15 @@ export const createNewGist = (token = storage.get("authToken")) => {
       description: "MiroPad Gist",
       public: false,
     }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then((responseAsJson) => {
-      return responseAsJson;
-    });
+  });
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  const responseAsJson = await response.json();
+  return responseAsJson;
 };
 
-export const getAuthToken = (code, state) =>
+export const getAuthToken = (code: string, state: string) =>
   fetch(`${configuration.auth_service}?state=${state}&code=${code}`, {
     headers: {
       Accept: "application/json",
@@ -146,11 +145,14 @@ export const getAuthToken = (code, state) =>
       return responseAsJson;
     });
 
-export const publishGist = ({
+export const publishGist = async ({
   note,
   token = storage.get("authToken"),
-} = {}) => {
-  return fetch("https://api.github.com/gists", {
+}: {
+  note: Note;
+  token: string;
+}) => {
+  const response = await fetch("https://api.github.com/gists", {
     method: "POST",
     headers: {
       Authorization: `token ${token}`,
@@ -166,14 +168,10 @@ export const publishGist = ({
       description: "MiroPad Gist",
       public: true,
     }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then((responseAsJson) => {
-      return responseAsJson;
-    });
+  });
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  const responseAsJson = await response.json();
+  return responseAsJson;
 };
