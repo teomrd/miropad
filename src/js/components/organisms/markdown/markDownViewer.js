@@ -1,5 +1,5 @@
 import select from "../../../utils/dom.js";
-import { url } from "../../../utils/urlManager.js";
+import { url } from "../../../utils/urlManager.ts";
 import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import { button } from "../../atoms/button/button.js";
 import { convertMarkDownToHtml } from "./mdToHtml.ts";

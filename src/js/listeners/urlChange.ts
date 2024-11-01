@@ -7,7 +7,7 @@ import {
   setNoteFromHash,
 } from "../components/organisms/noteManager/noteManager.ts";
 import select from "../utils/dom.js";
-import { url } from "../utils/urlManager.js";
+import { url } from "../utils/urlManager.ts";
 import { getGist } from "../utils/github/api.ts";
 
 const setNoteFromRawUrl = async (rawUrl: string) => {
@@ -39,7 +39,7 @@ const setNoteFromGist = async (gistId: string) => {
   }
 };
 
-export const actOnURLStateChange = async (e = {}) => {
+export const actOnURLStateChange = async (e: HashChangeEvent) => {
   try {
     const { oldURL, newURL } = e;
     const oldPageId = url.getPageId(oldURL);

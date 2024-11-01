@@ -3,13 +3,16 @@ import { terminal } from "../components/organisms/terminal.ts";
 import select from "../utils/dom.js";
 import { trieDictionary } from "../main.js";
 
-const getPredictions = (word) => {
+const getPredictions = (word: string) => {
   const sanitizedWord = word.replace(/[\r\n\t]+/g, "").toLowerCase();
 
   return trieDictionary.getMatchingWords(sanitizedWord);
 };
 
-export const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
+export const getCurrentlyTypingWord = (
+  text: string,
+  cursorIndexPosition: number,
+) => {
   let word = "";
   let currentIndex = cursorIndexPosition - 1;
   do {
@@ -20,8 +23,11 @@ export const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
   return word;
 };
 
-export const placeSuggestion = (textEl) => {
-  const coords = getCaretCoordinates(textEl, textEl.selectionEnd);
+export const placeSuggestion = (textEl: HTMLTextAreaElement) => {
+  const coords = getCaretCoordinates(
+    textEl,
+    textEl.selectionEnd,
+  );
   const { top, left } = coords;
 
   // This does the trick! `main` is getting the same
@@ -60,7 +66,7 @@ export const autoComplete = (e: InputEvent) => {
     !word.startsWith("#");
 
   if (shouldDisplaySuggestion) {
-    placeSuggestion(e.target);
+    placeSuggestion(e.target as HTMLTextAreaElement);
     const matches = getPredictions(word);
 
     const [firstMatch] = matches;

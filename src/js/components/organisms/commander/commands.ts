@@ -18,7 +18,7 @@ import {
   saveDataToFile,
   saveFileAs,
 } from "../../../utils/fileSystem/fileSystem.ts";
-import { url } from "../../../utils/urlManager.js";
+import { url } from "../../../utils/urlManager.ts";
 import { mailTo } from "../../../utils/mail.js";
 import markDownViewer from "../markdown/markDownViewer.js";
 import prettifyJSON from "../../../utils/prettifyJSON.js";
@@ -113,13 +113,13 @@ export const commands = () => {
         commander.hide();
         await saveNote(select(".terminal").getValue());
         const note = getNote();
-        const { disableSync = false } = note;
-        if (!disableSync) {
+        if (note && !note.disableSync) {
           updateGist([note]);
         }
         setSavedState();
       },
     },
+    // @ts-ignore ts cannot cope with browser mess
     ...(navigator.share ? [shareNoteCommand] : []),
     {
       title: "Toggle MarkDown Viewer",
@@ -217,10 +217,12 @@ export const commands = () => {
       icon: icon(EnterDownSVG, "save file"),
       key: "shift s",
       call: () => {
-        const { text, title } = getNote();
-
-        saveFileAs(text, title);
-        commander.hide();
+        const note = getNote();
+        if (note) {
+          const { text, title } = note;
+          saveFileAs(text, title);
+          commander.hide();
+        }
       },
     },
     {
@@ -229,7 +231,7 @@ export const commands = () => {
       icon: icon(EnvelopeSVG, "email"),
       key: "e",
       call: () => {
-        const note = document.querySelector(".terminal").value;
+        const note = select(".terminal").getValue();
         mailTo(note);
         commander.hide();
       },

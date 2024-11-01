@@ -5,7 +5,7 @@ import {
   getGist,
 } from "./api.ts";
 import storage from "../localstorage.js";
-import { url } from "../urlManager.js";
+import { url } from "../urlManager.ts";
 import select from "../dom.js";
 import { configuration } from "../../../configuration.ts";
 import { updateNote } from "../../components/organisms/noteManager/noteManager.ts";

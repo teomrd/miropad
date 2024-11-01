@@ -5,7 +5,7 @@ export const url = {
   },
   getPageId: function (url = globalThis.location.href) {
     const URLObject = new URL(url);
-    const hash = URLObject.hash.substr(1);
+    const hash = URLObject.hash.slice(1);
     const hashWithVersion = hash.split("?");
     const pageId = hashWithVersion[0] || null;
     return pageId;
@@ -17,7 +17,9 @@ export const url = {
     const searchParams = new URLSearchParams(currentParams);
     return searchParams;
   },
-  getParamsObject: function (url = globalThis.location.href) {
+  getParamsObject: function (
+    url = globalThis.location.href,
+  ): Record<string, string> {
     const params = this.getSearchParams(url);
     let parametersObject = {};
     for (const key of params.keys()) {
@@ -28,14 +30,14 @@ export const url = {
     }
     return parametersObject;
   },
-  getSearchParam(param, url = globalThis.location.href) {
+  getSearchParam(param: string, url = globalThis.location.href) {
     const params = this.getSearchParams(url);
     const paramValue = params.get(param);
     return paramValue;
   },
-  deleteParam: function (param) {
+  deleteParam: function (param: string | Array<string>) {
     const searchParams = this.getSearchParams();
-    if (typeof param === "object" && param.length > 0) {
+    if (Array.isArray(param)) {
       param.forEach((p) => {
         searchParams.delete(p);
       });
@@ -50,6 +52,7 @@ export const url = {
       }`,
     );
   },
+  // @ts-ignore as this is not ideal here along with TS
   set: function (pageId = this.getPageId(), params = this.getParamsObject()) {
     const allParams = {
       ...this.getParamsObject(),

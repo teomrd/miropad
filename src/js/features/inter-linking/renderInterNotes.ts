@@ -26,7 +26,7 @@ export const renderInterNotes = (e: InputEvent) => {
       isLastCharacterInTheWord(fullText, cursorIndexPosition);
 
     if (shouldDisplaySuggestion) {
-      placeSuggestion(e.target);
+      placeSuggestion(e.target as HTMLTextAreaElement);
       const allNoteIds = getNotes().map((note) => note.id);
       const actualNoteSearch = word.slice(1);
       const matches = allNoteIds.filter((noteId) => {

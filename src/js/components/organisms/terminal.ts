@@ -93,11 +93,11 @@ export const terminal = (() => {
 
       const { prediction, currentWord } = state;
 
-      if (word) {
+      if (word && currentWord) {
         return complete(word, currentWord);
       }
 
-      if (prediction) {
+      if (prediction && currentWord) {
         complete(prediction, currentWord);
         // +1 to the score of the word autocompleted
         trieDictionary.insert(prediction);
@@ -133,6 +133,7 @@ export const terminal = (() => {
             onclick: () => {
               terminal.acceptCompletion(word);
             },
+            icon: null,
           },
           i === selectedIndex,
         )
@@ -211,7 +212,7 @@ export const terminal = (() => {
 
       // escape
       if (e.keyCode === 27) {
-        terminal.onEscape(e);
+        terminal.onEscape();
       }
     },
     onKeyUp: (e: KeyboardEvent) => {
@@ -220,7 +221,8 @@ export const terminal = (() => {
       select(".title h3").html(title);
 
       const { text = "" } = currentlySavedNote || {};
-      const isNoteSaved = currentlySavedNote && terminal.el.getValue() === text;
+      const isNoteSaved =
+        !!(currentlySavedNote && terminal.el.getValue() === text);
       setSavedState(isNoteSaved);
     },
     onPaste: async () => {
@@ -254,7 +256,8 @@ export const terminal = (() => {
                 .then((response) => response.json());
               select(".terminal").insertAtCaret(`![image](${url})`);
             } catch (error) {
-              notify.error(`Uploading file failed 💥! Error$ ${error.message}`);
+              console.error(error);
+              notify.error(`Uploading file failed 💥!`);
             }
             select("#logo").removeClass("loading");
           } else {

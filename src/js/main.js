@@ -24,7 +24,7 @@ import {
 } from "./utils/github/actions.js";
 import storage from "./utils/localstorage.js";
 import { resetPageTitle } from "./utils/pageTitle.js";
-import { url } from "./utils/urlManager.js";
+import { url } from "./utils/urlManager.ts";
 import { actOnURLStateChange } from "./listeners/urlChange.ts";
 import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes.js";
 

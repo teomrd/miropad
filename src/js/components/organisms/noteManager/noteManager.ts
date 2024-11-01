@@ -4,7 +4,7 @@ import hashBrowser from "../../../utils/hashBrowser.ts";
 import isJSON from "../../../utils/isJSON.ts";
 import storage from "../../../utils/localstorage.js";
 import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle.js";
-import { url } from "../../../utils/urlManager.js";
+import { url } from "../../../utils/urlManager.ts";
 import notify from "../../molecules/notify.ts";
 import commander from "../commander/commander.ts";
 import { setSavedState } from "../../../ui/functions/savedState.ts";
@@ -46,6 +46,7 @@ export type Note = {
   deleted: boolean;
   lines: Array<string>;
   numberOfRevisions: number;
+  disableSync: boolean;
   revisions: {
     [key: string]: {
       text: string;
@@ -134,12 +135,12 @@ export const resetNoteManager = () => {
 export const getTitle = (note = "") =>
   note.split("\n")[0].trim().replace("#", "").trim();
 
-export const getTitleId = (note) => {
+export const getTitleId = (note: string) => {
   const title = getTitle(note);
   return encodeTitle(title);
 };
 
-export const updateNote = async (what) => {
+export const updateNote = async (what: string) => {
   if (what.length) {
     const titleID = getTitleId(what);
     const title = getTitle(what);
@@ -239,14 +240,17 @@ export const getNotes = ({
     .reduce((acc, [noteId]) => [...acc, getNote(noteId)], [])
     .filter(({ deleted }) => (includeDeleted ? true : !deleted));
 
-export const search = (q) => {
+export const search = (q: string | null = null) => {
   if (!q) {
     return undefined;
   }
 
   const results = getNotes()
     .map(({ id }) => getNote(id))
-    .filter(({ text }) => text.toLowerCase().includes(q.toLowerCase()));
+    .filter((note) => note !== null)
+    .filter(({ text }) => {
+      return text.toLowerCase().includes(q.toLowerCase());
+    });
 
   return results[0];
 };

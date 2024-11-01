@@ -6,7 +6,7 @@ import {
 import { commands } from "./commands.ts";
 import keyListener from "../../../utils/keyListener.js";
 import select from "../../../utils/dom.js";
-import { url } from "../../../utils/urlManager.js";
+import { url } from "../../../utils/urlManager.ts";
 import { command } from "../../molecules/commands/command.js";
 import { link } from "../../atoms/link/link.js";
 import { div } from "../../atoms/div/div.js";
