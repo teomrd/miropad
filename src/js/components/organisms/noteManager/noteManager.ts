@@ -1,15 +1,15 @@
 import select from "../../../utils/dom.js";
-import { deleteFileOnGist } from "../../../utils/github/api.js";
+import { deleteFileOnGist } from "../../../utils/github/api.ts";
 import hashBrowser from "../../../utils/hashBrowser.ts";
 import isJSON from "../../../utils/isJSON.ts";
 import storage from "../../../utils/localstorage.js";
 import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle.js";
 import { url } from "../../../utils/urlManager.js";
 import notify from "../../molecules/notify.ts";
-import commander from "../commander/commander.js";
+import commander from "../commander/commander.ts";
 import { setSavedState } from "../../../ui/functions/savedState.ts";
 
-const encodeTitle = (title) => {
+const encodeTitle = (title: string) => {
   const encodedTitle = encodeURIComponent(title);
   if (encodedTitle.length === 0) {
     throw new Error("You need to start with a valid title for your note!");
@@ -17,23 +17,25 @@ const encodeTitle = (title) => {
   return encodedTitle;
 };
 
-export const getDateCreatedFromTitle = (title) => {
+export const getDateCreatedFromTitle = (title: string) => {
   const titleID = getTitleId(title);
   const note = getNote(titleID);
   const { dateCreated } = note || {};
   return dateCreated;
 };
 
-export const markNoteForDeletion = (id) => {
+export const markNoteForDeletion = (id: string) => {
   const note = getNote(id);
-  localStorage.setItem(
-    id,
-    JSON.stringify({
-      title: note.title,
-      deleted: true,
-      revisions: note.revisions,
-    }),
-  );
+  if (note) {
+    localStorage.setItem(
+      id,
+      JSON.stringify({
+        title: note.title,
+        deleted: true,
+        revisions: note.revisions,
+      }),
+    );
+  }
 };
 
 export type Note = {
@@ -68,6 +70,7 @@ export const getNote = (
 
   const newerNote = doc
     ? Object.values(doc.revisions).reduce(
+      // deno-lint-ignore no-explicit-any
       (acc: any, note: any) => note.dateCreated > acc.dateCreated ? note : acc,
       { dateCreated: 0 },
     )

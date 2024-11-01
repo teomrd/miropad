@@ -7,8 +7,10 @@ import {
   placeSuggestion,
 } from "../autoComplete.ts";
 
-export const renderInterNotes = (e: any) => {
-  const cursorIndexPosition = e.target.selectionEnd;
+export const renderInterNotes = (e: InputEvent) => {
+  const target = e.target as HTMLTextAreaElement | null;
+  if (!target) return;
+  const cursorIndexPosition = target.selectionEnd;
   const fullText = terminal.el.getValue();
   const charTyped = fullText[cursorIndexPosition - 1];
   if (e.inputType === "deleteContentBackward" || charTyped === " ") {

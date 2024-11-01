@@ -39,7 +39,7 @@ const markDownViewer = (() => {
       // Replace each matching text with a link
       this.view.innerHTML(updatedHTML);
     },
-    update: async function () {
+    update: function () {
       const md = select(".terminal").getValue();
 
       this.view.innerHTML(convertMarkDownToHtml(md));
@@ -56,7 +56,7 @@ const markDownViewer = (() => {
         el.appendChild(copyBtn);
       });
 
-      select("code").listenAll("click", async ({ innerHTML }) => {
+      select("code").listenAll("click", ({ innerHTML }) => {
         const result = eval(innerHTML);
         select(".console").show().innerHTML(result);
       });

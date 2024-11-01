@@ -1,7 +1,7 @@
 const isJSON = (str: string) => {
   try {
     JSON.parse(str);
-  } catch (e: unknown) {
+  } catch (_e) {
     return false;
   }
   return true;

@@ -11,7 +11,7 @@ import { div } from "../atoms/div/div.js";
 import { icon } from "../atoms/icon/icon.js";
 import { command } from "../molecules/commands/command.js";
 import notify from "../molecules/notify.ts";
-import commander from "./commander/commander.js";
+import commander from "./commander/commander.ts";
 import markDownViewer from "./markdown/markDownViewer.js";
 import { getNote, getTitle } from "./noteManager/noteManager.ts";
 import { trieDictionary } from "../../main.js";
@@ -53,7 +53,7 @@ export const terminal = (() => {
     resetState: function () {
       terminal.setState(initState);
     },
-    selectOption: function (e, direction) {
+    selectOption: function (direction: "down" | "up" = "down") {
       const currentlySelected = state.options.selected;
       const lastOption = state.options.length - 1;
       const isLastOption = currentlySelected === lastOption;
@@ -148,29 +148,26 @@ export const terminal = (() => {
       commander.hide();
       select(".note-info").hide();
     },
-    onInput: (e) => {
+    onInput: (e: InputEvent) => {
       const isAutocompleteEnabled = !!storage.get("__autocomplete__");
       if (isAutocompleteEnabled) {
         autoComplete(e);
       }
       renderInterNotes(e);
     },
-    onArrowDown: (e) => {
+    onArrowDown: (e: KeyboardEvent) => {
       if (state.matches.length > 0) {
         e.preventDefault();
-        terminal.selectOption(e, "down");
+        terminal.selectOption("down");
       }
     },
-    onArrowUp: (e) => {
+    onArrowUp: (e: KeyboardEvent) => {
       if (state.matches.length > 0) {
         e.preventDefault();
-        terminal.selectOption(e, "up");
+        terminal.selectOption("up");
       }
     },
-    setValue: () => {
-      // terminal.el.value = "mpampis";
-    },
-    onEnter: (e) => {
+    onEnter: (e: KeyboardEvent) => {
       if (state.matches.length > 0) {
         e.preventDefault();
         terminal.acceptCompletion();
@@ -183,11 +180,11 @@ export const terminal = (() => {
       terminal.resetState();
       select(".suggestion").hide();
     },
-    onTab: (e) => {
+    onTab: (e: KeyboardEvent) => {
       e.preventDefault();
       terminal.acceptCompletion();
     },
-    onKeyDown: (e) => {
+    onKeyDown: (e: KeyboardEvent) => {
       // enter
       if (e.keyCode === 13) {
         terminal.onEnter(e);
@@ -217,9 +214,9 @@ export const terminal = (() => {
         terminal.onEscape(e);
       }
     },
-    onKeyUp: (e) => {
+    onKeyUp: (e: KeyboardEvent) => {
       const currentlySavedNote = getNote();
-      const title = getTitle(e.target.value);
+      const title = getTitle((e.target as HTMLInputElement).value);
       select(".title h3").html(title);
 
       const { text = "" } = currentlySavedNote || {};
@@ -236,7 +233,7 @@ export const terminal = (() => {
           const blob = await clipboardItem.getType(imageType);
           const token = storage.get("MIROPAD_SECRET_TOKEN");
           if (token) {
-            const [image, fileExtension] = imageType.split("/");
+            const [_image, fileExtension] = imageType.split("/");
             const fileName = `${nanoid()}.${fileExtension}`;
 
             select("#logo").addClass("loading");

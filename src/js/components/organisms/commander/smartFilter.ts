@@ -1,6 +1,6 @@
 import { isArraySorted } from "../../../utils/isArraySorted.ts";
 
-export const smartFilter = (phrase, filter) => {
+export const smartFilter = (phrase: string, filter: string) => {
   const wordParts = phrase.split(" ").map((w) => w.toLowerCase());
   const filterParts = filter.split(" ").map((f) => f.toLowerCase());
   const indexes = filterParts.map((f) => {

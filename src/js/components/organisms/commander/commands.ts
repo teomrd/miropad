@@ -13,7 +13,7 @@ import {
   setGistToSyncWith,
   syncNotesWithGitHub,
 } from "../../../utils/github/actions.js";
-import commander from "./commander.js";
+import commander from "./commander.ts";
 import {
   saveDataToFile,
   saveFileAs,
@@ -25,7 +25,7 @@ import prettifyJSON from "../../../utils/prettifyJSON.js";
 import notify from "../../molecules/notify.ts";
 import { copyToClipboard } from "../../../utils/copyToClipboard.js";
 import { sleep } from "../../../utils/sleep.js";
-import { publishGist, updateGist } from "../../../utils/github/api.js";
+import { publishGist, updateGist } from "../../../utils/github/api.ts";
 import { icon } from "../../atoms/icon/icon.js";
 import ListSVG from "../../../../assets/svg/list.svg";
 import TrashSVG from "../../../../assets/svg/trash.svg";
@@ -194,7 +194,7 @@ export const commands = () => {
       title: "Sync: Reset Gist settings",
       icon: icon(LighterSVG, "reset github settings"),
       key: null,
-      call: async () => {
+      call: () => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("gistId");
         localStorage.removeItem("lastLocalUpdate");
@@ -216,7 +216,7 @@ export const commands = () => {
       experimental: true,
       icon: icon(EnterDownSVG, "save file"),
       key: "shift s",
-      call: async () => {
+      call: () => {
         const { text, title } = getNote();
 
         saveFileAs(text, title);

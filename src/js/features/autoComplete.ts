@@ -36,11 +36,13 @@ export const placeSuggestion = (textEl) => {
   select(".suggestion").el.style.left = `${left}px`;
 };
 
-export const isLastCharacterInTheWord = (text, characterIndex) =>
-  text[characterIndex] === undefined || text[characterIndex].trim() === "";
+export const isLastCharacterInTheWord = (
+  text: string,
+  characterIndex: number,
+) => text[characterIndex] === undefined || text[characterIndex].trim() === "";
 
-export const autoComplete = (e: any) => {
-  const cursorIndexPosition = e.target.selectionEnd;
+export const autoComplete = (e: InputEvent) => {
+  const cursorIndexPosition = (e.target as HTMLTextAreaElement).selectionEnd;
   const fullText = terminal.el.getValue();
 
   const charTyped = fullText[cursorIndexPosition - 1];

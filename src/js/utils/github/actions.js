@@ -3,7 +3,7 @@ import {
   getAuthenticatedUsersGists,
   getAuthToken,
   getGist,
-} from "./api.js";
+} from "./api.ts";
 import storage from "../localstorage.js";
 import { url } from "../urlManager.js";
 import select from "../dom.js";
@@ -11,7 +11,7 @@ import { configuration } from "../../../configuration.ts";
 import { updateNote } from "../../components/organisms/noteManager/noteManager.ts";
 import notify from "../../components/molecules/notify.ts";
 import { command } from "../../components/molecules/commands/command.js";
-import commander from "../../components/organisms/commander/commander.js";
+import commander from "../../components/organisms/commander/commander.ts";
 import { div } from "../../components/atoms/div/div.js";
 
 export const goAuthenticate = () => {

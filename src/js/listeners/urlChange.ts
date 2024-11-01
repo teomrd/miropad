@@ -8,7 +8,7 @@ import {
 } from "../components/organisms/noteManager/noteManager.ts";
 import select from "../utils/dom.js";
 import { url } from "../utils/urlManager.js";
-import { getGist } from "../utils/github/api.js";
+import { getGist } from "../utils/github/api.ts";
 
 const setNoteFromRawUrl = async (rawUrl: string) => {
   if (rawUrl) {
@@ -30,10 +30,10 @@ const setNoteFromGist = async (gistId: string) => {
       const fileContents = Object.values(files);
       const [gistFile] = fileContents;
 
-      // @ts-ignore
+      // @ts-ignore as gistFile always has content
       const { content } = gistFile;
       select(".terminal").setValue(content);
-    } catch (error) {
+    } catch (_e) {
       notify.error("MiroPad note not found! 🤷‍♂️");
     }
   }

@@ -3,7 +3,7 @@ import {
   getNote,
   getNotes,
 } from "../noteManager/noteManager.ts";
-import { commands } from "./commands.js";
+import { commands } from "./commands.ts";
 import keyListener from "../../../utils/keyListener.js";
 import select from "../../../utils/dom.js";
 import { url } from "../../../utils/urlManager.js";
@@ -102,7 +102,7 @@ const commander = (() => {
     commands: function () {
       return commands();
     },
-    selectOption: function (_e, direction) {
+    selectOption: function (direction: "down" | "up" = "down") {
       const currentlySelected = state.options.selected;
       const lastOption = state.options.length - 1;
       const isLastOption = currentlySelected === lastOption;
@@ -139,23 +139,23 @@ const commander = (() => {
       });
 
       select("#commander input")
-        .listen("keydown", (e) => {
+        .listen("keydown", (e: KeyboardEvent) => {
           // arrow down 40
           if (e.keyCode === 40) {
             if (state.mode === commanderModes.revisions) {
               select("#commands li.selected").click();
             }
-            this.selectOption(e, "down");
+            this.selectOption("down");
           }
           // arrow up 38
           if (e.keyCode === 38) {
             if (state.mode === commanderModes.revisions) {
               select("#commands li.selected").click();
             }
-            this.selectOption(e, "up");
+            this.selectOption("up");
           }
         })
-        .listen("keyup", (e) => {
+        .listen("keyup", (e: KeyboardEvent) => {
           // enter
           if (e.keyCode === 13) {
             if (state.mode === commanderModes.commands) {

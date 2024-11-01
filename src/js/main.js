@@ -2,7 +2,7 @@ import "github-markdown-css";
 import "../css/print.css";
 import "../css/styles.css";
 import welcomeUser from "./components/molecules/welcome.js";
-import commander from "./components/organisms/commander/commander.js";
+import commander from "./components/organisms/commander/commander.ts";
 import markDownViewer from "./components/organisms/markdown/markDownViewer.js";
 import {
   deleteNote,
