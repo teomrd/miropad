@@ -29,6 +29,7 @@ audits: install build
 	deno task lighthouse
 
 clean:
+	deno clean
 	rm -rf ./node_modules
 	rm -rf ./out
 	rm -rf ./dist
