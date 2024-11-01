@@ -18,7 +18,7 @@ const result = await esbuild.build({
     ".gif": "file",
   },
   define: {
-    TITLE_NAME: JSON.stringify("✍️ MiroPadz"),
+    TITLE_NAME: JSON.stringify("✍️ MiroPad"),
     VERSION: JSON.stringify(miropad.version),
     global: "globalThis",
   },
