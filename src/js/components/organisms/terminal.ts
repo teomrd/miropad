@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import TrashSVG from "../../../assets/svg/trash.svg";
+import * as TrashSVG from "../../../assets/svg/trash.svg";
 import { configuration } from "../../../configuration.ts";
 import { autoComplete } from "../../features/autoComplete.ts";
 import { setSavedState } from "../../ui/functions/savedState.ts";

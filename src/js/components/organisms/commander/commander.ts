@@ -16,25 +16,24 @@ import { button } from "../../atoms/button/button.js";
 import { requestNotificationPermission } from "../../../registerServiceWorker.js";
 import storage from "../../../utils/localstorage.js";
 
-const getShortcut = (key) => {
+const getShortcut = (key: string | Array<string>): string => {
   if (Array.isArray(key)) {
     return key.map((k) => getShortcut(k)).join(", ");
   }
-
   return key ? `⌘+${key.toUpperCase()}` : "";
 };
 
 const commander = (() => {
-  const commanderModes = {
-    off: "off",
-    notes: "notes",
-    revisions: "revisions",
-    commands: "commands",
-    gists: "gists",
-  };
+  enum CommanderModes {
+    off = "off",
+    notes = "notes",
+    revisions = "revisions",
+    commands = "commands",
+    gists = "gists",
+  }
   let state = {
     input: "",
-    mode: commanderModes.off,
+    mode: CommanderModes.off,
     options: {
       selected: 0,
       length: 0,
@@ -45,38 +44,38 @@ const commander = (() => {
       return state;
     },
     getModes: function () {
-      return commanderModes;
+      return CommanderModes;
     },
-    setState: function (newState) {
+    setState: function (newState: Record<string, unknown>) {
       state = {
         ...state,
         ...newState,
       };
       return state;
     },
-    show: function (what = commanderModes.commands) {
+    show: function (what = CommanderModes.commands) {
       select("#commander").show();
       select("#commander input").focus();
       switch (what) {
-        case commanderModes.commands:
+        case CommanderModes.commands:
           this.generateCommands();
           select("#commander input").setValue("> ");
           this.setState({
-            mode: commanderModes.commands,
+            mode: CommanderModes.commands,
           });
           break;
-        case commanderModes.notes:
+        case CommanderModes.notes:
           this.generateNotes();
           select("#commander input").setValue("");
           this.setState({
-            mode: commanderModes.notes,
+            mode: CommanderModes.notes,
           });
           break;
-        case commanderModes.revisions:
+        case CommanderModes.revisions:
           this.generateRevisions();
           select("#commander input").setValue("");
           this.setState({
-            mode: commanderModes.revisions,
+            mode: CommanderModes.revisions,
           });
           break;
         default:
@@ -87,12 +86,12 @@ const commander = (() => {
     },
     hide: function () {
       select("#commander").hide();
-      state.mode = commanderModes.off;
+      state.mode = CommanderModes.off;
       return this;
     },
-    toggle: function (mode) {
+    toggle: function (mode?: CommanderModes) {
       requestNotificationPermission();
-      if (state.mode === commanderModes.off || state.mode !== mode) {
+      if (state.mode === CommanderModes.off || state.mode !== mode) {
         this.show(mode);
       } else {
         this.hide();
@@ -127,6 +126,7 @@ const commander = (() => {
         .map((command) => {
           select(".mobile-dock").append(
             button(
+              // @ts-ignore js-to-ts wider refactoring required
               [command.icon, document.createTextNode(command.sortTitle)],
               command.call,
               command.title.toLowerCase().replace(/\s/g, "-"),
@@ -142,14 +142,14 @@ const commander = (() => {
         .listen("keydown", (e: KeyboardEvent) => {
           // arrow down 40
           if (e.keyCode === 40) {
-            if (state.mode === commanderModes.revisions) {
+            if (state.mode === CommanderModes.revisions) {
               select("#commands li.selected").click();
             }
             this.selectOption("down");
           }
           // arrow up 38
           if (e.keyCode === 38) {
-            if (state.mode === commanderModes.revisions) {
+            if (state.mode === CommanderModes.revisions) {
               select("#commands li.selected").click();
             }
             this.selectOption("up");
@@ -158,7 +158,7 @@ const commander = (() => {
         .listen("keyup", (e: KeyboardEvent) => {
           // enter
           if (e.keyCode === 13) {
-            if (state.mode === commanderModes.commands) {
+            if (state.mode === CommanderModes.commands) {
               select("#commands li.selected div").click();
             } else {
               select("#commands li.selected a").click();
@@ -168,11 +168,12 @@ const commander = (() => {
           if (e.keyCode === 27) {
             select(".terminal").focus();
           }
-          if (state.input !== e.target.value) {
+          const el = e.target as HTMLTextAreaElement;
+          if (state.input !== el.value) {
             state.options.selected = 0;
           }
-          state.input = e.target.value;
-          this.generateOptions(e.target.value);
+          state.input = el.value;
+          this.generateOptions(el.value);
         });
       return this;
     },
@@ -185,52 +186,55 @@ const commander = (() => {
     },
     generateRevisions: function () {
       this.show();
-      state.mode = commanderModes.revisions;
-      const { revisions } = getNote();
-      const indexToSelect = state.options.selected;
-      const revisionsOptions = Object.keys(revisions)
-        .sort((a, b) => {
-          const { dateCreated: aDateCreated } = revisions[a];
-          const { dateCreated: bDateCreated } = revisions[b];
-          return bDateCreated - aDateCreated;
-        })
-        .map((id, i) => ({
-          title: div({ content: `...${id.slice(-10)}` }),
-          secondary: `${relativeDate(revisions[id].dateCreated)}`,
-          onclick: () => {
-            url.set(undefined, {
-              v: id,
-            });
-            state.options.selected = i;
-            this.generateRevisions();
-          },
-        }))
-        .map((r, i) => command(r, i === indexToSelect));
+      state.mode = CommanderModes.revisions;
+      const note = getNote();
+      if (note) {
+        const { revisions } = note;
+        const indexToSelect = state.options.selected;
+        const revisionsOptions = Object.keys(revisions)
+          .sort((a, b) => {
+            const { dateCreated: aDateCreated } = revisions[a];
+            const { dateCreated: bDateCreated } = revisions[b];
+            return bDateCreated - aDateCreated;
+          })
+          .map((id, i) => ({
+            title: div({ content: `...${id.slice(-10)}` }),
+            secondary: `${relativeDate(revisions[id].dateCreated)}`,
+            onclick: () => {
+              url.set(undefined, {
+                v: id,
+              });
+              state.options.selected = i;
+              this.generateRevisions();
+            },
+          }))
+          // @ts-ignore js-to-ts wider refactoring required
+          .map((r, i) => command(r, i === indexToSelect));
+        select("#commands").html(revisionsOptions);
+        state.options = {
+          ...state.options,
+          length: revisionsOptions.length,
+        };
+      }
 
-      select("#commands").html(revisionsOptions);
-
-      state.options = {
-        ...state.options,
-        length: revisionsOptions.length,
-      };
       return this;
     },
-    generateOptions: function (value) {
+    generateOptions: function (value: string) {
       switch (state.mode) {
-        case commanderModes.commands:
-        case commanderModes.notes:
+        case CommanderModes.commands:
+        case CommanderModes.notes:
           if (value.slice(0, 1) === ">") {
-            state.mode = commanderModes.commands;
+            state.mode = CommanderModes.commands;
             this.generateCommands(value.slice(1).trim());
             select("#commander input").placeholder("Search for commands...");
           } else {
-            state.mode = commanderModes.notes;
+            state.mode = CommanderModes.notes;
             this.generateNotes(value);
           }
           return;
-        case commanderModes.revisions:
+        case CommanderModes.revisions:
           return this.generateRevisions();
-        case commanderModes.off:
+        case CommanderModes.off:
           break;
         default:
           break;
@@ -248,11 +252,10 @@ const commander = (() => {
           const bDateCreated = getDateCreatedFromTitle(b.title);
           return bDateCreated - aDateCreated;
         })
-        .map(({ id, title, cid }, i) => {
+        .map(({ id, title }, i) => {
           const dateCreated = getDateCreatedFromTitle(title);
-          const linkParams = cid ? `?cid=${cid}` : "";
           const href =
-            `${globalThis.location.origin}${globalThis.location.pathname}#${id}${linkParams}`;
+            `${globalThis.location.origin}${globalThis.location.pathname}#${id}`;
 
           const noteLink = link(
             div({ content: title, highlight: value }),
@@ -260,6 +263,7 @@ const commander = (() => {
           );
 
           const noteCommand = command(
+            // @ts-ignore until command.js makes it to ts
             {
               title: noteLink,
               secondary: relativeDate(dateCreated),
@@ -286,11 +290,14 @@ const commander = (() => {
       const indexToSelect = state.options.selected;
       const commandComponents = this.commands()
         .filter(({ title }) => smartFilter(title, value))
+        // @ts-ignore js-to-ts wider refactoring required
         .filter(({ experimental = false }) => {
           return storage.get("__experimental__") ? true : !experimental;
         })
+        // @ts-ignore js-to-ts wider refactoring required
         .map(({ title, key, call, icon }, i) => {
           const commandComponent = command(
+            // @ts-ignore until command.js makes it to ts
             {
               title: div({ content: title, highlight: value }),
               icon: icon,

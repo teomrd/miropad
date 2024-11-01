@@ -150,7 +150,7 @@ export const publishGist = async ({
   token = storage.get("authToken"),
 }: {
   note: Note;
-  token: string;
+  token?: string;
 }) => {
   const response = await fetch("https://api.github.com/gists", {
     method: "POST",

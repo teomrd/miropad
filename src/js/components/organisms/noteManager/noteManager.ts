@@ -17,11 +17,14 @@ const encodeTitle = (title: string) => {
   return encodedTitle;
 };
 
-export const getDateCreatedFromTitle = (title: string) => {
+export const getDateCreatedFromTitle = (title: string): number => {
   const titleID = getTitleId(title);
   const note = getNote(titleID);
-  const { dateCreated } = note || {};
-  return dateCreated;
+  if (note) {
+    const { dateCreated } = note;
+    return dateCreated;
+  }
+  throw new Error(`Note "${title}" cannot found!`);
 };
 
 export const markNoteForDeletion = (id: string) => {
@@ -178,7 +181,6 @@ export const updateNote = async (what: string) => {
 
 export const saveNote = async (
   what = select(".terminal").getValue(),
-  cid?: string,
 ) => {
   await storage.saveToDictionary(what);
   if (what.length) {
@@ -202,18 +204,13 @@ export const saveNote = async (
             [hash]: {
               dateCreated: Date.now(),
               text: what,
-              ...(cid ? { cid: cid } : {}),
             },
           },
         }),
       );
       url.set(titleID, {
         v: hash,
-        ...(cid ? { cid: cid } : {}),
       });
-      if (!cid) {
-        url.deleteParam("cid");
-      }
       storage.set("lastLocalUpdate", new Date());
       notify.success("👌 Note saved!");
       setSavedState();

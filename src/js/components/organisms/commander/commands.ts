@@ -27,26 +27,26 @@ import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import { sleep } from "../../../utils/sleep.js";
 import { publishGist, updateGist } from "../../../utils/github/api.ts";
 import { icon } from "../../atoms/icon/icon.js";
-import ListSVG from "../../../../assets/svg/list.svg";
-import TrashSVG from "../../../../assets/svg/trash.svg";
-import CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
-import CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
-import LighterSVG from "../../../../assets/svg/lighter.svg";
-import EnterDownSVG from "../../../../assets/svg/enter-down.svg";
-import DownloadSVG from "../../../../assets/svg/download.svg";
-import EnvelopeSVG from "../../../../assets/svg/envelope.svg";
-import BugSVG from "../../../../assets/svg/bug.svg";
-import PictureSVG from "../../../../assets/svg/picture.svg";
-import PrinterSVG from "../../../../assets/svg/printer.svg";
-import PageBreakSVG from "../../../../assets/svg/page-break.svg";
-import FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
-import ArrowRightCircleSVG from "../../../../assets/svg/arrow-right-circle.svg";
-import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
-import RocketSVG from "../../../../assets/svg/rocket.svg";
-import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
-import PencilSVG from "../../../../assets/svg/pencil.svg";
-import ShareSVG from "../../../../assets/svg/exit-up.svg";
-import LeafSVG from "../../../../assets/svg/leaf.svg";
+import * as ListSVG from "../../../../assets/svg/list.svg";
+import * as TrashSVG from "../../../../assets/svg/trash.svg";
+import * as CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
+import * as CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
+import * as LighterSVG from "../../../../assets/svg/lighter.svg";
+import * as EnterDownSVG from "../../../../assets/svg/enter-down.svg";
+import * as DownloadSVG from "../../../../assets/svg/download.svg";
+import * as EnvelopeSVG from "../../../../assets/svg/envelope.svg";
+import * as BugSVG from "../../../../assets/svg/bug.svg";
+import * as PictureSVG from "../../../../assets/svg/picture.svg";
+import * as PrinterSVG from "../../../../assets/svg/printer.svg";
+import * as PageBreakSVG from "../../../../assets/svg/page-break.svg";
+import * as FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
+import * as ArrowRightCircleSVG from "../../../../assets/svg/arrow-right-circle.svg";
+import * as MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
+import * as RocketSVG from "../../../../assets/svg/rocket.svg";
+import * as SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
+import * as PencilSVG from "../../../../assets/svg/pencil.svg";
+import * as ShareSVG from "../../../../assets/svg/exit-up.svg";
+import * as LeafSVG from "../../../../assets/svg/leaf.svg";
 import { share } from "../../../utils/webShare.js";
 import { setSavedState } from "../../../ui/functions/savedState.ts";
 
@@ -78,20 +78,22 @@ const sharePublicLinkCommand = {
     commander.hide();
     await saveNote(select(".terminal").getValue());
     const note = getNote();
-    const response = await publishGist({
-      note,
-    });
-    const rawLink = response.history[0].url;
-    const gitResponse = await fetch(rawLink).then((response) =>
-      response.json()
-    );
-    const { files } = gitResponse;
-    const fileContents = Object.values(files);
-    const [gistFile] = fileContents;
-    const { raw_url: rawUrl } = gistFile;
-    const linkToShare = `${url.baseUrl}?raw=${rawUrl}`;
-    const successMessage = "MiroPad public link copied to clipboard 📋!";
-    copyToClipboard(linkToShare, successMessage);
+    if (note) {
+      const response = await publishGist({
+        note,
+      });
+      const rawLink = response.history[0].url;
+      const gitResponse = await fetch(rawLink).then((response) =>
+        response.json()
+      );
+      const { files } = gitResponse;
+      const fileContents = Object.values(files);
+      const [gistFile] = fileContents;
+      const { raw_url: rawUrl } = gistFile as { raw_url: string };
+      const linkToShare = `${url.baseUrl}?raw=${rawUrl}`;
+      const successMessage = "MiroPad public link copied to clipboard 📋!";
+      copyToClipboard(linkToShare, successMessage);
+    }
   },
 };
 
@@ -180,7 +182,7 @@ export const commands = () => {
       call: async () => {
         const token = storage.get("authToken");
         if (!token) {
-          return await goAuthenticate();
+          return goAuthenticate();
         }
         const gistId = storage.get("gistId");
         if (!gistId) {
@@ -381,5 +383,5 @@ export const commands = () => {
         commander.hide();
       },
     },
-  ];
+  ] as const;
 };
