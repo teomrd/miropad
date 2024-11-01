@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  lighthouseci:
+  quality-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,3 +15,4 @@ jobs:
         with:
           deno-version: v2.x
       - run: make checks
+      - run: make build
