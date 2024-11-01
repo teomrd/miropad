@@ -10,7 +10,10 @@ install:
 dev: install
 	open http://localhost:8000 && sh scripts/dev.sh
 
-checks: install
+verify-formatting: 
+	deno fmt --check
+
+checks: install verify-formatting
 	deno task lint && deno task compile
 
 audits: install build
