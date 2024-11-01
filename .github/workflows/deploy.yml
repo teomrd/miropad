@@ -13,6 +13,7 @@ jobs:
         with:
           deno-version: v2.x
       - run: make build
+      - run: make version
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
