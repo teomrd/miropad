@@ -1,9 +1,7 @@
 import * as esbuild from "esbuild";
-import { denoPlugins } from "jsr:@luca/esbuild-deno-loader";
 import miropad from "../package.json" with { type: "json" };
 
 const context = await esbuild.context({
-  plugins: [...denoPlugins()],
   entryPoints: ["src/index.ts"],
   bundle: true,
   outfile: "dev/index.js",

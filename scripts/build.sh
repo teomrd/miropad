@@ -8,10 +8,11 @@ mkdir -p ./dist
 
 cp ./src/manifest.json ./dist
 cp ./static/favicon.ico ./dist
+cp ./src/service-worker.js ./dist
 
 cp -r ./src/assets/images ./dist/images
 
-deno --allow-env --allow-read ./scripts/build.js
+deno -A ./scripts/build.js
 
 cp ./static/index.html ./dist
 

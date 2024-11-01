@@ -1,5 +1,4 @@
 import * as esbuild from "npm:esbuild";
-import { denoPlugins } from "jsr:@luca/esbuild-deno-loader";
 import miropad from "../package.json" with { type: "json" };
 
 const result = await esbuild.build({
@@ -9,7 +8,6 @@ const result = await esbuild.build({
   target: ["es2020", "chrome87", "firefox85"],
   minify: true,
   sourcemap: true,
-  plugins: [...denoPlugins()],
   outdir: "dist",
   bundle: true,
   format: "esm",
