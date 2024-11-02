@@ -1,33 +1,32 @@
 import "github-markdown-css";
 import "../css/print.css";
 import "../css/styles.css";
-import welcomeUser from "./components/molecules/welcome";
-import commander from "./components/organisms/commander/commander";
-import markDownViewer from "./components/organisms/markdown/markDownViewer";
+import welcomeUser from "./components/molecules/welcome.js";
+import commander from "./components/organisms/commander/commander.ts";
+import markDownViewer from "./components/organisms/markdown/markDownViewer.js";
 import {
   deleteNote,
   disableSyncOnCurrentNote,
   getNote,
   setNoteFromHash,
-} from "./components/organisms/noteManager/noteManager";
-import { terminal } from "./components/organisms/terminal";
-import { isSyncEnabled } from "./isSyncEnabled";
-import { registerServiceWorker } from "./registerServiceWorker";
-import { Trie } from "./utils/Trie/Trie";
-import { copyToClipboard } from "./utils/copyToClipboard";
-import { relativeDate } from "./utils/dates";
-import select from "./utils/dom";
-import errorHandler from "./utils/errorHandler";
+} from "./components/organisms/noteManager/noteManager.ts";
+import { terminal } from "./components/organisms/terminal.ts";
+import { isSyncEnabled } from "./isSyncEnabled.js";
+import { registerServiceWorker } from "./registerServiceWorker.js";
+import { Trie } from "./utils/Trie/Trie.ts";
+import { copyToClipboard } from "./utils/copyToClipboard.ts";
+import { relativeDate } from "./utils/dates.js";
+import select from "./utils/dom.js";
+import errorHandler from "./utils/errorHandler.js";
 import {
   setAuthTokenFromCallback,
   syncNotesWithGitHub,
-} from "./utils/github/actions";
-import storage from "./utils/localstorage";
-import { resetPageTitle } from "./utils/pageTitle";
-import { url } from "./utils/urlManager";
-import { actOnURLStateChange } from "./listeners/urlChange";
-import { enableDevelopment } from "./utils/enableDevelopmentTasks";
-import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes";
+} from "./utils/github/actions.js";
+import storage from "./utils/localstorage.js";
+import { resetPageTitle } from "./utils/pageTitle.js";
+import { url } from "./utils/urlManager.ts";
+import { actOnURLStateChange } from "./listeners/urlChange.ts";
+import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes.js";
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
@@ -112,7 +111,7 @@ const main = async () => {
   const words = storage.getDictionary();
   trieDictionary.insert(words);
 
-  window.addEventListener("error", errorHandler);
+  globalThis.addEventListener("error", errorHandler);
   welcomeUser();
   commander.init();
 
@@ -130,7 +129,7 @@ const main = async () => {
 
   markDownViewer.init();
 
-  window.addEventListener("hashchange", actOnURLStateChange);
+  globalThis.addEventListener("hashchange", actOnURLStateChange);
   actOnURLStateChange();
 
   registerServiceWorker();
@@ -139,8 +138,6 @@ const main = async () => {
 
   await syncNotesWithGitHub();
   await setAuthTokenFromCallback();
-
-  enableDevelopment();
 };
 
 export default main;

@@ -1,15 +1,18 @@
 import getCaretCoordinates from "textarea-caret";
-import { terminal } from "../components/organisms/terminal";
-import select from "../utils/dom";
-import { trieDictionary } from "../main";
+import { terminal } from "../components/organisms/terminal.ts";
+import select from "../utils/dom.js";
+import { trieDictionary } from "../main.js";
 
-const getPredictions = (word) => {
+const getPredictions = (word: string) => {
   const sanitizedWord = word.replace(/[\r\n\t]+/g, "").toLowerCase();
 
   return trieDictionary.getMatchingWords(sanitizedWord);
 };
 
-export const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
+export const getCurrentlyTypingWord = (
+  text: string,
+  cursorIndexPosition: number,
+) => {
   let word = "";
   let currentIndex = cursorIndexPosition - 1;
   do {
@@ -20,8 +23,11 @@ export const getCurrentlyTypingWord = (text, cursorIndexPosition) => {
   return word;
 };
 
-export const placeSuggestion = (textEl) => {
-  const coords = getCaretCoordinates(textEl, textEl.selectionEnd);
+export const placeSuggestion = (textEl: HTMLTextAreaElement) => {
+  const coords = getCaretCoordinates(
+    textEl,
+    textEl.selectionEnd,
+  );
   const { top, left } = coords;
 
   // This does the trick! `main` is getting the same
@@ -36,11 +42,13 @@ export const placeSuggestion = (textEl) => {
   select(".suggestion").el.style.left = `${left}px`;
 };
 
-export const isLastCharacterInTheWord = (text, characterIndex) =>
-  text[characterIndex] === undefined || text[characterIndex].trim() === "";
+export const isLastCharacterInTheWord = (
+  text: string,
+  characterIndex: number,
+) => text[characterIndex] === undefined || text[characterIndex].trim() === "";
 
-export const autoComplete = (e: any) => {
-  const cursorIndexPosition = e.target.selectionEnd;
+export const autoComplete = (e: InputEvent) => {
+  const cursorIndexPosition = (e.target as HTMLTextAreaElement).selectionEnd;
   const fullText = terminal.el.getValue();
 
   const charTyped = fullText[cursorIndexPosition - 1];
@@ -53,13 +61,12 @@ export const autoComplete = (e: any) => {
   }
   const word = getCurrentlyTypingWord(fullText, cursorIndexPosition);
 
-  const shouldDisplaySuggestion =
-    e.inputType === "insertText" &&
+  const shouldDisplaySuggestion = e.inputType === "insertText" &&
     isLastCharacterInTheWord(fullText, cursorIndexPosition) &&
     !word.startsWith("#");
 
   if (shouldDisplaySuggestion) {
-    placeSuggestion(e.target);
+    placeSuggestion(e.target as HTMLTextAreaElement);
     const matches = getPredictions(word);
 
     const [firstMatch] = matches;

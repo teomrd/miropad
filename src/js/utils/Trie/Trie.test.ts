@@ -1,12 +1,17 @@
-import { Trie } from "./Trie";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { expect } from "jsr:@std/expect";
+import { Trie } from "./Trie.ts";
 
 describe("trie data structure", () => {
-  describe("insertion of a word", () => {
-    it("insert a new word into trie", () => {
-      const t = Trie();
-      t.insert("was");
-      t.insert("was");
-      t.insert("where");
+  it("insert a new word into trie", () => {
+    const t = Trie();
+    t.insert("was");
+    t.insert("was");
+    t.insert("where");
+
+    expect(t.search("w")).toEqual({
+      was: 2,
+      where: 1,
     });
   });
 

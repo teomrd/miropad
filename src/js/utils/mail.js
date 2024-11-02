@@ -1,8 +1,8 @@
-import storage from "./localstorage";
-import notify from "../components/molecules/notify";
-import { configuration } from "../../configuration";
-import { getTitle } from "../components/organisms/noteManager/noteManager";
-import { convertMarkDownToHtml } from "../components/organisms/markdown/mdToHtml";
+import storage from "./localstorage.js";
+import notify from "../components/molecules/notify.ts";
+import { configuration } from "../../configuration.ts";
+import { getTitle } from "../components/organisms/noteManager/noteManager.ts";
+import { convertMarkDownToHtml } from "../components/organisms/markdown/mdToHtml.ts";
 
 export const handleErrorResponse = (response) => {
   const isSuccessfulRequest = response.status.toString().slice(0, 1) === "2";
@@ -71,7 +71,7 @@ const sendMail = async (body, email, subject = "MiroPad note") => {
       .then((response) => response.json());
 
     notify.success("Email sent 🚀");
-  } catch (error) {
+  } catch (_e) {
     notify.error(
       "Error not went through 💥! Check your credentials and try again!",
     );
@@ -81,7 +81,7 @@ const sendMail = async (body, email, subject = "MiroPad note") => {
 const getUserMailingPreferences = () => {
   const savedMail = storage.get("mail");
   if (savedMail) {
-    const mailSameAgainQuestion = window.prompt(
+    const mailSameAgainQuestion = globalThis.prompt(
       `Mail ${savedMail} again? (y)es/(no)`,
       "yeap",
     );
@@ -92,8 +92,8 @@ const getUserMailingPreferences = () => {
       return savedMail;
     }
   }
-  const whoMailing = window.prompt("Where do you wanna send the mail to?");
-  const wannaSaveDat = window.prompt(
+  const whoMailing = globalThis.prompt("Where do you wanna send the mail to?");
+  const wannaSaveDat = globalThis.prompt(
     "Do you wanna save that to your preferences for later on? (y)es/(no)",
     "yeap",
   );

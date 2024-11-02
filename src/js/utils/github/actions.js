@@ -1,23 +1,23 @@
 import {
-  getGist,
-  getAuthToken,
-  getAuthenticatedUsersGists,
   createNewGist,
-} from "./api";
-import storage from "../localstorage";
-import { url } from "../urlManager";
-import select from "../dom";
-import { configuration } from "../../../configuration";
-import { updateNote } from "../../components/organisms/noteManager/noteManager";
-import notify from "../../components/molecules/notify";
-import { commands } from "../../components/molecules/commands";
-import commander from "../../components/organisms/commander/commander";
-import { div } from "../../components/atoms/div/div";
+  getAuthenticatedUsersGists,
+  getAuthToken,
+  getGist,
+} from "./api.ts";
+import storage from "../localstorage.js";
+import { url } from "../urlManager.ts";
+import select from "../dom.js";
+import { configuration } from "../../../configuration.ts";
+import { updateNote } from "../../components/organisms/noteManager/noteManager.ts";
+import notify from "../../components/molecules/notify.ts";
+import { command } from "../../components/molecules/commands/command.js";
+import commander from "../../components/organisms/commander/commander.ts";
+import { div } from "../../components/atoms/div/div.js";
 
-export const goAuthenticate = async () => {
+export const goAuthenticate = () => {
   notify.info("You need to be authenticated!");
   commander.hide();
-  return window.location.replace(
+  return globalThis.location.replace(
     `https://github.com/login/oauth/authorize?client_id=${configuration.github.client_id}&scope=gist&state=${configuration.github.request_state}`,
   );
 };
@@ -46,7 +46,7 @@ export const setGistToSyncWith = async (token) => {
       },
     }));
 
-  const gistOptionComponents = commands([
+  const gistOptionComponents = command([
     {
       title: "Create a new Gist",
       onclick: async () => {

@@ -1,5 +1,5 @@
-import notify from "../components/molecules/notify";
-import { isArray } from "./isArray";
+import notify from "../components/molecules/notify.ts";
+import { isArray } from "./isArray.ts";
 
 const storage = (() => {
   return {

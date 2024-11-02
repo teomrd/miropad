@@ -1,21 +1,21 @@
 import { nanoid } from "nanoid";
-import TrashSVG from "../../../assets/svg/trash.svg";
-import { configuration } from "../../../configuration";
-import { autoComplete } from "../../features/autoComplete";
-import { setSavedState } from "../../ui/functions/savedState";
-import select from "../../utils/dom";
-import storage from "../../utils/localstorage";
-import { handleErrorResponse } from "../../utils/mail";
-import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes";
-import { div } from "../atoms/div/div";
-import { icon } from "../atoms/icon/icon";
-import { command } from "../molecules/commands/command";
-import notify from "../molecules/notify";
-import commander from "./commander/commander";
-import markDownViewer from "./markdown/markDownViewer";
-import { getNote, getTitle } from "./noteManager/noteManager";
-import { trieDictionary } from "../../main";
-import { renderInterNotes } from "../../features/inter-linking/renderInterNotes";
+import * as TrashSVG from "../../../assets/svg/trash.svg";
+import { configuration } from "../../../configuration.ts";
+import { autoComplete } from "../../features/autoComplete.ts";
+import { setSavedState } from "../../ui/functions/savedState.ts";
+import select from "../../utils/dom.js";
+import storage from "../../utils/localstorage.js";
+import { handleErrorResponse } from "../../utils/mail.js";
+import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes.js";
+import { div } from "../atoms/div/div.js";
+import { icon } from "../atoms/icon/icon.js";
+import { command } from "../molecules/commands/command.js";
+import notify from "../molecules/notify.ts";
+import commander from "./commander/commander.ts";
+import markDownViewer from "./markdown/markDownViewer.js";
+import { getNote, getTitle } from "./noteManager/noteManager.ts";
+import { trieDictionary } from "../../main.js";
+import { renderInterNotes } from "../../features/inter-linking/renderInterNotes.ts";
 
 type TerminalState = {
   matches: Array<string>;
@@ -53,7 +53,7 @@ export const terminal = (() => {
     resetState: function () {
       terminal.setState(initState);
     },
-    selectOption: function (e, direction) {
+    selectOption: function (direction: "down" | "up" = "down") {
       const currentlySelected = state.options.selected;
       const lastOption = state.options.length - 1;
       const isLastOption = currentlySelected === lastOption;
@@ -61,11 +61,10 @@ export const terminal = (() => {
       const isDown = direction === "down";
 
       const indexToSelect = isDown
-        ? isLastOption
-          ? 0
-          : currentlySelected + 1
-        : // eslint-disable-next-line prettier/prettier
-        isFirstOption ? lastOption : currentlySelected - 1;
+        ? isLastOption ? 0 : currentlySelected + 1
+        : isFirstOption
+        ? lastOption
+        : currentlySelected - 1;
 
       state.options = {
         ...state.options,
@@ -94,11 +93,11 @@ export const terminal = (() => {
 
       const { prediction, currentWord } = state;
 
-      if (word) {
+      if (word && currentWord) {
         return complete(word, currentWord);
       }
 
-      if (prediction) {
+      if (prediction && currentWord) {
         complete(prediction, currentWord);
         // +1 to the score of the word autocompleted
         trieDictionary.insert(prediction);
@@ -134,9 +133,10 @@ export const terminal = (() => {
             onclick: () => {
               terminal.acceptCompletion(word);
             },
+            icon: null,
           },
           i === selectedIndex,
-        ),
+        )
       );
       const optionList = document.createElement("ul");
       optionList.classList.add("options");
@@ -149,29 +149,26 @@ export const terminal = (() => {
       commander.hide();
       select(".note-info").hide();
     },
-    onInput: (e) => {
+    onInput: (e: InputEvent) => {
       const isAutocompleteEnabled = !!storage.get("__autocomplete__");
       if (isAutocompleteEnabled) {
         autoComplete(e);
       }
       renderInterNotes(e);
     },
-    onArrowDown: (e) => {
+    onArrowDown: (e: KeyboardEvent) => {
       if (state.matches.length > 0) {
         e.preventDefault();
-        terminal.selectOption(e, "down");
+        terminal.selectOption("down");
       }
     },
-    onArrowUp: (e) => {
+    onArrowUp: (e: KeyboardEvent) => {
       if (state.matches.length > 0) {
         e.preventDefault();
-        terminal.selectOption(e, "up");
+        terminal.selectOption("up");
       }
     },
-    setValue: () => {
-      // terminal.el.value = "mpampis";
-    },
-    onEnter: (e) => {
+    onEnter: (e: KeyboardEvent) => {
       if (state.matches.length > 0) {
         e.preventDefault();
         terminal.acceptCompletion();
@@ -184,11 +181,11 @@ export const terminal = (() => {
       terminal.resetState();
       select(".suggestion").hide();
     },
-    onTab: (e) => {
+    onTab: (e: KeyboardEvent) => {
       e.preventDefault();
       terminal.acceptCompletion();
     },
-    onKeyDown: (e) => {
+    onKeyDown: (e: KeyboardEvent) => {
       // enter
       if (e.keyCode === 13) {
         terminal.onEnter(e);
@@ -215,29 +212,30 @@ export const terminal = (() => {
 
       // escape
       if (e.keyCode === 27) {
-        terminal.onEscape(e);
+        terminal.onEscape();
       }
     },
-    onKeyUp: (e) => {
+    onKeyUp: (e: KeyboardEvent) => {
       const currentlySavedNote = getNote();
-      const title = getTitle(e.target.value);
+      const title = getTitle((e.target as HTMLInputElement).value);
       select(".title h3").html(title);
 
       const { text = "" } = currentlySavedNote || {};
-      const isNoteSaved = currentlySavedNote && terminal.el.getValue() === text;
+      const isNoteSaved =
+        !!(currentlySavedNote && terminal.el.getValue() === text);
       setSavedState(isNoteSaved);
     },
     onPaste: async () => {
       const clipboardItems = await navigator.clipboard.read();
       for (const clipboardItem of clipboardItems) {
         const imageTypes = clipboardItem.types?.filter((type) =>
-          type.startsWith("image/"),
+          type.startsWith("image/")
         );
         for (const imageType of imageTypes) {
           const blob = await clipboardItem.getType(imageType);
           const token = storage.get("MIROPAD_SECRET_TOKEN");
           if (token) {
-            const [image, fileExtension] = imageType.split("/");
+            const [_image, fileExtension] = imageType.split("/");
             const fileName = `${nanoid()}.${fileExtension}`;
 
             select("#logo").addClass("loading");
@@ -258,7 +256,8 @@ export const terminal = (() => {
                 .then((response) => response.json());
               select(".terminal").insertAtCaret(`![image](${url})`);
             } catch (error) {
-              notify.error(`Uploading file failed 💥! Error$ ${error.message}`);
+              console.error(error);
+              notify.error(`Uploading file failed 💥!`);
             }
             select("#logo").removeClass("loading");
           } else {

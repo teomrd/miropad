@@ -1,4 +1,4 @@
-import storage from "./utils/localstorage";
+import storage from "./utils/localstorage.js";
 
 export const isSyncEnabled = () => {
   const { authToken, gistId } = storage.get(["authToken", "gistId"]);

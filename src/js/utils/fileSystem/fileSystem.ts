@@ -1,4 +1,4 @@
-import notify from "../../components/molecules/notify";
+import notify from "../../components/molecules/notify.ts";
 
 const getNewFileHandle = async (title = "no-titled") => {
   const options = {
@@ -13,11 +13,16 @@ const getNewFileHandle = async (title = "no-titled") => {
     ],
   };
 
-  const handle = await window.showSaveFilePicker(options);
+  // @ts-ignore as this is an experimental browser feature
+  // and may need to change https://developer.mozilla.org/en-US/docs/Web/API/Window/showSaveFilePicker
+  const handle = await globalThis.showSaveFilePicker(options);
   return handle;
 };
 
-export const writeFile = async (fileHandle, contents: string) => {
+export const writeFile = async (
+  fileHandle: FileSystemFileHandle,
+  contents: string,
+) => {
   // Create a FileSystemWritableFileStream to write to.
   const writable = await fileHandle.createWritable();
   // Write the contents of the file to the stream.
@@ -33,7 +38,7 @@ export const saveFileAs = async (contents: string, title?: string) => {
   try {
     const fileHandle = await getNewFileHandle(title);
     await writeFile(fileHandle, contents);
-  } catch (ex) {
+  } catch (_e) {
     const msg = "An error occurred trying to save the file.";
     notify.error(msg);
     return;
@@ -43,14 +48,17 @@ export const saveFileAs = async (contents: string, title?: string) => {
 export const saveDataToFile = (() => {
   const a = document.createElement("a");
   document.body.appendChild(a);
-  a.style = "display: none";
-  return (data, fileName = `MiroPad-${new Date().toISOString()}.json`) => {
+  a.setAttribute("style", "display: none");
+  return (
+    data: unknown,
+    fileName = `MiroPad-${new Date().toISOString()}.json`,
+  ) => {
     const json = JSON.stringify(data),
       blob = new Blob([json], { type: "octet/stream" }),
-      url = window.URL.createObjectURL(blob);
+      url = globalThis.URL.createObjectURL(blob);
     a.href = url;
     a.download = fileName;
     a.click();
-    window.URL.revokeObjectURL(url);
+    globalThis.URL.revokeObjectURL(url);
   };
 })();

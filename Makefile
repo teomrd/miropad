@@ -2,37 +2,42 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := dev
 
-.PHONY : install dev audits deploy serve version build deploy clean
+.PHONY : install dev audits deploy serve build deploy clean
 
 install:
-	pnpm install
+	deno install
 
-dev: install build
-	open http://localhost:8000 && pnpm run dev
+dev: install
+	open http://localhost:8000 && sh scripts/dev.sh
 
-checks: install
-	pnpm run lint && pnpm run test
+verify-formatting: 
+	deno fmt --check
+
+lint:
+	deno lint
+
+test:
+	deno test
+
+compile:
+	deno task compile
+
+checks: install verify-formatting lint test
+	make compile
 
 audits: install build
-	pnpm run lighthouse
+	deno task lighthouse
 
 clean:
+	deno clean
 	rm -rf ./node_modules
 	rm -rf ./out
+	rm -rf ./dist
 	rm -rf ./dev
 	rm -rf ./*lock*
 
 serve: build
-	serve $(MAKE_DIR)/out
-
-update:
-	pnpm up
-
-force-update:
-	pnpm up --latest
-
-version:
-	$(MAKE_DIR)/scripts/version.sh
+	serve $(MAKE_DIR)/dist
 
 build: install
 	$(MAKE_DIR)/scripts/build.sh

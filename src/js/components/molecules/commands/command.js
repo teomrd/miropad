@@ -1,4 +1,4 @@
-import { isElement } from "../../../utils/dom";
+import { isElement } from "../../../utils/dom.js";
 
 export const command = (
   { title, secondary, onclick, onSecondaryClick, icon },

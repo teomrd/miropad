@@ -1,16 +1,16 @@
 import "github-markdown-css";
 import "../../css/print.css";
 import "../../css/styles.css";
-import notify from "../components/molecules/notify";
+import notify from "../components/molecules/notify.ts";
 import {
   search,
   setNoteFromHash,
-} from "../components/organisms/noteManager/noteManager";
-import select from "../utils/dom";
-import { url } from "../utils/urlManager";
-import { getGist } from "../utils/github/api";
+} from "../components/organisms/noteManager/noteManager.ts";
+import select from "../utils/dom.js";
+import { url } from "../utils/urlManager.ts";
+import { getGist } from "../utils/github/api.ts";
 
-const setNoteFromRawUrl = async (rawUrl) => {
+const setNoteFromRawUrl = async (rawUrl: string) => {
   if (rawUrl) {
     const response = await fetch(rawUrl).then((response) => {
       if (response.ok) return response.text();
@@ -22,7 +22,7 @@ const setNoteFromRawUrl = async (rawUrl) => {
   }
 };
 
-const setNoteFromGist = async (gistId) => {
+const setNoteFromGist = async (gistId: string) => {
   if (gistId) {
     try {
       const gist = await getGist(gistId);
@@ -30,16 +30,16 @@ const setNoteFromGist = async (gistId) => {
       const fileContents = Object.values(files);
       const [gistFile] = fileContents;
 
-      // @ts-ignore
+      // @ts-ignore as gistFile always has content
       const { content } = gistFile;
       select(".terminal").setValue(content);
-    } catch (error) {
+    } catch (_e) {
       notify.error("MiroPad note not found! 🤷‍♂️");
     }
   }
 };
 
-export const actOnURLStateChange = async (e = {}) => {
+export const actOnURLStateChange = async (e: HashChangeEvent) => {
   try {
     const { oldURL, newURL } = e;
     const oldPageId = url.getPageId(oldURL);
@@ -56,8 +56,12 @@ export const actOnURLStateChange = async (e = {}) => {
     const { gistId, raw } = url.getParamsObject(newURL);
     await setNoteFromGist(gistId);
     await setNoteFromRawUrl(raw);
-  } catch (e) {
-    notify.error(e.message);
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      notify.error(e.message);
+    } else {
+      notify.error("An unknown error occurred");
+    }
   }
 
   const isANewNote = !url.getPageId();

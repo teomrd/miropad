@@ -1,4 +1,4 @@
-import select from "../../../utils/dom";
+import select from "../../../utils/dom.js";
 
 // This is a feature where you can easily tick on/off
 // checkboxes ✅ on the Markdown preview.

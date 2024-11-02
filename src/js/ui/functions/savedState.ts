@@ -1,4 +1,4 @@
-import select from "../../utils/dom";
+import select from "../../utils/dom.js";
 
 export const setSavedState = (saved = true) => {
   if (saved) {

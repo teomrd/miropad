@@ -1,6 +1,6 @@
-import notify from "../components/molecules/notify";
-import { getNote } from "../components/organisms/noteManager/noteManager";
-import { url } from "./urlManager";
+import notify from "../components/molecules/notify.ts";
+import { getNote } from "../components/organisms/noteManager/noteManager.ts";
+import { url } from "./urlManager.ts";
 
 export const share = async () => {
   try {

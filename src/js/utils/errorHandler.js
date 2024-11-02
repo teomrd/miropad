@@ -1,4 +1,4 @@
-import notify from "../components/molecules/notify";
+import notify from "../components/molecules/notify.ts";
 
 const errorHandler = (error) => {
   const { message = "Unexpected error occurred!" } = error;

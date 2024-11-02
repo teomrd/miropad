@@ -1,16 +1,16 @@
-import storage from "./utils/localstorage";
+import storage from "./utils/localstorage.js";
 
 export const requestNotificationPermission = async () => {
   if (!storage.get("__notification-permission__")) {
-    const permission = await window.Notification.requestPermission();
+    const permission = await globalThis.Notification.requestPermission();
     storage.set("__notification-permission__", permission);
   }
 };
 
-export const registerServiceWorker = async () => {
+export const registerServiceWorker = () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register(
-      `${window.location.pathname}service-worker.js?v=${VERSION}`,
+      `${globalThis.location.pathname}service-worker.js?v=${VERSION}`,
     );
   }
 };

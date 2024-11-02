@@ -1,4 +1,4 @@
-import { isArray } from "../../../utils/isArray";
+import { isArray } from "../../../utils/isArray.ts";
 
 export const button = (els, fn, id) => {
   const elements = isArray(els) ? els : [els];

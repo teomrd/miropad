@@ -1,0 +1,45 @@
+{
+  "name": "@teomrd/miropad",
+  "exports": "./index.js",
+  "version": "2.15.20",
+  "license": "GPL-3.0-only",
+  "author": "teomrd <mironidis.gr@gmail.com>",
+  "repository": "https://github.com/teomrd/MiroPad.git",
+  "tasks": {
+    "compile": "deno check src",
+    "lint": "deno lint src/"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1",
+    "@types/textarea-caret": "npm:@types/textarea-caret@^3.0.3",
+    "@lhci/cli": "npm:@lhci/cli@0.14.0",
+    "esbuild": "npm:esbuild@^0.24.0",
+    "workbox": "npm:workbox@^0.0.0",
+    "workbox-cli": "npm:workbox-cli@^7.3.0"
+  },
+  "lint": {
+    "include": ["src/"],
+    "exclude": ["src/assets/", "src/css/"],
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": false,
+    "proseWrap": "preserve",
+    "include": ["src/"],
+    "exclude": ["src/assets/"]
+  },
+  "exclude": [
+    "out/",
+    "dist/"
+  ],
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
+  }
+}
+

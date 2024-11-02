@@ -1,4 +1,4 @@
-import notify from "./notify";
+import notify from "./notify.ts";
 
 const welcomeUser = () => {
   const lastVisit = localStorage.getItem("miropad.user");

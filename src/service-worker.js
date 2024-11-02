@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
 importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js"
+  "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js",
 );
 const { precacheAndRoute } = workbox.precaching;
 
@@ -13,12 +12,12 @@ const checkForNewerVersion = (currentVersion) => {
         "https://raw.githubusercontent.com/teomrd/miropad/gh-pages/version",
         {
           cache: "no-cache",
-        }
+        },
       );
       const version = await res.text();
       if (currentVersion !== version.trim()) {
         self.registration.showNotification("✍️ MiroPad has been updated", {
-          body: `Version ${version} is available, refresh to update!`,
+          body: `MiroPad ${version} is available, refresh to update!`,
         });
         clearInterval(intervalChecker);
       }

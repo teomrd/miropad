@@ -1,4 +1,4 @@
-import { isArray } from "./isArray";
+import { isArray } from "./isArray.ts";
 
 const select = (selector) => ({
   el: document.querySelector(selector),
@@ -116,7 +116,7 @@ const select = (selector) => ({
 export const isElement = (obj) => {
   try {
     return obj instanceof HTMLElement;
-  } catch (e) {
+  } catch (_e) {
     //Browsers not supporting W3 DOM2 don't have HTMLElement and
     //an exception is thrown and we end up here. Testing some
     //properties that all elements have (works on IE7)

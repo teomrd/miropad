@@ -1,16 +1,15 @@
-/* eslint-disable indent */
-import select from "../../../utils/dom";
-import { deleteFileOnGist } from "../../../utils/github/api";
-import hashBrowser from "../../../utils/hashBrowser";
-import isJSON from "../../../utils/isJSON";
-import storage from "../../../utils/localstorage";
-import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle";
-import { url } from "../../../utils/urlManager";
-import notify from "../../molecules/notify";
-import commander from "../commander/commander";
-import { setSavedState } from "../../../ui/functions/savedState";
+import select from "../../../utils/dom.js";
+import { deleteFileOnGist } from "../../../utils/github/api.ts";
+import hashBrowser from "../../../utils/hashBrowser.ts";
+import isJSON from "../../../utils/isJSON.ts";
+import storage from "../../../utils/localstorage.js";
+import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle.js";
+import { url } from "../../../utils/urlManager.ts";
+import notify from "../../molecules/notify.ts";
+import commander from "../commander/commander.ts";
+import { setSavedState } from "../../../ui/functions/savedState.ts";
 
-const encodeTitle = (title) => {
+const encodeTitle = (title: string) => {
   const encodedTitle = encodeURIComponent(title);
   if (encodedTitle.length === 0) {
     throw new Error("You need to start with a valid title for your note!");
@@ -18,23 +17,28 @@ const encodeTitle = (title) => {
   return encodedTitle;
 };
 
-export const getDateCreatedFromTitle = (title) => {
+export const getDateCreatedFromTitle = (title: string): number => {
   const titleID = getTitleId(title);
   const note = getNote(titleID);
-  const { dateCreated } = note || {};
-  return dateCreated;
+  if (note) {
+    const { dateCreated } = note;
+    return dateCreated;
+  }
+  throw new Error(`Note "${title}" cannot found!`);
 };
 
-export const markNoteForDeletion = (id) => {
+export const markNoteForDeletion = (id: string) => {
   const note = getNote(id);
-  localStorage.setItem(
-    id,
-    JSON.stringify({
-      title: note.title,
-      deleted: true,
-      revisions: note.revisions,
-    }),
-  );
+  if (note) {
+    localStorage.setItem(
+      id,
+      JSON.stringify({
+        title: note.title,
+        deleted: true,
+        revisions: note.revisions,
+      }),
+    );
+  }
 };
 
 export type Note = {
@@ -45,6 +49,7 @@ export type Note = {
   deleted: boolean;
   lines: Array<string>;
   numberOfRevisions: number;
+  disableSync: boolean;
   revisions: {
     [key: string]: {
       text: string;
@@ -53,50 +58,58 @@ export type Note = {
   };
 };
 
-export const getNote = (titleID = url.getPageId(), revision): Note | null => {
+export const getNote = (
+  titleID = url.getPageId(),
+  revision?: string,
+): Note | null => {
   let doc;
   try {
     doc = JSON.parse(storage.get(titleID));
     if (!doc.revisions) {
       throw new Error("This is not a note!");
     }
-  } catch (error) {
+  } catch (_e) {
     return null;
   }
 
   const newerNote = doc
     ? Object.values(doc.revisions).reduce(
-        (acc: any, note: any) =>
-          note.dateCreated > acc.dateCreated ? note : acc,
-        { dateCreated: 0 },
-      )
+      // deno-lint-ignore no-explicit-any
+      (acc: any, note: any) => note.dateCreated > acc.dateCreated ? note : acc,
+      { dateCreated: 0 },
+    )
     : {};
 
   const noteToReturn = revision ? doc.revisions[revision] : newerNote;
 
   return titleID
     ? {
-        ...doc,
-        id: titleID,
-        ...(noteToReturn ? noteToReturn : {}),
-        numberOfRevisions:
-          doc && doc.revisions ? Object.keys(doc.revisions).length : undefined,
-        title: doc.title,
-      }
+      ...doc,
+      id: titleID,
+      ...(noteToReturn ? noteToReturn : {}),
+      numberOfRevisions: doc && doc.revisions
+        ? Object.keys(doc.revisions).length
+        : undefined,
+      title: doc.title,
+    }
     : null;
 };
 
-export const disableSyncOnCurrentNote = (value) => {
-  const { id, title } = getNote();
-  storage.update(id, {
-    disableSync: value,
-  });
-  notify.info(`"${title}" cloud sync ${value ? "disabled 😶" : "enabled ⚡️"}`);
+export const disableSyncOnCurrentNote = (value: boolean) => {
+  const note = getNote();
+  if (note) {
+    storage.update(note.id, {
+      disableSync: value,
+    });
+    notify.info(
+      `"${note.title}" cloud sync ${value ? "disabled 😶" : "enabled ⚡️"}`,
+    );
+  }
 };
 
-export const setNoteFromHash = async (hash = url.getPageId()) => {
+export const setNoteFromHash = (hash = url.getPageId()) => {
   if (hash) {
-    const version = url.getSearchParam("v");
+    const version = url.getSearchParam("v") || undefined;
     const note = getNote(undefined, version);
     if (note) {
       select("#revisions").html(
@@ -125,12 +138,12 @@ export const resetNoteManager = () => {
 export const getTitle = (note = "") =>
   note.split("\n")[0].trim().replace("#", "").trim();
 
-export const getTitleId = (note) => {
+export const getTitleId = (note: string) => {
   const title = getTitle(note);
   return encodeTitle(title);
 };
 
-export const updateNote = async (what) => {
+export const updateNote = async (what: string) => {
   if (what.length) {
     const titleID = getTitleId(what);
     const title = getTitle(what);
@@ -168,7 +181,6 @@ export const updateNote = async (what) => {
 
 export const saveNote = async (
   what = select(".terminal").getValue(),
-  cid?: string,
 ) => {
   await storage.saveToDictionary(what);
   if (what.length) {
@@ -192,28 +204,23 @@ export const saveNote = async (
             [hash]: {
               dateCreated: Date.now(),
               text: what,
-              ...(cid ? { cid: cid } : {}),
             },
           },
         }),
       );
       url.set(titleID, {
         v: hash,
-        ...(cid ? { cid: cid } : {}),
       });
-      if (!cid) {
-        url.deleteParam("cid");
-      }
       storage.set("lastLocalUpdate", new Date());
       notify.success("👌 Note saved!");
       setSavedState();
     } catch (e) {
       notify.error(
         `😱 Something went wrong while trying to save to local storage ${e}`,
-        ); // eslint-disable-line
+      );
     }
   } else {
-      notify.warning("😕 Nothing to save!"); // eslint-disable-line
+    notify.warning("😕 Nothing to save!"); // eslint-disable-line
   }
 };
 
@@ -230,14 +237,17 @@ export const getNotes = ({
     .reduce((acc, [noteId]) => [...acc, getNote(noteId)], [])
     .filter(({ deleted }) => (includeDeleted ? true : !deleted));
 
-export const search = (q) => {
+export const search = (q: string | null = null) => {
   if (!q) {
     return undefined;
   }
 
   const results = getNotes()
     .map(({ id }) => getNote(id))
-    .filter(({ text }) => text.toLowerCase().includes(q.toLowerCase()));
+    .filter((note) => note !== null)
+    .filter(({ text }) => {
+      return text.toLowerCase().includes(q.toLowerCase());
+    });
 
   return results[0];
 };

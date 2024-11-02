@@ -1,9 +1,9 @@
-import select from "../../../utils/dom";
-import { url } from "../../../utils/urlManager";
-import { copyToClipboard } from "../../../utils/copyToClipboard";
-import { button } from "../../atoms/button/button";
-import { convertMarkDownToHtml } from "./mdToHtml";
-import storage from "../../../utils/localstorage";
+import select from "../../../utils/dom.js";
+import { url } from "../../../utils/urlManager.ts";
+import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
+import { button } from "../../atoms/button/button.js";
+import { convertMarkDownToHtml } from "./mdToHtml.ts";
+import storage from "../../../utils/localstorage.js";
 
 const markDownViewer = (() => {
   return {
@@ -29,7 +29,7 @@ const markDownViewer = (() => {
 
       const updatedHTML = this.view.el.innerHTML.replace(regex, (match) => {
         const matchingKey = Object.keys(autoLinks).find((link) =>
-          match.startsWith(link),
+          match.startsWith(link)
         );
         const link = autoLinks[matchingKey];
         return link.startsWith("http")
@@ -39,7 +39,7 @@ const markDownViewer = (() => {
       // Replace each matching text with a link
       this.view.innerHTML(updatedHTML);
     },
-    update: async function () {
+    update: function () {
       const md = select(".terminal").getValue();
 
       this.view.innerHTML(convertMarkDownToHtml(md));
@@ -56,7 +56,7 @@ const markDownViewer = (() => {
         el.appendChild(copyBtn);
       });
 
-      select("code").listenAll("click", async ({ innerHTML }) => {
+      select("code").listenAll("click", ({ innerHTML }) => {
         const result = eval(innerHTML);
         select(".console").show().innerHTML(result);
       });

@@ -1,4 +1,4 @@
-import select from "./dom";
+import select from "./dom.js";
 
 const _getBasePageTitle = () => {
   const titleSections = document.title.split("|");
@@ -15,10 +15,10 @@ const setPageTitle = (what) => {
 const resetPageTitle = () => {
   const baseTitle = _getBasePageTitle();
   document.title = baseTitle;
-  select("title").innerHTML(`${TITLE_NAME} v${VERSION}`);
+  select("title").innerHTML(`${TITLE_NAME} ${VERSION}`);
   select(".title h3").innerHTML(
-    `${TITLE_NAME} <span class="version">v${VERSION}</span>`,
+    `${TITLE_NAME} <span class="version">${VERSION}</span>`,
   );
 };
 
-export { setPageTitle, resetPageTitle };
+export { resetPageTitle, setPageTitle };
