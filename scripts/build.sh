@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "🛠️  Building ${COLOR_GREEN}MiroPad${NO_COLOR} v${COLOR_RED}${NEW_VERSION}${NO_COLOR} \n"
+echo -e "🛠️  Building ${COLOR_GREEN}MiroPad${NO_COLOR} ${COLOR_RED}${NEW_VERSION}${NO_COLOR} \n"
 
 mkdir -p ./dist
 

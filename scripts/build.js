@@ -2,8 +2,6 @@ import * as esbuild from "npm:esbuild";
 
 const VERSION = Deno.env.get("NEW_VERSION")
 
-console.log('Deno got VERSION 👉', VERSION);
-
 const result = await esbuild.build({
   entryPoints: ["./src/index.ts"],
   bundle: true,

@@ -28,7 +28,7 @@ jobs:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
-      contents: read
+      contents: write
     env:
       NEW_VERSION: ${{needs.dry-versioning.outputs.new_tag}}
     steps:
@@ -45,3 +45,22 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+  versioning:
+    runs-on: ubuntu-22.04
+    needs:
+      - build-and-deploy
+    permissions:
+      contents: write
+    outputs:
+      new_tag: ${{ steps.app-versioning.outputs.new_tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.67.0
+        id: app-versioning
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
