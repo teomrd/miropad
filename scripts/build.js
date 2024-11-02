@@ -1,5 +1,8 @@
 import * as esbuild from "npm:esbuild";
-import miropad from "../package.json" with { type: "json" };
+
+const VERSION = Deno.env.get("NEW_VERSION")
+
+console.log('Deno got VERSION 👉', VERSION);
 
 const result = await esbuild.build({
   entryPoints: ["./src/index.ts"],
@@ -19,7 +22,7 @@ const result = await esbuild.build({
   },
   define: {
     TITLE_NAME: JSON.stringify("✍️ MiroPad"),
-    VERSION: JSON.stringify(miropad.version),
+    VERSION: JSON.stringify(VERSION),
     global: "globalThis",
   },
 });

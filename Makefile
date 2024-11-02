@@ -2,7 +2,7 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := dev
 
-.PHONY : install dev audits deploy serve version build deploy clean
+.PHONY : install dev audits deploy serve build deploy clean
 
 install:
 	deno install
@@ -38,9 +38,6 @@ clean:
 
 serve: build
 	serve $(MAKE_DIR)/dist
-
-version:
-	$(MAKE_DIR)/scripts/version.sh
 
 build: install
 	$(MAKE_DIR)/scripts/build.sh
