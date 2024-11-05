@@ -27,26 +27,47 @@ import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import { sleep } from "../../../utils/sleep.js";
 import { publishGist, updateGist } from "../../../utils/github/api.ts";
 import { icon } from "../../atoms/icon/icon.js";
-import * as ListSVG from "../../../../assets/svg/list.svg";
-import * as TrashSVG from "../../../../assets/svg/trash.svg";
-import * as CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
-import * as CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
-import * as LighterSVG from "../../../../assets/svg/lighter.svg";
-import * as EnterDownSVG from "../../../../assets/svg/enter-down.svg";
-import * as DownloadSVG from "../../../../assets/svg/download.svg";
-import * as EnvelopeSVG from "../../../../assets/svg/envelope.svg";
-import * as BugSVG from "../../../../assets/svg/bug.svg";
-import * as PictureSVG from "../../../../assets/svg/picture.svg";
-import * as PrinterSVG from "../../../../assets/svg/printer.svg";
-import * as PageBreakSVG from "../../../../assets/svg/page-break.svg";
-import * as FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
-import * as ArrowRightCircleSVG from "../../../../assets/svg/arrow-right-circle.svg";
-import * as MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
-import * as RocketSVG from "../../../../assets/svg/rocket.svg";
-import * as SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
-import * as PencilSVG from "../../../../assets/svg/pencil.svg";
-import * as ShareSVG from "../../../../assets/svg/exit-up.svg";
-import * as LeafSVG from "../../../../assets/svg/leaf.svg";
+// @ts-types="../../../../../types.d.ts"
+import ListSVG from "../../../../assets/svg/list.svg";
+// @ts-types="../../../../../types.d.ts"
+import TrashSVG from "../../../../assets/svg/trash.svg";
+// @ts-types="../../../../../types.d.ts"
+import CheckmarkCircleSVG from "../../../../assets/svg/checkmark-circle.svg";
+// @ts-types="../../../../../types.d.ts"
+import CloudSyncSVG from "../../../../assets/svg/cloud-sync.svg";
+// @ts-types="../../../../../types.d.ts"
+import LighterSVG from "../../../../assets/svg/lighter.svg";
+// @ts-types="../../../../../types.d.ts"
+import EnterDownSVG from "../../../../assets/svg/enter-down.svg";
+// @ts-types="../../../../../types.d.ts"
+import DownloadSVG from "../../../../assets/svg/download.svg";
+// @ts-types="../../../../../types.d.ts"
+import EnvelopeSVG from "../../../../assets/svg/envelope.svg";
+// @ts-types="../../../../../types.d.ts"
+import BugSVG from "../../../../assets/svg/bug.svg";
+// @ts-types="../../../../../types.d.ts"
+import PictureSVG from "../../../../assets/svg/picture.svg";
+// @ts-types="../../../../../types.d.ts"
+import PrinterSVG from "../../../../assets/svg/printer.svg";
+// @ts-types="../../../../../types.d.ts"
+import PageBreakSVG from "../../../../assets/svg/page-break.svg";
+// @ts-types="../../../../../types.d.ts"
+import FrameExpandSVG from "../../../../assets/svg/frame-expand.svg";
+// @ts-types="../../../../../types.d.ts"
+import ArrowRightCircleSVG from "../../../../assets/svg/arrow-right-circle.svg";
+// @ts-types="../../../../../types.d.ts"
+import MagicWandSVG from "../../../../assets/svg/magic-wand.svg";
+// @ts-types="../../../../../types.d.ts"
+import RocketSVG from "../../../../assets/svg/rocket.svg";
+// @ts-types="../../../../../types.d.ts"
+import SpellCheckSVG from "../../../../assets/svg/spell-check.svg";
+// @ts-types="../../../../../types.d.ts"
+import PencilSVG from "../../../../assets/svg/pencil.svg";
+// @ts-types="../../../../../types.d.ts"
+import ShareSVG from "../../../../assets/svg/exit-up.svg";
+// @ts-types="../../../../../types.d.ts"
+import LeafSVG from "../../../../assets/svg/leaf.svg";
+// @ts-types="../../../../../types.d.ts"
 import { share } from "../../../utils/webShare.js";
 import { setSavedState } from "../../../ui/functions/savedState.ts";
 
