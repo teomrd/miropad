@@ -31,7 +31,7 @@
   ],
   "orientation": "portrait",
   "Scope": "https://teomrd.github.io/miropad/",
-  "start_url": "https://teomrd.github.io/miropad/",
+  "start_url": "https://teomrd.github.io/miropad",
   "icons": [
     {
       "src": "images/icons/maskable_icon.png",
