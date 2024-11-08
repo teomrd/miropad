@@ -21,6 +21,7 @@ const markDownViewer = (() => {
     },
     autoLink: function () {
       const autoLinks = storage.parse("__auto-links__");
+      if (!autoLinks) return;
       // Regular expression to match any words starting with the given patterns
       const replacingPatterns = Object.keys(autoLinks)
         .map((pattern) => `${pattern}\\w+`)
