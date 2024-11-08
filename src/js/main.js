@@ -130,7 +130,6 @@ const main = async () => {
   markDownViewer.init();
 
   globalThis.addEventListener("hashchange", actOnURLStateChange);
-  actOnURLStateChange();
 
   registerServiceWorker();
 
