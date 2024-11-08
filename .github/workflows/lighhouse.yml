@@ -20,3 +20,5 @@ jobs:
           node-version: 18
       - run: npm install -g @lhci/cli@0.14.x
       - run: lhci autorun
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
