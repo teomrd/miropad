@@ -1,10 +1,34 @@
 {
   "name": "✍️ MiroPad",
+  "id": "miropad",
+  "description": "Note-keeping app for the browser &amp; the mobile",
   "short_name": "MiroPad",
   "theme_color": "#111518",
   "background_color": "#000",
   "display": "fullscreen",
-  "display_override": ["window-controls-overlay"],
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "miropad",
+      "url": "/miropad"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start note-keeping in ZEN mode",
+      "short_name": "Start Zen",
+      "description": "Automatically get in zen-mode for note keeping",
+      "url": "/?zen=true",
+      "icons": [
+        {
+          "src": "images/icons/maskable_icon.png",
+          "sizes": "196x196"
+        }
+      ]
+    }
+  ],
   "orientation": "portrait",
   "Scope": "https://teomrd.github.io/miropad/",
   "start_url": "https://teomrd.github.io/miropad/",
@@ -56,5 +80,35 @@
       "type": "image/png"
     }
   ],
-  "splash_pages": null
+  "screenshots": [
+    {
+      "src": "images/screenshots/screenshot-375x667.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "description": "A screenshot of the home page"
+    },
+    {
+      "src": "images/screenshots/screenshot-1280x720.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "description": "A screenshot of the home page"
+    }
+  ],
+  "splash_pages": null,
+  "share_target": {
+    "method": "GET",
+    "params": {
+      "title": "MiroPad",
+      "text": "Share a MiroPad note",
+      "url": "https://teomrd.github.io/miropad"
+    },
+    "action": "https://teomrd.github.io/miropad"
+  },
+  "dir": "auto",
+  "lang": "en",
+  "categories": [
+    "personalization",
+    "productivity",
+    "utilities"
+  ]
 }
