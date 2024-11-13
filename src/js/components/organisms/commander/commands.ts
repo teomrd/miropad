@@ -130,7 +130,7 @@ export const commands = () => {
     {
       title: "Save",
       key: "s",
-      icon: icon(CheckmarkCircleSVG, "save"),
+      icon: icon(CheckmarkCircleSVG, "save note"),
       sortTitle: "Save",
       call: async () => {
         commander.hide();
@@ -156,7 +156,7 @@ export const commands = () => {
     },
     {
       title: "Full MarkDown view",
-      icon: icon(FrameExpandSVG, "full view"),
+      icon: icon(FrameExpandSVG, "full view mode"),
       sortTitle: "Full view",
       key: "shift m",
       call: () => {
@@ -167,7 +167,7 @@ export const commands = () => {
     ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
     {
       title: "Zen mode",
-      icon: icon(LeafSVG, "zen mode"),
+      icon: icon(LeafSVG, "switch to zen mode"),
       sortTitle: "Zen mode",
       key: "shift z",
       call: () => {

@@ -11,7 +11,7 @@
     <link rel="icon" href="./favicon.ico" />
     <meta name="theme-color" content="#000000" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="./manifest.json" crossOrigin="use-credentials" />
+    <link rel="manifest" href="./manifest.json" crossorigin="use-credentials" />
     <link rel="apple-touch-icon" href="./images/icons/icon-192x192.png" />
     <title>
       MiroPad
@@ -28,8 +28,8 @@
             xmlns="http://www.w3.org/2000/svg"
             width="30px"
             height="30px"
-            viewBox="0 0 720 720"
-            preserveAspectRatio="xMidYMid meet"
+            viewbox="0 0 720 720"
+            preserveaspectratio="xMidYMid meet"
           >
             <g id="layer101" fill="#000000" stroke="none">
               <path
@@ -54,12 +54,17 @@
         </div>
       </div>
       <div>
-        <button id="note-info-button" class="icon-button">
+        <button
+          id="note-info-button"
+          class="icon-button"
+          title="info"
+          aria-label="show note information"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
             height="22"
-            viewBox="0 0 22 22"
+            viewbox="0 0 22 22"
           >
             <path
               d="M11 4c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7m0-2a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm1 8h-2v6h2v-6zm-1-4a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
@@ -74,7 +79,7 @@
           title="Create public permalink"
         >
           <svg
-            viewBox="0 0 16 16"
+            viewbox="0 0 16 16"
             version="1.1"
             width="16"
             height="16"
@@ -94,8 +99,8 @@
     <main>
       <textarea
         aria-label="Keep you notes here safely"
-        autocomplete
-        autofocus
+        autocomplete="autocomplete"
+        autofocus="autofocus"
         class="terminal"
       ></textarea>
       <div id="suggestion" class="suggestion"></div>
@@ -103,11 +108,7 @@
       <div class="preview hidden markdown-body"></div>
     </main>
     <aside class="hidden">
-      <editable-list
-        title="ToDo"
-        add-item-text="Add a ToDo: "
-      >
-      </editable-list>
+      <editable-list title="ToDo" add-item-text="Add a ToDo: "></editable-list>
     </aside>
     <div id="commander" class="commander hidden">
       <div class="palette frost">
@@ -130,7 +131,7 @@
             xmlns="http://www.w3.org/2000/svg"
             width="22"
             height="22"
-            viewBox="0 0 22 22"
+            viewbox="0 0 22 22"
           >
             <path
               d="M18.707 4.707l-1.414-1.414L11 9.586 4.707 3.293 3.293 4.707 9.586 11l-6.293 6.293 1.414 1.414L11 12.414l6.293 6.293 1.414-1.414L12.414 11z"
