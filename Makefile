@@ -31,6 +31,9 @@ lighthouse-audit: install build
 lighthouse-badges:
 	npx lighthouse-badges -o docs/lighthouse/badges -u https://teomrd.github.io/miropad/
 
+update-lighthouse-badges: lighthouse-badges
+	$(MAKE_DIR)/scripts/update-badges.sh
+
 clean:
 	deno clean
 	rm -rf ./node_modules
