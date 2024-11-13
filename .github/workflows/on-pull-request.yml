@@ -16,3 +16,17 @@ jobs:
           deno-version: v2.x
       - run: make checks
       - run: make build
+  build-and-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Lighthouse audits
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        uses: ./.github/actions/lighthouse-audit
