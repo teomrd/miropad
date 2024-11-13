@@ -1,0 +1,28 @@
+name: Generate Lighthouse Badges
+on:
+  push:
+    branches:
+      - lighthouse-badges
+jobs:
+    generate-lighthouse-badges:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20'
+        - name: Run Lighthouse and generate badges
+          run: |
+            make lighthouse-badges
+
+        - name: Push badges to repo
+          run: |
+            git config --global user.name "GitHub Action"
+            git config --global user.email "action@github.com"
+            git add ./docs/lighthouse
+            git commit -m "Update Lighthouse badges"
+            git push
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

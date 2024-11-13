@@ -2,6 +2,13 @@
 
 > Temporary note keeping app for the browser
 
+## Lighthouse Audit scores
+
+[![Lighthouse Performance Badge](./docs/lighthouse/badges/lighthouse_performance.svg)](https://github.com/emazzotta/lighthouse-badges)
+[![Lighthouse Accessibility Badge](./docs/lighthouse/badges/lighthouse_accessibility.svg)](https://github.com/emazzotta/lighthouse-badges)
+[![Lighthouse Best Practices Badge](./docs/lighthouse/badges/lighthouse_best-practices.svg)](https://github.com/emazzotta/lighthouse-badges)
+[![Lighthouse SEO Badge](./docs/lighthouse/badges/lighthouse_seo.svg)](https://github.com/emazzotta/lighthouse-badges)
+
 ## Usage
 
 ```commands
@@ -31,9 +38,4 @@ following the pattern.
 
 `git config commit.template ./.gitmessage`
 
-## Lighthouse Audit results
 
-[![Lighthouse Performance Badge](./docs/lighthouse/lighthouse_performance.svg)](https://github.com/emazzotta/lighthouse-badges)
-[![Lighthouse Accessibility Badge](./docs/lighthouse/lighthouse_accessibility.svg)](https://github.com/emazzotta/lighthouse-badges)
-[![Lighthouse Best Practices Badge](./docs/lighthouse/lighthouse_best-practices.svg)](https://github.com/emazzotta/lighthouse-badges)
-[![Lighthouse SEO Badge](./docs/lighthouse/lighthouse_seo.svg)](https://github.com/emazzotta/lighthouse-badges)
