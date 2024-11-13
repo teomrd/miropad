@@ -6,6 +6,9 @@ on:
 jobs:
   quality-checks:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: denoland/setup-deno@v2
@@ -13,3 +16,5 @@ jobs:
           deno-version: v2.x
       - run: make checks
       - run: make build
+      - name: Lighthouse audits
+        uses: ./.github/actions/lighthouse-audit

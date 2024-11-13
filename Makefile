@@ -2,7 +2,7 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := dev
 
-.PHONY : install dev audits deploy serve build deploy clean
+.PHONY : install dev deploy serve build deploy clean
 
 install:
 	deno install
@@ -22,11 +22,11 @@ test:
 compile:
 	deno task compile
 
-checks: install verify-formatting lint test
+checks: install build verify-formatting lint test
 	make compile
 
-audits: install build
-	deno task lighthouse
+lighthouse-audit: install build
+	lhci autorun
 
 clean:
 	deno clean
