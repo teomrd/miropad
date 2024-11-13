@@ -10,6 +10,9 @@ install:
 dev: install
 	open http://localhost:8000 && sh scripts/dev.sh
 
+format: 
+	deno fmt
+
 verify-formatting: 
 	deno fmt --check
 
