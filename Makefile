@@ -28,6 +28,9 @@ checks: install compile build verify-formatting lint
 lighthouse-audit: install build
 	lhci autorun
 
+lighthouse-badges:
+	npx lighthouse-badges -o docs/lighthouse/badges -u https://teomrd.github.io/miropad/
+
 clean:
 	deno clean
 	rm -rf ./node_modules
