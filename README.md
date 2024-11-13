@@ -33,4 +33,7 @@ following the pattern.
 
 ## Lighthouse Audit results
 
-![Lighthouse Audit results](docs/lighthouse-results.gif)
+[![Lighthouse Performance Badge](./docs/lighthouse/lighthouse_performance.svg)](https://github.com/emazzotta/lighthouse-badges)
+[![Lighthouse Accessibility Badge](./docs/lighthouse/lighthouse_accessibility.svg)](https://github.com/emazzotta/lighthouse-badges)
+[![Lighthouse Best Practices Badge](./docs/lighthouse/lighthouse_best-practices.svg)](https://github.com/emazzotta/lighthouse-badges)
+[![Lighthouse SEO Badge](./docs/lighthouse/lighthouse_seo.svg)](https://github.com/emazzotta/lighthouse-badges)
