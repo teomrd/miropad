@@ -167,7 +167,7 @@ export const commands = () => {
     ...(isUserLoggedIn() ? [sharePublicLinkCommand] : []),
     {
       title: "Zen mode",
-      icon: icon(LeafSVG, "zen mode"),
+      icon: icon(LeafSVG, "switch to zen mode"),
       sortTitle: "Zen mode",
       key: "shift z",
       call: () => {
