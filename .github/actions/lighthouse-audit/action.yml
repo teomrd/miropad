@@ -14,4 +14,4 @@ runs:
     - name: Run Lighthouse audit
       shell: bash
       run: |
-        lhci autorun
+        make lighthouse-audit
