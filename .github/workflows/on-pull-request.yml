@@ -15,7 +15,6 @@ jobs:
         with:
           deno-version: v2.x
       - run: make checks
-      - run: make build
   build-and-audit:
     runs-on: ubuntu-latest
     permissions:

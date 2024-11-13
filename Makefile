@@ -22,8 +22,8 @@ test:
 compile:
 	deno task compile
 
-checks: install build verify-formatting lint test
-	make compile
+checks: install compile build verify-formatting lint
+	make test
 
 lighthouse-audit: install build
 	lhci autorun
