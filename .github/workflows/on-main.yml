@@ -2,7 +2,7 @@ name: Generate Lighthouse Badges
 on:
   push:
     branches:
-      - lighthouse-badges
+      - main
 jobs:
     generate-lighthouse-badges:
       runs-on: ubuntu-latest
