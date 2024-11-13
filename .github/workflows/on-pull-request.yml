@@ -27,5 +27,6 @@ jobs:
           deno-version: v2.x
       - name: Lighthouse audits
         env:
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.event.pull_request.head.sha || github.sha }}
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         uses: ./.github/actions/lighthouse-audit
