@@ -1,0 +1,17 @@
+name: Lighthouse Audit checks
+description: Checks for Performance Accessibility, Best Practices & SEO from Google Lighthouse project
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Install Lighthouse
+      shell: bash
+      run: |
+        npm install -g @lhci/cli@0.14.x
+    - name: Run Lighthouse audit
+      shell: bash
+      run: |
+        make lighthouse-audit

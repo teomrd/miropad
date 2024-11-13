@@ -1,6 +1,6 @@
 import * as esbuild from "npm:esbuild";
 
-const VERSION = Deno.env.get("NEW_VERSION")
+const VERSION = Deno.env.get("NEW_VERSION") || `v0.0.0`;
 
 const result = await esbuild.build({
   entryPoints: ["./src/index.ts"],
