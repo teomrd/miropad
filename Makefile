@@ -7,8 +7,8 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 install:
 	deno install
 
-dev: install
-	open http://localhost:8000 && sh scripts/dev.sh
+dev: install prepare-static-files
+	open http://localhost:8000 && deno -A ./scripts/dev.js
 
 format: 
 	deno fmt
@@ -51,7 +51,10 @@ clean:
 serve: build
 	serve $(MAKE_DIR)/dist
 
-build: install
+prepare-static-files:
+	$(MAKE_DIR)/scripts/prepare-static-files.sh
+
+build: install prepare-static-files
 	$(MAKE_DIR)/scripts/build.sh
 
 deploy: version build

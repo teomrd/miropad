@@ -4,7 +4,7 @@ import miropad from "../package.json" with { type: "json" };
 const context = await esbuild.context({
   entryPoints: ["src/index.ts"],
   bundle: true,
-  outfile: "dev/index.js",
+  outfile: "dist/index.js",
   target: ["es2020", "chrome100", "firefox100"],
   minify: true,
   sourcemap: true,
@@ -25,7 +25,7 @@ const context = await esbuild.context({
 await context.watch();
 
 const { host, port } = await context.serve({
-  servedir: "dev",
+  servedir: "dist",
 });
 
 console.log(`Running v${miropad.version} on ${host}:${port} 🚀`);
