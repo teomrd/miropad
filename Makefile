@@ -31,8 +31,10 @@ checks: install compile build verify-formatting lint
 lighthouse-audit: install build
 	lhci autorun
 
+# you will need to make serve first (in a separate browser tab)
+# with this: it will update the lighthouse scores docs folder where ReadMe refers
 lighthouse-badges:
-	npx lighthouse-badges -o docs/lighthouse/badges -u https://teomrd.github.io/miropad/
+	npx lighthouse-badges -o docs/lighthouse/badges -u http://localhost:3000/
 
 update-lighthouse-badges: lighthouse-badges
 	$(MAKE_DIR)/scripts/update-badges.sh
