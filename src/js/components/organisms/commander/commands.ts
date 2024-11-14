@@ -183,6 +183,21 @@ export const commands = () => {
       },
     },
     {
+      title: "Send a message to the parent",
+      icon: icon(LeafSVG, "switch to zen mode"),
+      sortTitle: "Sent message",
+      key: "shift z",
+      call: () => {
+        const isZen = Boolean(url.getSearchParam("zen"));
+
+        globalThis.parent.postMessage(
+          { type: "IFRAME_DATA", detail: { isZen: isZen } },
+          "*",
+        );
+        commander.hide();
+      },
+    },
+    {
       title: "List saved notes",
       icon: icon(ListSVG, "list notes"),
       sortTitle: "Notes",
