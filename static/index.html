@@ -39,55 +39,56 @@
         </div>
       </div>
       <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewbox="0 0 22 22">
-          <path d="M11 4c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7m0-2a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm1 8h-2v6h2v-6zm-1-4a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
-        </svg>
-      </button>
-      <a id="permalink" class="anchor hidden" aria-hidden="true" title="Create public permalink">
-        <svg viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
-          <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-        </svg>
-      </a>
-      <div class="divider"></div>
-      <div class="menu"></div>
+        <button id="note-info-button" class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewbox="0 0 22 22">
+            <path d="M11 4c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7m0-2a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm1 8h-2v6h2v-6zm-1-4a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+          </svg>
+        </button>
+        <a id="permalink" class="anchor hidden" aria-hidden="true" title="Create public permalink">
+          <svg viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>
+        <div class="divider"></div>
+        <div class="menu"></div>
+      </div>
+    </header>
+    <main>
+      <textarea aria-label="Keep you notes here safely" autocomplete="autocomplete" autofocus="autofocus" class="terminal"></textarea>
+      <div id='suggestion' class="suggestion"></div>
+      <div id='notification' class="notification"></div>
+      <div class="preview hidden markdown-body"></div>
+    </main>
+    <aside class="hidden">
+      <editable-list title="ToDo" add-item-text="Add a ToDo: "></editable-list>
+    </aside>
+    <div id="commander" class="commander hidden">
+      <div class="palette frost">
+        <div>
+          <input/>
+          <button class="btn" type="button">
+            Cancel
+          </button>
+        </div>
+        <ul id="commands"></ul>
+      </div>
     </div>
-  </header>
-  <main>
-    <textarea aria-label="Keep you notes here safely" autocomplete="autocomplete" autofocus="autofocus" class="terminal"></textarea>
-    <div id='suggestion' class="suggestion"></div>
-    <div id='notification' class="notification"></div>
-    <div class="preview hidden markdown-body"></div>
-  </main>
-  <aside class="hidden">
-    <editable-list title="ToDo" add-item-text="Add a ToDo: "></editable-list>
-  </aside>
-  <div id="commander" class="commander hidden">
-    <div class="palette frost">
-      <div>
-        <input/>
-        <button class="btn" type="button">
-          Cancel
+    <div class="mobile-dock frost"></div>
+    <aside class="note-info hidden frost">
+      <div class="note-info-header">
+        <h3>INFO</h3>
+        <button id="note-info-close" class="icon-button">
+          <svg class="icon-cross" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewbox="0 0 22 22">
+            <path d="M18.707 4.707l-1.414-1.414L11 9.586 4.707 3.293 3.293 4.707 9.586 11l-6.293 6.293 1.414 1.414L11 12.414l6.293 6.293 1.414-1.414L12.414 11z"></path>
+          </svg>
         </button>
       </div>
-      <ul id="commands"></ul>
-    </div>
-  </div>
-  <div class="mobile-dock frost"></div>
-  <aside class="note-info hidden frost">
-    <div class="note-info-header">
-      <h3>INFO</h3>
-      <button id="note-info-close" class="icon-button">
-        <svg class="icon-cross" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewbox="0 0 22 22">
-          <path d="M18.707 4.707l-1.414-1.414L11 9.586 4.707 3.293 3.293 4.707 9.586 11l-6.293 6.293 1.414 1.414L11 12.414l6.293 6.293 1.414-1.414L12.414 11z"></path>
-        </svg>
-      </button>
-    </div>
-    <div class="details"></div>
-  </aside>
-  <footer>
-    <div class="console hidden"></div>
-  </footer>
-  <script type="module" src="./index.js"></script>
-</body>
+      <div class="details"></div>
+    </aside>
+    <footer>
+      <div class="console hidden"></div>
+    </footer>
+    <script type="module" src="./index.js"></script>
+  </body>
 
 </html>
