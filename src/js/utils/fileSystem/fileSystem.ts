@@ -47,8 +47,10 @@ export const saveFileAs = async (contents: string, title?: string) => {
 
 export const saveDataToFile = (() => {
   const a = document.createElement("a");
-  document.body.appendChild(a);
   a.setAttribute("style", "display: none");
+  a.setAttribute("id", "download-to-file");
+  a.setAttribute("href", "#");
+  document.body.appendChild(a);
   return (
     data: unknown,
     fileName = `MiroPad-${new Date().toISOString()}.json`,
