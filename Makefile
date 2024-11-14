@@ -31,8 +31,9 @@ checks: install compile build verify-formatting lint
 lighthouse-audit: install build
 	lhci autorun
 
-# you will need to make serve first (in a separate browser tab)
-# with this: it will update the lighthouse scores docs folder where ReadMe refers
+# you will need to `make serve` first (in a separate terminal)
+# & with this: it will update the lighthouse score badges
+# in the docs folder where ReadMe refers to (you will need to commit the changes)
 lighthouse-badges:
 	npx lighthouse-badges -o docs/lighthouse/badges -u http://localhost:3000/
 
