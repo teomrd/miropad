@@ -4,20 +4,16 @@ version="${NEW_VERSION:-"v0.0.0"}"
 
 echo -e "🛠️  Building ${COLOR_GREEN}MiroPad${NO_COLOR} ${COLOR_RED}${version}${NO_COLOR} \n"
 
-mkdir -p ./dist
-
-cp ./src/manifest.json ./dist
-cp ./static/favicon.ico ./dist
-cp ./src/service-worker.js ./dist
+## copy over static files from src
+rsync -r ./src/assets/images ./dist
+rsync ./src/assets/favicon.ico ./dist
+rsync ./src/index.html ./dist
+rsync ./src/manifest.json ./dist
+rsync ./src/service-worker.js ./dist
+./node_modules/.bin/workbox injectManifest ./workbox-config.js
 
 echo "$version" >./dist/version
 
-cp -r ./src/assets/images ./dist/images
-
 deno -A ./scripts/build.js
-
-cp ./static/index.html ./dist
-
-./node_modules/.bin/workbox injectManifest ./workbox-config.js
 
 echo -e "👷‍♂️ Build finished 🙌\n"

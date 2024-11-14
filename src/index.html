@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <meta name="application-name" content="✍️ MiroPad"/>
-    <meta name="description" content="Temporary note keeping app for the browser"/>
-    <meta name="author" content="teomrd"/>
-    <link rel="icon" href="./favicon.ico"/>
+    <meta charset="UTF-8">
+    <meta name="application-name" content="✍️ MiroPad">
+    <meta name="description" content="Temporary note keeping app for the browser">
+    <meta name="author" content="teomrd">
+    <link rel="icon" href="./favicon.ico">
     <meta name="theme-color" content="#000000"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="./manifest.json" crossorigin="use-credentials"/>
-    <link rel="apple-touch-icon" href="./images/icons/icon-192x192.png"/>
+    <link rel="apple-touch-icon" href="./images/icons/icon-192x192.png">
+    <link rel="stylesheet" href="index.css">
     <title>
       MiroPad
     </title>
@@ -54,8 +55,8 @@
     </header>
     <main>
       <textarea aria-label="Keep you notes here safely" autocomplete="autocomplete" autofocus="autofocus" class="terminal"></textarea>
-      <div id="suggestion" class="suggestion"></div>
-      <div id="notification" class="notification"></div>
+      <div id='suggestion' class="suggestion"></div>
+      <div id='notification' class="notification"></div>
       <div class="preview hidden markdown-body"></div>
     </main>
     <aside class="hidden">
@@ -87,5 +88,7 @@
     <footer>
       <div class="console hidden"></div>
     </footer>
+    <script type="module" src="./index.js"></script>
   </body>
+
 </html>

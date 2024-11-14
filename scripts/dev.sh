@@ -1,10 +1,11 @@
 #!/bin/bash
 
-rsync -r ./static/ ./dev/
-
-rsync ./dist/*.svg ./dev/
-
-cp ./dist/index.css ./dev/
-cp ./static/index.html ./dev/index.html
+## copy over static files from src
+rsync -r ./src/assets/images ./dev
+rsync ./src/assets/favicon.ico ./dev
+rsync ./src/index.html ./dev
+rsync ./src/manifest.json ./dev
+rsync ./src/service-worker.js ./dist
+./node_modules/.bin/workbox injectManifest ./workbox-dev-config.js
 
 deno -A ./scripts/dev.js
