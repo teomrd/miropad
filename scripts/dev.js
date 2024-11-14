@@ -1,10 +1,11 @@
 import * as esbuild from "esbuild";
 import miropad from "../package.json" with { type: "json" };
 
+const VERSION = `v0.0.0`;
 const context = await esbuild.context({
   entryPoints: ["src/index.ts"],
   bundle: true,
-  outfile: "dev/index.js",
+  outfile: "dist/index.js",
   target: ["es2020", "chrome100", "firefox100"],
   minify: true,
   sourcemap: true,
@@ -17,7 +18,7 @@ const context = await esbuild.context({
   define: {
     "process.env.NODE_ENV": '"development"',
     TITLE_NAME: JSON.stringify("✍️ MiroPad"),
-    VERSION: JSON.stringify(miropad.version),
+    VERSION: JSON.stringify(VERSION),
     global: "globalThis",
   },
 });
@@ -25,7 +26,7 @@ const context = await esbuild.context({
 await context.watch();
 
 const { host, port } = await context.serve({
-  servedir: "dev",
+  servedir: "dist",
 });
 
 console.log(`Running v${miropad.version} on ${host}:${port} 🚀`);
