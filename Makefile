@@ -7,7 +7,7 @@ MAKE_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 install:
 	deno install
 
-dev: install prepare-static-files
+dev: clean-build-output install prepare-static-files
 	open http://localhost:8000 && deno -A ./scripts/dev.js
 
 format: 
@@ -40,12 +40,12 @@ lighthouse-badges:
 update-lighthouse-badges: lighthouse-badges
 	$(MAKE_DIR)/scripts/update-badges.sh
 
-clean:
+clean-build-output:
+	rm -rf ./dist
+
+clean: clean-build-output
 	deno clean
 	rm -rf ./node_modules
-	rm -rf ./out
-	rm -rf ./dist
-	rm -rf ./dev
 	rm -rf ./*lock*
 
 serve: build
@@ -54,8 +54,8 @@ serve: build
 prepare-static-files:
 	$(MAKE_DIR)/scripts/prepare-static-files.sh
 
-build: install prepare-static-files
-	$(MAKE_DIR)/scripts/build.sh
+build: clean-build-output install prepare-static-files
+	deno -A ./scripts/build.js
 
 deploy: version build
 	$(MAKE_DIR)/scripts/deploy.sh
