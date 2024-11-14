@@ -322,7 +322,7 @@ header .logo:active {
 /****** custom scrollbar *********/
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
 }
 
 /* Track */
@@ -359,6 +359,14 @@ header .logo:active {
   margin: 0 auto;
   left: 0;
   right: 0;
+  border-radius: 12px;
+  outline: none;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px hsla(0, 0%, 100%, 0.145),
+    0px 1px 1px #00000005,
+    0px 8px 16px -4px #0000000a,
+    0px 24px 32px -8px #0000000f;
 }
 
 @media only screen and (min-width: 600px) {
@@ -431,6 +439,10 @@ header .logo:active {
   border: none;
   border-radius: 4px;
   flex-grow: 1;
+}
+
+.commander .palette input:focus-visible {
+  outline: 0;
 }
 
 .commander .palette button {
