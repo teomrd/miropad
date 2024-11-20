@@ -1,10 +1,5 @@
-import storage from "./utils/localstorage.js";
-
-export const requestNotificationPermission = async () => {
-  if (!storage.get("__notification-permission__")) {
-    const permission = await globalThis.Notification.requestPermission();
-    storage.set("__notification-permission__", permission);
-  }
+export const requestNotificationPermission = () => {
+  return globalThis.Notification.requestPermission();
 };
 
 export const registerServiceWorker = () => {
