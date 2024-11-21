@@ -6,11 +6,10 @@
   "author": "teomrd <mironidis.gr@gmail.com>",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@types/showdown": "^2.0.6",
+    "@djot/djot": "^0.3.1",
     "github-markdown-css": "^5.7.0",
     "multiformats": "^13.3.1",
     "nanoid": "^5.0.8",
-    "showdown": "^2.1.0",
     "textarea-caret": "^3.1.0"
   }
 }
