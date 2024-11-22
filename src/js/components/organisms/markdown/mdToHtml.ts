@@ -1,15 +1,9 @@
-import type _Showdown from "npm:@types/showdown";
-import showdown from "showdown";
+import { parse, renderHTML } from "@djot/djot";
 
-const converter = new showdown.Converter({
-  tasklists: true,
-  underline: true,
-  emoji: true,
-  simplifiedAutoLink: true,
-  tables: true,
-  openLinksInNewWindow: true,
-});
-
-converter.setFlavor("github");
-
-export const convertMarkDownToHtml = (md: string) => converter.makeHtml(md);
+export const convertMarkDownToHtml = (md: string) => {
+  return renderHTML(
+    parse(md, {
+      warn: (warning) => console.log(warning.render()),
+    }),
+  );
+};

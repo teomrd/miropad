@@ -6,14 +6,13 @@
     "jsr:@std/expect@*": "1.0.7",
     "jsr:@std/internal@^1.0.5": "1.0.5",
     "jsr:@std/testing@*": "1.0.4",
+    "npm:@djot/djot@~0.3.1": "0.3.1",
     "npm:@lhci/cli@0.14.0": "0.14.0",
-    "npm:@types/showdown@^2.0.6": "2.0.6",
     "npm:@types/textarea-caret@^3.0.3": "3.0.3",
     "npm:esbuild@0.24": "0.24.0",
     "npm:github-markdown-css@^5.7.0": "5.7.0",
     "npm:multiformats@^13.3.1": "13.3.1",
     "npm:nanoid@^5.0.8": "5.0.8",
-    "npm:showdown@^2.1.0": "2.1.0",
     "npm:textarea-caret@^3.1.0": "3.1.0",
     "npm:workbox-cli@^7.3.0": "7.3.0",
     "npm:workbox@^0.0.0": "0.0.0"
@@ -824,6 +823,9 @@
         "@babel/helper-validator-identifier"
       ]
     },
+    "@djot/djot@0.3.1": {
+      "integrity": "sha512-jFYDPI8xLo7lz4V28ZaGRW+0E6lhRPijxNEb6Dj00Vo8twCd4Yb0A7Fug8clYTe1Le2ghl/uUcKGGTsN/avmHA=="
+    },
     "@esbuild/aix-ppc64@0.24.0": {
       "integrity": "sha512-WtKdFM7ls47zkKHFVzMz8opM7LkcsIp9amDUBIAWirg70RM71WRSjdILPsY5Uv1D42ZpUfaPILDlfactHgsRkw=="
     },
@@ -1153,9 +1155,6 @@
     },
     "@types/resolve@1.20.2": {
       "integrity": "sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q=="
-    },
-    "@types/showdown@2.0.6": {
-      "integrity": "sha512-pTvD/0CIeqe4x23+YJWlX2gArHa8G0J0Oh6GKaVXV7TAeickpkkZiNOgFcFcmLQ5lB/K0qBJL1FtRYltBfbGCQ=="
     },
     "@types/textarea-caret@3.0.3": {
       "integrity": "sha512-bsA9GdXV1wQsXyDjS5+A+czz8IAR3haH5DU+KctIoXbzobRL2NOiwF/+EbB7pofAyudMytLj4ihPtbmbJT8FWw=="
@@ -1628,9 +1627,6 @@
     },
     "commander@2.20.3": {
       "integrity": "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="
-    },
-    "commander@9.5.0": {
-      "integrity": "sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ=="
     },
     "common-tags@1.8.2": {
       "integrity": "sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA=="
@@ -3498,12 +3494,6 @@
     "setprototypeof@1.2.0": {
       "integrity": "sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw=="
     },
-    "showdown@2.1.0": {
-      "integrity": "sha512-/6NVYu4U819R2pUIk79n67SYgJHWCce0a5xTP979WbNp0FL9MN1I1QK662IDU1b6JzKTvmhgI7T7JYIxBi3kMQ==",
-      "dependencies": [
-        "commander@9.5.0"
-      ]
-    },
     "side-channel@1.0.6": {
       "integrity": "sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==",
       "dependencies": [
@@ -3755,7 +3745,7 @@
       "dependencies": [
         "@jridgewell/source-map",
         "acorn",
-        "commander@2.20.3",
+        "commander",
         "source-map-support"
       ]
     },
@@ -4333,11 +4323,10 @@
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@types/showdown@^2.0.6",
+        "npm:@djot/djot@~0.3.1",
         "npm:github-markdown-css@^5.7.0",
         "npm:multiformats@^13.3.1",
         "npm:nanoid@^5.0.8",
-        "npm:showdown@^2.1.0",
         "npm:textarea-caret@^3.1.0"
       ]
     }

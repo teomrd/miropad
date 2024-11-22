@@ -47,6 +47,7 @@ const markDownViewer = (() => {
 
       this.autoLink();
 
+      // add a copy button to the code blocks
       const { elements } = select("pre");
       Array.prototype.slice.call(elements).forEach((el) => {
         const copyBtn = button("📋 Copy", async (e) => {
