@@ -1,4 +1,3 @@
-import "github-markdown-css";
 import "../../css/print.css";
 import "../../css/styles.css";
 import notify from "../components/molecules/notify.ts";
