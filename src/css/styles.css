@@ -229,6 +229,30 @@ header .logo:active {
   margin-bottom: 16px;
 }
 
+/* checklist custom styling */
+.preview .task-list {
+  padding: 0;
+}
+
+.preview .task-list .checked {
+  color: gray;
+  position: relative;
+}
+
+.preview .task-list .checked::before {
+  content: "✔️";
+}
+
+.preview .task-list .unchecked {
+  position: relative;
+}
+
+.preview .task-list .unchecked::before {
+  content: "◻️"; /* Adds an empty box for unchecked items */
+}
+/* checklist custom styling */
+
+/*  */
 .clickable {
   cursor: pointer;
 }

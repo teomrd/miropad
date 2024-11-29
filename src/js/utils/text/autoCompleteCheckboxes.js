@@ -5,9 +5,9 @@ export const autoCompleteCheckboxes = (e) => {
   const currentLine = findCurrentLine(e.target.value, e.target.selectionEnd);
 
   const completers = {
-    "* [": "\n* [] ",
+    "* [": "\n* [ ] ",
     "* ": "\n* ",
-    " * [": "\n * [] ",
+    " * [": "\n * [ ] ",
     " * ": "\n * ",
   };
 
