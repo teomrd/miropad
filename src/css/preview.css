@@ -1,0 +1,128 @@
+.preview {
+  flex: 1;
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+  margin: auto;
+
+  img.cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  p:has(img.cover) {
+    height: 200px;
+  }
+
+  /* checklist custom styling */
+  .task-list {
+    padding: 0;
+  }
+
+  .task-list .checked {
+    color: gray;
+    position: relative;
+  }
+
+  .task-list .checked::before {
+    content: "✔️";
+  }
+
+  .task-list .unchecked {
+    position: relative;
+  }
+
+  .task-list .unchecked::before {
+    content: "◻️"; /* Adds an empty box for unchecked items */
+  }
+  /* checklist custom styling */
+
+  .info {
+    background-color: rgba(0, 123, 255, 0.15);
+    padding: 1rem 1rem 1rem 3rem;
+    box-shadow:
+      0 0 0 1px #ffffff25,
+      0 1px 1px #00000005,
+      0 8px 16px -4px #0000000a,
+      0 24px 32px -8px #0000000f;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    position: relative;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .info::before {
+    content: "ℹ️";
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 12px);
+    width: 25px;
+    height: 25px;
+    text-align: center;
+  }
+  .warning {
+    background-color: rgba(255, 255, 0, 0.15);
+    padding: 1rem 1rem 1rem 3rem;
+    box-shadow:
+      0 0 0 1px #ffffff25,
+      0 1px 1px #00000005,
+      0 8px 16px -4px #0000000a,
+      0 24px 32px -8px #0000000f;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    position: relative;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .warning::before {
+    content: "⚠️";
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 12px);
+  }
+  .error {
+    background-color: rgba(255, 0, 0, 0.15);
+    padding: 1rem 1rem 1rem 3rem;
+    box-shadow:
+      0 0 0 1px #ffffff25,
+      0 1px 1px #00000005,
+      0 8px 16px -4px #0000000a,
+      0 24px 32px -8px #0000000f;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    position: relative;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .error::before {
+    content: "❗";
+    position: absolute;
+    left: 12px;
+    top: calc(50% - 12px);
+  }
+  .success {
+    background-color: rgba(0, 255, 0, 0.15);
+    padding: 1rem 1rem 1rem 3rem;
+    box-shadow:
+      0 0 0 1px #ffffff25,
+      0 1px 1px #00000005,
+      0 8px 16px -4px #0000000a,
+      0 24px 32px -8px #0000000f;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    position: relative;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .success::before {
+    content: "❇️";
+    position: absolute;
+    left: 13px;
+    top: calc(50% - 12px);
+  }
+}

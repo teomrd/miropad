@@ -308,7 +308,7 @@ export const commands = () => {
         commander.hide();
         await sleep(200); // need to wait after prompt for some reason before copy
         copyToClipboard(
-          `<div class="cover" style="background-image: url('${bgImage}')"></div>`,
+          `![bg](${bgImage}){.cover}`,
           "👌Copied! Paste the code on the MiroPad editor",
         );
         select(".terminal").focus();

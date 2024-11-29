@@ -1,0 +1,20 @@
+@property --info {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(0, 123, 255, 0.85);
+}
+@property --success {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(0, 255, 0, 0.85);
+}
+@property --warning {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(255, 255, 0, 0.85);
+}
+@property --error {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(255, 0, 0, 0.85);
+}

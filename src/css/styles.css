@@ -1,3 +1,6 @@
+@import url("colors.css");
+@import url("preview.css");
+
 html, * {
   font-family:
     -apple-system,
@@ -214,30 +217,13 @@ header .logo:active {
   transform: scale(0.9);
 }
 
-.preview {
-  flex: 1;
-  padding: 10px;
-  height: 100%;
-  overflow-y: auto;
-  margin: auto;
-}
-.preview .cover {
-  background-position: center;
-  background-size: cover;
-  height: 25vh;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
 .clickable {
   cursor: pointer;
 }
 
 /****** markdown *********/
-
 .markdown-body {
   box-sizing: border-box;
-  /* min-width: 200px; */
   max-width: 800px;
   margin: 0 auto;
   padding: 45px;
@@ -254,7 +240,6 @@ header .logo:active {
     padding: 15px;
   }
 }
-
 /****** markdown *********/
 
 .terminal {
@@ -292,29 +277,29 @@ header .logo:active {
 }
 
 .notification.info {
-  border: 1px solid rgba(0, 123, 255, 0.85);
-  background: rgba(0, 123, 255, 0.85);
+  border: 1px solid var(--info);
+  background: var(--info);
   top: 5px;
   transition: all 0.5s linear;
 }
 
 .notification.success {
-  border: 1px solid rgba(0, 255, 0, 0.85);
-  background: rgba(0, 255, 0, 0.85);
+  border: 1px solid var(--success);
+  background: var(--success);
   top: 5px;
   transition: all 0.5s linear;
 }
 
 .notification.error {
-  border: 1px solid rgba(255, 0, 0, 0.85);
-  background: rgba(255, 0, 0, 0.85);
+  border: 1px solid var(--error);
+  background: var(--error);
   top: 5px;
   transition: all 0.5s linear;
 }
 
 .notification.warning {
-  border: 1px solid rgba(255, 255, 0, 0.85);
-  background: rgba(255, 255, 0, 0.85);
+  border: 1px solid var(--warning);
+  background: var(--warning);
   top: 5px;
   transition: all 0.5s linear;
 }
