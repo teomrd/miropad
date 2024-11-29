@@ -54,12 +54,10 @@
     }
   }
   .info::before {
-    content: "\2139";
+    content: "ℹ️";
     position: absolute;
     left: 10px;
     top: calc(50% - 12px);
-    border: 1px solid;
-    border-radius: 100%;
     width: 25px;
     height: 25px;
     text-align: center;
