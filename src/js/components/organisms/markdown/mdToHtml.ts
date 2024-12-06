@@ -5,5 +5,12 @@ export const convertMarkDownToHtml = (md: string) => {
     parse(md, {
       warn: (warning) => console.log(warning.render()),
     }),
+    {
+      overrides: {
+        code_block: (node) => {
+          return `<pre><code class="language-${node.lang} ${node.lang}">${node.text}</code></pre>`;
+        },
+      },
+    },
   );
 };
