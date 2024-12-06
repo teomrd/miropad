@@ -8,6 +8,7 @@
   "dependencies": {
     "@djot/djot": "^0.3.1",
     "github-markdown-css": "^5.7.0",
+    "mermaid": "^11.4.1",
     "multiformats": "^13.3.1",
     "nanoid": "^5.0.8",
     "textarea-caret": "^3.1.0"

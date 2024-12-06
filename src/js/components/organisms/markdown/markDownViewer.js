@@ -4,6 +4,13 @@ import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import { button } from "../../atoms/button/button.js";
 import { convertMarkDownToHtml } from "./mdToHtml.ts";
 import storage from "../../../utils/localstorage.js";
+import mermaid from "mermaid";
+
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "dark",
+  logLevel: "info",
+});
 
 const markDownViewer = (() => {
   return {
@@ -44,10 +51,8 @@ const markDownViewer = (() => {
       const md = select(".terminal").getValue();
 
       this.view.innerHTML(convertMarkDownToHtml(md));
-
       this.autoLink();
 
-      // add a copy button to the code blocks
       const { elements } = select("pre");
       Array.prototype.slice.call(elements).forEach((el) => {
         const copyBtn = button("📋 Copy", async (e) => {
@@ -67,6 +72,8 @@ const markDownViewer = (() => {
         const codeToCopy = e.srcElement.innerHTML;
         await copyToClipboard(codeToCopy, "📋 Code copied to clipboard");
       });
+
+      mermaid.contentLoaded();
     },
     show: function (mode = true) {
       this.view.show();
