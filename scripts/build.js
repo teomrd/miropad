@@ -7,10 +7,8 @@ await esbuild.build({
   bundle: true,
   platform: "browser",
   target: ["es2020", "chrome87", "firefox85"],
-  minify: true,
-  sourcemap: true,
+  sourcemap: false,
   outdir: "dist",
-  bundle: true,
   format: "esm",
   loader: {
     ".png": "file",
@@ -23,6 +21,13 @@ await esbuild.build({
     VERSION: JSON.stringify(VERSION),
     global: "globalThis",
   },
+  treeShaking: true,
+  minify: true,
+  splitting: true,
+  minifySyntax: true,
+  minifyWhitespace: true,
+  minifyIdentifiers: true,
+  pure: ["console.log"],
 });
 
 esbuild.stop();
