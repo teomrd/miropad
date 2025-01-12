@@ -68,6 +68,8 @@ import ShareSVG from "../../../../assets/svg/exit-up.svg";
 // @ts-types="../../../../../types.d.ts"
 import LeafSVG from "../../../../assets/svg/leaf.svg";
 // @ts-types="../../../../../types.d.ts"
+import ClockSVG from "../../../../assets/svg/clock.svg";
+// @ts-types="../../../../../types.d.ts"
 import { share } from "../../../utils/webShare.js";
 import { setSavedState } from "../../../ui/functions/savedState.ts";
 
@@ -315,6 +317,51 @@ export const commands = () => {
         notify.info(
           "Paste the cover picture wherever you prefer on the MirPad editor",
         );
+      },
+    },
+    {
+      title: "Create a Google calendar event for today",
+      experimental: true,
+      icon: icon(ClockSVG, "calendar event"),
+      key: null,
+      call: () => {
+        const createGoogleCalendarEvent = (eventTitle: string) => {
+          // Get today's date
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+          const dd = String(today.getDate()).padStart(2, "0");
+
+          // Format dates for an all-day event
+          const startDate = `${yyyy}${mm}${dd}`;
+          const endDate = `${yyyy}${mm}${
+            String(today.getDate() + 1).padStart(2, "0")
+          }`; // Next day
+
+          // Google Calendar URL
+          const base = "https://calendar.google.com/calendar/render";
+          const params = new URLSearchParams({
+            action: "TEMPLATE",
+            text: eventTitle, // Event title
+            dates: `${startDate}/${endDate}`, // All-day event
+            details: "This is an all-day event for today.",
+            location: "Online",
+          });
+          globalThis.open(`${base}?${params}`, "_blank");
+          // Open the URL in a new tab
+        };
+
+        const eventTitle = globalThis.prompt(
+          `Give a title to your calendar event:`,
+        );
+        if (eventTitle) {
+          createGoogleCalendarEvent(eventTitle);
+        } else {
+          notify.warning(
+            "Title is required to create a calendar event. Abort!",
+          );
+        }
+        select(".terminal").focus();
       },
     },
     {
