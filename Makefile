@@ -51,6 +51,9 @@ clean: clean-build-output
 serve: build
 	serve $(MAKE_DIR)/dist
 
+update:
+	deno outdated --update
+
 prepare-static-files:
 	$(MAKE_DIR)/scripts/prepare-static-files.sh
 
