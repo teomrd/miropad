@@ -134,10 +134,6 @@ const commander = (() => {
           );
         });
 
-      select("#commander button").listen("click", () => {
-        this.hide();
-      });
-
       select("#commander input")
         .listen("keydown", (e: KeyboardEvent) => {
           // arrow down 40
@@ -166,6 +162,7 @@ const commander = (() => {
           }
           // escape
           if (e.keyCode === 27) {
+            this.hide();
             select(".terminal").focus();
           }
           const el = e.target as HTMLTextAreaElement;
