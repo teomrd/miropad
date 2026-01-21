@@ -11,6 +11,8 @@
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.11",
+    "@std/expect": "jsr:@std/expect@^1.0.17",
+    "@std/testing": "jsr:@std/testing@^1.0.17",
     "@types/textarea-caret": "npm:@types/textarea-caret@^3.0.3",
     "@lhci/cli": "npm:@lhci/cli@0.14.0",
     "esbuild": "npm:esbuild@^0.24.2",
@@ -18,10 +20,17 @@
     "workbox-cli": "npm:workbox-cli@^7.3.0"
   },
   "lint": {
-    "include": ["src/"],
-    "exclude": ["src/assets/", "src/css/"],
+    "include": [
+      "src/"
+    ],
+    "exclude": [
+      "src/assets/",
+      "src/css/"
+    ],
     "rules": {
-      "tags": ["recommended"]
+      "tags": [
+        "recommended"
+      ]
     }
   },
   "fmt": {
@@ -31,15 +40,23 @@
     "semiColons": true,
     "singleQuote": false,
     "proseWrap": "preserve",
-    "include": ["src/"],
-    "exclude": ["src/assets/"]
+    "include": [
+      "src/"
+    ],
+    "exclude": [
+      "src/assets/"
+    ]
   },
   "exclude": [
     "out/",
     "dist/"
   ],
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "dom.asynciterable",
+      "deno.ns"
+    ]
   }
 }
-
