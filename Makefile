@@ -77,6 +77,7 @@ generate-service-worker:
 
 build: clean-build-output install prepare-static-files
 	deno -A ./scripts/build.js
+	make generate-service-worker
 .PHONY: build
 
 deploy: version build
