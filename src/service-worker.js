@@ -1,10 +1,13 @@
+// Workbox caching
 importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js",
+  "https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js",
 );
 const { precacheAndRoute } = workbox.precaching;
 
 precacheAndRoute(self.__WB_MANIFEST);
+// Workbox caching
 
+// Custom service worker code
 const checkForNewerVersion = (currentVersion) => {
   const intervalChecker = setInterval(async () => {
     try {
@@ -33,3 +36,4 @@ self.addEventListener("install", () => {
   const currentVersion = new URL(location).searchParams.get("v");
   checkForNewerVersion(currentVersion.trim());
 });
+// Custom service worker code

@@ -11,6 +11,7 @@
     "mermaid": "^11.4.1",
     "multiformats": "^13.3.1",
     "nanoid": "^5.0.9",
-    "textarea-caret": "^3.1.0"
+    "textarea-caret": "^3.1.0",
+    "workbox-build": "^7.4.0"
   }
 }
