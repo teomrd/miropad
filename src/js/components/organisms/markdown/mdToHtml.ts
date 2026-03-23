@@ -10,6 +10,15 @@ export const convertMarkDownToHtml = (md: string) => {
         code_block: (node) => {
           return `<pre><code class="language-${node.lang} ${node.lang}">${node.text}</code></pre>`;
         },
+        task_list_item: (node, renderer) => {
+          const isChecked = node.checkbox === "checked";
+          return `
+            <li>
+              <input type="checkbox" ${isChecked ? "checked" : ""} />
+              ${renderer.renderChildren(node)}
+            </li>
+            `;
+        },
       },
     },
   );
