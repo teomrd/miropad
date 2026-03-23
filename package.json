@@ -7,10 +7,10 @@
   "license": "GPL-3.0-only",
   "dependencies": {
     "@djot/djot": "^0.3.2",
-    "github-markdown-css": "^5.8.1",
-    "mermaid": "^11.12.2",
+    "github-markdown-css": "^5.9.0",
+    "mermaid": "^11.13.0",
     "multiformats": "^13.4.2",
-    "nanoid": "^5.1.6",
+    "nanoid": "^5.1.7",
     "textarea-caret": "^3.1.0",
     "workbox-build": "^7.4.0"
   }

@@ -12,6 +12,7 @@ import {
 } from "./components/organisms/noteManager/noteManager.ts";
 import { terminal } from "./components/organisms/terminal.ts";
 import { isSyncEnabled } from "./isSyncEnabled.js";
+import { actOnURLStateChange } from "./listeners/urlChange.ts";
 import { registerServiceWorker } from "./registerServiceWorker.js";
 import { Trie } from "./utils/Trie/Trie.ts";
 import { copyToClipboard } from "./utils/copyToClipboard.ts";
@@ -25,8 +26,6 @@ import {
 import storage from "./utils/localstorage.js";
 import { resetPageTitle } from "./utils/pageTitle.js";
 import { url } from "./utils/urlManager.ts";
-import { actOnURLStateChange } from "./listeners/urlChange.ts";
-import { autoMagicallyCheckBoxes } from "./ui/markdown/preview/autoMagicallyCheckBoxes.js";
 
 // Initialize a Trie tree to be used for the predictions
 export const trieDictionary = Trie();
@@ -132,8 +131,6 @@ const main = async () => {
   globalThis.addEventListener("hashchange", actOnURLStateChange);
 
   registerServiceWorker();
-
-  autoMagicallyCheckBoxes();
 
   await syncNotesWithGitHub();
   await setAuthTokenFromCallback();
