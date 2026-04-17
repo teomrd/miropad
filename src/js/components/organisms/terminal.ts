@@ -5,7 +5,7 @@ import { configuration } from "../../../configuration.ts";
 import { autoComplete } from "../../features/autoComplete.ts";
 import { setSavedState } from "../../ui/functions/savedState.ts";
 import select from "../../utils/dom.js";
-import storage from "../../utils/localstorage.js";
+import storage from "../../utils/localstorage.ts";
 import { handleErrorResponse } from "../../utils/mail.js";
 import { autoCompleteCheckboxes } from "../../utils/text/autoCompleteCheckboxes.js";
 import { div } from "../atoms/div/div.js";
@@ -222,8 +222,9 @@ export const terminal = (() => {
       select(".title h3").html(title);
 
       const { text = "" } = currentlySavedNote || {};
-      const isNoteSaved =
-        !!(currentlySavedNote && terminal.el.getValue() === text);
+      const isNoteSaved = !!(
+        currentlySavedNote && terminal.el.getValue() === text
+      );
       setSavedState(isNoteSaved);
     },
     onPaste: async () => {
@@ -234,7 +235,7 @@ export const terminal = (() => {
         );
         for (const imageType of imageTypes) {
           const blob = await clipboardItem.getType(imageType);
-          const token = storage.get("MIROPAD_SECRET_TOKEN");
+          const token = storage.get("MIROPAD_SECRET_TOKEN") as string;
           if (token) {
             const [_image, fileExtension] = imageType.split("/");
             const fileName = `${nanoid()}.${fileExtension}`;

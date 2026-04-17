@@ -2,7 +2,7 @@ import select from "../../../utils/dom.js";
 import { deleteFileOnGist } from "../../../utils/github/api.ts";
 import hashBrowser from "../../../utils/hashBrowser.ts";
 import isJSON from "../../../utils/isJSON.ts";
-import storage from "../../../utils/localstorage.js";
+import storage from "../../../utils/localstorage.ts";
 import { resetPageTitle, setPageTitle } from "../../../utils/pageTitle.js";
 import { url } from "../../../utils/urlManager.ts";
 import notify from "../../molecules/notify.ts";
@@ -51,11 +51,13 @@ export type Note = {
   numberOfRevisions: number;
   disableSync: boolean;
   revisions: {
-    [key: string]: {
-      text: string;
-      dateCreated: number;
-    };
+    [key: string]: NoteRevision;
   };
+};
+
+type NoteRevision = {
+  text: string;
+  dateCreated: number;
 };
 
 export const getNote = (
@@ -64,9 +66,11 @@ export const getNote = (
 ): Note | null => {
   let doc;
   try {
-    doc = JSON.parse(storage.get(titleID));
-    if (!doc.revisions) {
-      throw new Error("This is not a note!");
+    if (titleID) {
+      doc = JSON.parse(storage.get(titleID) || "{}");
+      if (!doc.revisions) {
+        throw new Error("This is not a note!");
+      }
     }
   } catch (_e) {
     return null;
@@ -161,7 +165,7 @@ export const updateNote = async (what: string) => {
     }
 
     const currentNote = storage.get(titleID);
-    const note = JSON.parse(currentNote);
+    const note = JSON.parse(currentNote || "{}");
     storage.set(
       titleID,
       JSON.stringify({
@@ -179,10 +183,8 @@ export const updateNote = async (what: string) => {
   }
 };
 
-export const saveNote = async (
-  what = select(".terminal").getValue(),
-) => {
-  await storage.saveToDictionary(what);
+export const saveNote = async (what = select(".terminal").getValue()) => {
+  storage.saveToDictionary(what);
   if (what.length) {
     const hash = await hashBrowser(what);
     try {
@@ -192,7 +194,7 @@ export const saveNote = async (
 
       const titleID = encodeTitle(title);
       const currentNote = storage.get(titleID);
-      const note = JSON.parse(currentNote);
+      const note = JSON.parse(currentNote || "{}");
       storage.set(
         titleID,
         JSON.stringify({
@@ -211,7 +213,7 @@ export const saveNote = async (
       url.set(titleID, {
         v: hash,
       });
-      storage.set("lastLocalUpdate", new Date());
+      storage.set("lastLocalUpdate", new Date().toISOString());
       notify.success("👌 Note saved!");
       setSavedState();
     } catch (e) {
@@ -263,4 +265,19 @@ export const deleteNote = () => {
     }
   }
   commander.hide();
+};
+
+export const pruneNote = async (note: Note): Promise<Note> => {
+  const lastRevision = Object.values(note.revisions).reduce(
+    (acc, note) => (note.dateCreated > acc.dateCreated ? note : acc),
+    { dateCreated: 0 } as NoteRevision,
+  );
+  const revisionId = await hashBrowser(lastRevision.text);
+  return {
+    ...note,
+    revisions: {
+      [revisionId]: lastRevision,
+    },
+    numberOfRevisions: 1,
+  };
 };
