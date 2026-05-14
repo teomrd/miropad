@@ -1,4 +1,4 @@
-import storage from "../localstorage.js";
+import storage from "../localstorage.ts";
 import {
   getNotes,
   Note,
@@ -147,7 +147,7 @@ export const getAuthToken = (code: string, state: string) =>
 
 export const publishGist = async ({
   note,
-  token = storage.get("authToken"),
+  token = storage.get("authToken") as string,
 }: {
   note: Note;
   token?: string;

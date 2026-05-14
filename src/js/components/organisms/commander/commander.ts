@@ -14,7 +14,7 @@ import { relativeDate } from "../../../utils/dates.js";
 import { smartFilter } from "./smartFilter.ts";
 import { button } from "../../atoms/button/button.js";
 import { requestNotificationPermission } from "../../../registerServiceWorker.js";
-import storage from "../../../utils/localstorage.js";
+import storage from "../../../utils/localstorage.ts";
 
 const getShortcut = (key: string | Array<string>): string => {
   if (Array.isArray(key)) {

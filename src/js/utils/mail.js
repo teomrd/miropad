@@ -1,4 +1,4 @@
-import storage from "./localstorage.js";
+import storage from "./localstorage.ts";
 import notify from "../components/molecules/notify.ts";
 import { configuration } from "../../configuration.ts";
 import { getTitle } from "../components/organisms/noteManager/noteManager.ts";

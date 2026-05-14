@@ -23,7 +23,7 @@ import {
   setAuthTokenFromCallback,
   syncNotesWithGitHub,
 } from "./utils/github/actions.js";
-import storage from "./utils/localstorage.js";
+import storage from "./utils/localstorage.ts";
 import { resetPageTitle } from "./utils/pageTitle.js";
 import { url } from "./utils/urlManager.ts";
 

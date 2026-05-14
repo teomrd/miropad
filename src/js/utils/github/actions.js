@@ -4,7 +4,7 @@ import {
   getAuthToken,
   getGist,
 } from "./api.ts";
-import storage from "../localstorage.js";
+import storage from "../localstorage.ts";
 import { url } from "../urlManager.ts";
 import select from "../dom.js";
 import { configuration } from "../../../configuration.ts";

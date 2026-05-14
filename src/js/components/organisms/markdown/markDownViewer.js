@@ -3,7 +3,7 @@ import { url } from "../../../utils/urlManager.ts";
 import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import { button } from "../../atoms/button/button.js";
 import { convertMarkDownToHtml } from "./mdToHtml.ts";
-import storage from "../../../utils/localstorage.js";
+import storage from "../../../utils/localstorage.ts";
 import mermaid from "mermaid";
 
 mermaid.initialize({

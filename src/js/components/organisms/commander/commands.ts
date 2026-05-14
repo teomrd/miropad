@@ -1,32 +1,33 @@
-import {
-  deleteNote,
-  getNote,
-  getNotes,
-  resetNoteManager,
-  saveNote,
-} from "../noteManager/noteManager.ts";
+import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
 import select from "../../../utils/dom.js";
-import storage from "../../../utils/localstorage.js";
-import { isUserLoggedIn } from "../../../utils/isUserLoggedIn.js";
+import {
+  saveDataToFile,
+  saveFileAs,
+} from "../../../utils/fileSystem/fileSystem.ts";
 import {
   goAuthenticate,
   setGistToSyncWith,
   syncNotesWithGitHub,
 } from "../../../utils/github/actions.js";
-import commander from "./commander.ts";
-import {
-  saveDataToFile,
-  saveFileAs,
-} from "../../../utils/fileSystem/fileSystem.ts";
-import { url } from "../../../utils/urlManager.ts";
-import { mailTo } from "../../../utils/mail.js";
-import markDownViewer from "../markdown/markDownViewer.js";
-import prettifyJSON from "../../../utils/prettifyJSON.js";
-import notify from "../../molecules/notify.ts";
-import { copyToClipboard } from "../../../utils/copyToClipboard.ts";
-import { sleep } from "../../../utils/sleep.js";
 import { publishGist, updateGist } from "../../../utils/github/api.ts";
+import { isUserLoggedIn } from "../../../utils/isUserLoggedIn.js";
+import storage from "../../../utils/localstorage.ts";
+import { mailTo } from "../../../utils/mail.js";
+import prettifyJSON from "../../../utils/prettifyJSON.js";
+import { sleep } from "../../../utils/sleep.js";
+import { url } from "../../../utils/urlManager.ts";
 import { icon } from "../../atoms/icon/icon.js";
+import notify from "../../molecules/notify.ts";
+import markDownViewer from "../markdown/markDownViewer.js";
+import {
+  deleteNote,
+  getNote,
+  getNotes,
+  pruneNote,
+  resetNoteManager,
+  saveNote,
+} from "../noteManager/noteManager.ts";
+import commander from "./commander.ts";
 // @ts-types="../../../../../types.d.ts"
 import ListSVG from "../../../../assets/svg/list.svg";
 // @ts-types="../../../../../types.d.ts"
@@ -70,8 +71,8 @@ import LeafSVG from "../../../../assets/svg/leaf.svg";
 // @ts-types="../../../../../types.d.ts"
 import ClockSVG from "../../../../assets/svg/clock.svg";
 // @ts-types="../../../../../types.d.ts"
-import { share } from "../../../utils/webShare.js";
 import { setSavedState } from "../../../ui/functions/savedState.ts";
+import { share } from "../../../utils/webShare.js";
 
 const getSyncTitle = () => {
   const gistId = storage.get("gistId");
@@ -272,7 +273,7 @@ export const commands = () => {
         if (previousStatus) {
           storage.remove("__experimental__");
         } else {
-          storage.set("__experimental__", true);
+          storage.set("__experimental__", "true");
         }
         notify.showNotification(
           `Experimental features turned ${previousStatus ? "off" : "on"}`,
@@ -291,7 +292,7 @@ export const commands = () => {
         if (previousStatus) {
           storage.remove("__autocomplete__");
         } else {
-          storage.set("__autocomplete__", true);
+          storage.set("__autocomplete__", "true");
         }
         notify.showNotification(
           `Autocomplete feature turned ${previousStatus ? "off" : "on"}`,
@@ -335,7 +336,10 @@ export const commands = () => {
           // Format dates for an all-day event
           const startDate = `${yyyy}${mm}${dd}`;
           const endDate = `${yyyy}${mm}${
-            String(today.getDate() + 1).padStart(2, "0")
+            String(today.getDate() + 1).padStart(
+              2,
+              "0",
+            )
           }`; // Next day
 
           // Google Calendar URL
@@ -429,6 +433,79 @@ export const commands = () => {
           includeDeleted: true,
         });
         saveDataToFile(notes);
+        commander.hide();
+      },
+    },
+    {
+      title: "Storage manager: prune notes by removing older revisions",
+      icon: icon(TrashSVG, "prune notes"),
+      call: async () => {
+        const confirmation = confirm(
+          "Are you sure you want do delete ALL your older revisions?",
+        );
+        const { usageInMB } = await storage.usage();
+        if (confirmation) {
+          const notes = getNotes({
+            includeDeleted: true,
+          });
+          for (const note of notes) {
+            const prunedNote = await pruneNote(note);
+            storage.set(
+              note.id,
+              JSON.stringify({
+                title: prunedNote.title,
+                lines: prunedNote.lines,
+                revisions: prunedNote.revisions,
+              }),
+            );
+          }
+          const { usageInMB: updatedUsage } = await storage.usage();
+          notify.info(`ℹ️ This operation freed ${usageInMB - updatedUsage} MB`);
+          resetNoteManager();
+        }
+        commander.hide();
+      },
+    },
+    {
+      title: "Storage manager: permanently remove deleted notes",
+      icon: icon(TrashSVG, "permanently delete notes"),
+      call: async () => {
+        const confirmation = confirm(
+          "Are you sure you want do permanently delete ALL your deleted notes?",
+        );
+        const { usageInMB } = await storage.usage();
+        if (confirmation) {
+          const notes = getNotes({
+            includeDeleted: true,
+          });
+          const deletedNotes = notes.filter((note) => {
+            return note.deleted;
+          });
+          for (const note of deletedNotes) {
+            storage.remove(note.id);
+          }
+          resetNoteManager();
+          const { usageInMB: updatedUsage } = await storage.usage();
+          notify.info(`ℹ️ This operation freed ${usageInMB - updatedUsage} MB`);
+        }
+        commander.hide();
+      },
+    },
+    {
+      title: "Storage manager: Echo storage usage estimate",
+      icon: icon(TrashSVG, "echo storage usage"),
+      call: async () => {
+        try {
+          const { usagePercent, quotaInMB } = await storage.usage();
+
+          notify.info(
+            `You're currently using about ${usagePercent}% of your estimated
+             storage quota (${quotaInMB} MB)`,
+          );
+        } catch (error: unknown) {
+          console.error(error);
+          notify.error("Storage manager failed 😥. Check logs for details.");
+        }
         commander.hide();
       },
     },
